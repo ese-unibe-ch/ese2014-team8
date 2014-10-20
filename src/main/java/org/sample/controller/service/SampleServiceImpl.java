@@ -1,6 +1,7 @@
 package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidUserException;
+import org.sample.controller.pojos.AdForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Address;
@@ -85,4 +86,9 @@ public class SampleServiceImpl implements SampleService {
 
         return teamCreationForm;
     }
+
+	public void saveFrom(AdForm adForm) {
+		// TODO Auto-generated method stub
+		
+	}
 }

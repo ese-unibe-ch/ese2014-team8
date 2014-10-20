@@ -3,6 +3,7 @@ package org.sample.controller;
 import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
+import org.sample.controller.pojos.AdForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.controller.service.SampleService;
@@ -30,7 +31,33 @@ public class IndexController {
         model.addObject("teams", sampleService.getAllTeams());
         return model;
     }
-
+    
+    @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
+    public ModelAndView newAd(){
+    	ModelAndView model = new ModelAndView("newAd");
+    	
+    	model.addObject("adForm", new AdForm());
+    	
+    	return model;
+    }
+    @RequestMapping(value="/makeAd", method = RequestMethod.POST)
+    public ModelAndView makeAd(AdForm adForm, BindingResult result){
+    	ModelAndView model;    	
+    	if (!result.hasErrors()) {
+            try {
+            	sampleService.saveFrom(adForm);
+            	model = new ModelAndView("show");
+                model.addObject("message","Ad added!");
+            } catch (InvalidUserException e) {
+            	model = new ModelAndView("newAd");
+            	model.addObject("page_error", e.getMessage());
+            }
+        } else {
+        	model = new ModelAndView("index");
+        }   	
+    	return model;
+    }
+    
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
     	ModelAndView model;    	

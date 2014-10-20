@@ -1,6 +1,7 @@
 package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidUserException;
+import org.sample.controller.pojos.AdForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Team;
@@ -15,5 +16,7 @@ public interface SampleService {
     public TeamCreationForm saveTeamFrom(TeamCreationForm teamCreationForm) throws Exception;
 
     public Iterable<Team> getAllTeams();
+
+	public void saveFrom(AdForm adForm);
 
 }
