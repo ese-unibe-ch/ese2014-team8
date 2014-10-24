@@ -71,6 +71,8 @@ public class SampleServiceImpl implements SampleService {
 
     public User getUser(Long id) {return userDao.findOne(id);}
 
+    public User loadUserByEmail(String email) {return userDao.findByEmail(email);}
+
     public Iterable<Team> getAllTeams() {
         return teamDao.findAll();
     }

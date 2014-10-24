@@ -13,6 +13,8 @@ public interface SampleService {
 
     public User getUser(Long id);
 
+    public User loadUserByEmail(String email);
+
     public TeamCreationForm saveTeamFrom(TeamCreationForm teamCreationForm) throws Exception;
 
     public Iterable<Team> getAllTeams();

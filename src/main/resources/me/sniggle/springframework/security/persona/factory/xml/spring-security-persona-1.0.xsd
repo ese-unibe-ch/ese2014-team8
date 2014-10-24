@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns="http://www.sniggle.me/schema/spring/security"
+  targetNamespace="http://www.sniggle.me/schema/spring/security"
+  elementFormDefault="qualified">
+
+  <xs:element name="personaAuthenticationConfiguration">
+    <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:ID">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="remember-me" use="optional" type="xs:boolean">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="persona-audience" use="required"
+        type="xs:anyURI">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="sign-up-handler-ref" use="required"
+        type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="user-details-service-ref" use="required"
+        type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="jackson-object-mapper-ref" use="optional"
+        type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="authentication-success-handler-ref"
+        use="optional" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="authentication-entry-point-ref"
+        use="optional" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="authentication-provider-ref" use="optional"
+        type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="verification-handler-ref" use="optional"
+        type="xs:string">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="authentication-manager-ref" use="optional"
+        type="xs:string" default="org.springframework.security.authenticationManager">
+        <xs:annotation>
+          <xs:documentation>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

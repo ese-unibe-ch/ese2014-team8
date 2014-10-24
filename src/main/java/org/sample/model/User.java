@@ -1,10 +1,15 @@
 package org.sample.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.Collection;
 
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -13,6 +18,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String email;
+    private Collection<? extends GrantedAuthority> authorities;
     
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
@@ -62,6 +68,38 @@ public class User {
 
     public Team getTeam() {return team;}
     public void setTeam(Team team) {this.team = team;}
-	
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {return authorities;}
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {this.authorities = authorities;}
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 	
 }

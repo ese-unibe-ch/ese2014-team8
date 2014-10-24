@@ -1,5 +1,6 @@
 package org.sample.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
@@ -9,10 +10,18 @@ import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.controller.service.SampleService;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -103,6 +112,19 @@ public class IndexController {
         return model;
     }
 
+    @RequestMapping(value = "/login.jsp")
+    public ModelAndView login() {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        ModelAndView mav = new ModelAndView();
+        if (ctx.getAuthentication() != null) {
+            mav.addObject("username", ctx.getAuthentication().getName());
+        } else {
+            mav.addObject("username", "none");
+        }
+        return mav;
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/profile.jsp", method = RequestMethod.GET)
     public ModelAndView profile(String userId) {
         ModelAndView model = new ModelAndView("profile");
