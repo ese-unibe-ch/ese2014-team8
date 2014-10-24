@@ -4,13 +4,16 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
+import org.sample.model.Ad;
 import org.sample.model.Address;
 import org.sample.model.Team;
 import org.sample.model.User;
+import org.sample.model.dao.AdDao;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.TeamDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -25,6 +28,7 @@ public class SampleServiceImpl implements SampleService {
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
     @Autowired    TeamDao teamDao;
+	@Autowired	  AdDao adDao;
     
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
@@ -87,8 +91,28 @@ public class SampleServiceImpl implements SampleService {
         return teamCreationForm;
     }
 
-	public void saveFrom(AdForm adForm) {
-		// TODO Auto-generated method stub
+    @Transactional
+	public AdForm saveFrom(AdForm adForm) {
+		
+    	Address address = new Address();
+    	address.setStreet(adForm.getStreet());
+    	address.setNumber(adForm.getNumber());
+    	address.setCity(adForm.getCity());
+    	address.setZipCode(adForm.getZipCode());
+    	
+    	  	
+    	Ad ad = new Ad();
+    	ad.setAddress(address);
+    	ad.setNumberOfRooms(adForm.getNumberOfRooms());
+    	ad.setPrice(adForm.getPrice());
+    	ad.setTitle(adForm.getTitle());
+    	ad.setDescription(adForm.getDescription());
+    	
+    	ad = adDao.save(ad);
+    	
+    	adForm.setId(ad.getId());
+    	return adForm;
+		
 		
 	}
 }

@@ -1,26 +1,30 @@
-package org.sample.controller.pojos;
+package org.sample.model;
 
-public class AdForm {
+import javax.persistence.*;
+
+@Entity
+public class Ad {
+
 	
-	private long id;
+	@Id
+	@GeneratedValue
+	private Long id;
+	
 	private String title;
 	
-	private String street;
-	private int number;
-	private String city;
-	private int zipCode;
+	@OneToOne(cascade = {CascadeType.ALL})
+	private Address address;
 	
 	private int price;
 	private int numberOfRooms;
 	
 	private String description;
 
-	
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -32,36 +36,12 @@ public class AdForm {
 		this.title = title;
 	}
 
-	public String getStreet() {
-		return street;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public int getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(int zipCode) {
-		this.zipCode = zipCode;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	public int getPrice() {
@@ -87,6 +67,4 @@ public class AdForm {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
 }

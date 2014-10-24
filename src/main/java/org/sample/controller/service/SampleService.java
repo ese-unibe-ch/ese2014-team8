@@ -17,6 +17,6 @@ public interface SampleService {
 
     public Iterable<Team> getAllTeams();
 
-	public void saveFrom(AdForm adForm);
+	public AdForm saveFrom(AdForm adForm);
 
 }

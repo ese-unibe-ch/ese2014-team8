@@ -40,6 +40,7 @@ public class IndexController {
     	
     	return model;
     }
+    
     @RequestMapping(value="/makeAd", method = RequestMethod.POST)
     public ModelAndView makeAd(AdForm adForm, BindingResult result){
     	ModelAndView model;    	
