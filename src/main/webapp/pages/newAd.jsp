@@ -18,7 +18,7 @@
         <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
             <label class="control-label" for="field-title">Title</label>
             <div class="controls">
-                <form:input path="title" id="field-title" tabindex="1" maxlength="75" placeholder="Title"/>
+                <form:input path="title" id="field-title" tabindex="1" maxlength="75" value="${adForm.title}"/>
                 <form:errors path="title" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -38,20 +38,20 @@
                 <form:errors path="number" cssClass="help-inline" element="span"/>
             </div>
         </div>
-        <c:set var="cityErrors"><form:errors path="city"/></c:set>
-        <div class="control-group<c:if test="${not empty cityErrors}"> error</c:if>">
-            <label class="control-label" for="field-city">City</label>
-            <div class="controls">
-                <form:input path="city" id="field-city" tabindex="4" maxlength="35" placeholder="City"/>
-                <form:errors path="city" cssClass="help-inline" element="span"/>
-            </div>
-        </div>
 		<c:set var="zipCodeErrors"><form:errors path="zipCode"/></c:set>
         <div class="control-group<c:if test="${not empty zipCodeErrors}"> error</c:if>">
             <label class="control-label" for="field-zipCode">ZIP-Code</label>
             <div class="controls">
-                <form:input path="zipCode" id="field-zipCode" tabindex="5" maxlength="5" placeholder=""/>
+                <form:input path="zipCode" id="field-zipCode" tabindex="4" maxlength="5" placeholder=""/>
                 <form:errors path="zipCode" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+		<c:set var="cityErrors"><form:errors path="city"/></c:set>
+        <div class="control-group<c:if test="${not empty cityErrors}"> error</c:if>">
+            <label class="control-label" for="field-city">City</label>
+            <div class="controls">
+                <form:input path="city" id="field-city" tabindex="5" maxlength="35" placeholder="City"/>
+                <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>

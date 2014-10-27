@@ -47,8 +47,9 @@ public class IndexController {
     	if (!result.hasErrors()) {
             try {
             	sampleService.saveFrom(adForm);
-            	model = new ModelAndView("show");
+            	model = new ModelAndView("viewAd");
                 model.addObject("message","Ad added!");
+                model.addObject("adForm", adForm);
             } catch (InvalidUserException e) {
             	model = new ModelAndView("newAd");
             	model.addObject("page_error", e.getMessage());
@@ -58,6 +59,23 @@ public class IndexController {
         }   	
     	return model;
     }
+    
+    @RequestMapping(value="/editAd", method = RequestMethod.POST)
+    public ModelAndView editAd(AdForm adForm, BindingResult result){
+    	ModelAndView model;    	
+    	if (!result.hasErrors()) {
+            model = new ModelAndView("newAd");
+            model.addObject("adForm", adForm);
+        } 
+    	else {
+        	model = new ModelAndView("index");
+        }   	
+    	return model;
+    }
+    
+    
+    
+    
     
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
