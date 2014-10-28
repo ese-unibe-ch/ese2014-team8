@@ -21,8 +21,6 @@ public class IndexController {
 
     @Autowired
     SampleService sampleService;
-
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
     	ModelAndView model = new ModelAndView("index");
@@ -31,6 +29,17 @@ public class IndexController {
         model.addObject("teams", sampleService.getAllTeams());
         return model;
     }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public ModelAndView search() {
+    	ModelAndView model = new ModelAndView("search");
+
+    	model.addObject("searchForm", new SignupForm());
+        model.addObject("teams", sampleService.getAllTeams());
+        return model;
+    }
+    
+    
     
     @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
     public ModelAndView newAd(){
