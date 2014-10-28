@@ -7,6 +7,7 @@ import org.sample.controller.pojos.AdForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.controller.service.SampleService;
+import org.sample.model.Ad;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,7 +75,8 @@ public class IndexController {
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             model = new ModelAndView("newAd");
-            model.addObject("adForm", adForm);
+            Ad oldAd = sampleService.getAd(adForm.getId());
+            model.addObject("oldAd", oldAd);
         } 
     	else {
         	model = new ModelAndView("index");

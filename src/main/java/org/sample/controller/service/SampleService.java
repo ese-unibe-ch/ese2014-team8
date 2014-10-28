@@ -4,6 +4,7 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
+import org.sample.model.Ad;
 import org.sample.model.Team;
 import org.sample.model.User;
 
@@ -18,5 +19,7 @@ public interface SampleService {
     public Iterable<Team> getAllTeams();
 
 	public AdForm saveFrom(AdForm adForm);
+
+	public Ad getAd(long id);
 
 }

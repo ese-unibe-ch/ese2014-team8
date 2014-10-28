@@ -9,8 +9,9 @@
 <h1>${message}</h1>
 <c:import url="Ad.jsp" />
 
-<form:form method="post" modelAttribute="${adForm}" action="editAd" id="adForm" cssClass="form-horizontal"  autocomplete="off">
-    <fieldset>		
+<form:form method="post" modelAttribute="adForm" action="editAd" id="adForm" cssClass="form-horizontal"  autocomplete="off">
+    <fieldset>	
+		<form:hidden path="id" value="${adForm.id}"/>
          <div class="form-actions">
             <button type="submit" class="btn btn-primary">Edit Ad</button>
             <a class="btn">Submit</a>
