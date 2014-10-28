@@ -69,7 +69,9 @@ public class SampleServiceImpl implements SampleService {
 
     }
 
-    public User getUser(Long id) {return userDao.findOne(id);}
+    public User getUser(Long id) {
+    	return userDao.findOne(id);
+    }
 
     public Iterable<Team> getAllTeams() {
         return teamDao.findAll();
@@ -94,6 +96,12 @@ public class SampleServiceImpl implements SampleService {
     @Transactional
 	public AdForm saveFrom(AdForm adForm) {
 		
+    	if(adForm.getId()!=0L){
+    		getAd(adForm.getId());
+    	}
+    	else{
+    		
+    	}
     	Address address = new Address();
     	address.setStreet(adForm.getStreet());
     	address.setNumber(adForm.getNumber());
@@ -108,11 +116,17 @@ public class SampleServiceImpl implements SampleService {
     	ad.setTitle(adForm.getTitle());
     	ad.setDescription(adForm.getDescription());
     	
+    	
     	ad = adDao.save(ad);
     	
     	adForm.setId(ad.getId());
     	return adForm;
 		
 		
+	}
+
+    @Transactional
+	public Ad getAd(long id) {
+		return adDao.findOne(id);
 	}
 }
