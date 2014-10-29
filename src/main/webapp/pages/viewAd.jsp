@@ -14,7 +14,7 @@
 		<form:hidden path="id" value="${adForm.id}"/>
          <div class="form-actions">
             <button type="submit" class="btn btn-primary">Edit Ad</button>
-            <a class="btn">Submit</a>
+            <a href="main" class="btn">Submit</a>
         </div>
     </fieldset>
 </form:form>

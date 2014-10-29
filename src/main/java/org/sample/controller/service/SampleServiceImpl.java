@@ -95,21 +95,23 @@ public class SampleServiceImpl implements SampleService {
 
     @Transactional
 	public AdForm saveFrom(AdForm adForm) {
+		Ad ad;
+		Address address;
 		
     	if(adForm.getId()!=0L){
-    		getAd(adForm.getId());
+    		ad = getAd(adForm.getId());
+    		address = ad.getAddress();
     	}
     	else{
-    		
+    		address = new Address();
+    		ad = new Ad();
     	}
-    	Address address = new Address();
+    	
     	address.setStreet(adForm.getStreet());
     	address.setNumber(adForm.getNumber());
     	address.setCity(adForm.getCity());
-    	address.setZipCode(adForm.getZipCode());
+    	address.setZipCode(adForm.getZipCode());	
     	
-    	  	
-    	Ad ad = new Ad();
     	ad.setAddress(address);
     	ad.setNumberOfRooms(adForm.getNumberOfRooms());
     	ad.setPrice(adForm.getPrice());

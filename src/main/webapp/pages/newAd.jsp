@@ -43,7 +43,7 @@
         <div class="control-group<c:if test="${not empty zipCodeErrors}"> error</c:if>">
             <label class="control-label" for="field-zipCode">ZIP-Code</label>
             <div class="controls">
-                <form:input path="zipCode" id="field-zipCode" tabindex="4" maxlength="5" value="${oldAd.address.street}"/>
+                <form:input path="zipCode" id="field-zipCode" tabindex="4" maxlength="5" value="${oldAd.address.zipCode}"/>
                 <form:errors path="zipCode" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -75,7 +75,7 @@
         <div class="control-group<c:if test="${not empty descriptionErrors}"> error</c:if>">
             <label class="control-label" for="field-description">Description</label>
             <div class="controls">
-                <form:textarea path="description" id="field-description" tabindex="8" rows="10" cols="50" value="${oldAd.description}"/>
+                <form:textarea path="description" id="field-description" tabindex="8" rows="10" cols="50"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>
