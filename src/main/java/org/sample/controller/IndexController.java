@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
+import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.controller.service.SampleService;
@@ -38,6 +39,22 @@ public class IndexController {
     	model.addObject("searchForm", new SignupForm());
         model.addObject("teams", sampleService.getAllTeams());
         return model;
+    }
+    
+    @RequestMapping(value = "/search", method = RequestMethod.POST)
+    public ModelAndView search(SearchForm searchForm, BindingResult result){
+    	ModelAndView model;    	
+    	if (!result.hasErrors()) {
+            try {
+            	model = new ModelAndView("show");
+            } catch (InvalidUserException e) {
+            	model = new ModelAndView("search");
+            	model.addObject("page_error", e.getMessage());
+            }
+        } else {
+        	model = new ModelAndView("index");
+        }   	
+    	return model;
     }
     
     
