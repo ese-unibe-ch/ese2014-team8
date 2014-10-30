@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -137,5 +138,13 @@ public class SampleServiceImpl implements SampleService {
 	public Iterable<Ad> getSearchResults(SearchForm searchForm) {
 		return adDao.findAll();
 		
+	}
+
+    @Transactional
+	public List<String> getCategories() {
+		List<String> categories = new ArrayList<String>();
+		categories.add("Apartment");
+		categories.add("Shared Apartment");
+		return categories;
 	}
 }

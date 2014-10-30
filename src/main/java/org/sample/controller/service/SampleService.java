@@ -1,5 +1,7 @@
 package org.sample.controller.service;
 
+import java.util.List;
+
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
 import org.sample.controller.pojos.SearchForm;
@@ -24,5 +26,7 @@ public interface SampleService {
 	public Ad getAd(long id);
 
 	public Iterable<Ad> getSearchResults(SearchForm searchForm);
+	
+	public List<String> getCategories();
 
 }

@@ -56,22 +56,12 @@ public class IndexController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public ModelAndView search() {
     	ModelAndView model = new ModelAndView("search");
-
-    	model.addObject("searchForm", new SignupForm());
-        model.addObject("teams", sampleService.getAllTeams());
+    	SearchForm searchForm = new SearchForm();
+    	searchForm.setCategories(sampleService.getCategories());
+    	model.addObject("searchForm", searchForm);
         return model;
     }
     
-
-    @RequestMapping(value="/searchresults/{adId}",	method=RequestMethod.GET)
-    public	ModelAndView displayAd(@PathVariable	String	adId)	{
-    	ModelAndView model = new ModelAndView("showAd");
-    	Long lAdId = Long.parseLong(adId);
-    	Ad ad = sampleService.getAd(lAdId);
-    	model.addObject("ad", ad);
-    	return model;
-    }
-
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ModelAndView search(SearchForm searchForm, BindingResult result){
     	ModelAndView model;    	
@@ -90,7 +80,14 @@ public class IndexController {
     	return model;
     }
     
-    
+        @RequestMapping(value="/searchresults/{adId}",	method=RequestMethod.GET)
+    public	ModelAndView displayAd(@PathVariable	String	adId)	{
+    	ModelAndView model = new ModelAndView("showAd");
+    	Long lAdId = Long.parseLong(adId);
+    	Ad ad = sampleService.getAd(lAdId);
+    	model.addObject("ad", ad);
+    	return model;
+    }
 
     
     @RequestMapping(value = "/new-ad", method = RequestMethod.GET)

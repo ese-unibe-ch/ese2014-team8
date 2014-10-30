@@ -1,9 +1,14 @@
 package org.sample.controller.pojos;
 
+import java.util.List;
+
 public class SearchForm {
 	
 	private long id;
 	private int zipCode;
+    private String category;
+    
+	private List<String> categories;
 
 	
 	public long getId() {
@@ -24,4 +29,15 @@ public class SearchForm {
 	}
 
 	
+    public String getCategory() {return category;}
+    public void setCategory(String category) {this.category = category;}
+
+	public List<String> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<String> categories) {
+		this.categories = categories;
+	}
+  
 }
