@@ -17,18 +17,18 @@
 	
 
         
-        <c:set var="appartmentErrors"><form:errors path="appartment"/></c:set>
-        <div class="control-group<c:if test="${not empty appartmentErrors}"> error</c:if>">
+        <c:set var="categoryErrors"><form:errors path="category"/></c:set>
+        <div class="control-group<c:if test="${not empty categoryErrors}"> error</c:if>">
             <label class="control-label" for="field-appartment">Appartment</label>
             <div class="controls">
-                <form:select path="appartment" id="field-appartment" tabindex="4">
-                    <option value="-1">appartment</option>
-                    <option value="-2">shared appartment</option>
-<%--                     <c:forEach var="t" items="${appartments}">
-                        <option value="${t.id}">${t.appartment}</option>
-                    </c:forEach> --%>
+                <form:select path="category" items = "${searchForm.categories}" id="field-category" tabindex="4">
+<!--                     <option value="-1">appartment</option>
+                    <option value="-2">shared appartment</option> 
+                    <c:forEach var="t" items="${categories}">
+                        <option value="${t.id}">${t.category}</option>
+                    </c:forEach>-->
                 </form:select>
-                <form:errors path="appartment" cssClass="help-inline" element="span"/>
+                <form:errors path="category" cssClass="help-inline" element="span"/>
             </div>
         </div>
         
