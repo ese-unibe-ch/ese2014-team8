@@ -1,9 +1,13 @@
 package org.sample.model;
 
+import java.util.Date;
+
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 @Entity
-public class Ad {
+public class Apartment {
 
 	
 	@Id
@@ -16,8 +20,19 @@ public class Ad {
 	private Address address;
 	
 	private int price;
-	private int numberOfRooms;
+	private boolean fixedMoveIn;
 	
+	@Type(type="date")
+	private Date moveIn;
+	
+	
+	private boolean fixedMoveOut;
+	
+	@Type(type="date")
+	private Date moveOut;
+	
+	private int numberOfRooms;
+	private int size;
 	private String description;
 
 	public Long getId() {
@@ -51,13 +66,52 @@ public class Ad {
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	
+	public boolean isFixedMoveIn() {
+		return fixedMoveIn;
+	}
 
+	public void setFixedMoveIn(boolean fixedMoveIn) {
+		this.fixedMoveIn = fixedMoveIn;
+	}
+
+	public Date getMoveIn() {
+		return moveIn;
+	}
+
+	public void setMoveIn(Date moveIn) {
+		this.moveIn = moveIn;
+	}
+
+	public boolean isFixedMoveOut() {
+		return fixedMoveOut;
+	}
+
+	public void setFixedMoveOut(boolean fixedMoveOut) {
+		this.fixedMoveOut = fixedMoveOut;
+	}
+
+	public Date getMoveOut() {
+		return moveOut;
+	}
+
+	public void setMoveOut(Date moveOut) {
+		this.moveOut = moveOut;
+	}
 	public int getNumberOfRooms() {
 		return numberOfRooms;
 	}
 
 	public void setNumberOfRooms(int numberOfRooms) {
 		this.numberOfRooms = numberOfRooms;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
 	}
 
 	public String getDescription() {

@@ -6,12 +6,12 @@ import java.util.Date;
 import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
-import org.sample.controller.pojos.AdForm;
+import org.sample.controller.pojos.ApartmentForm;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.controller.service.SampleService;
-import org.sample.model.Ad;
+import org.sample.model.Apartment;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -68,7 +68,7 @@ public class IndexController {
     	if (!result.hasErrors()) {
             try {
             	model = new ModelAndView("searchResults");
-            	Iterable<Ad> searchresults = sampleService.getSearchResults(searchForm);
+            	Iterable<Apartment> searchresults = sampleService.getSearchResults(searchForm);
             	model.addObject("searchResults",searchresults);
             } catch (InvalidUserException e) {
             	model = new ModelAndView("search");
@@ -84,7 +84,7 @@ public class IndexController {
     public	ModelAndView displayAd(@PathVariable	String	adId)	{
     	ModelAndView model = new ModelAndView("showAd");
     	Long lAdId = Long.parseLong(adId);
-    	Ad ad = sampleService.getAd(lAdId);
+    	Apartment ad = sampleService.getAd(lAdId);
     	model.addObject("ad", ad);
     	return model;
     }
@@ -94,20 +94,21 @@ public class IndexController {
     public ModelAndView newAd(){
     	ModelAndView model = new ModelAndView("newAd");
     	
-    	model.addObject("adForm", new AdForm());
+    	model.addObject("apartmentForm", new ApartmentForm());
     	
     	return model;
     }
     
     @RequestMapping(value="/makeAd", method = RequestMethod.POST)
-    public ModelAndView makeAd(AdForm adForm, BindingResult result){
+    public ModelAndView makeAd(ApartmentForm apartmentForm, BindingResult result){
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             try {
-            	sampleService.saveFrom(adForm);
+            	sampleService.saveFrom(apartmentForm);
             	model = new ModelAndView("viewAd");
-                model.addObject("message","Ad added!");
-                model.addObject("adForm", adForm);
+                model.addObject("message","This is what your ad will look like:");
+                apartmentForm.setDescription(apartmentForm.getDescription().replace("\n", "<br />\n"));
+                model.addObject("apartmentForm", apartmentForm);
             } catch (InvalidUserException e) {
             	model = new ModelAndView("newAd");
             	model.addObject("page_error", e.getMessage());
@@ -119,14 +120,16 @@ public class IndexController {
     }
     
     @RequestMapping(value="/editAd", method = RequestMethod.POST)
-    public ModelAndView editAd(AdForm adForm, BindingResult result){
+    public ModelAndView editAd(ApartmentForm apartmentForm, BindingResult result){
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             model = new ModelAndView("newAd");
-            Ad oldAd = sampleService.getAd(adForm.getId());
-            adForm.setDescription(oldAd.getDescription());
+            Apartment oldAd = sampleService.getAd(apartmentForm.getId());
+            apartmentForm.setDescription(oldAd.getDescription());
+            apartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
+            apartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
             model.addObject("oldAd", oldAd);
-            model.addObject("adForm", adForm);
+            model.addObject("apartmentForm", apartmentForm);
         } 
     	else {
         	model = new ModelAndView("index");

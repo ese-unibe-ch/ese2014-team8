@@ -1,15 +1,15 @@
 package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidUserException;
-import org.sample.controller.pojos.AdForm;
+import org.sample.controller.pojos.ApartmentForm;
 import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
-import org.sample.model.Ad;
+import org.sample.model.Apartment;
 import org.sample.model.Address;
 import org.sample.model.Team;
 import org.sample.model.User;
-import org.sample.model.dao.AdDao;
+import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.TeamDao;
 import org.sample.model.dao.UserDao;
@@ -30,7 +30,7 @@ public class SampleServiceImpl implements SampleService {
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
     @Autowired    TeamDao teamDao;
-	@Autowired	  AdDao adDao;
+	@Autowired	  ApartmentDao apDao;
     
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
@@ -96,47 +96,56 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Transactional
-	public AdForm saveFrom(AdForm adForm) {
-		Ad ad;
+	public ApartmentForm saveFrom(ApartmentForm apartmentForm) {
+		Apartment apartment;
 		Address address;
 		
-    	if(adForm.getId()!=0L){
-    		ad = getAd(adForm.getId());
-    		address = ad.getAddress();
+    	if(apartmentForm.getId()!=0L){
+    		apartment = getAd(apartmentForm.getId());
+    		address = apartment.getAddress();
     	}
     	else{
     		address = new Address();
-    		ad = new Ad();
+    		apartment = new Apartment();
     	}
     	
-    	address.setStreet(adForm.getStreet());
-    	address.setNumber(adForm.getNumber());
-    	address.setCity(adForm.getCity());
-    	address.setZipCode(adForm.getZipCode());	
+    	address.setStreet(apartmentForm.getStreet());
+    	address.setNumber(apartmentForm.getNumber());
+    	address.setCity(apartmentForm.getCity());
+    	address.setZipCode(apartmentForm.getZipCode());	
     	
-    	ad.setAddress(address);
-    	ad.setNumberOfRooms(adForm.getNumberOfRooms());
-    	ad.setPrice(adForm.getPrice());
-    	ad.setTitle(adForm.getTitle());
-    	ad.setDescription(adForm.getDescription());
+    	apartment.setAddress(address);
+    	apartment.setNumberOfRooms(apartmentForm.getNumberOfRooms());
+    	apartment.setPrice(apartmentForm.getPrice());
+    	apartment.setFixedMoveIn(apartmentForm.isFixedMoveIn());
+    	if(apartment.isFixedMoveIn()){
+    		apartment.setMoveIn(apartmentForm.getMoveIn());
+    	}
+    	apartment.setFixedMoveOut(apartmentForm.isFixedMoveOut());
+    	if(apartment.isFixedMoveOut()){
+    		apartment.setMoveOut(apartmentForm.getMoveOut());
+    	}
+    	apartment.setSize(apartmentForm.getSize());
+    	apartment.setTitle(apartmentForm.getTitle());
+    	apartment.setDescription(apartmentForm.getDescription());
     	
     	
-    	ad = adDao.save(ad);
+    	apartment = apDao.save(apartment);
     	
-    	adForm.setId(ad.getId());
-    	return adForm;
+    	apartmentForm.setId(apartment.getId());
+    	return apartmentForm;
 		
 		
 	}
 
     @Transactional
-	public Ad getAd(long id) {
-		return adDao.findOne(id);
+	public Apartment getAd(long id) {
+		return apDao.findOne(id);
 	}
 
     @Transactional
-	public Iterable<Ad> getSearchResults(SearchForm searchForm) {
-		return adDao.findAll();
+	public Iterable<Apartment> getSearchResults(SearchForm searchForm) {
+		return apDao.findAll();
 		
 	}
 

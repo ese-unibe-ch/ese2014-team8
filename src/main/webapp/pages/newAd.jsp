@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <c:import url="template/header.jsp" />
@@ -10,7 +11,7 @@
 <h1>Advertise your apartment here!</h1>
 
 
-<form:form method="post" modelAttribute="adForm" action="makeAd" id="adForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" modelAttribute="apartmentForm" action="makeAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
 		<form:hidden path="id" value="${oldAd.id}"/>
 		
@@ -62,34 +63,73 @@
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
             <label class="control-label" for="field-price">Price (chf)</label>
             <div class="controls">
-                <form:input path="price" id="field-price" tabindex="6" maxlength="5" value="${oldAd.price}" placeholder="0"/>
+                <form:input path="price" id="field-price" tabindex="6" maxlength="5" value="${oldAd.price}" />
                 <form:errors path="price" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
 		<div class="control-group">
-			<label  class="control-label"  for="field-price">Fixed move in date </label>
+			<label  class="control-label"  for="field-fixedMoveIn">Fixed move-in date </label>
 			
 			<div class="controls">
-				<form:checkbox path="fixedMoveIn" />
+				<form:checkbox id="field-fixedMoveIn" tabindex="7" path="fixedMoveIn" />
 				
 			</div>
 		</div>
+		
+		<c:set var="moveInErrors"><form:errors path="moveIn"/></c:set>
+        <div class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
+            <label class="control-label" for="field-moveIn">Move-in date (dd/MM/yyyy)</label>
+            <div class="controls">
+            	<fmt:formatDate pattern="dd/MM/yyyy" value="${apartmentForm.moveIn}" var="simpleInDate"/>
+                <form:input path="moveIn" id="field-moveIn" tabindex="8" maxlength="10" value="${simpleInDate}"  />
+                <form:errors path="moveIn" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+		
+		<div class="control-group">
+			<label  class="control-label"  for="field-fixedMoveOut">Fixed move-out date </label>
+			
+			<div class="controls">
+				<form:checkbox id="field-fixedMoveOut" tabindex="9" path="fixedMoveOut" />
+				
+			</div>
+		</div>
+		
+		<c:set var="moveOutErrors"><form:errors path="moveOut"/></c:set>
+        <div class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
+            <label class="control-label" for="field-moveOut">Move-out date (dd/MM/yyyy)</label>
+            <div class="controls">
+            	<fmt:formatDate type="date" dateStyle="short" value="${apartmentForm.moveIn}" var="simpleOutDate"/>
+                <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" />
+                <form:errors path="moveOut" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
 		
 		<legend>Apartment Details</legend>
 		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
         <div class="control-group<c:if test="${not empty numberOfRoomsErrors}"> error</c:if>">
             <label class="control-label" for="field-numberOfRooms">Number of rooms</label>
             <div class="controls">
-                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="7" maxlength="5" value="${oldAd.numberOfRooms}" placeholder="0"/>
+                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="11" maxlength="5" value="${oldAd.numberOfRooms}" placeholder="0"/>
                 <form:errors path="numberOfRooms" cssClass="help-inline" element="span"/>
             </div>
         </div>
+		
+		<c:set var="sizeErrors"><form:errors path="size"/></c:set>
+        <div class="control-group<c:if test="${not empty sizeErrors}"> error</c:if>">
+            <label class="control-label" for="field-size">Apartment size (m^2)</label>
+            <div class="controls">
+                <form:input path="size" id="field-size" tabindex="12" maxlength="5" value="${oldAd.size}" />
+                <form:errors path="size" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+		
 		<c:set var="descriptionErrors"><form:errors path="description"/></c:set>
         <div class="control-group<c:if test="${not empty descriptionErrors}"> error</c:if>">
             <label class="control-label" for="field-description">Description</label>
             <div class="controls">
-                <form:textarea path="description" id="field-description" tabindex="8" rows="10" cols="50"/>
+                <form:textarea path="description" id="field-description" tabindex="13" rows="10" cols="50"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>
