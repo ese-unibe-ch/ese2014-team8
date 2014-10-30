@@ -2,6 +2,7 @@ package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
+import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Ad;
@@ -21,5 +22,7 @@ public interface SampleService {
 	public AdForm saveFrom(AdForm adForm);
 
 	public Ad getAd(long id);
+
+	public Iterable<Ad> getSearchResults(SearchForm searchForm);
 
 }

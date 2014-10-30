@@ -13,6 +13,7 @@ import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +24,13 @@ public class IndexController {
 
     @Autowired
     SampleService sampleService;
+   
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public ModelAndView main() {
+    	ModelAndView model = new ModelAndView("main");
+        return model;
+    }
+    
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
     	ModelAndView model = new ModelAndView("index");
@@ -41,12 +49,24 @@ public class IndexController {
         return model;
     }
     
+
+    @RequestMapping(value="/searchresults/{adId}",	method=RequestMethod.GET)
+    public	ModelAndView displayAd(@PathVariable	String	adId)	{
+    	ModelAndView model = new ModelAndView("showAd");
+    	Long lAdId = Long.parseLong(adId);
+    	Ad ad = sampleService.getAd(lAdId);
+    	model.addObject("ad", ad);
+    	return model;
+    }
+
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public ModelAndView search(SearchForm searchForm, BindingResult result){
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             try {
-            	model = new ModelAndView("show");
+            	model = new ModelAndView("searchResults");
+            	Iterable<Ad> searchresults = sampleService.getSearchResults(searchForm);
+            	model.addObject("searchResults",searchresults);
             } catch (InvalidUserException e) {
             	model = new ModelAndView("search");
             	model.addObject("page_error", e.getMessage());
@@ -58,6 +78,7 @@ public class IndexController {
     }
     
     
+
     
     @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
     public ModelAndView newAd(){
@@ -93,7 +114,9 @@ public class IndexController {
     	if (!result.hasErrors()) {
             model = new ModelAndView("newAd");
             Ad oldAd = sampleService.getAd(adForm.getId());
+            adForm.setDescription(oldAd.getDescription());
             model.addObject("oldAd", oldAd);
+            model.addObject("adForm", adForm);
         } 
     	else {
         	model = new ModelAndView("index");

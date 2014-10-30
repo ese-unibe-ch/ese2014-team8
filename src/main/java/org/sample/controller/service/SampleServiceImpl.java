@@ -2,6 +2,7 @@ package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
+import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Ad;
@@ -95,21 +96,23 @@ public class SampleServiceImpl implements SampleService {
 
     @Transactional
 	public AdForm saveFrom(AdForm adForm) {
+		Ad ad;
+		Address address;
 		
     	if(adForm.getId()!=0L){
-    		getAd(adForm.getId());
+    		ad = getAd(adForm.getId());
+    		address = ad.getAddress();
     	}
     	else{
-    		
+    		address = new Address();
+    		ad = new Ad();
     	}
-    	Address address = new Address();
+    	
     	address.setStreet(adForm.getStreet());
     	address.setNumber(adForm.getNumber());
     	address.setCity(adForm.getCity());
-    	address.setZipCode(adForm.getZipCode());
+    	address.setZipCode(adForm.getZipCode());	
     	
-    	  	
-    	Ad ad = new Ad();
     	ad.setAddress(address);
     	ad.setNumberOfRooms(adForm.getNumberOfRooms());
     	ad.setPrice(adForm.getPrice());
@@ -128,5 +131,11 @@ public class SampleServiceImpl implements SampleService {
     @Transactional
 	public Ad getAd(long id) {
 		return adDao.findOne(id);
+	}
+
+    @Transactional
+	public Iterable<Ad> getSearchResults(SearchForm searchForm) {
+		return adDao.findAll();
+		
 	}
 }
