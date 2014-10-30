@@ -1,5 +1,8 @@
 package org.sample.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
@@ -11,8 +14,11 @@ import org.sample.controller.service.SampleService;
 import org.sample.model.Ad;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +30,14 @@ public class IndexController {
 
     @Autowired
     SampleService sampleService;
-   
+    
+    @InitBinder
+	public void initBinder(WebDataBinder webDataBinder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		dateFormat.setLenient(false);
+		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+    
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public ModelAndView main() {
     	ModelAndView model = new ModelAndView("main");

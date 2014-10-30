@@ -1,5 +1,7 @@
 package org.sample.controller.pojos;
 
+import java.util.Date;
+
 public class AdForm {
 	
 	private long id;
@@ -11,6 +13,9 @@ public class AdForm {
 	private int zipCode;
 	
 	private int price;
+	private boolean fixedMoveIn;
+	private Date moveIn;
+	
 	private int numberOfRooms;
 	
 	private String description;
@@ -70,6 +75,22 @@ public class AdForm {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public boolean isFixedMoveIn() {
+		return fixedMoveIn;
+	}
+
+	public void setFixedMoveIn(boolean fixedMoveIn) {
+		this.fixedMoveIn = fixedMoveIn;
+	}
+
+	public Date getMoveIn() {
+		return moveIn;
+	}
+
+	public void setMoveIn(Date moveIn) {
+		this.moveIn = moveIn;
 	}
 
 	public int getNumberOfRooms() {

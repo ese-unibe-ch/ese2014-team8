@@ -12,17 +12,18 @@
 
 <form:form method="post" modelAttribute="adForm" action="makeAd" id="adForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-        <legend>Enter Ad Information</legend>
 		<form:hidden path="id" value="${oldAd.id}"/>
 		
+		<legend>Title</legend>
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
         <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
-            <label class="control-label" for="field-title">Title</label>
             <div class="controls">
                 <form:input path="title" id="field-title" tabindex="1" maxlength="75" value="${oldAd.title}" placeholder="Title"/>
                 <form:errors path="title" cssClass="help-inline" element="span"/>
             </div>
         </div>
+		
+		<legend>Location</legend>
         <c:set var="streetErrors"><form:errors path="street"/></c:set>
         <div class="control-group<c:if test="${not empty streetErrors}"> error</c:if>">
             <label class="control-label" for="field-street">Street</label>
@@ -55,6 +56,8 @@
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
+		
+		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
             <label class="control-label" for="field-price">Price (chf)</label>
@@ -63,6 +66,17 @@
                 <form:errors path="price" cssClass="help-inline" element="span"/>
             </div>
         </div>
+		
+		<div class="control-group">
+			<label  class="control-label"  for="field-price">Fixed move in date </label>
+			
+			<div class="controls">
+				<form:checkbox path="fixedMoveIn" />
+				
+			</div>
+		</div>
+		
+		<legend>Apartment Details</legend>
 		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
         <div class="control-group<c:if test="${not empty numberOfRoomsErrors}"> error</c:if>">
             <label class="control-label" for="field-numberOfRooms">Number of rooms</label>
