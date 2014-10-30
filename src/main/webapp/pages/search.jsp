@@ -15,51 +15,34 @@
         <legend>This is a Search Form</legend>
 
 	
-<%--         <c:set var="emailErrors"><form:errors path="email"/></c:set>
-        <div class="control-group<c:if test="${not empty emailErrors}"> error</c:if>">
-            <label class="control-label" for="field-email">Email</label>
 
-            <div class="controls">
-                <form:input path="email" id="field-email" tabindex="1" maxlength="45" placeholder="Email"/>
-                <form:errors path="email" cssClass="help-inline" element="span"/>
-            </div>
-        </div> --%>
-   
         
-<%--         <c:set var="firstNameErrors"><form:errors path="firstName"/></c:set>
-        <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
-            <label class="control-label" for="field-firstName">First Name</label>
+        <c:set var="appartmentErrors"><form:errors path="appartment"/></c:set>
+        <div class="control-group<c:if test="${not empty appartmentErrors}"> error</c:if>">
+            <label class="control-label" for="field-appartment">Appartment</label>
             <div class="controls">
-                <form:input path="firstName" id="field-firstName" tabindex="2" maxlength="35" placeholder="First Name"/>
-                <form:errors path="firstName" cssClass="help-inline" element="span"/>
-            </div>
-        </div> --%>
-        
-                <c:set var="teamErrors"><form:errors path="team"/></c:set>
-        <div class="control-group<c:if test="${not empty teamErrors}"> error</c:if>">
-            <label class="control-label" for="field-team">Team</label>
-            <div class="controls">
-                <form:select path="team" id="field-team" tabindex="4">
-                    <option value="-1">(no team)</option>
-                    <c:forEach var="t" items="${teams}">
-                        <option value="${t.id}">${t.teamname}</option>
-                    </c:forEach>
+                <form:select path="appartment" id="field-appartment" tabindex="4">
+                    <option value="-1">appartment</option>
+                    <option value="-2">shared appartment</option>
+<%--                     <c:forEach var="t" items="${appartments}">
+                        <option value="${t.id}">${t.appartment}</option>
+                    </c:forEach> --%>
                 </form:select>
-                <form:errors path="team" cssClass="help-inline" element="span"/>
+                <form:errors path="appartment" cssClass="help-inline" element="span"/>
             </div>
         </div>
         
-        <c:set var="lastNameErrors"><form:errors path="lastName"/></c:set>
-        <div class="control-group<c:if test="${not empty lastNameErrors}"> error</c:if>">
-            <label class="control-label" for="field-lastName">Zip-Code</label>
+        <c:set var="zipCodeErrors"><form:errors path="zipCode"/></c:set>
+        <div class="control-group<c:if test="${not empty zipCodeeErrors}"> error</c:if>">
+            <label class="control-label" for="field-zipCode">Zip-Code</label>
             <div class="controls">
-                <form:input path="lastName" id="field-lastName" tabindex="3" maxlength="35" placeholder="Zip-Code"/>
-                <form:errors path="lastName" cssClass="help-inline" element="span"/>
+                <form:input path="zipCode" id="field-zipCode" tabindex="3" maxlength="35" placeholder="Zip-Code"/>
+                <form:errors path="zipCode" cssClass="help-inline" element="span"/>
             </div>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Sign up</button>
+            <button type="submit" class="btn btn-primary">Search</button>
             <button type="button" class="btn">Cancel</button>
         </div>
     </fieldset>

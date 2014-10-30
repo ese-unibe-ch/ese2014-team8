@@ -4,6 +4,7 @@ public class SearchForm {
 	
 	private long id;
 	private int zipCode;
+    private String appartment;
 
 	
 	public long getId() {
@@ -24,4 +25,6 @@ public class SearchForm {
 	}
 
 	
+    public String getAppartment() {return appartment;}
+    public void setAppartment(String appartment) {this.appartment = appartment;}
 }

@@ -36,7 +36,7 @@ public class IndexController {
     public ModelAndView search() {
     	ModelAndView model = new ModelAndView("search");
 
-    	model.addObject("searchForm", new SignupForm());
+    	model.addObject("searchForm", new SearchForm());
         model.addObject("teams", sampleService.getAllTeams());
         return model;
     }
