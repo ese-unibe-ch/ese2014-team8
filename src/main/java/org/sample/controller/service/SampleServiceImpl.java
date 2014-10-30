@@ -2,6 +2,7 @@ package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
+import org.sample.controller.pojos.SearchForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Ad;
@@ -130,5 +131,11 @@ public class SampleServiceImpl implements SampleService {
     @Transactional
 	public Ad getAd(long id) {
 		return adDao.findOne(id);
+	}
+
+    @Transactional
+	public Iterable<Ad> getSearchResults(SearchForm searchForm) {
+		return adDao.findAll();
+		
 	}
 }

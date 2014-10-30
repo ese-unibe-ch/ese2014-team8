@@ -64,7 +64,9 @@ public class IndexController {
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             try {
-            	model = new ModelAndView("show");
+            	model = new ModelAndView("searchResults");
+            	Iterable<Ad> searchresults = sampleService.getSearchResults(searchForm);
+            	model.addObject("searchResults",searchresults);
             } catch (InvalidUserException e) {
             	model = new ModelAndView("search");
             	model.addObject("page_error", e.getMessage());
