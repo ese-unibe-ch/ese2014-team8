@@ -100,7 +100,7 @@ public class IndexController {
     }
     
     @RequestMapping(value="/makeAd", method = RequestMethod.POST)
-    public ModelAndView makeAd(ApartmentForm apartmentForm, BindingResult result){
+    public ModelAndView makeAd(@Valid ApartmentForm apartmentForm, BindingResult result){
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             try {
@@ -114,7 +114,7 @@ public class IndexController {
             	model.addObject("page_error", e.getMessage());
             }
         } else {
-        	model = new ModelAndView("index");
+        	model = new ModelAndView("newAd");
         }   	
     	return model;
     }
