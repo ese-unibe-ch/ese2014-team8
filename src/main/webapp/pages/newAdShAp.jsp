@@ -8,7 +8,7 @@
 <c:import url="template/header.jsp" />
 
 
-<h1>Advertise your apartment here!</h1>
+<h1>Advertise your shared apartment here!</h1>
 
 
 <form:form method="post" modelAttribute="apartmentForm" action="makeAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
@@ -107,18 +107,18 @@
         </div>
 		
 		<legend>Apartment Details</legend>
-		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
+<%-- 		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
         <div class="control-group<c:if test="${not empty numberOfRoomsErrors}"> error</c:if>">
             <label class="control-label" for="field-numberOfRooms">Number of rooms</label>
             <div class="controls">
                 <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="11" maxlength="5" value="${oldAd.numberOfRooms}" placeholder="0"/>
                 <form:errors path="numberOfRooms" cssClass="help-inline" element="span"/>
             </div>
-        </div>
+        </div> --%>
 		
 		<c:set var="sizeErrors"><form:errors path="size"/></c:set>
         <div class="control-group<c:if test="${not empty sizeErrors}"> error</c:if>">
-            <label class="control-label" for="field-size">Apartment size (m^2)</label>
+            <label class="control-label" for="field-size">Room size (m<sup>2</sup>)</label>
             <div class="controls">
                 <form:input path="size" id="field-size" tabindex="12" maxlength="5" value="${oldAd.size}" />
                 <form:errors path="size" cssClass="help-inline" element="span"/>
@@ -133,6 +133,9 @@
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>
+        
+        
+        <button type="button" class="btn btn-primary">add Roommate</button>
 		
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Submit Ad</button>
