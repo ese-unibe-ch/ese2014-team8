@@ -8,7 +8,6 @@ import javax.validation.Valid;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.ApartmentForm;
 import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.pojos.ShApartmentForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.controller.service.SampleService;
@@ -96,15 +95,6 @@ public class IndexController {
     	ModelAndView model = new ModelAndView("newAd");
     	
     	model.addObject("apartmentForm", new ApartmentForm());
-    	
-    	return model;
-    }
-    
-    @RequestMapping(value = "/new-shad", method = RequestMethod.GET)
-    public ModelAndView newAdShAd(){
-    	ModelAndView model = new ModelAndView("newAdShAp");
-    	
-    	model.addObject("apartmentForm", new ShApartmentForm());
     	
     	return model;
     }
