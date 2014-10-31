@@ -11,6 +11,7 @@
 <h1>Advertise your apartment here!</h1>
 
 
+
 <form:form method="post" modelAttribute="apartmentForm" action="makeAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
 		<form:hidden path="id" value="${oldAd.id}"/>
@@ -68,7 +69,8 @@
             </div>
         </div>
 		
-		<div class="control-group">
+		
+		<div class="control-group" >
 			<label  class="control-label"  for="field-fixedMoveIn">Fixed move-in date </label>
 			
 			<div class="controls">
@@ -78,10 +80,10 @@
 		</div>
 		
 		<c:set var="moveInErrors"><form:errors path="moveIn"/></c:set>
-        <div class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
+        <div id="moveInJS" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
             <label class="control-label" for="field-moveIn">Move-in date (dd/MM/yyyy)</label>
             <div class="controls">
-            	<fmt:formatDate pattern="dd/MM/yyyy" value="${apartmentForm.moveIn}" var="simpleInDate"/>
+            	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveIn}" var="simpleInDate"/>
                 <form:input path="moveIn" id="field-moveIn" tabindex="8" maxlength="10" value="${simpleInDate}"  />
                 <form:errors path="moveIn" cssClass="help-inline" element="span"/>
             </div>
@@ -97,10 +99,10 @@
 		</div>
 		
 		<c:set var="moveOutErrors"><form:errors path="moveOut"/></c:set>
-        <div class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
+        <div id="moveOutJS" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
             <label class="control-label" for="field-moveOut">Move-out date (dd/MM/yyyy)</label>
             <div class="controls">
-            	<fmt:formatDate type="date" dateStyle="short" value="${apartmentForm.moveIn}" var="simpleOutDate"/>
+            	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveOut}" var="simpleOutDate"/>
                 <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" />
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
@@ -118,7 +120,7 @@
 		
 		<c:set var="sizeErrors"><form:errors path="size"/></c:set>
         <div class="control-group<c:if test="${not empty sizeErrors}"> error</c:if>">
-            <label class="control-label" for="field-size">Apartment size (m^2)</label>
+            <label class="control-label" for="field-size">Apartment size (m<sup>2</sup>)</label>
             <div class="controls">
                 <form:input path="size" id="field-size" tabindex="12" maxlength="5" value="${oldAd.size}" />
                 <form:errors path="size" cssClass="help-inline" element="span"/>
@@ -152,5 +154,22 @@
         </div>
     </c:if>
 
+<script>
+	var elem1 = document.getElementById('moveInJS'),
+		checkBox1 = document.getElementById('field-fixedMoveIn');
+	checkBox1.checked = false;
+	checkBox1.onclick = function(){
+	    elem1.style.display = this.checked ?  'block' : 'none';
+	};
+	
+	var elem2 = document.getElementById('moveOutJS'),
+		checkBox2 = document.getElementById('field-fixedMoveOut');
+	checkBox2.checked = false;
+	checkBox2.onclick = function(){
+	    elem2.style.display = this.checked ?  'block' : 'none';
+	};
+	
+</script>
 
+	
 <c:import url="template/footer.jsp" />
