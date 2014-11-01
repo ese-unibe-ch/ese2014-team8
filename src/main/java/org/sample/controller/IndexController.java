@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.ApartmentForm;
 import org.sample.controller.pojos.SearchForm;
@@ -110,7 +111,7 @@ public class IndexController {
     }
     
     @RequestMapping(value="/makeAd", method = RequestMethod.POST)
-    public ModelAndView makeAd(ApartmentForm apartmentForm, BindingResult result){
+    public ModelAndView makeAd(@Valid ApartmentForm apartmentForm, BindingResult result){
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             try {
@@ -119,12 +120,12 @@ public class IndexController {
                 model.addObject("message","This is what your ad will look like:");
                 apartmentForm.setDescription(apartmentForm.getDescription().replace("\n", "<br />\n"));
                 model.addObject("apartmentForm", apartmentForm);
-            } catch (InvalidUserException e) {
+            } catch (InvalidDateException e) {
             	model = new ModelAndView("newAd");
             	model.addObject("page_error", e.getMessage());
             }
         } else {
-        	model = new ModelAndView("index");
+        	model = new ModelAndView("newAd");
         }   	
     	return model;
     }
