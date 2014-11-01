@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.ApartmentForm;
 import org.sample.controller.pojos.SearchForm;
@@ -109,7 +110,7 @@ public class IndexController {
                 model.addObject("message","This is what your ad will look like:");
                 apartmentForm.setDescription(apartmentForm.getDescription().replace("\n", "<br />\n"));
                 model.addObject("apartmentForm", apartmentForm);
-            } catch (InvalidUserException e) {
+            } catch (InvalidDateException e) {
             	model = new ModelAndView("newAd");
             	model.addObject("page_error", e.getMessage());
             }

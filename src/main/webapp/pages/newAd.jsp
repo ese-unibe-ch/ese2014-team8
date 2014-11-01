@@ -80,7 +80,7 @@
 		</div>
 		
 		<c:set var="moveInErrors"><form:errors path="moveIn"/></c:set>
-        <div id="moveInJS<c:if test="${oldAd.fixedMoveIn==true}">_show</c:if>" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
+        <div id="moveInJS<c:if test="${oldAd.fixedMoveIn||apartmentForm.fixedMoveIn}">_show</c:if>" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
             <label class="control-label" for="field-moveIn">Move-in date (dd/MM/yyyy)</label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveIn}" var="simpleInDate"/>
@@ -99,7 +99,7 @@
 		</div>
 		
 		<c:set var="moveOutErrors"><form:errors path="moveOut"/></c:set>
-        <div id="moveOutJS<c:if test="${oldAd.fixedMoveOut==true}">_show</c:if>" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
+        <div id="moveOutJS<c:if test="${oldAd.fixedMoveOut||apartmentForm.fixedMoveOut}">_show</c:if>" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
             <label class="control-label" for="field-moveOut">Move-out date (dd/MM/yyyy)</label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveOut}" var="simpleOutDate"/>

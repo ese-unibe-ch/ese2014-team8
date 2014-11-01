@@ -1,5 +1,6 @@
 package org.sample.controller.service;
 
+import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.ApartmentForm;
 import org.sample.controller.pojos.SearchForm;
@@ -21,6 +22,7 @@ import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -96,8 +98,23 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Transactional
-	public ApartmentForm saveFrom(ApartmentForm apartmentForm) {
-		Apartment apartment;
+	public ApartmentForm saveFrom(ApartmentForm apartmentForm)throws InvalidDateException {
+		
+    	if(apartmentForm.isFixedMoveIn()&&!isFutureDate(apartmentForm.getMoveIn())){
+    		throw new InvalidDateException("Move-in date is not valid!"); 
+    	}
+    	
+    	if(apartmentForm.isFixedMoveOut()&&!isFutureDate(apartmentForm.getMoveOut())){
+    		throw new InvalidDateException("Move-out date is not valid!"); 	
+    	}
+    	
+    	if(apartmentForm.isFixedMoveIn()&&
+    			apartmentForm.isFixedMoveOut()&&
+    			!apartmentForm.getMoveOut().after(apartmentForm.getMoveIn())){
+    			throw new InvalidDateException("Move-out date must be later than move-in date!");
+    	}
+    	
+    	Apartment apartment;
 		Address address;
 		
     	if(apartmentForm.getId()!=0L){
@@ -138,7 +155,14 @@ public class SampleServiceImpl implements SampleService {
 		
 	}
 
-    @Transactional
+   
+
+	private boolean isFutureDate(Date moveIn) {
+    	java.util.Date now = new java.util.Date();
+    	return moveIn.after(now);
+	}
+
+	@Transactional
 	public Apartment getAd(long id) {
 		return apDao.findOne(id);
 	}
