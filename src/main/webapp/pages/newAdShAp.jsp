@@ -11,9 +11,9 @@
 <h1>Advertise your shared apartment here!</h1>
 
 
-<form:form method="post" modelAttribute="apartmentForm" action="makeAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" modelAttribute="apartmentForm" action="makeAdShAp" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-		<form:hidden path="id" value="${oldAd.id}"/>
+		<%-- <form:hidden path="id" value="${oldAd.id}"/> --%>
 		
 		<legend>Title</legend>
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
@@ -116,12 +116,12 @@
             </div>
         </div> --%>
 		
-		<c:set var="sizeErrors"><form:errors path="size"/></c:set>
+		<c:set var="sizeErrors"><form:errors path="roomSize"/></c:set>
         <div class="control-group<c:if test="${not empty sizeErrors}"> error</c:if>">
             <label class="control-label" for="field-size">Room size (m<sup>2</sup>)</label>
             <div class="controls">
-                <form:input path="size" id="field-size" tabindex="12" maxlength="5" value="${oldAd.size}" />
-                <form:errors path="size" cssClass="help-inline" element="span"/>
+                <form:input path="roomSize" id="field-size" tabindex="12" maxlength="5" value="${oldAd.size}" />
+                <form:errors path="roomSize" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		

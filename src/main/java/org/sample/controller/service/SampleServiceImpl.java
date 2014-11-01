@@ -3,15 +3,20 @@ package org.sample.controller.service;
 import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.ApartmentForm;
+import org.sample.controller.pojos.RealEstateForm;
 import org.sample.controller.pojos.SearchForm;
+import org.sample.controller.pojos.ShApartmentForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Apartment;
 import org.sample.model.Address;
+import org.sample.model.RealEstate;
+import org.sample.model.ShApartment;
 import org.sample.model.Team;
 import org.sample.model.User;
 import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.AddressDao;
+import org.sample.model.dao.ShApartmentDao;
 import org.sample.model.dao.TeamDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +38,7 @@ public class SampleServiceImpl implements SampleService {
     @Autowired    AddressDao addDao;
     @Autowired    TeamDao teamDao;
 	@Autowired	  ApartmentDao apDao;
+	@Autowired	  ShApartmentDao shApDao;
     
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
@@ -100,51 +106,22 @@ public class SampleServiceImpl implements SampleService {
     @Transactional
 	public ApartmentForm saveFrom(ApartmentForm apartmentForm)throws InvalidDateException {
 		
-    	if(apartmentForm.isFixedMoveIn()&&!isFutureDate(apartmentForm.getMoveIn())){
-    		throw new InvalidDateException("Move-in date is not valid!"); 
-    	}
-    	
-    	if(apartmentForm.isFixedMoveOut()&&!isFutureDate(apartmentForm.getMoveOut())){
-    		throw new InvalidDateException("Move-out date is not valid!"); 	
-    	}
-    	
-    	if(apartmentForm.isFixedMoveIn()&&
-    			apartmentForm.isFixedMoveOut()&&
-    			!apartmentForm.getMoveOut().after(apartmentForm.getMoveIn())){
-    			throw new InvalidDateException("Move-out date must be later than move-in date!");
-    	}
+    	checkDates(apartmentForm);
     	
     	Apartment apartment;
-		Address address;
+		
 		
     	if(apartmentForm.getId()!=0L){
     		apartment = getAd(apartmentForm.getId());
-    		address = apartment.getAddress();
     	}
     	else{
-    		address = new Address();
     		apartment = new Apartment();
     	}
     	
-    	address.setStreet(apartmentForm.getStreet());
-    	address.setNumber(apartmentForm.getNumber());
-    	address.setCity(apartmentForm.getCity());
-    	address.setZipCode(apartmentForm.getZipCode());	
-    	
-    	apartment.setAddress(address);
+    	apartment=(Apartment) setCommonFields(apartmentForm, apartment);
     	apartment.setNumberOfRooms(apartmentForm.getNumberOfRooms());
-    	apartment.setPrice(apartmentForm.getPrice());
-    	apartment.setFixedMoveIn(apartmentForm.isFixedMoveIn());
-    	if(apartment.isFixedMoveIn()){
-    		apartment.setMoveIn(apartmentForm.getMoveIn());
-    	}
-    	apartment.setFixedMoveOut(apartmentForm.isFixedMoveOut());
-    	if(apartment.isFixedMoveOut()){
-    		apartment.setMoveOut(apartmentForm.getMoveOut());
-    	}
     	apartment.setSize(apartmentForm.getSize());
-    	apartment.setTitle(apartmentForm.getTitle());
-    	apartment.setDescription(apartmentForm.getDescription());
+    	
     	
     	
     	apartment = apDao.save(apartment);
@@ -154,7 +131,73 @@ public class SampleServiceImpl implements SampleService {
 		
 		
 	}
+    
+    @Transactional
+    public ShApartmentForm saveFrom(ShApartmentForm form) {
+    	checkDates(form);
+    	ShApartment apartment;
+		
+		
+    	if(form.getId()!=0L){
+    		apartment =shApDao.findOne(form.getId());
+    	}
+    	else{
+    		apartment = new ShApartment();
+    	}
+    	
+    	apartment=(ShApartment) setCommonFields(form, apartment);
+    	apartment.setRoomSize(form.getRoomSize());
+    	
+    	
+    	System.out.println("shared apartment before persistance");
+    	apartment = shApDao.save(apartment);
+    	System.out.println(apartment.getId());
+    	form.setId(apartment.getId());
+    	return form;
+		
+	}
 
+	private RealEstate setCommonFields(RealEstateForm form, RealEstate ad) {
+		Address address;
+		
+		address=new Address();
+		address.setStreet(form.getStreet());
+    	address.setNumber(form.getNumber());
+    	address.setCity(form.getCity());
+    	address.setZipCode(form.getZipCode());	
+    	
+    	ad.setAddress(address);
+    	ad.setTitle(form.getTitle());
+    	ad.setDescription(form.getDescription());
+    	ad.setPrice(form.getPrice());
+    	ad.setFixedMoveIn(form.isFixedMoveIn());
+    	if(ad.isFixedMoveIn()){
+    		ad.setMoveIn(form.getMoveIn());
+    	}
+    	ad.setFixedMoveOut(form.isFixedMoveOut());
+    	if(ad.isFixedMoveOut()){
+    		ad.setMoveOut(form.getMoveOut());
+    	}
+    	return ad;
+	}
+
+	private void checkDates(RealEstateForm form)
+			throws InvalidDateException {
+		if(form.isFixedMoveIn()&&!isFutureDate(form.getMoveIn())){
+    		throw new InvalidDateException("Move-in date is not valid!"); 
+    	}
+    	
+    	if(form.isFixedMoveOut()&&!isFutureDate(form.getMoveOut())){
+    		throw new InvalidDateException("Move-out date is not valid!"); 	
+    	}
+    	
+    	if(form.isFixedMoveIn()&&
+    			form.isFixedMoveOut()&&
+    			!form.getMoveOut().after(form.getMoveIn())){
+    			throw new InvalidDateException("Move-out date must be later than move-in date!");
+    	}
+	}
+	
    
 
 	private boolean isFutureDate(Date moveIn) {
@@ -180,4 +223,6 @@ public class SampleServiceImpl implements SampleService {
 		categories.add("Shared Apartment");
 		return categories;
 	}
+
+	
 }

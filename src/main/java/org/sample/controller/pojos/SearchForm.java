@@ -2,7 +2,7 @@ package org.sample.controller.pojos;
 
 import java.util.List;
 
-public class SearchForm {
+public class SearchForm{
 	
 	private long id;
 	private int zipCode;
