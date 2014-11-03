@@ -15,7 +15,7 @@
 </select>
 
 
-<form:form method="post" modelAttribute="apForm" action="make-ad" id="apForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" modelAttribute="apForm" action="makeAd" id="apForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
 		<form:hidden path="category" value="Apartment"/>
 		<form:hidden path="id" value="${oldAd.id}"/>
