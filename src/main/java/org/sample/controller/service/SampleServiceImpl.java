@@ -212,8 +212,10 @@ public class SampleServiceImpl implements SampleService {
 
     @Transactional
 	public Iterable<Apartment> getSearchResults(SearchForm searchForm) {
-		return apDao.findAll();
-		
+		if(searchForm.getCategory().equals("Apartment")){
+			return apDao.findByAddressZipCode(searchForm.getZipCode());
+		}
+		return shApDao.findByAddressZipCode(searchForm.getZipCode());
 	}
 
     @Transactional

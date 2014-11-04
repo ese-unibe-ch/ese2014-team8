@@ -7,9 +7,16 @@
 <c:import url="template/header.jsp" />
 
 <h1>Search Results</h1>
+<table>
+	<c:forEach items="${searchResults}" var="s">
+		<tr>
+    		<td><a href="searchresults/${s.id}"><c:out value="${s.title}"/></a></td>
+    		<td><c:out value="${s.price} chf"/></td>
+  		</tr>
+	</c:forEach>  
+</table>
 
-<c:forEach items="${searchResults}" var="s">
-    <a href="searchresults/${s.id}"><c:out value="${s.title}"/></a> </br>   
-</c:forEach>
+ 
+
 
 <c:import url="template/footer.jsp" />

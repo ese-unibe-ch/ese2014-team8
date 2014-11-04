@@ -6,6 +6,6 @@
 
 <c:import url="template/header.jsp" />
 
-<c:import url="Ad.jsp" />
+<c:import url="Ad2.jsp" />
 
 <c:import url="template/footer.jsp" />

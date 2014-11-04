@@ -6,7 +6,8 @@
 
     <title>TestApp</title>
 
-    <link rel="stylesheet" type="text/css" href="../../css/main.css" media="all"/>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../css/main2.css" media="all"/>
     <script type="text/javascript"  src="dn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 
@@ -15,25 +16,37 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <style>
+    <!--<style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
-    </style>
+    </style>-->
 </head>
-<body>
-<div class="navbar navbar-inverse navbar-fixed-top">
+<body> 
+<div class="fluid-container">
+	<div class="top-image">
+		<img src="../../img/landscape.JPG"/>
+	</div>
+	<div class="navigation">
+			<div class="col-sm-2 nav text-center text-nowrap">MY PROFILE</div>
+			<div class="col-sm-2 nav text-center text-nowrap">MY ADS</div>
+			<div class="col-sm-2 nav text-center text-nowrap">SEARCH</div>
+		
+	</div>
+</div>
+
+<!--<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="icon-bar">Search</span>
+                <span class="icon-bar">My ads</span>
+                <span class="icon-bar">My profile</span>
             </a>
             
 
         </div>
     </div>
-</div>
-
+</div> 
+-->
 <div class="container">
