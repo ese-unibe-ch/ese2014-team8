@@ -147,10 +147,10 @@
     </fieldset>
 </form:form>
 
-<form:form method="post" modelAttribute="shApForm" action="make-ad" id="shApForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" modelAttribute="shApForm" action="makeAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
     	<form:hidden path="category" value="Shared Apartment"/>
-		<%-- <form:hidden path="id" value="${oldAd.id}"/> --%>
+		<form:hidden path="id" value="${oldAd.id}"/>
 		
 		<legend>Title</legend>
         <c:set var="titleErrors"><form:errors path="title"/></c:set>

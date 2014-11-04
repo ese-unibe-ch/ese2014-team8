@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.Type;
 
 @MappedSuperclass
-public abstract class RealEstate {
+public class RealEstate {
 
 	@Id
 	@GeneratedValue

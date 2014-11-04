@@ -100,6 +100,15 @@ public class IndexController {
     	return model;
     }
     
+    /*    @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
+    public ModelAndView newAd(){
+    	ModelAndView model = new ModelAndView("newAd");
+    	
+    	model.addObject("apartmentForm", new ApartmentForm());
+    	
+    	return model;
+    }*/
+    
 /*    @RequestMapping(value="/make-ad", method = RequestMethod.POST)
     public ModelAndView saveAd( ApartmentForm form, ShApartmentForm form2, BindingResult result){
     	System.out.println(form.getCategory());
@@ -115,25 +124,57 @@ public class IndexController {
     	return model;
     }*/
     
-/*    @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
-    public ModelAndView newAd(){
-    	ModelAndView model = new ModelAndView("newAd");
-    	
-    	model.addObject("apartmentForm", new ApartmentForm());
-    	
-    	return model;
-    }*/
     
     @RequestMapping(value="/makeAd", method = RequestMethod.POST)
-    public ModelAndView makeAd(@Valid ApartmentForm apartmentForm, BindingResult result){
-    	ModelAndView model;    	
+    public ModelAndView makeAd(ApartmentForm form, ShApartmentForm form2, BindingResult result){
+    	System.out.println(form.getCategory());
+    	ModelAndView model = null;
+    	if(form.getCategory().equals("Apartment")){
+    		System.out.println("apartment cat");    	
+        	if (!result.hasErrors()) {
+                try {
+                	sampleService.saveFrom(form);
+                	model = new ModelAndView("viewAd");
+                    model.addObject("message","This is what your ad will look like:");
+                    form.setDescription(form.getDescription().replace("\n", "<br />\n"));
+                    model.addObject("apartmentForm", form);
+                } catch (InvalidDateException e) {
+                	model = new ModelAndView("newAd");
+                	model.addObject("page_error", e.getMessage());
+                }
+            } else {
+            	model = new ModelAndView("newAd");
+            }   	
+    	}
+    	if(form2.getCategory().equals("Shared Apartment")){
+    		System.out.println("shared apartment cat");
+        	if (!result.hasErrors()) {
+                try {
+                	sampleService.saveFrom(form2);
+                	System.out.println("yes");
+                	/*model = new ModelAndView("viewAd");
+                    model.addObject("message","This is what your ad will look like:");
+                    form2.setDescription(form2.getDescription().replace("\n", "<br />\n"));
+                    model.addObject("shApartmentForm", form2);*/
+                } catch (InvalidDateException e) {
+                	model = new ModelAndView("main");
+                	model.addObject("page_error", e.getMessage());
+                }
+            } else {
+            	model = new ModelAndView("main");
+            }
+    		model = new ModelAndView("main");
+    	}
+    	return model;
+    	
+/*    	ModelAndView model;    	
     	if (!result.hasErrors()) {
             try {
-            	sampleService.saveFrom(apartmentForm);
+            	sampleService.saveFrom(form);
             	model = new ModelAndView("viewAd");
                 model.addObject("message","This is what your ad will look like:");
-                apartmentForm.setDescription(apartmentForm.getDescription().replace("\n", "<br />\n"));
-                model.addObject("apartmentForm", apartmentForm);
+                form.setDescription(form.getDescription().replace("\n", "<br />\n"));
+                model.addObject("apartmentForm", form);
             } catch (InvalidDateException e) {
             	model = new ModelAndView("newAd");
             	model.addObject("page_error", e.getMessage());
@@ -141,7 +182,7 @@ public class IndexController {
         } else {
         	model = new ModelAndView("newAd");
         }   	
-    	return model;
+    	return model;*/
     }
     
 /*    @RequestMapping(value = "/new-shad", method = RequestMethod.GET)

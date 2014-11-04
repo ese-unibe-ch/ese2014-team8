@@ -20,7 +20,6 @@ import org.sample.model.dao.ShApartmentDao;
 import org.sample.model.dao.TeamDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -118,7 +117,7 @@ public class SampleServiceImpl implements SampleService {
     		apartment = new Apartment();
     	}
     	
-    	apartment=(Apartment) setCommonFields(apartmentForm, apartment);
+    	apartment=(Apartment) setRealEstateFields(apartmentForm, apartment);
     	apartment.setNumberOfRooms(apartmentForm.getNumberOfRooms());
     	apartment.setSize(apartmentForm.getSize());
     	
@@ -144,7 +143,7 @@ public class SampleServiceImpl implements SampleService {
     		apartment = new ShApartment();
     	}
     	
-    	apartment=(ShApartment) setCommonFields(form, apartment);
+    	apartment=(ShApartment) setRealEstateFields(form, apartment);
     	apartment.setRoomSize(form.getRoomSize());
     	
     	
@@ -156,7 +155,7 @@ public class SampleServiceImpl implements SampleService {
 		
 	}
 
-	private RealEstate setCommonFields(RealEstateForm form, RealEstate ad) {
+	private RealEstate setRealEstateFields(RealEstateForm form, RealEstate ad) {
 		
 		Address address;
 		

@@ -24,13 +24,14 @@ public interface SampleService {
     public Iterable<Team> getAllTeams();
 
 	public ApartmentForm saveFrom(ApartmentForm adForm);
+	public ShApartmentForm saveFrom(ShApartmentForm form2);
 
 	public Apartment getAd(long id); //mg
+	//public ShApartmentForm getAd(long id);
 
 	public Iterable<Apartment> getSearchResults(SearchForm searchForm);
 	
 	public List<String> getCategories();
 
-	public ShApartmentForm saveFrom(ShApartmentForm form2);
 
 }
