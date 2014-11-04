@@ -92,7 +92,7 @@ public class IndexController {
     	return model;
     }
 
-    @RequestMapping(value="/new-ad", method = RequestMethod.GET) //mg
+    @RequestMapping(value="/newAd", method = RequestMethod.GET) //mg
     public ModelAndView makeAd(){
     	ModelAndView model = new ModelAndView("newAd");
     	model.addObject("apForm", new ApartmentForm());
@@ -100,7 +100,7 @@ public class IndexController {
     	return model;
     }
     
-    @RequestMapping(value="/make-ad", method = RequestMethod.POST)
+/*    @RequestMapping(value="/make-ad", method = RequestMethod.POST)
     public ModelAndView saveAd( ApartmentForm form, ShApartmentForm form2, BindingResult result){
     	System.out.println(form.getCategory());
     	if(form.getCategory().equals("Apartment")){
@@ -113,7 +113,7 @@ public class IndexController {
     	}
     	ModelAndView model= new ModelAndView("show");
     	return model;
-    }
+    }*/
     
 /*    @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
     public ModelAndView newAd(){
@@ -179,13 +179,12 @@ public class IndexController {
     	if (!result.hasErrors()) {
             model = new ModelAndView("newAd");
             
-            //RealEstate oldAd = sampleService.getAd(apartmentForm.getId()); // mg
             Apartment oldAd = sampleService.getAd(apartmentForm.getId());
             apartmentForm.setDescription(oldAd.getDescription());
             apartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
             apartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
             model.addObject("oldAd", oldAd);
-            model.addObject("apForm", new ApartmentForm()); //mg
+            model.addObject("apForm", apartmentForm); //mg
             model.addObject("shApForm", new ShApartmentForm()); //mg
         } 
     	else {

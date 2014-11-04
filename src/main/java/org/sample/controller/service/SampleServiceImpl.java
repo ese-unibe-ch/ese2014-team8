@@ -123,7 +123,6 @@ public class SampleServiceImpl implements SampleService {
     	apartment.setSize(apartmentForm.getSize());
     	
     	
-    	
     	apartment = apDao.save(apartment);
     	
     	apartmentForm.setId(apartment.getId());
@@ -158,6 +157,7 @@ public class SampleServiceImpl implements SampleService {
 	}
 
 	private RealEstate setCommonFields(RealEstateForm form, RealEstate ad) {
+		
 		Address address;
 		
 		address=new Address();
@@ -166,10 +166,8 @@ public class SampleServiceImpl implements SampleService {
     	address.setCity(form.getCity());
     	address.setZipCode(form.getZipCode());	
     	
-    	ad.setAddress(address);
     	ad.setTitle(form.getTitle());
-    	ad.setDescription(form.getDescription());
-    	ad.setPrice(form.getPrice());
+    	ad.setAddress(address);
     	ad.setFixedMoveIn(form.isFixedMoveIn());
     	if(ad.isFixedMoveIn()){
     		ad.setMoveIn(form.getMoveIn());
@@ -178,6 +176,8 @@ public class SampleServiceImpl implements SampleService {
     	if(ad.isFixedMoveOut()){
     		ad.setMoveOut(form.getMoveOut());
     	}
+    	ad.setPrice(form.getPrice());
+    	ad.setDescription(form.getDescription());
     	return ad;
 	}
 
