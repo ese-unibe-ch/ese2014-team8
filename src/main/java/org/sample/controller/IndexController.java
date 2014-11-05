@@ -54,7 +54,8 @@ public class IndexController {
         }
         return mav;
     }
-    
+
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_NEW_USER')")
     @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
     public ModelAndView newAd(){
     	ModelAndView model = new ModelAndView("newAd");
@@ -64,7 +65,7 @@ public class IndexController {
     	return model;
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_NEW_USER')")
     @RequestMapping(value="/makeAd", method = RequestMethod.POST)
     public ModelAndView makeAd(AdForm adForm, BindingResult result){
     	ModelAndView model;    	
