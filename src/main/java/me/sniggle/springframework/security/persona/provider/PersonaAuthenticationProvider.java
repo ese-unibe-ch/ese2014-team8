@@ -157,6 +157,7 @@ public class PersonaAuthenticationProvider<T extends UserDetails> implements
           throw new UsernameNotFoundException("");
         }
         return new PersonaAuthenticationToken(
+               // getUserOrCreate(successPersonaVerificationResponse.getEmail()));
             userDetailsService.loadUserByUsername(successPersonaVerificationResponse.getEmail()
                 .toString()));
       }

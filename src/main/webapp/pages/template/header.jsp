@@ -7,37 +7,51 @@
     <title>TestApp</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <link rel="stylesheet" type="text/css" href="../../css/main.css" media="all"/>
+    <script src="https://login.persona.org/include.js"></script>
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/main.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="../../css/main2.css" media="all"/>
     <script type="text/javascript"  src="//dn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script src="https://login.persona.org/include.js"></script>
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <style>
+    <!--<style>
         body {
             padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
         }
-    </style>
+    </style>-->
 </head>
-<body>
-<div class="navbar navbar-inverse navbar-fixed-top">
+<body> 
+<div class="fluid-container">
+	<div class="top-image">
+		<img src="../../img/landscape.JPG"/>
+	</div>
+	<div class="navigation ">
+			<a href="#"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY PROFILE</div></a>
+			<a href="/newAd"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY ADS</div></a>
+			<a href="/search"><div class="col-md-2 nav text-center text-nowrap navbar-right">SEARCH</div></a>
+		
+	</div>
+</div>
+
+<!--<div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+                <span class="icon-bar">Search</span>
+                <span class="icon-bar">My ads</span>
+                <span class="icon-bar">My profile</span>
             </a>
             
 
         </div>
     </div>
-</div>
+</div>-->
 
 <c:choose>
 <c:when test="${user.email != null}">
@@ -109,5 +123,7 @@ You're logged in as ${user.email}. <input type="button" id="signout" value="sign
 	});
 	-->
 </script>
+
+</div> 
 
 <div class="container">

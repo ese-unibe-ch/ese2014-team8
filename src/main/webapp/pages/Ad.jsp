@@ -1,7 +1,13 @@
-<h2>${adForm.title}</h2>
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<h2>${apartmentForm.title}</h2>
 <div>
-	${adForm.street} ${adForm.number}<br/>
-	${adForm.zipCode} ${adForm.city}
+	${apartmentForm.street} ${apartmentForm.number}<br/>
+	${apartmentForm.zipCode} ${apartmentForm.city}
 </div>
 <div>
 	<iframe
@@ -9,14 +15,19 @@
 		height="400"
 		frameborder="0" style="border:0"
 		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAg7gQ_6H5xWUXFVrxyUpulXzs3flqGfcA
-			&q=${adForm.street}+${adForm.number},${adForm.zipCode}+${adForm.city},Switzerland">
+			&q=${apartmentForm.street}+${apartmentForm.number},${apartmentForm.zipCode}+${apartmentForm.city},Switzerland">
 	</iframe>
 </div>
 <div>
-	Price: ${adForm.price} chf<br/>
-	Number of rooms: ${adForm.numberOfRooms}
+	<c:if test="${apartmentForm.fixedMoveIn==false}"> There is no fixed move-in date.<br/> </c:if>
+	<c:if test="${apartmentForm.fixedMoveIn==true}"> Move-in date: <fmt:formatDate pattern="dd/MM/yyyy" value="${apartmentForm.moveIn}" /> <br/></c:if>
+	<c:if test="${apartmentForm.fixedMoveOut==false}"> There is no fixed move-out date. <br/></c:if>
+	<c:if test="${apartmentForm.fixedMoveOut==true}"> Move-out date: <fmt:formatDate type="date" dateStyle="short" value="${apartmentForm.moveOut}" /><br/></c:if>
+	Price: ${apartmentForm.price} chf<br/>
+	Number of rooms: ${apartmentForm.numberOfRooms}<br/>
+	Size: ${apartmentForm.size}<br/>
 </div>
 <div>
 	Description: <br/>
-	${adForm.description}
+	${apartmentForm.description}
 </div>

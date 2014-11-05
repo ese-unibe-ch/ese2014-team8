@@ -19,7 +19,8 @@
 		<form-login login-page="/"/>
 		<intercept-url pattern="/" access="permitAll"/>
 		<intercept-url pattern="/js/*" access="permitAll"/>
-		<intercept-url pattern="/*" access="hasRole('ROLE_PERSONA_USER')" />
+		<!--<intercept-url pattern="/*" access="hasRole('ROLE_PERSONA_USER')" />-->
+        <intercept-url pattern="/*" access="permitAll"/>
 		<custom-filter
 				ref="me.sniggle.security.persona.authenticationProcessingFilter"
 				position="BASIC_AUTH_FILTER" />

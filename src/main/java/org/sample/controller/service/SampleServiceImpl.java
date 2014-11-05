@@ -1,29 +1,34 @@
 package org.sample.controller.service;
 
+import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
-import org.sample.controller.pojos.AdForm;
 import org.sample.controller.pojos.ProfileForm;
+import org.sample.controller.pojos.ApartmentForm;
+import org.sample.controller.pojos.RealEstateForm;
+import org.sample.controller.pojos.SearchForm;
+import org.sample.controller.pojos.ShApartmentForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
-import org.sample.model.Ad;
+import org.sample.model.Apartment;
 import org.sample.model.Address;
+import org.sample.model.RealEstate;
+import org.sample.model.ShApartment;
 import org.sample.model.Team;
 import org.sample.model.User;
-import org.sample.model.dao.AdDao;
+import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.AddressDao;
+import org.sample.model.dao.ShApartmentDao;
 import org.sample.model.dao.TeamDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -33,7 +38,8 @@ public class SampleServiceImpl implements SampleService {
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
     @Autowired    TeamDao teamDao;
-	@Autowired	  AdDao adDao;
+	@Autowired	  ApartmentDao apDao;
+	@Autowired	  ShApartmentDao shApDao;
     
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
@@ -74,7 +80,9 @@ public class SampleServiceImpl implements SampleService {
 
     }
 
-    public User getUser(Long id) {return userDao.findOne(id);}
+    public User getUser(Long id) {
+    	return userDao.findOne(id);
+    }
 
     public User loadUserByEmail(String email) {return userDao.findByEmail(email);}
 
@@ -98,7 +106,7 @@ public class SampleServiceImpl implements SampleService {
         return teamCreationForm;
     }
 
-    @Transactional
+ /*   @Transactional
 	public AdForm saveFrom(AdForm adForm) {
 
         Address address = new Address();
@@ -120,7 +128,7 @@ public class SampleServiceImpl implements SampleService {
         adForm.setId(ad.getId());
         return adForm;
 
-    }
+    }*/
 
     @Override
     public ProfileForm saveFrom(ProfileForm profileForm) {
@@ -130,4 +138,133 @@ public class SampleServiceImpl implements SampleService {
         userDao.save(user);
         return profileForm;
     }
+
+	public Apartment saveFrom(ApartmentForm apartmentForm)throws InvalidDateException {
+		
+    	checkDates(apartmentForm);
+    	
+    	Apartment apartment;
+		
+		
+    	if(apartmentForm.getId()!=0L){
+    		apartment = getAd(apartmentForm.getId());
+    	}
+    	else{
+    		apartment = new Apartment();
+    	}
+    	
+    	apartment=(Apartment) setRealEstateFields(apartmentForm, apartment);
+    	apartment.setNumberOfRooms(apartmentForm.getNumberOfRooms());
+    	apartment.setSize(apartmentForm.getSize());
+    	
+    	
+    	apartment = apDao.save(apartment);
+    	
+    	apartmentForm.setId(apartment.getId());
+    	return apartment;
+		
+		
+	}
+    
+    @Transactional
+    public ShApartment saveFrom(ShApartmentForm form) {
+    	checkDates(form);
+    	ShApartment apartment;
+		
+		
+    	if(form.getId()!=0L){
+    		apartment =shApDao.findOne(form.getId());
+    	}
+    	else{
+    		apartment = new ShApartment();
+    	}
+    	
+    	apartment=(ShApartment) setRealEstateFields(form, apartment);
+    	apartment.setRoomSize(form.getRoomSize());
+    	
+    	
+    	System.out.println("shared apartment before persistance");
+    	apartment = shApDao.save(apartment);
+    	System.out.println(apartment.getId());
+    	form.setId(apartment.getId());
+    	return apartment;
+		
+	}
+
+	private RealEstate setRealEstateFields(RealEstateForm form, RealEstate ad) {
+		
+		Address address;
+		
+		address=new Address();
+		address.setStreet(form.getStreet());
+    	address.setNumber(form.getNumber());
+    	address.setCity(form.getCity());
+    	address.setZipCode(form.getZipCode());	
+    	
+    	ad.setTitle(form.getTitle());
+    	ad.setAddress(address);
+    	ad.setFixedMoveIn(form.isFixedMoveIn());
+    	if(ad.isFixedMoveIn()){
+    		ad.setMoveIn(form.getMoveIn());
+    	}
+    	ad.setFixedMoveOut(form.isFixedMoveOut());
+    	if(ad.isFixedMoveOut()){
+    		ad.setMoveOut(form.getMoveOut());
+    	}
+    	ad.setPrice(form.getPrice());
+    	ad.setDescription(form.getDescription());
+    	return ad;
+	}
+
+	private void checkDates(RealEstateForm form)
+			throws InvalidDateException {
+		if(form.isFixedMoveIn()&&!isFutureDate(form.getMoveIn())){
+    		throw new InvalidDateException("Move-in date is not valid!"); 
+    	}
+    	
+    	if(form.isFixedMoveOut()&&!isFutureDate(form.getMoveOut())){
+    		throw new InvalidDateException("Move-out date is not valid!"); 	
+    	}
+    	
+    	if(form.isFixedMoveIn()&&
+    			form.isFixedMoveOut()&&
+    			!form.getMoveOut().after(form.getMoveIn())){
+    			throw new InvalidDateException("Move-out date must be later than move-in date!");
+    	}
+	}
+	
+   
+
+	private boolean isFutureDate(Date moveIn) {
+    	java.util.Date now = new java.util.Date();
+    	return moveIn.after(now);
+	}
+
+	@Transactional
+	public Apartment getAd(long id) {
+		return apDao.findOne(id);
+	}
+
+    @Transactional
+	public Iterable<Apartment> getSearchResults(SearchForm searchForm) {
+		if(searchForm.getCategory().equals("Apartment")){
+			return apDao.findByAddressZipCode(searchForm.getZipCode());
+		}
+		return shApDao.findByAddressZipCode(searchForm.getZipCode());
+	}
+
+    @Transactional
+	public List<String> getCategories() {
+		List<String> categories = new ArrayList<String>();
+		categories.add("Apartment");
+		categories.add("Shared Apartment");
+		return categories;
+	}
+
+    @Transactional
+	public ShApartment getShApAd(long id) {
+		return shApDao.findOne(id);
+	}
+
+
 }
