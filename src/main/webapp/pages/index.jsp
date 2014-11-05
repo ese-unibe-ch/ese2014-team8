@@ -7,7 +7,7 @@
 <c:import url="template/header.jsp" />
 
 
-<h1>Sign Up Here!</h1>
+<!--<h1>Sign Up Here!</h1>
 
 
 <form:form method="post" modelAttribute="signupForm" action="create" id="signupForm" cssClass="form-horizontal"  autocomplete="off">
@@ -68,7 +68,7 @@
             <h4>Error!</h4>
                 ${page_error}
         </div>
-    </c:if>
+    </c:if>-->
 
 
 <c:import url="template/footer.jsp" />

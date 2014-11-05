@@ -39,4 +39,75 @@
     </div>
 </div>
 
+<c:choose>
+<c:when test="${user.email != null}">
+You're logged in as ${user.email}. <input type="button" id="signout" value="signout" />
+</c:when>
+<c:otherwise>
+<img id="signin" alt="Sign In" src="https://mdn.mozillademos.org/files/3969/plain_sign_in_blue.png" />
+</c:otherwise>
+</c:choose>
+<!--<img id="signin" alt="Sign In" src="https://mdn.mozillademos.org/files/3969/plain_sign_in_blue.png" />
+	${username}
+	<input type="button" id="signout" value="signout" />-->
+	<script type="text/javascript">
+	<!--
+	var currentUser = $.cookie('current_user') || null;
+
+	$(document).ready(function() {
+
+		document.getElementById('signin').onclick = function() {
+			navigator.id.request();
+		}
+
+		document.getElementById('signout').onclick = function() {
+			navigator.id.logout();
+		}
+
+		navigator.id.watch( {
+			loggedInUser: currentUser,
+			onlogin: function(assertion) {
+				$.ajax({
+				      type: 'POST',
+				      url: '/auth/login',
+				      data: {assertion: assertion},
+				      success: function(res, status, xhr) {
+				    	  // alert(status + ' successful login');
+				    	  var result = $.parseJSON(res);
+				    	  currentUser = result.name;
+				    	  $.cookie('current_user', currentUser, {
+				    		 expires: 7,
+				    		 path: '/',
+				    		 secure: true
+				    	  });
+				    	  window.location.reload();
+				   	  },
+				      error: function(xhr, status, err) {
+				    	$.ajax({
+				    		type: 'POST',
+				    		url: '/auth/login',
+				    		data: {assertion: assertion},
+				    		success: function(res, status, xhr) { window.location.reload(); },
+				    		error: function(xhr, status, err) {
+						        navigator.id.logout();
+						        alert("Login failure: " + status + " - " +err);
+				    		}
+				    	})
+				      }
+				    });
+			},
+			onlogout: function() {
+				$.ajax({
+				      type: 'POST',
+				      url: '/auth/logout', // This is a URL on your website.
+				      success: function(res, status, xhr) { window.location.reload(); },
+				      error: function(xhr, status, err) { alert("Logout failure: " + err); }
+				    });
+			}
+		} );
+
+	});
+	-->
+</script>
+
 <div class="container">

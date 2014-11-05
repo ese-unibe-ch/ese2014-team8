@@ -18,7 +18,8 @@ public class User implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
-    private Collection<? extends GrantedAuthority> authorities;
+    @ElementCollection(targetClass = Team8Authority.class)
+    private Collection<Team8Authority> authorities;
     
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
@@ -69,8 +70,8 @@ public class User implements UserDetails {
     public Team getTeam() {return team;}
     public void setTeam(Team team) {this.team = team;}
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {return authorities;}
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {this.authorities = authorities;}
+    public Collection<Team8Authority> getAuthorities() {return authorities;}
+    public void setAuthorities(Collection<Team8Authority> authorities) {this.authorities = authorities;}
 
     @Override
     public String getPassword() {

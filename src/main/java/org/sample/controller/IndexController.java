@@ -5,6 +5,7 @@ import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
+import org.sample.controller.pojos.ProfileForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.controller.service.SampleService;
@@ -34,11 +35,24 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
-    	ModelAndView model = new ModelAndView("index");
+    	/*ModelAndView model = new ModelAndView("index");
 
     	model.addObject("signupForm", new SignupForm());
         model.addObject("teams", sampleService.getAllTeams());
-        return model;
+        return model;*/
+
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("signupForm", new SignupForm());
+        mav.addObject("teams", sampleService.getAllTeams());
+        if (ctx.getAuthentication() != null) {
+            mav.addObject("user", sampleService.loadUserByEmail(ctx.getAuthentication().getName()));
+            mav.addObject("username", ctx.getAuthentication().getName());
+        } else {
+            mav.addObject("user", sampleService.loadUserByEmail(ctx.getAuthentication().getName()));
+            mav.addObject("username", "none");
+        }
+        return mav;
     }
     
     @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
@@ -49,7 +63,8 @@ public class IndexController {
     	
     	return model;
     }
-    
+
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value="/makeAd", method = RequestMethod.POST)
     public ModelAndView makeAd(AdForm adForm, BindingResult result){
     	ModelAndView model;    	
@@ -81,10 +96,6 @@ public class IndexController {
         }   	
     	return model;
     }
-    
-    
-    
-    
     
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
@@ -130,26 +141,24 @@ public class IndexController {
         return model;
     }
 
-    @RequestMapping(value = "/login.jsp")
-    public ModelAndView login() {
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_NEW_USER')")
+    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    public ModelAndView profile() {
+        ModelAndView model = new ModelAndView();
         SecurityContext ctx = SecurityContextHolder.getContext();
-        ModelAndView mav = new ModelAndView();
-        if (ctx.getAuthentication() != null) {
-            mav.addObject("username", ctx.getAuthentication().getName());
-        } else {
-            mav.addObject("username", "none");
-        }
-        return mav;
+        model.addObject("profileForm", new ProfileForm());
+        model.addObject("user",sampleService.loadUserByEmail(ctx.getAuthentication().getName()));
+        return model;
     }
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "/profile.jsp", method = RequestMethod.GET)
-    public ModelAndView profile(String userId) {
-        ModelAndView model = new ModelAndView("profile");
-        Long lUserId = Long.parseLong(userId);
-        User user = sampleService.getUser(lUserId);
-        model.addObject("user",user);
-        return model;
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_NEW_USER')")
+    @RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
+    public String saveProfile(@Valid ProfileForm profileForm, BindingResult result, RedirectAttributes redirectAttributes) {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        profileForm.setEmail(ctx.getAuthentication().getName());
+        sampleService.saveFrom(profileForm);
+        redirectAttributes.addFlashAttribute("Profile saved.");
+        return "redirect:/profile";
     }
     
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)

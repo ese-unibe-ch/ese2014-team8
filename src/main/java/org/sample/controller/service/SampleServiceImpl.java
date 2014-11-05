@@ -2,6 +2,7 @@ package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.AdForm;
+import org.sample.controller.pojos.ProfileForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Ad;
@@ -14,10 +15,14 @@ import org.sample.model.dao.TeamDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -95,26 +100,34 @@ public class SampleServiceImpl implements SampleService {
 
     @Transactional
 	public AdForm saveFrom(AdForm adForm) {
-		
-    	Address address = new Address();
-    	address.setStreet(adForm.getStreet());
-    	address.setNumber(adForm.getNumber());
-    	address.setCity(adForm.getCity());
-    	address.setZipCode(adForm.getZipCode());
-    	
-    	  	
-    	Ad ad = new Ad();
-    	ad.setAddress(address);
-    	ad.setNumberOfRooms(adForm.getNumberOfRooms());
-    	ad.setPrice(adForm.getPrice());
-    	ad.setTitle(adForm.getTitle());
-    	ad.setDescription(adForm.getDescription());
-    	
-    	ad = adDao.save(ad);
-    	
-    	adForm.setId(ad.getId());
-    	return adForm;
-		
-		
-	}
+
+        Address address = new Address();
+        address.setStreet(adForm.getStreet());
+        address.setNumber(adForm.getNumber());
+        address.setCity(adForm.getCity());
+        address.setZipCode(adForm.getZipCode());
+
+
+        Ad ad = new Ad();
+        ad.setAddress(address);
+        ad.setNumberOfRooms(adForm.getNumberOfRooms());
+        ad.setPrice(adForm.getPrice());
+        ad.setTitle(adForm.getTitle());
+        ad.setDescription(adForm.getDescription());
+
+        ad = adDao.save(ad);
+
+        adForm.setId(ad.getId());
+        return adForm;
+
+    }
+
+    @Override
+    public ProfileForm saveFrom(ProfileForm profileForm) {
+        User user = loadUserByEmail(profileForm.getEmail());
+        user.setFirstName(profileForm.getFirstName());
+        user.setLastName(profileForm.getLastName());
+        userDao.save(user);
+        return profileForm;
+    }
 }

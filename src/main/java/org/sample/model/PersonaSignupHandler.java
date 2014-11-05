@@ -21,7 +21,7 @@ public class PersonaSignupHandler implements PersonaSignUpHandler<User>, Seriali
     public User createUser(final String email) {
         User user = new User();
         user.setEmail(email);
-        user.setAuthorities(Arrays.asList(() -> "ROLE_USER"));
+        user.setAuthorities(Arrays.asList(new Team8Authority("ROLE_NEW_USER")));
         return user;
     }
 }
