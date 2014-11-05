@@ -10,6 +10,7 @@ import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Apartment;
 import org.sample.model.RealEstate;
+import org.sample.model.ShApartment;
 import org.sample.model.Team;
 import org.sample.model.User;
 
@@ -23,8 +24,8 @@ public interface SampleService {
 
     public Iterable<Team> getAllTeams();
 
-	public ApartmentForm saveFrom(ApartmentForm adForm);
-	public ShApartmentForm saveFrom(ShApartmentForm form2);
+	public Apartment saveFrom(ApartmentForm adForm);
+	public ShApartment saveFrom(ShApartmentForm form2);
 
 	public Apartment getAd(long id); //mg
 	//public ShApartmentForm getAd(long id);

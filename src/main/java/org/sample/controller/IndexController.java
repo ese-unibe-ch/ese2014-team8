@@ -15,6 +15,7 @@ import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.controller.service.SampleService;
 import org.sample.model.Apartment;
 import org.sample.model.RealEstate;
+import org.sample.model.ShApartment;
 import org.sample.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -133,11 +134,12 @@ public class IndexController {
     		System.out.println("apartment cat");    	
         	if (!result.hasErrors()) {
                 try {
-                	sampleService.saveFrom(form);
+                	Apartment apartment=sampleService.saveFrom(form);
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
-                    form.setDescription(form.getDescription().replace("\n", "<br />\n"));
-                    model.addObject("apartmentForm", form);
+                    model.addObject("category","Apartment");
+                    //apartment.setDescription(apartment.getDescription().replace("\n", "<br />\n"));
+                    model.addObject("ad", apartment);
                 } catch (InvalidDateException e) {
                 	model = new ModelAndView("newAd");
                 	model.addObject("page_error", e.getMessage());
@@ -150,20 +152,23 @@ public class IndexController {
     		System.out.println("shared apartment cat");
         	if (!result.hasErrors()) {
                 try {
-                	sampleService.saveFrom(form2);
+                	ShApartment apartment=sampleService.saveFrom(form2);
                 	System.out.println("yes");
-                	/*model = new ModelAndView("viewAd");
+                	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
-                    form2.setDescription(form2.getDescription().replace("\n", "<br />\n"));
-                    model.addObject("shApartmentForm", form2);*/
+                    model.addObject("category","Shared Apartment");
+                    //form2.setDescription(form2.getDescription().replace("\n", "<br />\n"));
+                    model.addObject("ad", apartment);
                 } catch (InvalidDateException e) {
+                	System.out.print("catch");
                 	model = new ModelAndView("main");
                 	model.addObject("page_error", e.getMessage());
                 }
             } else {
+            	System.out.println("else");
             	model = new ModelAndView("main");
             }
-    		model = new ModelAndView("main");
+    		
     	}
     	return model;
     	

@@ -8,11 +8,11 @@
 <c:import url="template/header.jsp" />
 
 <h1>${message}</h1>
-<c:import url="Ad.jsp" />
+<c:import url="Ad2.jsp" />
 
 <form:form method="post" modelAttribute="apartmentForm" action="editAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>	
-		<form:hidden path="id" value="${apartmentForm.id}"/>
+		<form:hidden path="id" value="${ad.id}"/>
          <div class="form-actions">
             <button type="submit" class="btn btn-primary">Edit Ad</button>
             <a href="main" class="btn">Submit</a>

@@ -103,7 +103,7 @@ public class SampleServiceImpl implements SampleService {
     }
 
     @Transactional
-	public ApartmentForm saveFrom(ApartmentForm apartmentForm)throws InvalidDateException {
+	public Apartment saveFrom(ApartmentForm apartmentForm)throws InvalidDateException {
 		
     	checkDates(apartmentForm);
     	
@@ -125,13 +125,13 @@ public class SampleServiceImpl implements SampleService {
     	apartment = apDao.save(apartment);
     	
     	apartmentForm.setId(apartment.getId());
-    	return apartmentForm;
+    	return apartment;
 		
 		
 	}
     
     @Transactional
-    public ShApartmentForm saveFrom(ShApartmentForm form) {
+    public ShApartment saveFrom(ShApartmentForm form) {
     	checkDates(form);
     	ShApartment apartment;
 		
@@ -151,7 +151,7 @@ public class SampleServiceImpl implements SampleService {
     	apartment = shApDao.save(apartment);
     	System.out.println(apartment.getId());
     	form.setId(apartment.getId());
-    	return form;
+    	return apartment;
 		
 	}
 
