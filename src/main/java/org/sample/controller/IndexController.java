@@ -221,17 +221,29 @@ public class IndexController {
     
     @RequestMapping(value="/editAd", method = RequestMethod.POST)
     public ModelAndView editAd(ApartmentForm apartmentForm, BindingResult result){
-    	ModelAndView model;    	
+    	ModelAndView model;
+    	
     	if (!result.hasErrors()) {
             model = new ModelAndView("newAd");
-            
-            Apartment oldAd = sampleService.getAd(apartmentForm.getId());
-            apartmentForm.setDescription(oldAd.getDescription());
-            apartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
-            apartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
-            model.addObject("oldAd", oldAd);
-            model.addObject("apForm", apartmentForm); //mg
-            model.addObject("shApForm", new ShApartmentForm()); //mg
+            if(apartmentForm.getCategory().equals("Apartment")){
+            	Apartment oldAd = sampleService.getAd(apartmentForm.getId());
+                apartmentForm.setDescription(oldAd.getDescription());
+                apartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
+                apartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
+                model.addObject("oldAd", oldAd);
+                model.addObject("apForm", apartmentForm);//mg
+                model.addObject("shApForm", new ShApartmentForm());
+            }
+            else{
+            	ShApartment oldAd = sampleService.getShApAd(apartmentForm.getId());
+            	ShApartmentForm shApForm =  new ShApartmentForm();
+            	shApForm.setDescription(oldAd.getDescription());
+            	shApForm.setFixedMoveIn(oldAd.isFixedMoveIn());
+            	shApForm.setFixedMoveOut(oldAd.isFixedMoveOut());
+            	model.addObject("oldAd", oldAd);
+            	model.addObject("apForm", apartmentForm);
+                model.addObject("shApForm", shApForm);
+            }
         } 
     	else {
         	model = new ModelAndView("index");

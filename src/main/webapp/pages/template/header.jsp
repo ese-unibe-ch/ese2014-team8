@@ -27,10 +27,10 @@
 	<div class="top-image">
 		<img src="../../img/landscape.JPG"/>
 	</div>
-	<div class="navigation">
-			<div class="col-sm-2 nav text-center text-nowrap">MY PROFILE</div>
-			<div class="col-sm-2 nav text-center text-nowrap">MY ADS</div>
-			<div class="col-sm-2 nav text-center text-nowrap">SEARCH</div>
+	<div class="navigation ">
+			<a href="#"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY PROFILE</div></a>
+			<a href="http://localhost:8080/newAd"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY ADS</div></a>
+			<a href="http://localhost:8080/search"><div class="col-md-2 nav text-center text-nowrap navbar-right">SEARCH</div></a>
 		
 	</div>
 </div>

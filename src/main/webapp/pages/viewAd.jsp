@@ -12,6 +12,7 @@
 
 <form:form method="post" modelAttribute="apartmentForm" action="editAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>	
+    	<form:hidden path="category" value="${category}"/>
 		<form:hidden path="id" value="${ad.id}"/>
          <div class="form-actions">
             <button type="submit" class="btn btn-primary">Edit Ad</button>

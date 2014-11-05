@@ -28,7 +28,7 @@ public interface SampleService {
 	public ShApartment saveFrom(ShApartmentForm form2);
 
 	public Apartment getAd(long id); //mg
-	//public ShApartmentForm getAd(long id);
+	public ShApartment getShApAd(long id);
 
 	public Iterable<Apartment> getSearchResults(SearchForm searchForm);
 	

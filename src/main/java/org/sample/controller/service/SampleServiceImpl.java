@@ -225,5 +225,10 @@ public class SampleServiceImpl implements SampleService {
 		return categories;
 	}
 
+    @Transactional
+	public ShApartment getShApAd(long id) {
+		return shApDao.findOne(id);
+	}
+
 	
 }
