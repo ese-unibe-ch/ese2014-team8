@@ -13,7 +13,7 @@
       <option value="1">Apartment</option>
       <option value="2">Shared Apartment</option>
 </select>
-<c:if test="${cate != null}"> There is an oldAd!.
+<c:if test="${cate != null}">
 	<script>
 		document.getElementById('category').options[1]=new Option("Shared Apartment", "2", false, true)
 	</script>
@@ -24,9 +24,8 @@
 </div> 
 
 
-
 <div id="apartmentForm">
-<form:form  method="post" modelAttribute="apForm" action="makeAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" >
+<form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" >
     <fieldset>
 		<form:hidden path="category" value="Apartment"/>
 		<form:hidden path="id" value="${oldAd.id}"/>
@@ -160,7 +159,7 @@
 </form:form>
 </div>
 <div id="sharedApartmentForm">
-<form:form method="post" modelAttribute="shApForm" action="makeAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
+<form:form method="post" modelAttribute="shApForm" action="viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
     <fieldset>
     	<form:hidden path="category" value="Shared Apartment"/>
 		<form:hidden path="id" value="${oldAd.id}"/>

@@ -93,7 +93,7 @@ public class IndexController {
     	return model;
     }
 
-    @RequestMapping(value="/newAd", method = RequestMethod.GET) //mg
+    @RequestMapping(value="/newAd", method = RequestMethod.GET) 
     public ModelAndView makeAd(){
     	ModelAndView model = new ModelAndView("newAd");
     	model.addObject("apForm", new ApartmentForm());
@@ -102,12 +102,12 @@ public class IndexController {
     }
     
     
-    @RequestMapping(value="/makeAd", method = RequestMethod.POST)
+    @RequestMapping(value="/viewAd", method = RequestMethod.POST)
     public ModelAndView makeAd(ApartmentForm form, ShApartmentForm form2, BindingResult result){
-    	System.out.println(form.getCategory());
+    	//System.out.println(form.getCategory());
     	ModelAndView model = null;
     	if(form.getCategory().equals("Apartment")){
-    		System.out.println("apartment cat");    	
+    		//System.out.println("apartment cat");    	
         	if (!result.hasErrors()) {
                 try {
                 	Apartment apartment=sampleService.saveFrom(form);
@@ -136,7 +136,6 @@ public class IndexController {
                     //form2.setDescription(form2.getDescription().replace("\n", "<br />\n"));
                     model.addObject("ad", apartment);
                 } catch (InvalidDateException e) {
-                	System.out.print("catch");
                 	model = new ModelAndView("main");
                 	model.addObject("page_error", e.getMessage());
                 }
@@ -185,8 +184,6 @@ public class IndexController {
         }   	
     	return model;
     }
-    
-    
     
     
     
