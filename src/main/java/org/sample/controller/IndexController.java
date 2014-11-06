@@ -174,6 +174,7 @@ public class IndexController {
             	shApartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
             	shApartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
             	shApartmentForm.setRoomSize(oldAd.getRoomSize());
+            	model.addObject("cate","Shared Apartment");
             	model.addObject("oldAd", oldAd);
                 model.addObject("shApForm", shApartmentForm);
                 model.addObject("apForm", new ApartmentForm());

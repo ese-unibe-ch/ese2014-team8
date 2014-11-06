@@ -13,10 +13,15 @@
       <option value="1">Apartment</option>
       <option value="2">Shared Apartment</option>
 </select>
+<c:if test="${cate != null}"> There is an oldAd!.
+	<script>
+		document.getElementById('category').options[1]=new Option("Shared Apartment", "2", false, true)
+	</script>
+</c:if>
 
-<%-- <div id="hiddenVariable">
+<div id="hiddenVariable">
 	<input type="hidden" value="Myname" name="nom" />
-</div> --%>
+</div> 
 
 
 
