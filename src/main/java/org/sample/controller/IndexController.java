@@ -101,30 +101,6 @@ public class IndexController {
     	return model;
     }
     
-    /*    @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
-    public ModelAndView newAd(){
-    	ModelAndView model = new ModelAndView("newAd");
-    	
-    	model.addObject("apartmentForm", new ApartmentForm());
-    	
-    	return model;
-    }*/
-    
-/*    @RequestMapping(value="/make-ad", method = RequestMethod.POST)
-    public ModelAndView saveAd( ApartmentForm form, ShApartmentForm form2, BindingResult result){
-    	System.out.println(form.getCategory());
-    	if(form.getCategory().equals("Apartment")){
-    		System.out.println("apartment cat");
-    		sampleService.saveFrom(form);
-    	}
-    	if(form2.getCategory().equals("Shared Apartment")){
-    		System.out.println("shared apartment cat");
-    		sampleService.saveFrom(form2);
-    	}
-    	ModelAndView model= new ModelAndView("show");
-    	return model;
-    }*/
-    
     
     @RequestMapping(value="/makeAd", method = RequestMethod.POST)
     public ModelAndView makeAd(ApartmentForm form, ShApartmentForm form2, BindingResult result){
@@ -171,78 +147,36 @@ public class IndexController {
     		
     	}
     	return model;
-    	
-/*    	ModelAndView model;    	
-    	if (!result.hasErrors()) {
-            try {
-            	sampleService.saveFrom(form);
-            	model = new ModelAndView("viewAd");
-                model.addObject("message","This is what your ad will look like:");
-                form.setDescription(form.getDescription().replace("\n", "<br />\n"));
-                model.addObject("apartmentForm", form);
-            } catch (InvalidDateException e) {
-            	model = new ModelAndView("newAd");
-            	model.addObject("page_error", e.getMessage());
-            }
-        } else {
-        	model = new ModelAndView("newAd");
-        }   	
-    	return model;*/
     }
-    
-/*    @RequestMapping(value = "/new-shad", method = RequestMethod.GET)
-    public ModelAndView newAdShAd(){
-    	ModelAndView model = new ModelAndView("newAdShAp");
-    	
-    	model.addObject("apartmentForm", new ShApartmentForm());
-    	
-    	return model;
-    }
-    
-    @RequestMapping(value="/makeAdShAp", method = RequestMethod.POST)
-    public ModelAndView makeAdShAp(@Valid ShApartmentForm apartmentForm, BindingResult result){
-    	ModelAndView model;    	
-    	if (!result.hasErrors()) {
-            try {
-            	//sampleService.saveFrom(apartmentForm);
-            	model = new ModelAndView("viewAd");
-                model.addObject("message","This is what your ad will look like:");
-                apartmentForm.setDescription(apartmentForm.getDescription().replace("\n", "<br />\n"));
-                model.addObject("apartmentForm", apartmentForm);
-            } catch (InvalidDateException e) {
-            	model = new ModelAndView("newAdShAp");
-            	model.addObject("page_error", e.getMessage());
-            }
-        } else {
-        	model = new ModelAndView("newAdShAp");
-        }   	
-    	return model;
-    }*/
     
     @RequestMapping(value="/editAd", method = RequestMethod.POST)
-    public ModelAndView editAd(ApartmentForm apartmentForm, BindingResult result){
+    public ModelAndView editAd(ApartmentForm apartmentForm, ShApartmentForm shApartmentForm, BindingResult result){
     	ModelAndView model;
     	
     	if (!result.hasErrors()) {
             model = new ModelAndView("newAd");
             if(apartmentForm.getCategory().equals("Apartment")){
+            	System.out.println("edit Post, Apartment");
             	Apartment oldAd = sampleService.getAd(apartmentForm.getId());
                 apartmentForm.setDescription(oldAd.getDescription());
                 apartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
                 apartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
+                apartmentForm.setNumberOfRooms(oldAd.getNumberOfRooms());
+                apartmentForm.setSize(oldAd.getSize());
                 model.addObject("oldAd", oldAd);
                 model.addObject("apForm", apartmentForm);//mg
                 model.addObject("shApForm", new ShApartmentForm());
             }
             else{
-            	ShApartment oldAd = sampleService.getShApAd(apartmentForm.getId());
-            	ShApartmentForm shApForm =  new ShApartmentForm();
-            	shApForm.setDescription(oldAd.getDescription());
-            	shApForm.setFixedMoveIn(oldAd.isFixedMoveIn());
-            	shApForm.setFixedMoveOut(oldAd.isFixedMoveOut());
+            	ShApartment oldAd = sampleService.getShApAd(shApartmentForm.getId());
+            	System.out.println("edit Post, SharedApartment");
+            	shApartmentForm.setDescription(oldAd.getDescription());
+            	shApartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
+            	shApartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
+            	shApartmentForm.setRoomSize(oldAd.getRoomSize());
             	model.addObject("oldAd", oldAd);
-            	model.addObject("apForm", apartmentForm);
-                model.addObject("shApForm", shApForm);
+                model.addObject("shApForm", shApartmentForm);
+                model.addObject("apForm", new ApartmentForm());
             }
         } 
     	else {

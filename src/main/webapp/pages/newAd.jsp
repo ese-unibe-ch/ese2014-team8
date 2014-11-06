@@ -14,6 +14,12 @@
       <option value="2">Shared Apartment</option>
 </select>
 
+<%-- <div id="hiddenVariable">
+	<input type="hidden" value="Myname" name="nom" />
+</div> --%>
+
+
+
 <div id="apartmentForm">
 <form:form  method="post" modelAttribute="apForm" action="makeAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" >
     <fieldset>
@@ -298,6 +304,11 @@
 	    elem2.style.display = this.checked ?  'block' : 'none';
 	};
 </script>
+
+<%--  <script>
+	document.getElementById('category').options[1]=new Option("FakeShApartment", "2", false, true)
+</script> --%>
+
 <script>
 if (document.getElementById('category').value == 1 )
     {document.getElementById('apartmentForm').style.display = 'block';
@@ -319,6 +330,5 @@ else
 		}
 }
 </script>
-
 	
 <c:import url="template/footer.jsp" />

@@ -196,7 +196,6 @@ public class SampleServiceImpl implements SampleService {
     			throw new InvalidDateException("Move-out date must be later than move-in date!");
     	}
 	}
-	
    
 
 	private boolean isFutureDate(Date moveIn) {
@@ -204,10 +203,6 @@ public class SampleServiceImpl implements SampleService {
     	return moveIn.after(now);
 	}
 
-	@Transactional
-	public Apartment getAd(long id) {
-		return apDao.findOne(id);
-	}
 
     @Transactional
 	public Iterable<Apartment> getSearchResults(SearchForm searchForm) {
@@ -224,7 +219,12 @@ public class SampleServiceImpl implements SampleService {
 		categories.add("Shared Apartment");
 		return categories;
 	}
-
+    
+	@Transactional
+	public Apartment getAd(long id) {
+		return apDao.findOne(id);
+	}
+	
     @Transactional
 	public ShApartment getShApAd(long id) {
 		return shApDao.findOne(id);
