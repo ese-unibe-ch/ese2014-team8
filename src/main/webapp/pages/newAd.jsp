@@ -7,16 +7,21 @@
 
 <c:import url="template/header.jsp" />
 
-
+<c:if test="${editType == Null}">
 <h1>Advertise your apartment here!</h1>
 <select id="category" size="1">
       <option value="1">Apartment</option>
       <option value="2">Shared Apartment</option>
 </select>
-<c:if test="${cate != null}">
-	<script>
+</c:if>
+<c:if test="${editType == 'Apartment'}">
+	<h1>Edit your Apartment Ad</h1>
+</c:if>
+<c:if test="${editType == 'Shared Apartment'}">
+	<h1>Edit your Shared Apartment Ad</h1>
+	<%-- <script>
 		document.getElementById('category').options[1]=new Option("Shared Apartment", "2", false, true)
-	</script>
+	</script> --%>
 </c:if>
 
 <div id="hiddenVariable">
