@@ -2,19 +2,8 @@ package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
-import org.sample.controller.pojos.ProfileForm;
-import org.sample.controller.pojos.ApartmentForm;
-import org.sample.controller.pojos.RealEstateForm;
-import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.pojos.ShApartmentForm;
-import org.sample.controller.pojos.SignupForm;
-import org.sample.controller.pojos.TeamCreationForm;
-import org.sample.model.Apartment;
-import org.sample.model.Address;
-import org.sample.model.RealEstate;
-import org.sample.model.ShApartment;
-import org.sample.model.Team;
-import org.sample.model.User;
+import org.sample.controller.pojos.*;
+import org.sample.model.*;
 import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.ShApartmentDao;
@@ -28,6 +17,7 @@ import org.springframework.util.StringUtils;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -138,6 +128,14 @@ public class SampleServiceImpl implements SampleService {
         userDao.save(user);
         return profileForm;
     }
+
+	public NewProfileForm saveFrom(NewProfileForm newProfileForm) {
+		User user = loadUserByEmail(newProfileForm.getEmail());
+		user.setFirstName(newProfileForm.getFirstName());
+		user.setLastName(newProfileForm.getLastName());
+		user.setAuthorities(Arrays.asList(new Team8Authority("ROLE_USER")));
+		return newProfileForm;
+	}
 
 	public Apartment saveFrom(ApartmentForm apartmentForm)throws InvalidDateException {
 		

@@ -31,8 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class PersonaVerificationHandlerImpl implements PersonaVerificationHandler, InitializingBean {
 
-  private static final Logger LOGGER = LoggerFactory
-      .getLogger(PersonaVerificationHandlerImpl.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(PersonaVerificationHandlerImpl.class);
 
   private HttpClient httpClient = HttpClientBuilder.create().build();
   private ObjectMapper objectMapper;

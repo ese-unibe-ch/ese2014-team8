@@ -1,3 +1,7 @@
+<%@ page language="java" pageEncoding="UTF-8" contentType="text/html;charset=utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,7 +36,7 @@
 		<img src="../../img/landscape.JPG"/>
 	</div>
 	<div class="navigation ">
-			<a href="#"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY PROFILE</div></a>
+			<a href="/profile"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY PROFILE</div></a>
 			<a href="/newAd"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY ADS</div></a>
 			<a href="/search"><div class="col-md-2 nav text-center text-nowrap navbar-right">SEARCH</div></a>
 		
@@ -61,22 +65,25 @@ You're logged in as ${user.email}. <input type="button" id="signout" value="sign
 <img id="signin" alt="Sign In" src="https://mdn.mozillademos.org/files/3969/plain_sign_in_blue.png" />
 </c:otherwise>
 </c:choose>
-<!--<img id="signin" alt="Sign In" src="https://mdn.mozillademos.org/files/3969/plain_sign_in_blue.png" />
-	${username}
-	<input type="button" id="signout" value="signout" />-->
+
 	<script type="text/javascript">
 	<!--
 	var currentUser = $.cookie('current_user') || null;
 
 	$(document).ready(function() {
 
-		document.getElementById('signin').onclick = function() {
-			navigator.id.request();
-		}
-
+<c:choose>
+<c:when test="${user.email != null}">
 		document.getElementById('signout').onclick = function() {
 			navigator.id.logout();
 		}
+		</c:when>
+		<c:otherwise>
+		document.getElementById('signin').onclick = function() {
+			navigator.id.request();
+		}
+		</c:otherwise>
+		</c:choose>
 
 		navigator.id.watch( {
 			loggedInUser: currentUser,
@@ -87,6 +94,10 @@ You're logged in as ${user.email}. <input type="button" id="signout" value="sign
 				      data: {assertion: assertion},
 				      success: function(res, status, xhr) {
 				    	  // alert(status + ' successful login');
+				    	  <c:if test="${user.email == null}">
+				    	  //window.location.reload();
+				    	  window.location = '/profile';
+				    	  </c:if>
 				    	  var result = $.parseJSON(res);
 				    	  currentUser = result.name;
 				    	  $.cookie('current_user', currentUser, {
@@ -94,7 +105,7 @@ You're logged in as ${user.email}. <input type="button" id="signout" value="sign
 				    		 path: '/',
 				    		 secure: true
 				    	  });
-				    	  window.location.reload();
+
 				   	  },
 				      error: function(xhr, status, err) {
 				    	$.ajax({

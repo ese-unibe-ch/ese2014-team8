@@ -10,22 +10,20 @@ import javax.validation.Valid;
 import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
 
-import org.sample.controller.pojos.ProfileForm;
-import org.sample.controller.pojos.ApartmentForm;
-import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.pojos.ShApartmentForm;
-import org.sample.controller.pojos.SignupForm;
-import org.sample.controller.pojos.TeamCreationForm;
+import org.sample.controller.pojos.*;
 import org.sample.controller.service.SampleService;
-import org.sample.model.Apartment;
-import org.sample.model.RealEstate;
-import org.sample.model.ShApartment;
-import org.sample.model.User;
+import org.sample.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.Expression;
+import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -43,6 +41,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class IndexController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
     @Autowired
     SampleService sampleService;
@@ -326,9 +326,31 @@ public class IndexController {
         return model;
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_NEW_USER')")
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
-    public ModelAndView profile() {
+    public String profile(HttpServletRequest request) {
+        ModelAndView model;
+        if(request.isUserInRole("ROLE_USER")) {
+            return "redirect:/editProfile";
+        } else if(request.isUserInRole("ROLE_NEW_USER")) {
+            return "redirect:/newProfile";
+        } else {
+            return "redirect:/";
+        }
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @RequestMapping(value = "/editProfile", method = RequestMethod.GET)
+    public ModelAndView editProfile() {
+        ModelAndView model = new ModelAndView("profile");
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        model.addObject("profileForm", new ProfileForm());
+        model.addObject("user",sampleService.loadUserByEmail(ctx.getAuthentication().getName()));
+        return model;
+    }
+
+    @PreAuthorize("hasRole('ROLE_NEW_USER')")
+    @RequestMapping(value = "/newProfile", method = RequestMethod.GET)
+    public ModelAndView newProfile() {
         ModelAndView model = new ModelAndView();
         SecurityContext ctx = SecurityContextHolder.getContext();
         model.addObject("profileForm", new ProfileForm());
@@ -336,13 +358,23 @@ public class IndexController {
         return model;
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_NEW_USER')")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
     public String saveProfile(@Valid ProfileForm profileForm, BindingResult result, RedirectAttributes redirectAttributes) {
         SecurityContext ctx = SecurityContextHolder.getContext();
         profileForm.setEmail(ctx.getAuthentication().getName());
         sampleService.saveFrom(profileForm);
         redirectAttributes.addFlashAttribute("Profile saved.");
+        return "redirect:/profile";
+    }
+
+    @PreAuthorize("hasRole('ROLE_NEW_USER')")
+    @RequestMapping(value = "/saveNewProfile", method = RequestMethod.POST)
+    public String saveNewProfile(@Valid NewProfileForm newProfileForm, BindingResult result, RedirectAttributes redirectAttributes) {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        newProfileForm.setEmail(ctx.getAuthentication().getName());
+        sampleService.saveFrom(newProfileForm);
+        redirectAttributes.addFlashAttribute("Profile created.");
         return "redirect:/profile";
     }
     

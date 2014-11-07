@@ -3,12 +3,7 @@ package org.sample.controller.service;
 import java.util.List;
 
 import org.sample.controller.exceptions.InvalidUserException;
-import org.sample.controller.pojos.ProfileForm;
-import org.sample.controller.pojos.ApartmentForm;
-import org.sample.controller.pojos.SearchForm;
-import org.sample.controller.pojos.ShApartmentForm;
-import org.sample.controller.pojos.SignupForm;
-import org.sample.controller.pojos.TeamCreationForm;
+import org.sample.controller.pojos.*;
 import org.sample.model.Apartment;
 import org.sample.model.RealEstate;
 import org.sample.model.ShApartment;
@@ -40,6 +35,7 @@ public interface SampleService {
 	
 	public List<String> getCategories();
 
+    public NewProfileForm saveFrom(NewProfileForm newProfileForm);
 
     public ProfileForm saveFrom(ProfileForm profileForm);
 
