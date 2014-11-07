@@ -33,7 +33,7 @@
 <body> 
 <div class="fluid-container">
 	<div class="top-image">
-		<img src="../../img/landscape.JPG"/>
+		<img src="../../img/cityscape.jpg"/>
 	</div>
 	<div class="navigation ">
 			<a href="/profile"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY PROFILE</div></a>
