@@ -16,9 +16,15 @@
 </c:if>
 <c:if test="${editType == 'Apartment'}">
 	<h1>Edit your Apartment Ad</h1>
+<select id="category" size="1">
+      <option value="1">Apartment</option>
+</select>
 </c:if>
 <c:if test="${editType == 'Shared Apartment'}">
 	<h1>Edit your Shared Apartment Ad</h1>
+<select id="category" size="1">
+      <option value="2">Shared Apartment</option>
+</select>
 	<%-- <script>
 		document.getElementById('category').options[1]=new Option("Shared Apartment", "2", false, true)
 	</script> --%>
