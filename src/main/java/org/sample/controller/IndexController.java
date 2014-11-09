@@ -158,12 +158,6 @@ public class IndexController {
             	System.out.println("edit Post, Apartment");
             	Apartment oldAd = sampleService.getAd(apartmentForm.getId());
             	apartmentForm = sampleService.saveFrom(oldAd);
-//                apartmentForm.setDescription(oldAd.getDescription());
-//                apartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
-//                apartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
-//                apartmentForm.setNumberOfRooms(oldAd.getNumberOfRooms());
-//                apartmentForm.setSize(oldAd.getSize());
-            	
                 model.addObject("editType","Apartment");
                 model.addObject("oldAd", oldAd);
                 model.addObject("apForm", apartmentForm);//mg

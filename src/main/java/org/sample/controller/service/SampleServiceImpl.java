@@ -232,26 +232,32 @@ public class SampleServiceImpl implements SampleService {
 
 	public ApartmentForm saveFrom(Apartment apartment) {
 		ApartmentForm apartmentForm = new ApartmentForm();
-		Address address = apartment.getAddress();
     	
-		apartmentForm.setId(apartment.getId());
+		apartmentForm = (ApartmentForm) saveFrom(apartment, apartmentForm);
 		
-		// getAddress
-    	apartmentForm.setStreet(address.getStreet());
-    	apartmentForm.setNumber(address.getNumber());
-    	apartmentForm.setCity(address.getCity());
-    	apartmentForm.setZipCode(address.getZipCode());
-    	
-    	apartmentForm.setPrice(apartment.getPrice());
-    	apartmentForm.setMoveIn(apartment.getMoveIn());
-    	apartmentForm.setMoveOut(apartment.getMoveOut());
-    	apartmentForm.setDescription(apartment.getDescription());
-    	
     	apartmentForm.setNumberOfRooms(apartment.getNumberOfRooms());
     	apartmentForm.setSize(apartment.getSize());
     	
     	return apartmentForm;
 	}
 
+	private RealEstateForm saveFrom(RealEstate realEstate, RealEstateForm realEstateForm){
+		Address address = realEstate.getAddress();
+		
+		realEstateForm.setId(realEstate.getId());
+		
+		// getAddress
+    	realEstateForm.setStreet(address.getStreet());
+    	realEstateForm.setNumber(address.getNumber());
+    	realEstateForm.setCity(address.getCity());
+    	realEstateForm.setZipCode(address.getZipCode());
+    	
+    	realEstateForm.setPrice(realEstate.getPrice());
+    	realEstateForm.setMoveIn(realEstate.getMoveIn());
+    	realEstateForm.setMoveOut(realEstate.getMoveOut());
+    	realEstateForm.setDescription(realEstate.getDescription());
+    	
+		return realEstateForm;
+	}
 	
 }
