@@ -230,5 +230,28 @@ public class SampleServiceImpl implements SampleService {
 		return shApDao.findOne(id);
 	}
 
+	public ApartmentForm saveFrom(Apartment apartment) {
+		ApartmentForm apartmentForm = new ApartmentForm();
+		Address address = apartment.getAddress();
+    	
+		apartmentForm.setId(apartment.getId());
+		
+		// getAddress
+    	apartmentForm.setStreet(address.getStreet());
+    	apartmentForm.setNumber(address.getNumber());
+    	apartmentForm.setCity(address.getCity());
+    	apartmentForm.setZipCode(address.getZipCode());
+    	
+    	apartmentForm.setPrice(apartment.getPrice());
+    	apartmentForm.setMoveIn(apartment.getMoveIn());
+    	apartmentForm.setMoveOut(apartment.getMoveOut());
+    	apartmentForm.setDescription(apartment.getDescription());
+    	
+    	apartmentForm.setNumberOfRooms(apartment.getNumberOfRooms());
+    	apartmentForm.setSize(apartment.getSize());
+    	
+    	return apartmentForm;
+	}
+
 	
 }

@@ -9,7 +9,6 @@ import org.sample.controller.pojos.ShApartmentForm;
 import org.sample.controller.pojos.SignupForm;
 import org.sample.controller.pojos.TeamCreationForm;
 import org.sample.model.Apartment;
-import org.sample.model.RealEstate;
 import org.sample.model.ShApartment;
 import org.sample.model.Team;
 import org.sample.model.User;
@@ -26,6 +25,8 @@ public interface SampleService {
 
 	public Apartment saveFrom(ApartmentForm adForm);
 	public ShApartment saveFrom(ShApartmentForm form2);
+	
+	public ApartmentForm saveFrom(Apartment apartment);
 
 	public Apartment getAd(long id); //mg
 	public ShApartment getShApAd(long id);
