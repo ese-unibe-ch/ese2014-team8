@@ -153,7 +153,7 @@ public class IndexController {
     	ModelAndView model;
     	
     	if (!result.hasErrors()) {
-            model = new ModelAndView("newAd");
+            model = new ModelAndView("editAd");
             if(apartmentForm.getCategory().equals("Apartment")){
             	System.out.println("edit Post, Apartment");
             	Apartment oldAd = sampleService.getAd(apartmentForm.getId());
