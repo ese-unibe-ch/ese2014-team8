@@ -118,7 +118,7 @@ public class IndexController {
     	return model;
     }
 
-    @RequestMapping(value="/newAd", method = RequestMethod.GET) //mg
+    @RequestMapping(value="/newAd", method = RequestMethod.GET) 
     public ModelAndView makeAd(){
     	ModelAndView model = new ModelAndView("newAd");
     	model.addObject("apForm", new ApartmentForm());
@@ -126,43 +126,13 @@ public class IndexController {
     	return model;
     }
     
-    /*    @RequestMapping(value = "/new-ad", method = RequestMethod.GET)
->>>>>>> origin/AdAndSearch
-    public ModelAndView newAd(){
-    	ModelAndView model = new ModelAndView("newAd");
-    	
-    	model.addObject("apartmentForm", new ApartmentForm());
-    	
-    	return model;
-<<<<<<< HEAD
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_NEW_USER')")
-=======
-    }*/
-    
-/*    @RequestMapping(value="/make-ad", method = RequestMethod.POST)
-    public ModelAndView saveAd( ApartmentForm form, ShApartmentForm form2, BindingResult result){
-    	System.out.println(form.getCategory());
-    	if(form.getCategory().equals("Apartment")){
-    		System.out.println("apartment cat");
-    		sampleService.saveFrom(form);
-    	}
-    	if(form2.getCategory().equals("Shared Apartment")){
-    		System.out.println("shared apartment cat");
-    		sampleService.saveFrom(form2);
-    	}
-    	ModelAndView model= new ModelAndView("show");
-    	return model;
-    }*/
-    
-
-    @RequestMapping(value="/makeAd", method = RequestMethod.POST)
+ 
+    @RequestMapping(value="/viewAd", method = RequestMethod.POST)
     public ModelAndView makeAd(ApartmentForm form, ShApartmentForm form2, BindingResult result){
-    	System.out.println(form.getCategory());
+    	//System.out.println(form.getCategory());
     	ModelAndView model = null;
     	if(form.getCategory().equals("Apartment")){
-    		System.out.println("apartment cat");    	
+    		//System.out.println("apartment cat");    	
         	if (!result.hasErrors()) {
                 try {
                 	Apartment apartment=sampleService.saveFrom(form);
@@ -191,7 +161,6 @@ public class IndexController {
                     //form2.setDescription(form2.getDescription().replace("\n", "<br />\n"));
                     model.addObject("ad", apartment);
                 } catch (InvalidDateException e) {
-                	System.out.print("catch");
                 	model = new ModelAndView("main");
                 	model.addObject("page_error", e.getMessage());
                 }
@@ -202,78 +171,34 @@ public class IndexController {
     		
     	}
     	return model;
-    	
-/*    	ModelAndView model;    	
-    	if (!result.hasErrors()) {
-            try {
-            	sampleService.saveFrom(form);
-            	model = new ModelAndView("viewAd");
-                model.addObject("message","This is what your ad will look like:");
-                form.setDescription(form.getDescription().replace("\n", "<br />\n"));
-                model.addObject("apartmentForm", form);
-            } catch (InvalidDateException e) {
-            	model = new ModelAndView("newAd");
-            	model.addObject("page_error", e.getMessage());
-            }
-        } else {
-        	model = new ModelAndView("newAd");
-        }   	
-    	return model;*/
     }
-    
-/*    @RequestMapping(value = "/new-shad", method = RequestMethod.GET)
-    public ModelAndView newAdShAd(){
-    	ModelAndView model = new ModelAndView("newAdShAp");
-    	
-    	model.addObject("apartmentForm", new ShApartmentForm());
-    	
-    	return model;
-    }
-    
-    @RequestMapping(value="/makeAdShAp", method = RequestMethod.POST)
-    public ModelAndView makeAdShAp(@Valid ShApartmentForm apartmentForm, BindingResult result){
-    	ModelAndView model;    	
-    	if (!result.hasErrors()) {
-            try {
-            	//sampleService.saveFrom(apartmentForm);
-            	model = new ModelAndView("viewAd");
-                model.addObject("message","This is what your ad will look like:");
-                apartmentForm.setDescription(apartmentForm.getDescription().replace("\n", "<br />\n"));
-                model.addObject("apartmentForm", apartmentForm);
-            } catch (InvalidDateException e) {
-            	model = new ModelAndView("newAdShAp");
-            	model.addObject("page_error", e.getMessage());
-            }
-        } else {
-        	model = new ModelAndView("newAdShAp");
-        }   	
-    	return model;
-    }*/
     
     @RequestMapping(value="/editAd", method = RequestMethod.POST)
-    public ModelAndView editAd(ApartmentForm apartmentForm, BindingResult result){
+    public ModelAndView editAd(ApartmentForm apartmentForm, ShApartmentForm shApartmentForm, BindingResult result){
     	ModelAndView model;
     	
     	if (!result.hasErrors()) {
-            model = new ModelAndView("newAd");
+            model = new ModelAndView("editAd");
             if(apartmentForm.getCategory().equals("Apartment")){
+            	System.out.println("edit Post, Apartment");
             	Apartment oldAd = sampleService.getAd(apartmentForm.getId());
-                apartmentForm.setDescription(oldAd.getDescription());
-                apartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
-                apartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
+            	apartmentForm = sampleService.saveFrom(oldAd);
+                model.addObject("editType","Apartment");
                 model.addObject("oldAd", oldAd);
                 model.addObject("apForm", apartmentForm);//mg
                 model.addObject("shApForm", new ShApartmentForm());
             }
             else{
-            	ShApartment oldAd = sampleService.getShApAd(apartmentForm.getId());
-            	ShApartmentForm shApForm =  new ShApartmentForm();
-            	shApForm.setDescription(oldAd.getDescription());
-            	shApForm.setFixedMoveIn(oldAd.isFixedMoveIn());
-            	shApForm.setFixedMoveOut(oldAd.isFixedMoveOut());
+            	ShApartment oldAd = sampleService.getShApAd(shApartmentForm.getId());
+            	System.out.println("edit Post, SharedApartment");
+            	shApartmentForm.setDescription(oldAd.getDescription());
+            	shApartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
+            	shApartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
+            	shApartmentForm.setRoomSize(oldAd.getRoomSize());
+            	model.addObject("editType","Shared Apartment");
             	model.addObject("oldAd", oldAd);
-            	model.addObject("apForm", apartmentForm);
-                model.addObject("shApForm", shApForm);
+                model.addObject("shApForm", shApartmentForm);
+                model.addObject("apForm", new ApartmentForm());
             }
         } 
     	else {
@@ -282,6 +207,7 @@ public class IndexController {
     	return model;
     }
     
+
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
     	ModelAndView model;    	
@@ -300,31 +226,6 @@ public class IndexController {
     	return model;
     }
 
-    @RequestMapping(value = "/new-team", method = RequestMethod.GET)
-    public ModelAndView newTeam() {
-        ModelAndView model = new ModelAndView("newTeam");
-        model.addObject("teamCreationForm", new TeamCreationForm());
-        return model;
-    }
-
-    @RequestMapping(value = "/create-team", method = RequestMethod.POST)
-    public ModelAndView createTeam(@Valid TeamCreationForm teamCreationForm, BindingResult result, RedirectAttributes redirectAttributes) {
-        ModelAndView model;
-        if(!result.hasErrors()) {
-            try {
-                sampleService.saveTeamFrom(teamCreationForm);
-                model = new ModelAndView("show");
-                model.addObject("message","Team creation complete!");
-            } catch (Exception e) {
-                model = new ModelAndView("newTeam");
-                model.addObject("page_error", e.getMessage());
-            }
-        }
-        else {
-            model = new ModelAndView("newTeam");
-        }
-        return model;
-    }
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(HttpServletRequest request) {

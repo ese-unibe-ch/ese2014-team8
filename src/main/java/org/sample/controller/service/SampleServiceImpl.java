@@ -30,6 +30,15 @@ public class SampleServiceImpl implements SampleService {
     @Autowired    TeamDao teamDao;
 	@Autowired	  ApartmentDao apDao;
 	@Autowired	  ShApartmentDao shApDao;
+	
+	public SampleServiceImpl() {
+    }
+	
+	@Autowired
+	public SampleServiceImpl(ApartmentDao apDao, ShApartmentDao shApDao){
+		this.apDao = apDao;
+		this.shApDao = shApDao;
+	}
     
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
@@ -230,7 +239,6 @@ public class SampleServiceImpl implements SampleService {
     			throw new InvalidDateException("Move-out date must be later than move-in date!");
     	}
 	}
-	
    
 
 	private boolean isFutureDate(Date moveIn) {
@@ -238,10 +246,6 @@ public class SampleServiceImpl implements SampleService {
     	return moveIn.after(now);
 	}
 
-	@Transactional
-	public Apartment getAd(long id) {
-		return apDao.findOne(id);
-	}
 
     @Transactional
 	public Iterable<Apartment> getSearchResults(SearchForm searchForm) {
@@ -258,11 +262,46 @@ public class SampleServiceImpl implements SampleService {
 		categories.add("Shared Apartment");
 		return categories;
 	}
-
+    
+	@Transactional
+	public Apartment getAd(long id) {
+		return apDao.findOne(id);
+	}
+	
     @Transactional
 	public ShApartment getShApAd(long id) {
 		return shApDao.findOne(id);
 	}
 
 
+	public ApartmentForm saveFrom(Apartment apartment) {
+		ApartmentForm apartmentForm = new ApartmentForm();
+    	
+		apartmentForm = (ApartmentForm) saveFrom(apartment, apartmentForm);
+		
+    	apartmentForm.setNumberOfRooms(apartment.getNumberOfRooms());
+    	apartmentForm.setSize(apartment.getSize());
+    	
+    	return apartmentForm;
+	}
+
+	private RealEstateForm saveFrom(RealEstate realEstate, RealEstateForm realEstateForm){
+		Address address = realEstate.getAddress();
+		
+		realEstateForm.setId(realEstate.getId());
+		
+		// getAddress
+    	realEstateForm.setStreet(address.getStreet());
+    	realEstateForm.setNumber(address.getNumber());
+    	realEstateForm.setCity(address.getCity());
+    	realEstateForm.setZipCode(address.getZipCode());
+    	
+    	realEstateForm.setPrice(realEstate.getPrice());
+    	realEstateForm.setMoveIn(realEstate.getMoveIn());
+    	realEstateForm.setMoveOut(realEstate.getMoveOut());
+    	realEstateForm.setDescription(realEstate.getDescription());
+    	
+		return realEstateForm;
+	}
+	
 }

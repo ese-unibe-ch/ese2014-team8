@@ -7,16 +7,16 @@
 
 <c:import url="template/header.jsp" />
 
+<c:if test="${editType == 'Apartment'}">
+	<h1>Edit your Apartment Ad</h1>
+	<c:import url="adForms/apartmentForm.jsp" />
+</c:if>
 
-<h1>Advertise your apartment here!</h1>
-<select id="category" size="1">
-      <option value="1">Apartment</option>
-      <option value="2">Shared Apartment</option>
-</select>
+<c:if test="${editType == 'Shared Apartment'}">
+	<h1>Edit your Shared Apartment Ad</h1>
+	<c:import url="adForms/sharedApartmentForm.jsp" />
+</c:if>
 
-<c:import url="adForms/apartmentForm.jsp" />
-
-<c:import url="adForms/sharedApartmentForm.jsp" />
 
 <c:if test="${page_error != null }">
     <div class="alert alert-error">
@@ -40,26 +40,5 @@
 	};
 </script>
 
-<script>
-if (document.getElementById('category').value == 1 )
-    {document.getElementById('apartmentForm').style.display = 'block';
-	document.getElementById('sharedApartmentForm').style.display='none';
-	}
-else
-    {document.getElementById('apartmentForm').style.display = 'none';
-	document.getElementById('sharedApartmentForm').style.display='block';
-	}
-	
-    document.getElementById('category').onchange = function() {
-    if (document.getElementById('category').value == 1 )
-        {document.getElementById('apartmentForm').style.display = 'block';
-		document.getElementById('sharedApartmentForm').style.display='none';
-		}
-    else
-        {document.getElementById('apartmentForm').style.display = 'none';
-		document.getElementById('sharedApartmentForm').style.display='block';
-		}
-}
-</script>
 	
 <c:import url="template/footer.jsp" />

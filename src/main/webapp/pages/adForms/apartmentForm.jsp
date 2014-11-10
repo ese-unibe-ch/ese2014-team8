@@ -4,16 +4,11 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-<c:import url="template/header.jsp" />
-
-
-<h1>Advertise your shared apartment here!</h1>
-
-
-<form:form method="post" modelAttribute="apartmentForm" action="makeAdShAp" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
+<div id="apartmentForm">
+<form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" >
     <fieldset>
-		<%-- <form:hidden path="id" value="${oldAd.id}"/> --%>
+		<form:hidden path="category" value="Apartment"/>
+		<form:hidden path="id" value="${oldAd.id}"/>
 		
 		<legend>Title</legend>
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
@@ -61,14 +56,15 @@
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
-            <label class="control-label" for="field-price">Price (chf)</label>
+            <label class="control-label" for="field-price">Price </label>
             <div class="controls">
-                <form:input path="price" id="field-price" tabindex="6" maxlength="5" value="${oldAd.price}" />
+                <form:input path="price" id="field-price" tabindex="6" maxlength="5" value="${oldAd.price}" placeholder="chf"/>
                 <form:errors path="price" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
-		<div class="control-group">
+		
+		<div class="control-group" >
 			<label  class="control-label"  for="field-fixedMoveIn">Fixed move-in date </label>
 			
 			<div class="controls">
@@ -78,11 +74,11 @@
 		</div>
 		
 		<c:set var="moveInErrors"><form:errors path="moveIn"/></c:set>
-        <div class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
-            <label class="control-label" for="field-moveIn">Move-in date (dd/MM/yyyy)</label>
+        <div id="moveInJS<c:if test="${oldAd.fixedMoveIn||apartmentForm.fixedMoveIn}">_show</c:if>" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
+            <label class="control-label" for="field-moveIn">Move-in date</label>
             <div class="controls">
-            	<fmt:formatDate pattern="dd/MM/yyyy" value="${apartmentForm.moveIn}" var="simpleInDate"/>
-                <form:input path="moveIn" id="field-moveIn" tabindex="8" maxlength="10" value="${simpleInDate}"  />
+            	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveIn}" var="simpleInDate"/>
+                <form:input path="moveIn" id="field-moveIn" tabindex="8" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  />
                 <form:errors path="moveIn" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -97,31 +93,32 @@
 		</div>
 		
 		<c:set var="moveOutErrors"><form:errors path="moveOut"/></c:set>
-        <div class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
-            <label class="control-label" for="field-moveOut">Move-out date (dd/MM/yyyy)</label>
+        <div id="moveOutJS<c:if test="${oldAd.fixedMoveOut||apartmentForm.fixedMoveOut}">_show</c:if>" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
+            <label class="control-label" for="field-moveOut">Move-out date </label>
             <div class="controls">
-            	<fmt:formatDate type="date" dateStyle="short" value="${apartmentForm.moveIn}" var="simpleOutDate"/>
-                <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" />
+            	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveOut}" var="simpleOutDate"/>
+                <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" />
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
 		<legend>Apartment Details</legend>
-<%-- 		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
+		
+		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
         <div class="control-group<c:if test="${not empty numberOfRoomsErrors}"> error</c:if>">
             <label class="control-label" for="field-numberOfRooms">Number of rooms</label>
             <div class="controls">
-                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="11" maxlength="5" value="${oldAd.numberOfRooms}" placeholder="0"/>
+                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="11" maxlength="5"  placeholder="0"/>
                 <form:errors path="numberOfRooms" cssClass="help-inline" element="span"/>
             </div>
-        </div> --%>
+        </div>
 		
-		<c:set var="sizeErrors"><form:errors path="roomSize"/></c:set>
+		<c:set var="sizeErrors"><form:errors path="size"/></c:set>
         <div class="control-group<c:if test="${not empty sizeErrors}"> error</c:if>">
-            <label class="control-label" for="field-size">Room size (m<sup>2</sup>)</label>
+            <label class="control-label" for="field-size">Apartment size (m<sup>2</sup>)</label>
             <div class="controls">
-                <form:input path="roomSize" id="field-size" tabindex="12" maxlength="5" value="${oldAd.size}" />
-                <form:errors path="roomSize" cssClass="help-inline" element="span"/>
+                <form:input path="size" id="field-size" tabindex="12" maxlength="5"  />
+                <form:errors path="size" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
@@ -133,9 +130,6 @@
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>
-        
-        
-        <button type="button" class="btn btn-primary">add Roommate</button>
 		
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Submit Ad</button>
@@ -143,17 +137,4 @@
         </div>
     </fieldset>
 </form:form>
-
-
-
-
-	<c:if test="${page_error != null }">
-        <div class="alert alert-error">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Error!</h4>
-                ${page_error}
-        </div>
-    </c:if>
-
-
-<c:import url="template/footer.jsp" />
+</div>
