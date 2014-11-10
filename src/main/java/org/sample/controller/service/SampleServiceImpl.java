@@ -143,6 +143,7 @@ public class SampleServiceImpl implements SampleService {
 		user.setFirstName(newProfileForm.getFirstName());
 		user.setLastName(newProfileForm.getLastName());
 		user.setAuthorities(Arrays.asList(new Team8Authority("ROLE_USER")));
+		userDao.save(user);
 		return newProfileForm;
 	}
 
