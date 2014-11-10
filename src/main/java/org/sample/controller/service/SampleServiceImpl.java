@@ -38,6 +38,15 @@ public class SampleServiceImpl implements SampleService {
     @Autowired    TeamDao teamDao;
 	@Autowired	  ApartmentDao apDao;
 	@Autowired	  ShApartmentDao shApDao;
+	
+	public SampleServiceImpl() {
+    }
+	
+	@Autowired
+	public SampleServiceImpl(ApartmentDao apDao, ShApartmentDao shApDao){
+		this.apDao = apDao;
+		this.shApDao = shApDao;
+	}
     
     @Transactional
     public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
