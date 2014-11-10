@@ -4,7 +4,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sample.model.Address;
 import org.sample.model.Apartment;
+import org.sample.model.ShApartment;
 import org.sample.model.dao.ApartmentDao;
+import org.sample.model.dao.ShApartmentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -17,9 +19,9 @@ import static org.junit.Assert.*;
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/config/springMVC.xml","file:src/main/webapp/WEB-INF/config/springData.xml"})
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-public class ApartmentDaoTest {
+public class SharedApartmentDaoTest {
 	@Autowired
-    ApartmentDao apartmentDao;
+    ShApartmentDao shApartmentDao;
 
     @Test
     public void testAddressReference(){
@@ -27,9 +29,9 @@ public class ApartmentDaoTest {
     	
     	Address address = new Address();
     	address.setStreet(STREET);
-    	Apartment apartment = new Apartment();
+    	ShApartment apartment = new ShApartment();
     	apartment.setAddress(address);
-    	apartment = apartmentDao.save(apartment);
+    	apartment = shApartmentDao.save(apartment);
     	
     	assertEquals(apartment.getAddress().getStreet(), STREET);
     }
@@ -39,10 +41,10 @@ public class ApartmentDaoTest {
     	int ZIPCODE = 1111;
     	Address address = new Address();
     	address.setZipCode(ZIPCODE);
-    	Apartment apartment = new Apartment();
+    	ShApartment apartment = new ShApartment();
     	apartment.setAddress(address);
-    	apartment = apartmentDao.save(apartment);
-    	Apartment foundApartment = apartmentDao.findByAddressZipCode(ZIPCODE).get(0);
+    	apartment = shApartmentDao.save(apartment);
+    	Apartment foundApartment = shApartmentDao.findByAddressZipCode(ZIPCODE).get(0);
     	assertEquals(foundApartment.getAddress().getZipCode(), ZIPCODE);
     }
     
