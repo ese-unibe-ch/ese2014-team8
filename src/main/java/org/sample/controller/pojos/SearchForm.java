@@ -1,7 +1,11 @@
 package org.sample.controller.pojos;
 
 import java.util.List;
-
+/**
+ * The searchForm at the moment only contains very basic search criteria.
+ * 
+ *
+ */
 public class SearchForm{
 	
 	private long id;

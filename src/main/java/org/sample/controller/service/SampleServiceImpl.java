@@ -247,6 +247,10 @@ public class SampleServiceImpl implements SampleService {
 	}
 
 
+	/**Finds the matching elements in the appropriate database via the autowired dao. 
+	 * @param searchForm a searchForm containing the searchcriteria
+	 * @return an Iterable of RealEstates (Apartments or Shared apartments depending on the search criteria in searchForm)
+	 */
     @Transactional
 	public Iterable<? extends RealEstate> getSearchResults(SearchForm searchForm) {
 		if(searchForm.getCategory().equals("Apartment")){
