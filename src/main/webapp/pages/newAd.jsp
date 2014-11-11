@@ -52,7 +52,9 @@ function showSingleForm(){
 }
 
 document.getElementById('category').onchange = function(){showSingleForm()};
-document.getElementById('category').onload = function(){showSingleForm()};
+window.onload = function(){showSingleForm()};
+
+
 </script>
 	
 <c:import url="template/footer.jsp" />
