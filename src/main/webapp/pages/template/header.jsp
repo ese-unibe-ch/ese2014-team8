@@ -37,25 +37,11 @@
 	</div>
 	<div class="navigation ">
 			<a href="/profile"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY PROFILE</div></a>
-			<a href="/newAd"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY ADS</div></a>
+			<a href="/newAd"><div class="col-md-2 nav text-center text-nowrap navbar-right">CREATE AD</div></a>
 			<a href="/search"><div class="col-md-2 nav text-center text-nowrap navbar-right">SEARCH</div></a>
 		
 	</div>
 </div>
-
-<!--<div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <span class="icon-bar">Search</span>
-                <span class="icon-bar">My ads</span>
-                <span class="icon-bar">My profile</span>
-            </a>
-            
-
-        </div>
-    </div>
-</div>-->
 
 <c:choose>
 <c:when test="${user.email != null}">

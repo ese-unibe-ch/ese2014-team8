@@ -7,7 +7,6 @@ import org.sample.model.*;
 import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.ShApartmentDao;
-import org.sample.model.dao.TeamDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,6 @@ public class SampleServiceImpl implements SampleService {
 
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
-    @Autowired    TeamDao teamDao;
 	@Autowired	  ApartmentDao apDao;
 	@Autowired	  ShApartmentDao shApDao;
 	
@@ -55,15 +53,7 @@ public class SampleServiceImpl implements SampleService {
         user.setEmail(signupForm.getEmail());
         user.setLastName(signupForm.getLastName());
         user.setAddress(address);
-
-        Long teamId = Long.parseLong(signupForm.getTeam());
-        Team team = null;
-
-        if(teamId != -1) {
-            team = teamDao.findOne(teamId);
-            teamDao.save(team);
-        }
-        user.setTeam(team);
+        
         user = userDao.save(user);   // save object to DB
         
         // Iterable<Address> addresses = addDao.findAll();  // find all 
@@ -81,50 +71,6 @@ public class SampleServiceImpl implements SampleService {
     }
 
     public User loadUserByEmail(String email) {return userDao.findByEmail(email);}
-
-    public Iterable<Team> getAllTeams() {
-        return teamDao.findAll();
-    }
-
-    @Transactional
-    public TeamCreationForm saveTeamFrom(TeamCreationForm teamCreationForm) throws Exception {
-        String teamname = teamCreationForm.getTeamname();
-
-        Team team = new Team();
-        team.setTeamname(teamname);
-        team.setTimestamp(new Timestamp(System.currentTimeMillis()));
-
-        team = teamDao.save(team);
-
-        teamCreationForm.setId(team.getId());
-        teamCreationForm.setTimestamp(team.getTimestamp());
-
-        return teamCreationForm;
-    }
-
- /*   @Transactional
-	public AdForm saveFrom(AdForm adForm) {
-
-        Address address = new Address();
-        address.setStreet(adForm.getStreet());
-        address.setNumber(adForm.getNumber());
-        address.setCity(adForm.getCity());
-        address.setZipCode(adForm.getZipCode());
-
-
-        Ad ad = new Ad();
-        ad.setAddress(address);
-        ad.setNumberOfRooms(adForm.getNumberOfRooms());
-        ad.setPrice(adForm.getPrice());
-        ad.setTitle(adForm.getTitle());
-        ad.setDescription(adForm.getDescription());
-
-        ad = adDao.save(ad);
-
-        adForm.setId(ad.getId());
-        return adForm;
-
-    }*/
 
     @Override
     public ProfileForm saveFrom(ProfileForm profileForm) {
@@ -189,10 +135,7 @@ public class SampleServiceImpl implements SampleService {
     	apartment.setRoomSize(form.getRoomSize());
 		apartment.setOwner(form.getUser());
     	
-    	
-    	System.out.println("shared apartment before persistance");
     	apartment = shApDao.save(apartment);
-    	System.out.println(apartment.getId());
     	form.setId(apartment.getId());
     	return apartment;
 		

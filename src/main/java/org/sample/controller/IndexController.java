@@ -68,16 +68,10 @@ public class IndexController {
     
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index() {
-    	/*ModelAndView model = new ModelAndView("index");
-
-    	model.addObject("signupForm", new SignupForm());
-        model.addObject("teams", sampleService.getAllTeams());
-        return model;*/
-
+    	
         SecurityContext ctx = SecurityContextHolder.getContext();
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("signupForm", new SignupForm());
-        mav.addObject("teams", sampleService.getAllTeams());
         if (ctx.getAuthentication() != null) {
             mav.addObject("user", sampleService.loadUserByEmail(ctx.getAuthentication().getName()));
             mav.addObject("username", ctx.getAuthentication().getName());

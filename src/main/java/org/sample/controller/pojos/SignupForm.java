@@ -1,8 +1,6 @@
 package org.sample.controller.pojos;
 
 import org.sample.controller.service.SampleService;
-import org.sample.model.Team;
-import org.sample.model.dao.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.NotNull;
@@ -19,8 +17,6 @@ public class SignupForm {
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", 
     message = "Must be valid email address")
     private String email;
-
-    private String team;
 
     public String getFirstName() {
         return firstName;
@@ -54,6 +50,4 @@ public class SignupForm {
         this.id = id;
     }
 
-    public String getTeam() {return team;}
-    public void setTeam(String team) {this.team = team;}
 }

@@ -18,10 +18,6 @@ public interface SampleService {
 
     public User loadUserByEmail(String email);
 
-    public TeamCreationForm saveTeamFrom(TeamCreationForm teamCreationForm) throws Exception;
-
-    public Iterable<Team> getAllTeams();
-
 	public Apartment saveFrom(ApartmentForm adForm);
 	public ShApartment saveFrom(ShApartmentForm form2);
 	

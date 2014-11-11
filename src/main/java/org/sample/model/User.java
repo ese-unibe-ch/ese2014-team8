@@ -31,9 +31,6 @@ public class User implements UserDetails {
 
     private Boolean isNew;
     private Boolean isAdmin;
-
-    @ManyToOne
-    private Team team;
     
     public Long getId() {
         return id;
@@ -74,9 +71,6 @@ public class User implements UserDetails {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
-    public Team getTeam() {return team;}
-    public void setTeam(Team team) {this.team = team;}
 
     public Collection<Team8Authority> getAuthorities() {return authorities;}
     public void setAuthorities(Collection<Team8Authority> authorities) {this.authorities = authorities;}
