@@ -166,8 +166,7 @@ public class IndexController {
         }
     	//System.out.println(form.getCategory());
     	ModelAndView model = null;
-    	if(form.getCategory().equals("Apartment")){
-    		//System.out.println("apartment cat");    	
+    	if(form.getCategory().equals("Apartment")){   	
         	if (!result.hasErrors()) {
                 try {
                     form.setUser(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
@@ -186,12 +185,10 @@ public class IndexController {
             }   	
     	}
     	if(form2.getCategory().equals("Shared Apartment")){
-    		System.out.println("shared apartment cat");
         	if (!result.hasErrors()) {
                 try {
                     form2.setUser(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
                 	ShApartment apartment=sampleService.saveFrom(form2);
-                	System.out.println("yes");
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Shared Apartment");
@@ -202,7 +199,6 @@ public class IndexController {
                 	model.addObject("page_error", e.getMessage());
                 }
             } else {
-            	System.out.println("else");
             	model = new ModelAndView("main");
             }
     		
@@ -223,21 +219,16 @@ public class IndexController {
     	if (!result.hasErrors()) {
             model = new ModelAndView("editAd");
             if(apartmentForm.getCategory().equals("Apartment")){
-            	System.out.println("edit Post, Apartment");
             	Apartment oldAd = sampleService.getAd(apartmentForm.getId());
             	apartmentForm = sampleService.saveFrom(oldAd);
                 model.addObject("editType","Apartment");
                 model.addObject("oldAd", oldAd);
-                model.addObject("apForm", apartmentForm);//mg
+                model.addObject("apForm", apartmentForm);
                 model.addObject("shApForm", new ShApartmentForm());
             }
             else{
             	ShApartment oldAd = sampleService.getShApAd(shApartmentForm.getId());
-            	System.out.println("edit Post, SharedApartment");
-            	shApartmentForm.setDescription(oldAd.getDescription());
-            	shApartmentForm.setFixedMoveIn(oldAd.isFixedMoveIn());
-            	shApartmentForm.setFixedMoveOut(oldAd.isFixedMoveOut());
-            	shApartmentForm.setRoomSize(oldAd.getRoomSize());
+            	shApartmentForm = sampleService.saveFrom(oldAd);
             	model.addObject("editType","Shared Apartment");
             	model.addObject("oldAd", oldAd);
                 model.addObject("shApForm", shApartmentForm);

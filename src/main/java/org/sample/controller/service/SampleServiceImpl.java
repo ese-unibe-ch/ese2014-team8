@@ -296,6 +296,16 @@ public class SampleServiceImpl implements SampleService {
     	return apartmentForm;
 	}
 
+	public ShApartmentForm saveFrom(ShApartment shApartment) {
+		ShApartmentForm shApartmentForm = new ShApartmentForm();
+    	
+		shApartmentForm = (ShApartmentForm) saveFrom(shApartment, shApartmentForm);
+		
+    	shApartmentForm.setRoomSize(shApartment.getRoomSize());
+    	
+    	return shApartmentForm;
+	}
+	
 	private RealEstateForm saveFrom(RealEstate realEstate, RealEstateForm realEstateForm){
 		Address address = realEstate.getAddress();
 		
