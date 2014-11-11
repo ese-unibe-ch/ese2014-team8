@@ -87,7 +87,12 @@ public class IndexController {
         }
         return mav;
     }
-
+    /**
+     * Brings the user to a search page with a search form backed with a searchForm POJO object. 
+     * The user must be logged in otherwise he will be redirected to "/"
+     * @param request the HttpServletRequest to get the user role to check whether the user is logged in.
+     * @return The search modelAndView with the searchForm and the user attached as an object.
+     */
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     public Object search(HttpServletRequest request) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
@@ -102,7 +107,14 @@ public class IndexController {
     	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         return model;
     }
-    
+    /**
+     * Gets the binded search criteria, gets the matching results from autowired sampleservice and returns a searchResults modelAndView with the results added as an object.
+     * The user should be logged in otherwise he will be redirected to "/"
+     * @param request the httpServletRequest containing the user role, to check whether user is logged in.
+     * @param searchForm a pojo containing the search criteria
+     * @param result the bindingresult
+     * @return a modelAndview searchResults with the searchresults from the database added as an object.
+     */
     @RequestMapping(value = "/search", method = RequestMethod.POST)
     public Object search(HttpServletRequest request, SearchForm searchForm, BindingResult result){
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
@@ -126,7 +138,12 @@ public class IndexController {
     	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	return model;
     }
-    
+    /**
+     * Gets the user (who should be logged in) from the searchResults to a specific search result with the id adId.
+     * @param request the httpServletRequest containing the user role, to check whether user is logged in. 
+     * @param adId the id of the ad that has to be displayed
+     * @return a modelAndView displaying the ad information with the ad and the user attached as objects.
+     */
     @RequestMapping(value="/searchresults/{adId}",	method=RequestMethod.GET)
     public	Object displayAd(HttpServletRequest request, @PathVariable	String	adId)	{
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
