@@ -1,13 +1,11 @@
 package org.sample.controller.service;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.*;
-import org.sample.model.Apartment;
-import org.sample.model.ShApartment;
-import org.sample.model.Team;
-import org.sample.model.User;
+import org.sample.model.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.io.Serializable;
@@ -32,7 +30,11 @@ public interface SampleService {
 	public Apartment getAd(long id); //mg
 	public ShApartment getShApAd(long id);
 
-	public Iterable<Apartment> getSearchResults(SearchForm searchForm);
+	public Iterable<? extends RealEstate> getSearchResults(SearchForm searchForm);
+
+    public Collection<Apartment> getApartmentsByUser(String email);
+
+    public Collection<ShApartment> getShApartmentsByUser(String email);
 	
 	public List<String> getCategories();
 

@@ -16,10 +16,7 @@ import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 @Service
@@ -142,7 +139,7 @@ public class SampleServiceImpl implements SampleService {
 		User user = loadUserByEmail(newProfileForm.getEmail());
 		user.setFirstName(newProfileForm.getFirstName());
 		user.setLastName(newProfileForm.getLastName());
-		user.setAuthorities(Arrays.asList(new Team8Authority("ROLE_USER")));
+		user.setIsNew(false);
 		userDao.save(user);
 		return newProfileForm;
 	}
@@ -164,6 +161,7 @@ public class SampleServiceImpl implements SampleService {
     	apartment=(Apartment) setRealEstateFields(apartmentForm, apartment);
     	apartment.setNumberOfRooms(apartmentForm.getNumberOfRooms());
     	apartment.setSize(apartmentForm.getSize());
+		apartment.setOwner(apartmentForm.getUser());
     	
     	
     	apartment = apDao.save(apartment);
@@ -189,6 +187,7 @@ public class SampleServiceImpl implements SampleService {
     	
     	apartment=(ShApartment) setRealEstateFields(form, apartment);
     	apartment.setRoomSize(form.getRoomSize());
+		apartment.setOwner(form.getUser());
     	
     	
     	System.out.println("shared apartment before persistance");
@@ -249,11 +248,21 @@ public class SampleServiceImpl implements SampleService {
 
 
     @Transactional
-	public Iterable<Apartment> getSearchResults(SearchForm searchForm) {
+	public Iterable<? extends RealEstate> getSearchResults(SearchForm searchForm) {
 		if(searchForm.getCategory().equals("Apartment")){
 			return apDao.findByAddressZipCode(searchForm.getZipCode());
 		}
 		return shApDao.findByAddressZipCode(searchForm.getZipCode());
+	}
+
+	@Transactional
+	public Collection<Apartment> getApartmentsByUser(String email) {
+		return apDao.findByOwner(userDao.findByEmail(email));
+	}
+
+	@Transactional
+	public Collection<ShApartment> getShApartmentsByUser(String email) {
+		return shApDao.findByOwner(userDao.findByEmail(email));
 	}
 
     @Transactional
@@ -276,6 +285,7 @@ public class SampleServiceImpl implements SampleService {
 
 
 	public ApartmentForm saveFrom(Apartment apartment) {
+
 		ApartmentForm apartmentForm = new ApartmentForm();
     	
 		apartmentForm = (ApartmentForm) saveFrom(apartment, apartmentForm);

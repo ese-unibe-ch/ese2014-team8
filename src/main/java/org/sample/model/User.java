@@ -24,6 +24,14 @@ public class User implements UserDetails {
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
 
+    @OneToMany
+    private Collection<Apartment> apartments;
+    @OneToMany
+    private Collection<ShApartment> shApartments;
+
+    private Boolean isNew;
+    private Boolean isAdmin;
+
     @ManyToOne
     private Team team;
     
@@ -102,5 +110,36 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-	
+
+    public Boolean getIsNew() {
+        return isNew;
+    }
+
+    public void setIsNew(Boolean isNew) {
+        this.isNew = isNew;
+    }
+
+    public Collection<Apartment> getApartments() {
+        return apartments;
+    }
+
+    public void setApartments(Collection<Apartment> apartments) {
+        this.apartments = apartments;
+    }
+
+    public Collection<ShApartment> getShApartments() {
+        return shApartments;
+    }
+
+    public void setShApartments(Collection<ShApartment> shApartments) {
+        this.shApartments = shApartments;
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 }

@@ -8,6 +8,8 @@ public class Apartment extends RealEstate {
 	
 	private int numberOfRooms;
 	private int size;
+	@ManyToOne
+	private User owner;
 	
 
 	public int getNumberOfRooms() {
@@ -24,5 +26,13 @@ public class Apartment extends RealEstate {
 
 	public void setSize(int size) {
 		this.size = size;
+	}
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
 	}
 }

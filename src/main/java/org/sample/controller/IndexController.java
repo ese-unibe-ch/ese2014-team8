@@ -55,7 +55,12 @@ public class IndexController {
 	}
     
     @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public ModelAndView main() {
+    public Object main(HttpServletRequest request) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
     	ModelAndView model = new ModelAndView("main");
     	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         return model;
@@ -84,7 +89,12 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)
-    public ModelAndView search() {
+    public Object search(HttpServletRequest request) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
     	ModelAndView model = new ModelAndView("search");
     	SearchForm searchForm = new SearchForm();
     	searchForm.setCategories(sampleService.getCategories());
@@ -94,12 +104,17 @@ public class IndexController {
     }
     
     @RequestMapping(value = "/search", method = RequestMethod.POST)
-    public ModelAndView search(SearchForm searchForm, BindingResult result){
+    public Object search(HttpServletRequest request, SearchForm searchForm, BindingResult result){
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             try {
             	model = new ModelAndView("searchResults");
-            	Iterable<Apartment> searchresults = sampleService.getSearchResults(searchForm);
+            	Iterable<? extends RealEstate> searchresults = sampleService.getSearchResults(searchForm);
             	model.addObject("searchResults",searchresults);
             } catch (InvalidUserException e) {
             	model = new ModelAndView("search");
@@ -113,7 +128,12 @@ public class IndexController {
     }
     
     @RequestMapping(value="/searchresults/{adId}",	method=RequestMethod.GET)
-    public	ModelAndView displayAd(@PathVariable	String	adId)	{
+    public	Object displayAd(HttpServletRequest request, @PathVariable	String	adId)	{
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
     	ModelAndView model = new ModelAndView("showAd");
     	Long lAdId = Long.parseLong(adId);
     	RealEstate ad = sampleService.getAd(lAdId);
@@ -123,7 +143,12 @@ public class IndexController {
     }
 
     @RequestMapping(value="/newAd", method = RequestMethod.GET) 
-    public ModelAndView makeAd(){
+    public Object makeAd(HttpServletRequest request){
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
     	ModelAndView model = new ModelAndView("newAd");
     	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	model.addObject("apForm", new ApartmentForm());
@@ -133,13 +158,19 @@ public class IndexController {
     
  
     @RequestMapping(value="/viewAd", method = RequestMethod.POST)
-    public ModelAndView makeAd(ApartmentForm form, ShApartmentForm form2, BindingResult result){
+    public Object makeAd(HttpServletRequest request, ApartmentForm form, ShApartmentForm form2, BindingResult result){
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
     	//System.out.println(form.getCategory());
     	ModelAndView model = null;
     	if(form.getCategory().equals("Apartment")){
     		//System.out.println("apartment cat");    	
         	if (!result.hasErrors()) {
                 try {
+                    form.setUser(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
                 	Apartment apartment=sampleService.saveFrom(form);
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
@@ -158,6 +189,7 @@ public class IndexController {
     		System.out.println("shared apartment cat");
         	if (!result.hasErrors()) {
                 try {
+                    form2.setUser(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
                 	ShApartment apartment=sampleService.saveFrom(form2);
                 	System.out.println("yes");
                 	model = new ModelAndView("viewAd");
@@ -180,7 +212,12 @@ public class IndexController {
     }
     
     @RequestMapping(value="/editAd", method = RequestMethod.POST)
-    public ModelAndView editAd(ApartmentForm apartmentForm, ShApartmentForm shApartmentForm, BindingResult result){
+    public Object editAd(HttpServletRequest request, ApartmentForm apartmentForm, ShApartmentForm shApartmentForm, BindingResult result){
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
     	ModelAndView model;
     	
     	if (!result.hasErrors()) {
@@ -237,10 +274,11 @@ public class IndexController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(HttpServletRequest request) {
         ModelAndView model;
-        if(request.isUserInRole("ROLE_PERSONA_USER")) {
-            return "redirect:/editProfile";
-        } else if(request.isUserInRole("ROLE_NEW_USER")) {
+        if(request.isUserInRole("ROLE_PERSONA_USER") && sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/newProfile";
+        }
+        else if(request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/editProfile";
         } else {
             return "redirect:/";
         }
@@ -250,17 +288,23 @@ public class IndexController {
     public Object editProfile(HttpServletRequest request) {
     	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
     		return "redirect:/";
-    	}
+    	} else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
         ModelAndView model = new ModelAndView("profile");
-        SecurityContext ctx = SecurityContextHolder.getContext();
+        String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addObject("profileForm", new ProfileForm());
-        model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+        model.addObject("user",sampleService.loadUserByEmail(userMail));
+        model.addObject("apartments",sampleService.getApartmentsByUser(userMail));
+        model.addObject("shApartments",sampleService.getShApartmentsByUser(userMail));
         return model;
     }
 
-    @PreAuthorize("hasRole('ROLE_PERSONA_USER')")
     @RequestMapping(value = "/newProfile", method = RequestMethod.GET)
-    public ModelAndView newProfile() {
+    public Object newProfile(HttpServletRequest request) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        }
         ModelAndView model = new ModelAndView();
         SecurityContext ctx = SecurityContextHolder.getContext();
         model.addObject("profileForm", new ProfileForm());
@@ -268,9 +312,13 @@ public class IndexController {
         return model;
     }
 
-    @PreAuthorize("hasRole('ROLE_PERSONA_USER')")
     @RequestMapping(value = "/saveProfile", method = RequestMethod.POST)
-    public String saveProfile(@Valid ProfileForm profileForm, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String saveProfile(HttpServletRequest request, @Valid ProfileForm profileForm, BindingResult result, RedirectAttributes redirectAttributes) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
         SecurityContext ctx = SecurityContextHolder.getContext();
         profileForm.setEmail(ctx.getAuthentication().getName());
         sampleService.saveFrom(profileForm);
@@ -278,9 +326,11 @@ public class IndexController {
         return "redirect:/profile";
     }
 
-    @PreAuthorize("hasRole('ROLE_PERSONA_USER')")
     @RequestMapping(value = "/saveNewProfile", method = RequestMethod.POST)
-    public String saveNewProfile(@Valid NewProfileForm newProfileForm, BindingResult result, RedirectAttributes redirectAttributes) {
+    public String saveNewProfile(HttpServletRequest request, @Valid NewProfileForm newProfileForm, BindingResult result, RedirectAttributes redirectAttributes) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        }
         SecurityContext ctx = SecurityContextHolder.getContext();
         newProfileForm.setEmail(ctx.getAuthentication().getName());
         sampleService.saveFrom(newProfileForm);

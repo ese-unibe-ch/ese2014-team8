@@ -2,11 +2,7 @@ package org.sample.model;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
 
@@ -103,5 +99,4 @@ public class RealEstate {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 }

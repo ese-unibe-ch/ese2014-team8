@@ -1,5 +1,7 @@
 package org.sample.controller.pojos;
 
+import org.sample.model.User;
+
 import java.util.Date;
 
 import javax.validation.constraints.*;
@@ -11,7 +13,7 @@ public class ApartmentForm extends RealEstateForm{
 	private int numberOfRooms;
 	private int size;
 	
-	
+	private User user;
 
 
 	public int getNumberOfRooms() {
@@ -30,6 +32,12 @@ public class ApartmentForm extends RealEstateForm{
 		this.size = size;
 	}
 
-	
-	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 }
