@@ -41,25 +41,18 @@
 </script>
 
 <script>
-if (document.getElementById('category').value == 1 )
-    {document.getElementById('apartmentForm').style.display = 'block';
-	document.getElementById('sharedApartmentForm').style.display='none';
-	}
-else
-    {document.getElementById('apartmentForm').style.display = 'none';
-	document.getElementById('sharedApartmentForm').style.display='block';
-	}
-	
-    document.getElementById('category').onchange = function() {
-    if (document.getElementById('category').value == 1 )
-        {document.getElementById('apartmentForm').style.display = 'block';
+function showSingleForm(){
+	if (document.getElementById('category').value == 1 ){
+		document.getElementById('apartmentForm').style.display = 'block';
 		document.getElementById('sharedApartmentForm').style.display='none';
-		}
-    else
-        {document.getElementById('apartmentForm').style.display = 'none';
+	}
+	else{document.getElementById('apartmentForm').style.display = 'none';
 		document.getElementById('sharedApartmentForm').style.display='block';
-		}
+	}
 }
+
+document.getElementById('category').onchange = function(){showSingleForm()};
+document.getElementById('category').onload = function(){showSingleForm()};
 </script>
 	
 <c:import url="template/footer.jsp" />

@@ -44,7 +44,7 @@ public class SharedApartmentDaoTest {
     	ShApartment apartment = new ShApartment();
     	apartment.setAddress(address);
     	apartment = shApartmentDao.save(apartment);
-    	Apartment foundApartment = shApartmentDao.findByAddressZipCode(ZIPCODE).get(0);
+    	ShApartment foundApartment = shApartmentDao.findByAddressZipCode(ZIPCODE).get(0);
     	assertEquals(foundApartment.getAddress().getZipCode(), ZIPCODE);
     }
     
