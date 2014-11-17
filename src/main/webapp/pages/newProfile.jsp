@@ -31,6 +31,24 @@
                 <form:errors path="lastName" cssClass="help-inline" element="span"/>
             </div>
         </div>
+        
+        <c:set var="ageErrors"><form:errors path="age"/></c:set>
+        <div class="control-group<c:if test="${not empty ageErrors}"> error</c:if>">
+            <label class="control-label" for="field-age">Age</label>
+            <div class="controls">
+                <form:input path="age" id="field-age" tabindex="4" maxlength="3" value="${user.age}"/>
+                <form:errors path="age" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        
+        <c:set var="sexErrors"><form:errors path="sex"/></c:set>
+        <div class="control-group<c:if test="${not empty sexErrors}"> error</c:if>">
+            <label class="control-label" for="field-age">Sex</label>
+            <div class="controls">
+                <form:input path="sex" id="field-age" tabindex="4" maxlength="1" value="${user.sex}"/>
+                <form:errors path="sex" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
 
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save</button>

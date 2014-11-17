@@ -12,12 +12,9 @@ import java.io.Serializable;
 
 public interface SampleService {
 
-    public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException;
+   
 
-    public User getUser(Long id);
-
-    public User loadUserByEmail(String email);
-
+        
 	public Apartment saveFrom(ApartmentForm adForm);
 	public ShApartment saveFrom(ShApartmentForm form2);
 	
@@ -35,8 +32,6 @@ public interface SampleService {
 	
 	public List<String> getCategories();
 
-    public NewProfileForm saveFrom(NewProfileForm newProfileForm);
-
-    public ProfileForm saveFrom(ProfileForm profileForm);
+   
 
 }

@@ -13,14 +13,14 @@ import java.io.Serializable;
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService, Serializable {
 
     @Autowired
-    SampleService sampleService;
+    UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = sampleService.loadUserByEmail(s);
+        User user = userService.loadUserByEmail(s);
         if(user == null) {
             throw new UsernameNotFoundException("User not registered");
         }
-        return sampleService.loadUserByEmail(s);
+        return userService.loadUserByEmail(s);
     }
 }

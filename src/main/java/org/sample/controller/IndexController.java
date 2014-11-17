@@ -9,9 +9,9 @@ import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
-
 import org.sample.controller.pojos.*;
 import org.sample.controller.service.SampleService;
+import org.sample.controller.service.UserService;
 import org.sample.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +46,8 @@ public class IndexController {
 
     @Autowired
     SampleService sampleService;
+    @Autowired
+    UserService userService;
     
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
@@ -58,11 +60,11 @@ public class IndexController {
     public Object main(HttpServletRequest request) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
     	ModelAndView model = new ModelAndView("main");
-    	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         return model;
     }
     
@@ -73,10 +75,10 @@ public class IndexController {
         ModelAndView mav = new ModelAndView("index");
         mav.addObject("signupForm", new SignupForm());
         if (ctx.getAuthentication() != null) {
-            mav.addObject("user", sampleService.loadUserByEmail(ctx.getAuthentication().getName()));
+            mav.addObject("user", userService.loadUserByEmail(ctx.getAuthentication().getName()));
             mav.addObject("username", ctx.getAuthentication().getName());
         } else {
-            mav.addObject("user", sampleService.loadUserByEmail(ctx.getAuthentication().getName()));
+            mav.addObject("user", userService.loadUserByEmail(ctx.getAuthentication().getName()));
             mav.addObject("username", "none");
         }
         return mav;
@@ -91,14 +93,14 @@ public class IndexController {
     public Object search(HttpServletRequest request) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
     	ModelAndView model = new ModelAndView("search");
     	SearchForm searchForm = new SearchForm();
     	searchForm.setCategories(sampleService.getCategories());
     	model.addObject("searchForm", searchForm);
-    	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         return model;
     }
     /**
@@ -113,7 +115,7 @@ public class IndexController {
     public Object search(HttpServletRequest request, SearchForm searchForm, BindingResult result){
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
     	ModelAndView model;    	
@@ -129,7 +131,7 @@ public class IndexController {
         } else {
         	model = new ModelAndView("index");
         }   	
-    	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	return model;
     }
     /**
@@ -142,14 +144,14 @@ public class IndexController {
     public	Object displayAd(HttpServletRequest request, @PathVariable	String	adId)	{
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
     	ModelAndView model = new ModelAndView("showAd");
     	Long lAdId = Long.parseLong(adId);
     	RealEstate ad = sampleService.getAd(lAdId);
     	model.addObject("ad", ad);
-    	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	return model;
     }
 
@@ -157,11 +159,11 @@ public class IndexController {
     public Object makeAd(HttpServletRequest request){
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
     	ModelAndView model = new ModelAndView("newAd");
-    	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	model.addObject("apForm", new ApartmentForm());
     	model.addObject("shApForm", new ShApartmentForm());
     	return model;
@@ -172,7 +174,7 @@ public class IndexController {
     public Object makeAd(HttpServletRequest request, ApartmentForm form, ShApartmentForm form2, BindingResult result){
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
     	//System.out.println(form.getCategory());
@@ -180,7 +182,7 @@ public class IndexController {
     	if(form.getCategory().equals("Apartment")){   	
         	if (!result.hasErrors()) {
                 try {
-                    form.setUser(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+                    form.setUser(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
                 	Apartment apartment=sampleService.saveFrom(form);
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
@@ -198,7 +200,7 @@ public class IndexController {
     	if(form2.getCategory().equals("Shared Apartment")){
         	if (!result.hasErrors()) {
                 try {
-                    form2.setUser(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+                    form2.setUser(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
                 	ShApartment apartment=sampleService.saveFrom(form2);
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
@@ -214,7 +216,7 @@ public class IndexController {
             }
     		
     	}
-    	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	return model;
     }
     
@@ -222,7 +224,7 @@ public class IndexController {
     public Object editAd(HttpServletRequest request, ApartmentForm apartmentForm, ShApartmentForm shApartmentForm, BindingResult result){
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
     	ModelAndView model;
@@ -249,26 +251,7 @@ public class IndexController {
     	else {
         	model = new ModelAndView("index");
         }   	
-    	model.addObject("user",sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-    	return model;
-    }
-    
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@Valid SignupForm signupForm, BindingResult result, RedirectAttributes redirectAttributes) {
-    	ModelAndView model;    	
-    	if (!result.hasErrors()) {
-            try {
-            	sampleService.saveFrom(signupForm);
-            	model = new ModelAndView("show");
-                model.addObject("message","Sign Up Complete!");
-            } catch (InvalidUserException e) {
-            	model = new ModelAndView("index");
-            	model.addObject("page_error", e.getMessage());
-            }
-        } else {
-        	model = new ModelAndView("index");
-        }   	
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	return model;
     }
 
@@ -276,7 +259,7 @@ public class IndexController {
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(HttpServletRequest request) {
         ModelAndView model;
-        if(request.isUserInRole("ROLE_PERSONA_USER") && sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        if(request.isUserInRole("ROLE_PERSONA_USER") && userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/newProfile";
         }
         else if(request.isUserInRole("ROLE_PERSONA_USER")) {
@@ -290,13 +273,13 @@ public class IndexController {
     public Object editProfile(HttpServletRequest request) {
     	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
     		return "redirect:/";
-    	} else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+    	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
         ModelAndView model = new ModelAndView("profile");
         String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
         model.addObject("profileForm", new ProfileForm());
-        model.addObject("user",sampleService.loadUserByEmail(userMail));
+        model.addObject("user",userService.loadUserByEmail(userMail));
         model.addObject("apartments",sampleService.getApartmentsByUser(userMail));
         model.addObject("shApartments",sampleService.getShApartmentsByUser(userMail));
         return model;
@@ -310,7 +293,7 @@ public class IndexController {
         ModelAndView model = new ModelAndView();
         SecurityContext ctx = SecurityContextHolder.getContext();
         model.addObject("profileForm", new ProfileForm());
-        model.addObject("user",sampleService.loadUserByEmail(ctx.getAuthentication().getName()));
+        model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
         return model;
     }
 
@@ -318,12 +301,12 @@ public class IndexController {
     public String saveProfile(HttpServletRequest request, @Valid ProfileForm profileForm, BindingResult result, RedirectAttributes redirectAttributes) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(sampleService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
         SecurityContext ctx = SecurityContextHolder.getContext();
         profileForm.setEmail(ctx.getAuthentication().getName());
-        sampleService.saveFrom(profileForm);
+        userService.saveFrom(profileForm);
         redirectAttributes.addFlashAttribute("Profile saved.");
         return "redirect:/profile";
     }
@@ -335,7 +318,7 @@ public class IndexController {
         }
         SecurityContext ctx = SecurityContextHolder.getContext();
         newProfileForm.setEmail(ctx.getAuthentication().getName());
-        sampleService.saveFrom(newProfileForm);
+        userService.saveFrom(newProfileForm);
         redirectAttributes.addFlashAttribute("Profile created.");
         return "redirect:/profile";
     }

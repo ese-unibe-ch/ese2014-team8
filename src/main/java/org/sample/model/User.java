@@ -64,7 +64,31 @@ public class User implements UserDetails {
     public void setLastName(String lastName) {
         this.person.setLastName(lastName);
     }
-
+    
+    public int getAge(){
+    	return person.getAge();
+    }
+    
+    public void setAge(int age){
+    	this.person.setAge(age);
+    }
+    
+    public char getSex(){
+    	return person.getSex();
+    }
+    
+    public void setSex(char sex){
+    	this.person.setSex(sex);
+    }
+    
+    public String getDescription(){
+    	return person.getDescription();
+    }
+    
+    public void setDescription(String description){
+    	this.person.setDescription(description);
+    }
+    
     public String getEmail() {
         return email;
     }

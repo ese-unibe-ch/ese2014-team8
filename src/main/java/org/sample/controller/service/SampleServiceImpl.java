@@ -35,61 +35,7 @@ public class SampleServiceImpl implements SampleService {
 		this.shApDao = shApDao;
 	}
     
-    @Transactional
-    public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
-
-        String firstName = signupForm.getFirstName();
-
-        if(!StringUtils.isEmpty(firstName) && "ESE".equalsIgnoreCase(firstName)) {
-            throw new InvalidUserException("Sorry, ESE is not a valid name");   // throw exception
-        }
-
-
-        Address address = new Address();
-        address.setStreet("TestStreet-foo");
-        
-        User user = new User();
-        user.setFirstName(signupForm.getFirstName());
-        user.setEmail(signupForm.getEmail());
-        user.setLastName(signupForm.getLastName());
-        user.setAddress(address);
-        
-        user = userDao.save(user);   // save object to DB
-        
-        // Iterable<Address> addresses = addDao.findAll();  // find all 
-        // Address anAddress = addDao.findOne((long)3); // find by ID
-        
-        
-        signupForm.setId(user.getId());
-
-        return signupForm;
-
-    }
-
-    public User getUser(Long id) {
-    	return userDao.findOne(id);
-    }
-
-    public User loadUserByEmail(String email) {return userDao.findByEmail(email);}
-
-    @Override
-    public ProfileForm saveFrom(ProfileForm profileForm) {
-        User user = loadUserByEmail(profileForm.getEmail());
-        user.setFirstName(profileForm.getFirstName());
-        user.setLastName(profileForm.getLastName());
-        userDao.save(user);
-        return profileForm;
-    }
-
-	public NewProfileForm saveFrom(NewProfileForm newProfileForm) {
-		User user = loadUserByEmail(newProfileForm.getEmail());
-		user.setFirstName(newProfileForm.getFirstName());
-		user.setLastName(newProfileForm.getLastName());
-		user.setIsNew(false);
-		userDao.save(user);
-		return newProfileForm;
-	}
-
+    
 	public Apartment saveFrom(ApartmentForm apartmentForm)throws InvalidDateException {
 		
     	checkDates(apartmentForm);
