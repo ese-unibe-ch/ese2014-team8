@@ -49,9 +49,12 @@ public class SampleServiceImpl implements SampleService {
         address.setStreet("TestStreet-foo");
         
         User user = new User();
-        user.setFirstName(signupForm.getFirstName());
+        Person person = new Person();
+        
+        person.setFirstName(signupForm.getFirstName());
+        person.setLastName(signupForm.getLastName());
+        user.setPerson(person);
         user.setEmail(signupForm.getEmail());
-        user.setLastName(signupForm.getLastName());
         user.setAddress(address);
         
         user = userDao.save(user);   // save object to DB
@@ -75,16 +78,20 @@ public class SampleServiceImpl implements SampleService {
     @Override
     public ProfileForm saveFrom(ProfileForm profileForm) {
         User user = loadUserByEmail(profileForm.getEmail());
-        user.setFirstName(profileForm.getFirstName());
-        user.setLastName(profileForm.getLastName());
+        Person person = user.getPerson();
+        person.setFirstName(profileForm.getFirstName());
+        person.setLastName(profileForm.getLastName());
+        user.setPerson(person);
         userDao.save(user);
         return profileForm;
     }
 
 	public NewProfileForm saveFrom(NewProfileForm newProfileForm) {
 		User user = loadUserByEmail(newProfileForm.getEmail());
-		user.setFirstName(newProfileForm.getFirstName());
-		user.setLastName(newProfileForm.getLastName());
+		Person person = new Person();
+		person.setFirstName(newProfileForm.getFirstName());
+		person.setLastName(newProfileForm.getLastName());
+		user.setPerson(person);
 		user.setIsNew(false);
 		userDao.save(user);
 		return newProfileForm;

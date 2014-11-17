@@ -15,9 +15,11 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long id;
 
-    private String firstName;
-    private String lastName;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Person person;
+    
     private String email;
+    
     @ElementCollection(targetClass = Team8Authority.class)
     private Collection<Team8Authority> authorities;
     
@@ -40,23 +42,15 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
+   public Person getPerson() {
+		return person;
+	}
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
+	public String getEmail() {
         return email;
     }
 
