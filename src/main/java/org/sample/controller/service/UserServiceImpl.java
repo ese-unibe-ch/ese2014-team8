@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
 
 	public NewProfileForm saveFrom(NewProfileForm newProfileForm) {
 		User user = loadUserByEmail(newProfileForm.getEmail());
+		user.setPerson(new Person());
 		user.setFirstName(newProfileForm.getFirstName());
 		user.setLastName(newProfileForm.getLastName());
 		user.setAge(newProfileForm.getAge());
