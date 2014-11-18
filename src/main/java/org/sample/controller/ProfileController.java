@@ -72,10 +72,9 @@ public class ProfileController {
         }
         ModelAndView model = new ModelAndView("profile");
         String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
-        model.addObject("profileForm", new ProfileForm());
-        model.addObject("user",userService.loadUserByEmail(userMail));
-        model.addObject("apartments",adService.getApartmentsByUser(userMail));
-        model.addObject("shApartments",adService.getShApartmentsByUser(userMail));
+        User user = userService.loadUserByEmail(userMail);
+        model.addObject("profileForm", userService.fillProfileForm(user));
+        model.addObject("user", user);
         return model;
     }
 

@@ -18,7 +18,7 @@
         <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
             <label class="control-label" for="field-firstName">First Name</label>
             <div class="controls">
-                <form:input path="firstName" id="field-firstName" tabindex="2" maxlength="35" value="${user.firstName}"/>
+                <form:input path="firstName" id="field-firstName" tabindex="2" maxlength="35"/>
                 <form:errors path="firstName" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -27,7 +27,7 @@
         <div class="control-group<c:if test="${not empty lastNameErrors}"> error</c:if>">
             <label class="control-label" for="field-lastName">Last Name</label>
             <div class="controls">
-                <form:input path="lastName" id="field-lastName" tabindex="3" maxlength="35" value="${user.lastName}"/>
+                <form:input path="lastName" id="field-lastName" tabindex="3" maxlength="35" />
                 <form:errors path="lastName" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="control-group<c:if test="${not empty ageErrors}"> error</c:if>">
             <label class="control-label" for="field-age">Age</label>
             <div class="controls">
-                <form:input path="age" id="field-age" tabindex="4" maxlength="3" value="${user.age}"/>
+                <form:input path="age" id="field-age" tabindex="4" maxlength="3" />
                 <form:errors path="age" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -79,40 +79,5 @@
     </c:if>
 </p>
 
-<p><h2>Your Ads</h2></p>
-
-<p><h3>Apartment Ads</h3>
-<table>
-<tr>
-    <th>Title</th>
-    <th>Price</th>
-    <th>Address</th>
-</tr>
-<c:forEach items="${apartments}" var="apartment">
-<tr>
-    <td><a href="/searchresults/${apartment.id}"><b>${apartment.title}</b></a></td>
-    <td>${apartment.price}</td>
-    <td>${apartment.address.street} ${apartment.address.number}, ${apartment.address.zipCode} ${apartment.address.city}</td>
-</tr>
-</c:forEach>
-</table>
-</p>
-
-<p><h3>Shared Apartment Ads</h3>
-<table>
-<tr>
-    <th>Title</th>
-    <th>Price</th>
-    <th>Address</th>
-</tr>
-<c:forEach items="${shApartments}" var="shApartment">
-<tr>
-    <td><a href="/searchresults/${shApartment.id}"><b>${shApartment.title}</b></a></td>
-    <td>${shApartment.price}</td>
-    <td>${shApartment.address.street} ${shApartment.address.number}, ${shApartment.address.zipCode} ${shApartment.address.city}</td>
-</tr>
-</c:forEach>
-</table>
-</p>
 
 <c:import url="template/footer.jsp" />

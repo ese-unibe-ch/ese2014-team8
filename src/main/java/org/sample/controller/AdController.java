@@ -85,6 +85,19 @@ public class AdController {
     }
     
 
+    @RequestMapping(value="/myAds", method = RequestMethod.GET) 
+    public Object myAds(HttpServletRequest request){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }    	
+    	ModelAndView model = new ModelAndView("myAds");
+    	String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
+    	model.addObject("apartments",adService.getApartmentsByUser(userMail));
+        model.addObject("shApartments",adService.getShApartmentsByUser(userMail));
+        return model;
+    }
     @RequestMapping(value="/newAd", method = RequestMethod.GET) 
     public Object makeAd(HttpServletRequest request){
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
