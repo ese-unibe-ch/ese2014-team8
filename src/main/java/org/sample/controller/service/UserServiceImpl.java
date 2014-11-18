@@ -23,13 +23,18 @@ public class UserServiceImpl implements UserService {
     	return userDao.findOne(id);
     }
 
-    public User loadUserByEmail(String email) {return userDao.findByEmail(email);}
+    public User loadUserByEmail(String email) {
+    	return userDao.findByEmail(email);
+    }
 
     @Override
     public ProfileForm saveFrom(ProfileForm profileForm) {
         User user = loadUserByEmail(profileForm.getEmail());
         user.setFirstName(profileForm.getFirstName());
         user.setLastName(profileForm.getLastName());
+        user.setAge(profileForm.getAge());
+        user.setSex(profileForm.getSex());
+        user.setDescription(profileForm.getDescription());
         userDao.save(user);
         return profileForm;
     }
@@ -38,6 +43,8 @@ public class UserServiceImpl implements UserService {
 		User user = loadUserByEmail(newProfileForm.getEmail());
 		user.setFirstName(newProfileForm.getFirstName());
 		user.setLastName(newProfileForm.getLastName());
+		user.setAge(newProfileForm.getAge());
+        user.setSex(newProfileForm.getSex());
 		user.setIsNew(false);
 		userDao.save(user);
 		return newProfileForm;

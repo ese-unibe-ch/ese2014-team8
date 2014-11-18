@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.io.Serializable;
 
-public interface SampleService {
+public interface AdService {
 
    
 

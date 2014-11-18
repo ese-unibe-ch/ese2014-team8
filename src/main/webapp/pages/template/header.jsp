@@ -37,7 +37,7 @@
 	</div>
 	<div class="navigation ">
 			<a href="/profile"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY PROFILE</div></a>
-			<a href="/newAd"><div class="col-md-2 nav text-center text-nowrap navbar-right">CREATE AD</div></a>
+			<a href="/newAd"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY ADS</div></a>
 			<a href="/search"><div class="col-md-2 nav text-center text-nowrap navbar-right">SEARCH</div></a>
 		
 	</div>

@@ -19,18 +19,18 @@ import java.util.*;
 
 
 @Service
-public class SampleServiceImpl implements SampleService {
+public class AdServiceImpl implements AdService {
 
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
 	@Autowired	  ApartmentDao apDao;
 	@Autowired	  ShApartmentDao shApDao;
 	
-	public SampleServiceImpl() {
+	public AdServiceImpl() {
     }
 	
 	@Autowired
-	public SampleServiceImpl(ApartmentDao apDao, ShApartmentDao shApDao){
+	public AdServiceImpl(ApartmentDao apDao, ShApartmentDao shApDao){
 		this.apDao = apDao;
 		this.shApDao = shApDao;
 	}

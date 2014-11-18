@@ -41,12 +41,13 @@
             </div>
         </div>
         
-        <c:set var="sexErrors"><form:errors path="sex"/></c:set>
-        <div class="control-group<c:if test="${not empty sexErrors}"> error</c:if>">
+        
+        <div class="control-group">
             <label class="control-label" for="field-age">Sex</label>
             <div class="controls">
-                <form:input path="sex" id="field-age" tabindex="4" maxlength="1" value="${user.sex}"/>
-                <form:errors path="sex" cssClass="help-inline" element="span"/>
+                <form:radiobutton path="sex" value="m"/>Male 
+				<form:radiobutton path="sex" value="f"/>Female
+				<form:radiobutton path="sex" value="o"/>Other
             </div>
         </div>
         

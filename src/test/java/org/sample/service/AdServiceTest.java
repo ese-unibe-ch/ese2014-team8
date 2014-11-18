@@ -7,8 +7,8 @@ import org.mockito.stubbing.Answer;
 import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.pojos.ApartmentForm;
 import org.sample.controller.pojos.ShApartmentForm;
-import org.sample.controller.service.SampleService;
-import org.sample.controller.service.SampleServiceImpl;
+import org.sample.controller.service.AdService;
+import org.sample.controller.service.AdServiceImpl;
 import org.sample.model.Apartment;
 import org.sample.model.ShApartment;
 import org.sample.model.dao.AddressDao;
@@ -20,17 +20,17 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class SampleServiceTest {
+public class AdServiceTest {
 	
 	private ApartmentDao apDao;
 	private ShApartmentDao shApDao;
-	private SampleService sampleService;
+	private AdService adService;
 	
 	@Before
 	public void doSetup(){
 		apDao = mock(ApartmentDao.class);
 		shApDao = mock(ShApartmentDao.class);
-		sampleService = new SampleServiceImpl(apDao, shApDao);
+		adService = new AdServiceImpl(apDao, shApDao);
 	}
 	
 	@Test
@@ -49,7 +49,7 @@ public class SampleServiceTest {
 		
 		assertEquals(0L, apForm.getId());
 		
-		Apartment ap = sampleService.saveFrom(apForm);
+		Apartment ap = adService.saveFrom(apForm);
 		assertNotNull(ap.getId());
 		assertTrue(ap.getId() > 0);
 		
@@ -71,7 +71,7 @@ public class SampleServiceTest {
 		
 		assertEquals( 0L, shApForm.getId());
 		
-		ShApartment ap = sampleService.saveFrom(shApForm);
+		ShApartment ap = adService.saveFrom(shApForm);
 		assertNotNull(ap.getId());
 		assertTrue(ap.getId() > 0);
 	}
@@ -82,7 +82,7 @@ public class SampleServiceTest {
 		apForm.setTitle("TestTitle");
 		apForm.setFixedMoveIn(true);
 		apForm.setMoveIn(new java.util.Date(0L));
-		sampleService.saveFrom(apForm);
+		adService.saveFrom(apForm);
 	}
 	
 	
