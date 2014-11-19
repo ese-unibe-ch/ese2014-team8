@@ -18,6 +18,7 @@ public interface UserService {
     public User loadUserByEmail(String email);
     public NewProfileForm saveFrom(NewProfileForm newProfileForm);
     public ProfileForm saveFrom(ProfileForm profileForm);
+    public ProfileForm fillProfileForm(User user);
    
 
 }
