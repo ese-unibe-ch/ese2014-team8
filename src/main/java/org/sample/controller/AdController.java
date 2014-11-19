@@ -107,7 +107,6 @@ public class AdController {
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
-    	//System.out.println(form.getCategory());
     	ModelAndView model = null;
     	if(form.getCategory().equals("Apartment")){   	
         	if (!result.hasErrors()) {
@@ -117,7 +116,6 @@ public class AdController {
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Apartment");
-                    //apartment.setDescription(apartment.getDescription().replace("\n", "<br />\n"));
                     model.addObject("ad", apartment);
                 } catch (InvalidDateException e) {
                 	model = new ModelAndView("newAd");
@@ -135,7 +133,6 @@ public class AdController {
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Shared Apartment");
-                    //form2.setDescription(form2.getDescription().replace("\n", "<br />\n"));
                     model.addObject("ad", apartment);
                 } catch (InvalidDateException e) {
                 	model = new ModelAndView("main");
@@ -164,18 +161,16 @@ public class AdController {
             if(apartmentForm.getCategory().equals("Apartment")){
             	Apartment oldAd = adService.getAd(apartmentForm.getId());
             	apartmentForm = adService.saveFrom(oldAd);
-                model.addObject("editType","Apartment");
+                model.addObject("category","Apartment");
                 model.addObject("oldAd", oldAd);
                 model.addObject("apForm", apartmentForm);
-                model.addObject("shApForm", new ShApartmentForm());
             }
             else{
             	ShApartment oldAd = adService.getShApAd(shApartmentForm.getId());
             	shApartmentForm = adService.saveFrom(oldAd);
-            	model.addObject("editType","Shared Apartment");
+            	model.addObject("category","Shared Apartment");
             	model.addObject("oldAd", oldAd);
                 model.addObject("shApForm", shApartmentForm);
-                model.addObject("apForm", new ApartmentForm());
             }
         } 
     	else {
