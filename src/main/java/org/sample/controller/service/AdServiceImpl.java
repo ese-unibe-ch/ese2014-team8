@@ -212,7 +212,9 @@ public class AdServiceImpl implements AdService {
     	
     	realEstateForm.setPrice(realEstate.getPrice());
     	realEstateForm.setMoveIn(realEstate.getMoveIn());
+    	realEstateForm.setFixedMoveIn(realEstate.isFixedMoveIn());
     	realEstateForm.setMoveOut(realEstate.getMoveOut());
+    	realEstateForm.setFixedMoveOut(realEstate.isFixedMoveOut());
     	realEstateForm.setDescription(realEstate.getDescription());
     	
 		return realEstateForm;

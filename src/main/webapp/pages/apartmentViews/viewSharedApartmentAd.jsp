@@ -25,7 +25,7 @@
 	<c:if test="${ad.fixedMoveOut==false}"> There is no fixed move-out date. <br/></c:if>
 	<c:if test="${ad.fixedMoveOut==true}"> Move-out date: <fmt:formatDate pattern="dd/MM/yyyy" value="${ad.moveOut}" /><br/></c:if>
 	Price: ${ad.price} chf<br/>
-	<c:if test="${category eq 'Shared Apartment' }">Room size: ${ad.roomSize}<br/></c:if>
+	Room size: ${ad.roomSize}<br/>
 	
 </div>
 <div>

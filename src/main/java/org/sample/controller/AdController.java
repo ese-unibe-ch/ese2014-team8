@@ -96,6 +96,7 @@ public class AdController {
     	String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
     	model.addObject("apartments",adService.getApartmentsByUser(userMail));
         model.addObject("shApartments",adService.getShApartmentsByUser(userMail));
+        model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         return model;
     }
     @RequestMapping(value="/newAd", method = RequestMethod.GET) 
