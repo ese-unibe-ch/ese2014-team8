@@ -74,7 +74,7 @@
 		</div>
 		
 		<c:set var="moveInErrors"><form:errors path="moveIn"/></c:set>
-        <div id="moveInJS<c:if test="${apForm.fixedMoveIn}">_show</c:if>" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
+        <div id="moveInJS" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
             <label class="control-label" for="field-moveIn">Move-in date</label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveIn}" var="simpleInDate"/>

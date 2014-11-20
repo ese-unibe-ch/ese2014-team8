@@ -27,11 +27,18 @@
 </c:if>
 
 <script>
-	var elem1 = document.getElementById('moveInJS<c:if test="${apForm.fixedMoveIn}">_show</c:if>'),
+	
+	var elem1 = document.getElementById('moveInJS'),
 		checkBox1 = document.getElementById('field-fixedMoveIn');
-	checkBox1.onclick = function(){
-	    elem1.style.display = this.checked ?  'block' : 'none';
+	
+	function showElement1(){
+	    elem1.style.display = checkBox1.checked ?  'block' : 'none';
 	};
+	
+	checkBox1.onclick = function(){showElement1()};
+	window.onload = function(){showElement1()};
+
+	
 	
 	var elem2 = document.getElementById('moveOutJS<c:if test="${apForm.fixedMoveOut}">_show</c:if>'),
 		checkBox2 = document.getElementById('field-fixedMoveOut');
