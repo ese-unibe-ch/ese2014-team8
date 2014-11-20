@@ -7,12 +7,12 @@
 
 <c:import url="template/header.jsp" />
 
-<c:if test="${category == 'Apartment'}">
+<c:if test="${editType == 'Apartment'}">
 	<h1>Edit your Apartment Ad</h1>
 	<c:import url="adForms/apartmentForm.jsp" />
 </c:if>
 
-<c:if test="${category == 'Shared Apartment'}">
+<c:if test="${editType == 'Shared Apartment'}">
 	<h1>Edit your Shared Apartment Ad</h1>
 	<c:import url="adForms/sharedApartmentForm.jsp" />
 </c:if>

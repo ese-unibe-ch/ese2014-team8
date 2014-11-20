@@ -7,8 +7,15 @@
 
 <c:import url="template/header.jsp" />
 
-<h1>${message}</h1>
-<c:import url="Ad2.jsp" />
+<c:if test="${category == 'Apartment'}">
+	<h1>Edit your Apartment Ad</h1>
+	<c:import url="apartmentViews/viewApartmentAd.jsp" />
+</c:if>
+
+<c:if test="${category == 'Shared Apartment'}">
+	<h1>Edit your Shared Apartment Ad</h1>
+	<c:import url="apartmentViews/viewSharedApartmentAd.jsp" />
+</c:if>
 
 <form:form method="post" modelAttribute="apartmentForm" action="editAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>	

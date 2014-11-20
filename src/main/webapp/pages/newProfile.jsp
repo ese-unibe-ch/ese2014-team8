@@ -18,7 +18,7 @@
         <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
             <label class="control-label" for="field-firstName">First Name</label>
             <div class="controls">
-                <form:input path="firstName" id="field-firstName" tabindex="2" maxlength="35"/>
+                <form:input path="firstName" id="field-firstName" tabindex="2" maxlength="35" />
                 <form:errors path="firstName" cssClass="help-inline" element="span"/>
             </div>
         </div>
