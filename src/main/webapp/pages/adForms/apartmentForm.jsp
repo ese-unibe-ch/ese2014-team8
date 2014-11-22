@@ -77,7 +77,7 @@
         <div id="moveInJS" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
             <label class="control-label" for="field-moveIn">Move-in date</label>
             <div class="controls">
-            	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveIn}" var="simpleInDate"/>
+            	<fmt:formatDate pattern="dd/MM/yyyy" value="${apForm.moveIn}" var="simpleInDate"/>
                 <form:input path="moveIn" id="field-moveIn" tabindex="8" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  />
                 <form:errors path="moveIn" cssClass="help-inline" element="span"/>
             </div>
@@ -96,7 +96,7 @@
         <div id="moveOutJS" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
             <label class="control-label" for="field-moveOut">Move-out date </label>
             <div class="controls">
-            	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveOut}" var="simpleOutDate"/>
+            	<fmt:formatDate pattern="dd/MM/yyyy" value="${apForm.moveOut}" var="simpleOutDate"/>
                 <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" />
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>

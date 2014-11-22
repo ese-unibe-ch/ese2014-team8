@@ -34,21 +34,19 @@
 	function showElement1(){
 	    elem1.style.display = checkBox1.checked ?  'block' : 'none';
 	};
-	
-	checkBox1.onclick = function(){showElement1()};
-	window.onload = function(){showElement1()};
 
+	checkBox1.onclick = function(){showElement1()};
 	
 	
 	var elem2 = document.getElementById('moveOutJS'),
 	checkBox2 = document.getElementById('field-fixedMoveOut');
 
 	function showElement2(){
-	    elem1.style.display = checkBox2.checked ?  'block' : 'none';
+	    elem2.style.display = checkBox2.checked ?  'block' : 'none';
 	};
 	
 	checkBox2.onclick = function(){showElement2()};
-	window.onload = function(){showElement2()};
+	window.onload = function(){showElement1(); showElement2();};
 </script>
 
 	
