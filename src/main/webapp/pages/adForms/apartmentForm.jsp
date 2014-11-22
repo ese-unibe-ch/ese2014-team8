@@ -8,13 +8,13 @@
 <form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" >
     <fieldset>
 		<form:hidden path="category" value="Apartment"/>
-		<form:hidden path="id" value="${oldAd.id}"/>
+		<form:hidden path="id"/>
 		
 		<legend>Title</legend>
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
         <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
             <div class="controls">
-                <form:input path="title" id="field-title" tabindex="1" maxlength="75" value="${oldAd.title}" placeholder="Title"/>
+                <form:input path="title" id="field-title" tabindex="1" maxlength="75" placeholder="Title"/>
                 <form:errors path="title" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="control-group<c:if test="${not empty streetErrors}"> error</c:if>">
             <label class="control-label" for="field-street">Street</label>
             <div class="controls">
-                <form:input path="street" id="field-street" tabindex="2" maxlength="50" value="${oldAd.address.street}" placeholder="Street"/>
+                <form:input path="street" id="field-street" tabindex="2" maxlength="50"  placeholder="Street"/>
                 <form:errors path="street" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="control-group<c:if test="${not empty numberErrors}"> error</c:if>">
             <label class="control-label" for="field-number">Nr.</label>
             <div class="controls">
-                <form:input path="number" id="field-number" tabindex="3" maxlength="5" value="${oldAd.address.number}"/>
+                <form:input path="number" id="field-number" tabindex="3" maxlength="5" />
                 <form:errors path="number" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="control-group<c:if test="${not empty zipCodeErrors}"> error</c:if>">
             <label class="control-label" for="field-zipCode">ZIP-Code</label>
             <div class="controls">
-                <form:input path="zipCode" id="field-zipCode" tabindex="4" maxlength="5" value="${oldAd.address.zipCode}"/>
+                <form:input path="zipCode" id="field-zipCode" tabindex="4" maxlength="5"/>
                 <form:errors path="zipCode" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="control-group<c:if test="${not empty cityErrors}"> error</c:if>">
             <label class="control-label" for="field-city">City</label>
             <div class="controls">
-                <form:input path="city" id="field-city" tabindex="5" maxlength="35" value="${oldAd.address.city}" placeholder="City"/>
+                <form:input path="city" id="field-city" tabindex="5" maxlength="35"  placeholder="City"/>
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
             <label class="control-label" for="field-price">Price </label>
             <div class="controls">
-                <form:input path="price" id="field-price" tabindex="6" maxlength="5" value="${oldAd.price}" placeholder="chf"/>
+                <form:input path="price" id="field-price" tabindex="6" maxlength="5"  placeholder="chf"/>
                 <form:errors path="price" cssClass="help-inline" element="span"/>
             </div>
         </div>
