@@ -33,6 +33,12 @@ public class User implements UserDetails {
     private Boolean isNew;
     private Boolean isAdmin;
     
+     @OneToMany(mappedBy ="sender")
+     private Collection<Message> sentMessages;
+     
+     @OneToMany(mappedBy ="receiver")
+     private Collection<Message> receivedMessages;
+    
     public Long getId() {
         return id;
     }
@@ -169,4 +175,20 @@ public class User implements UserDetails {
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+	public Collection<Message> getSentMessages() {
+		return sentMessages;
+	}
+
+	public void setSentMessages(Collection<Message> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+
+	public Collection<Message> getReceivedMessages() {
+		return receivedMessages;
+	}
+
+	public void setReceivedMessages(Collection<Message> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
 }
