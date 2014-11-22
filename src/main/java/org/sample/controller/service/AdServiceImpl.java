@@ -203,6 +203,7 @@ public class AdServiceImpl implements AdService {
 		Address address = realEstate.getAddress();
 		
 		realEstateForm.setId(realEstate.getId());
+		realEstateForm.setTitle(realEstate.getTitle());
 		
 		// getAddress
     	realEstateForm.setStreet(address.getStreet());
