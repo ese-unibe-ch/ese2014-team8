@@ -174,14 +174,14 @@ public class AdController {
             model = new ModelAndView("editAd");
             if(apartmentForm.getCategory().equals("Apartment")){
             	Apartment oldAd = adService.getAd(apartmentForm.getId());
-            	apartmentForm = adService.saveFrom(oldAd);
+            	apartmentForm = adService.fillInFormFrom(oldAd);
                 model.addObject("category","Apartment");
                 model.addObject("oldAd", oldAd);
                 model.addObject("apForm", apartmentForm);
             }
             else{
             	ShApartment oldAd = adService.getShApAd(shApartmentForm.getId());
-            	shApartmentForm = adService.saveFrom(oldAd);
+            	shApartmentForm = adService.fillInFormFrom(oldAd);
             	model.addObject("category","Shared Apartment");
             	model.addObject("oldAd", oldAd);
                 model.addObject("shApForm", shApartmentForm);

@@ -177,11 +177,11 @@ public class AdServiceImpl implements AdService {
 	}
 
 
-	public ApartmentForm saveFrom(Apartment apartment) {
+	public ApartmentForm fillInFormFrom(Apartment apartment) {
 
 		ApartmentForm apartmentForm = new ApartmentForm();
     	
-		apartmentForm = (ApartmentForm) saveFrom(apartment, apartmentForm);
+		apartmentForm = (ApartmentForm) fillInFormFrom(apartment, apartmentForm);
 		
     	apartmentForm.setNumberOfRooms(apartment.getNumberOfRooms());
     	apartmentForm.setSize(apartment.getSize());
@@ -189,20 +189,21 @@ public class AdServiceImpl implements AdService {
     	return apartmentForm;
 	}
 
-	public ShApartmentForm saveFrom(ShApartment shApartment) {
+	public ShApartmentForm fillInFormFrom(ShApartment shApartment) {
 		ShApartmentForm shApartmentForm = new ShApartmentForm();
     	
-		shApartmentForm = (ShApartmentForm) saveFrom(shApartment, shApartmentForm);
+		shApartmentForm = (ShApartmentForm) fillInFormFrom(shApartment, shApartmentForm);
 		
     	shApartmentForm.setRoomSize(shApartment.getRoomSize());
     	
     	return shApartmentForm;
 	}
 	
-	private RealEstateForm saveFrom(RealEstate realEstate, RealEstateForm realEstateForm){
+	private RealEstateForm fillInFormFrom(RealEstate realEstate, RealEstateForm realEstateForm){
 		Address address = realEstate.getAddress();
 		
 		realEstateForm.setId(realEstate.getId());
+		realEstateForm.setTitle(realEstate.getTitle());
 		
 		// getAddress
     	realEstateForm.setStreet(address.getStreet());

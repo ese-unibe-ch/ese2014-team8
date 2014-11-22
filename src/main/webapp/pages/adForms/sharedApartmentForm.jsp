@@ -8,13 +8,13 @@
 <form:form method="post" modelAttribute="shApForm" action="viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
     <fieldset>
     	<form:hidden path="category" value="Shared Apartment"/>
-		<form:hidden path="id" value="${oldAd.id}"/>
+		<form:hidden path="id"/>
 		
 		<legend>Title</legend>
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
         <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
             <div class="controls">
-                <form:input path="title" id="field-title" tabindex="1" maxlength="75" value="${oldAd.title}" placeholder="Title"/>
+                <form:input path="title" id="field-title" tabindex="1" maxlength="75" placeholder="Title"/>
                 <form:errors path="title" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -24,7 +24,7 @@
         <div class="control-group<c:if test="${not empty streetErrors}"> error</c:if>">
             <label class="control-label" for="field-street">Street</label>
             <div class="controls">
-                <form:input path="street" id="field-street" tabindex="2" maxlength="50" value="${oldAd.address.street}" placeholder="Street"/>
+                <form:input path="street" id="field-street" tabindex="2" maxlength="50" placeholder="Street"/>
                 <form:errors path="street" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -32,7 +32,7 @@
         <div class="control-group<c:if test="${not empty numberErrors}"> error</c:if>">
             <label class="control-label" for="field-number">Nr.</label>
             <div class="controls">
-                <form:input path="number" id="field-number" tabindex="3" maxlength="5" value="${oldAd.address.number}"/>
+                <form:input path="number" id="field-number" tabindex="3" maxlength="5"/>
                 <form:errors path="number" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -40,7 +40,7 @@
         <div class="control-group<c:if test="${not empty zipCodeErrors}"> error</c:if>">
             <label class="control-label" for="field-zipCode">ZIP-Code</label>
             <div class="controls">
-                <form:input path="zipCode" id="field-zipCode" tabindex="4" maxlength="5" value="${oldAd.address.zipCode}"/>
+                <form:input path="zipCode" id="field-zipCode" tabindex="4" maxlength="5"/>
                 <form:errors path="zipCode" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -48,7 +48,7 @@
         <div class="control-group<c:if test="${not empty cityErrors}"> error</c:if>">
             <label class="control-label" for="field-city">City</label>
             <div class="controls">
-                <form:input path="city" id="field-city" tabindex="5" maxlength="35" value="${oldAd.address.city}" placeholder="City"/>
+                <form:input path="city" id="field-city" tabindex="5" maxlength="35" placeholder="City"/>
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
             <label class="control-label" for="field-price">Price</label>
             <div class="controls">
-                <form:input path="price" id="field-price" tabindex="6" maxlength="5" value="${oldAd.price}" placeholder="chf" />
+                <form:input path="price" id="field-price" tabindex="6" maxlength="5" placeholder="chf" />
                 <form:errors path="price" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -73,10 +73,10 @@
 		</div>
 		
 		<c:set var="moveInErrors"><form:errors path="moveIn"/></c:set>
-        <div id="moveInJS<c:if test="${oldAd.fixedMoveIn||apartmentForm.fixedMoveIn}">_show</c:if>" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
+        <div id="moveInJS" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
             <label class="control-label" for="field-moveIn">Move-in date</label>
             <div class="controls">
-            	<fmt:formatDate pattern="dd/MM/yyyy" value="${apartmentForm.moveIn}" var="simpleInDate"/>
+            	<fmt:formatDate pattern="dd/MM/yyyy" value="${shApForm.moveIn}" var="simpleInDate"/>
                 <form:input path="moveIn" id="field-moveIn" tabindex="8" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  />
                 <form:errors path="moveIn" cssClass="help-inline" element="span"/>
             </div>
@@ -92,10 +92,10 @@
 		</div>
 		
 		<c:set var="moveOutErrors"><form:errors path="moveOut"/></c:set>
-        <div id="moveOutJS<c:if test="${oldAd.fixedMoveOut||apartmentForm.fixedMoveOut}">_show</c:if>" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
+        <div id="moveOutJS" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
             <label class="control-label" for="field-moveOut">Move-out date</label>
             <div class="controls">
-            	<fmt:formatDate type="date" dateStyle="short" value="${apartmentForm.moveIn}" var="simpleOutDate"/>
+            	<fmt:formatDate type="date" dateStyle="short" value="${shApForm.moveIn}" var="simpleOutDate"/>
                 <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" />
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
