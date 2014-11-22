@@ -93,7 +93,7 @@
 		</div>
 		
 		<c:set var="moveOutErrors"><form:errors path="moveOut"/></c:set>
-        <div id="moveOutJS<c:if test="${apForm.fixedMoveOut}">_show</c:if>" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
+        <div id="moveOutJS" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
             <label class="control-label" for="field-moveOut">Move-out date </label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${oldAd.moveOut}" var="simpleOutDate"/>

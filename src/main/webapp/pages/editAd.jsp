@@ -40,11 +40,15 @@
 
 	
 	
-	var elem2 = document.getElementById('moveOutJS<c:if test="${apForm.fixedMoveOut}">_show</c:if>'),
-		checkBox2 = document.getElementById('field-fixedMoveOut');
-	checkBox2.onclick = function(){
-	    elem2.style.display = this.checked ?  'block' : 'none';
+	var elem2 = document.getElementById('moveOutJS'),
+	checkBox2 = document.getElementById('field-fixedMoveOut');
+
+	function showElement2(){
+	    elem1.style.display = checkBox2.checked ?  'block' : 'none';
 	};
+	
+	checkBox2.onclick = function(){showElement2()};
+	window.onload = function(){showElement2()};
 </script>
 
 	
