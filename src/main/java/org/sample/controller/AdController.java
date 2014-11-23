@@ -2,6 +2,9 @@ package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Locale;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -26,6 +29,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.AutoPopulatingList;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
@@ -38,6 +42,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.sample.model.TimeSlot;
 
 @Controller
 public class AdController {
@@ -51,10 +56,63 @@ public class AdController {
     
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 		dateFormat.setLenient(false);
 		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH.mm", Locale.getDefault());
+		timeFormat.setLenient(false);
+		webDataBinder.registerCustomEditor(Date.class, "time", new CustomDateEditor(timeFormat, true));
 	}
+    
+    @RequestMapping(value="/timeslots/{adCategory}/{adId}", method = RequestMethod.GET)
+    public Object timeslots(HttpServletRequest request, @PathVariable String adCategory, @PathVariable String adId){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	TimeSlotForm timeSlotForm = new TimeSlotForm();
+    	
+    	timeSlotForm.setAdId(Long.parseLong(adId));
+    	timeSlotForm.setCategory(adCategory);
+    	ModelAndView model = new ModelAndView("timeslots");
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("timeSlotForm", timeSlotForm);
+    	model.addObject("timeSlots", adService.getTimeSlots(adCategory, Long.parseLong(adId)));
+    	return model;
+    }
+    
+    
+    @RequestMapping(value="/timeslots", method = RequestMethod.POST)
+    public Object submitTimeslots(HttpServletRequest request, TimeSlotForm timeSlot){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	
+    	TimeSlotForm timeSlotForm = new TimeSlotForm();
+    	timeSlotForm.setAdId(timeSlot.getAdId());
+    	timeSlotForm.setCategory(timeSlot.getCategory());
+    	
+    	ModelAndView model = new ModelAndView("timeslots");
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("timeSlots", adService.addTimeSlot(timeSlot));
+    	model.addObject("timeSlotForm", timeSlotForm);
+    	return model;
+    }
+    
+    @RequestMapping(value="/removeTimeslot/{adCategory}/{adId}/{timeSlotId}", method = RequestMethod.GET)
+    public Object removeTimeslot(HttpServletRequest request, @PathVariable String adCategory, 
+    		@PathVariable String adId, @PathVariable String timeSlotId){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	adService.deleteTimeSlot(Long.parseLong(timeSlotId));
+    	return "redirect:/timeslots/" + adCategory + "/" + adId;
+    }
     
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public Object main(HttpServletRequest request) {

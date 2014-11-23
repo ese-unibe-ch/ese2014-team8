@@ -23,7 +23,8 @@
 		<form:hidden path="id" value="${ad.id}"/>
          <div class="form-actions">
             <button type="submit" class="btn btn-primary">Edit Ad</button>
-            <a href="main" class="btn">Submit</a>
+            <a href="main" class="btn btn-default" role="button">Submit without adding visiting times</a>
+            <a href="timeslots/${category}/${ad.id}" class="btn btn-default" role="button">Add visiting times</a>
         </div>
     </fieldset>
 </form:form>

@@ -31,6 +31,9 @@ public interface AdService {
     public Collection<ShApartment> getShApartmentsByUser(String email);
 	
 	public List<String> getCategories();
+	public Collection<TimeSlot> addTimeSlot(TimeSlotForm timeslot);
+	public void deleteTimeSlot(long id);
+	public Collection<TimeSlot> getTimeSlots(String adCategory, long adId);
 
    
 

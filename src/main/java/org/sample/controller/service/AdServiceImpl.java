@@ -7,6 +7,7 @@ import org.sample.model.*;
 import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.ShApartmentDao;
+import org.sample.model.dao.TimeSlotDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class AdServiceImpl implements AdService {
     @Autowired    AddressDao addDao;
 	@Autowired	  ApartmentDao apDao;
 	@Autowired	  ShApartmentDao shApDao;
+	@Autowired	TimeSlotDao timeSlotDao;
 	
 	public AdServiceImpl() {
     }
@@ -219,6 +221,47 @@ public class AdServiceImpl implements AdService {
     	realEstateForm.setDescription(realEstate.getDescription());
     	
 		return realEstateForm;
+	}
+
+	@Override
+	public Collection<TimeSlot> addTimeSlot(TimeSlotForm timeSlotForm) {
+		TimeSlot timeSlot = new TimeSlot();
+		Date dateTime = new Date(timeSlotForm.getDate().getTime()+timeSlotForm.getTime().getTime()+(60*60*1000));
+		System.out.println(dateTime);
+		timeSlot.setDateTime(dateTime);
+		timeSlot.setMaxNumVisitors(timeSlotForm.getMaxNumVisitors());
+		
+		
+		if(timeSlotForm.getCategory().equals("Apartment")){
+			timeSlot.setApartment(apDao.findOne(timeSlotForm.getAdId()));
+			timeSlotDao.save(timeSlot);
+		}
+		else if(timeSlotForm.getCategory().equals("Shared Apartment")){
+			timeSlot.setShApartment(shApDao.findOne(timeSlotForm.getAdId()));
+			timeSlotDao.save(timeSlot);	
+		}
+		
+		return getTimeSlots(timeSlotForm.getCategory(), timeSlotForm.getAdId());
+	}
+
+	@Override
+	public void deleteTimeSlot(long id) {
+		timeSlotDao.delete(id);
+		
+	}
+
+	@Override
+	public Collection<TimeSlot> getTimeSlots(String adCategory, long adId) {
+		Collection<TimeSlot> timeSlots = Collections.emptySet();
+		if(adCategory.equals("Apartment")){
+			timeSlots = timeSlotDao.findByApartment(apDao.findOne(adId));
+		}
+		else if(adCategory.equals("Shared Apartment")){
+			timeSlots = timeSlotDao.findByShApartment(shApDao.findOne(adId));
+		}
+		
+		
+		return timeSlots;
 	}
 	
 }
