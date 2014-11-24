@@ -12,8 +12,6 @@ import java.io.Serializable;
 
 public interface AdService {
 
-   
-
         
 	public Apartment saveFrom(ApartmentForm adForm);
 	public ShApartment saveFrom(ShApartmentForm form2);
@@ -26,7 +24,11 @@ public interface AdService {
 
 	public Iterable<? extends RealEstate> getSearchResults(SearchForm searchForm);
 
+	public Iterable<Apartment> getApartments();
+
     public Collection<Apartment> getApartmentsByUser(String email);
+
+	public Iterable<ShApartment> getShApartments();
 
     public Collection<ShApartment> getShApartmentsByUser(String email);
 	
