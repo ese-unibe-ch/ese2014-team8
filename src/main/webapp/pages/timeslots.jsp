@@ -43,7 +43,7 @@
 			<form:input id="field-maxNumVisitors" path="maxNumVisitors" tabindex="3"/>
 		</td>
 		<td>
-			<button type="submit" class="btn btn-primary btn-block" tabindex="4">Submit Time Slot</button>
+			<button type="submit" class="btn btn-green btn-block" tabindex="4">Submit Time Slot</button>
 		</td>
 	</tr>
 	

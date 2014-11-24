@@ -51,8 +51,8 @@
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn">Cancel</button>
+            <button type="submit" class="btn btn-green">Save</button>
+            <button type="button" class="btn btn-default">Cancel</button>
         </div>
     </fieldset>
 </form:form>

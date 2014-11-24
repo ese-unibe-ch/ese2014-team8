@@ -8,7 +8,7 @@
 
 <p><h1>Your Ads</h1></p>
 
-<a href="/newAd" class="btn btn-primary">New Ad</a>
+<a href="/newAd" class="btn btn-green">New Ad</a>
 
 <p><h2>Apartment Ads</h2>
 <table>
