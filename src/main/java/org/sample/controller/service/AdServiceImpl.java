@@ -151,8 +151,18 @@ public class AdServiceImpl implements AdService {
 	}
 
 	@Transactional
+	public Iterable<Apartment> getApartments() {
+		return apDao.findAll();
+	}
+
+	@Transactional
 	public Collection<Apartment> getApartmentsByUser(String email) {
 		return apDao.findByOwner(userDao.findByEmail(email));
+	}
+
+	@Transactional
+	public Iterable<ShApartment> getShApartments() {
+		return shApDao.findAll();
 	}
 
 	@Transactional
