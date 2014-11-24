@@ -12,12 +12,12 @@ import java.io.Serializable;
 
 public interface RoomMateService {
 
-/*    public RoomMate getRoomMate(Long id);
-    public Iterable<RoomMate> getRoomMates();
-    public RoomMate loadRoomMateByEmail(String email);
-    public NewProfileForm saveFrom(NewProfileForm newProfileForm);
-    public ProfileForm saveFrom(ProfileForm profileForm);
-    public ProfileForm fillProfileForm(RoomMate user);*/
+    public RoomMate getRoomMate(Long id);
+//    public Iterable<RoomMate> getRoomMates();
+//    public RoomMate loadRoomMateByEmail(String email);
+    public RoomMateForm saveFrom(RoomMateForm newRoomMateForm);
+//    public ProfileForm saveFrom(ProfileForm profileForm);
+//    public ProfileForm fillProfileForm(RoomMate user);
    
 
 }

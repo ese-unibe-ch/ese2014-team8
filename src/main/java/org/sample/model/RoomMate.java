@@ -18,9 +18,9 @@ public class RoomMate {
     @OneToOne(cascade = {CascadeType.ALL})
     private Person person;
     
-    private String email;
-    @ElementCollection(targetClass = Team8Authority.class)
-    private Collection<Team8Authority> authorities;
+//    private String email;
+//    @ElementCollection(targetClass = Team8Authority.class)
+//    private Collection<Team8Authority> authorities;
     
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
@@ -95,13 +95,13 @@ public class RoomMate {
     	this.person.setDescription(description);
     }
     
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
 	public Address getAddress() {
 		return address;

@@ -96,19 +96,19 @@ public class RoomMateController {
         return model;
     }
 
-/*    @RequestMapping(value = "/saveRoomMate", method = RequestMethod.POST)
+    @RequestMapping(value = "/saveRoomMate", method = RequestMethod.POST)
     public String saveProfile(HttpServletRequest request, @Valid ProfileForm profileForm, BindingResult result, RedirectAttributes redirectAttributes) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(roomMateService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
         SecurityContext ctx = SecurityContextHolder.getContext();
-        profileForm.setEmail(ctx.getAuthentication().getName());
-        roomMateService.saveFrom(profileForm);
-        redirectAttributes.addFlashAttribute("RoomMate saved.");
-        return "redirect:/roomMate";
-    }*/
+        //profileForm.setEmail(ctx.getAuthentication().getName());
+        //roomMateService.saveFrom(profileForm);
+        //redirectAttributes.addFlashAttribute("RoomMate saved.");
+        return "redirect:/newRoomMate";
+    }
 
 //    @RequestMapping(value = "/saveNewProfile", method = RequestMethod.POST)
 //    public String saveNewProfile(HttpServletRequest request, @Valid NewProfileForm newProfileForm, BindingResult result, RedirectAttributes redirectAttributes) {
