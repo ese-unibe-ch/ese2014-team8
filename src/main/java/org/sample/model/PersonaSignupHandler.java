@@ -1,7 +1,7 @@
 package org.sample.model;
 
 import me.sniggle.springframework.security.persona.common.PersonaSignUpHandler;
-import org.sample.controller.service.SampleService;
+import org.sample.controller.service.AdService;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,7 +17,7 @@ import java.util.Collection;
 public class PersonaSignupHandler implements PersonaSignUpHandler<User>, Serializable {
 
     @Autowired
-    SampleService sampleService;
+    AdService sampleService;
 
     @Autowired
     UserDao userDao;

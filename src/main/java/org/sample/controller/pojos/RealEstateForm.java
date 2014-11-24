@@ -6,6 +6,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.AutoPopulatingList;
+
 public abstract class RealEstateForm {
 	
 	private long id;
@@ -31,6 +33,7 @@ public abstract class RealEstateForm {
 	private String description;
 	
 	private String category;
+	
 
 	
 	public long getId() {
@@ -135,5 +138,6 @@ public abstract class RealEstateForm {
 	public void setCategory(String category) {
 		this.category = category;
 	}
+
 	
 }

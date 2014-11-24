@@ -15,8 +15,9 @@ public class User implements UserDetails {
     @GeneratedValue
     private Long id;
 
-    private String firstName;
-    private String lastName;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Person person;
+    
     private String email;
     @ElementCollection(targetClass = Team8Authority.class)
     private Collection<Team8Authority> authorities;
@@ -32,6 +33,12 @@ public class User implements UserDetails {
     private Boolean isNew;
     private Boolean isAdmin;
     
+     @OneToMany(mappedBy ="sender")
+     private Collection<Message> sentMessages;
+     
+     @OneToMany(mappedBy ="receiver")
+     private Collection<Message> receivedMessages;
+    
     public Long getId() {
         return id;
     }
@@ -40,22 +47,54 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+	public String getFirstName() {
+        return person.getFirstName();
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.person.setFirstName(firstName);
     }
 
     public String getLastName() {
-        return lastName;
+        return person.getLastName();
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.person.setLastName(lastName);
     }
-
+    
+    public int getAge(){
+    	return person.getAge();
+    }
+    
+    public void setAge(int age){
+    	this.person.setAge(age);
+    }
+    
+    public char getSex(){
+    	return person.getSex();
+    }
+    
+    public void setSex(char sex){
+    	this.person.setSex(sex);
+    }
+    
+    public String getDescription(){
+    	return person.getDescription();
+    }
+    
+    public void setDescription(String description){
+    	this.person.setDescription(description);
+    }
+    
     public String getEmail() {
         return email;
     }
@@ -136,4 +175,20 @@ public class User implements UserDetails {
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
+
+	public Collection<Message> getSentMessages() {
+		return sentMessages;
+	}
+
+	public void setSentMessages(Collection<Message> sentMessages) {
+		this.sentMessages = sentMessages;
+	}
+
+	public Collection<Message> getReceivedMessages() {
+		return receivedMessages;
+	}
+
+	public void setReceivedMessages(Collection<Message> receivedMessages) {
+		this.receivedMessages = receivedMessages;
+	}
 }

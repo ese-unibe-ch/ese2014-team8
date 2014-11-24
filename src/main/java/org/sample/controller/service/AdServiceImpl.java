@@ -7,6 +7,7 @@ import org.sample.model.*;
 import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.AddressDao;
 import org.sample.model.dao.ShApartmentDao;
+import org.sample.model.dao.TimeSlotDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,77 +20,24 @@ import java.util.*;
 
 
 @Service
-public class SampleServiceImpl implements SampleService {
+public class AdServiceImpl implements AdService {
 
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
 	@Autowired	  ApartmentDao apDao;
 	@Autowired	  ShApartmentDao shApDao;
+	@Autowired	TimeSlotDao timeSlotDao;
 	
-	public SampleServiceImpl() {
+	public AdServiceImpl() {
     }
 	
 	@Autowired
-	public SampleServiceImpl(ApartmentDao apDao, ShApartmentDao shApDao){
+	public AdServiceImpl(ApartmentDao apDao, ShApartmentDao shApDao){
 		this.apDao = apDao;
 		this.shApDao = shApDao;
 	}
     
-    @Transactional
-    public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException{
-
-        String firstName = signupForm.getFirstName();
-
-        if(!StringUtils.isEmpty(firstName) && "ESE".equalsIgnoreCase(firstName)) {
-            throw new InvalidUserException("Sorry, ESE is not a valid name");   // throw exception
-        }
-
-
-        Address address = new Address();
-        address.setStreet("TestStreet-foo");
-        
-        User user = new User();
-        user.setFirstName(signupForm.getFirstName());
-        user.setEmail(signupForm.getEmail());
-        user.setLastName(signupForm.getLastName());
-        user.setAddress(address);
-        
-        user = userDao.save(user);   // save object to DB
-        
-        // Iterable<Address> addresses = addDao.findAll();  // find all 
-        // Address anAddress = addDao.findOne((long)3); // find by ID
-        
-        
-        signupForm.setId(user.getId());
-
-        return signupForm;
-
-    }
-
-    public User getUser(Long id) {
-    	return userDao.findOne(id);
-    }
-
-    public User loadUserByEmail(String email) {return userDao.findByEmail(email);}
-
-    @Override
-    public ProfileForm saveFrom(ProfileForm profileForm) {
-        User user = loadUserByEmail(profileForm.getEmail());
-        user.setFirstName(profileForm.getFirstName());
-        user.setLastName(profileForm.getLastName());
-        userDao.save(user);
-        return profileForm;
-    }
-
-	public NewProfileForm saveFrom(NewProfileForm newProfileForm) {
-		User user = loadUserByEmail(newProfileForm.getEmail());
-		user.setFirstName(newProfileForm.getFirstName());
-		user.setLastName(newProfileForm.getLastName());
-		user.setIsNew(false);
-		userDao.save(user);
-		return newProfileForm;
-	}
-
+    
 	public Apartment saveFrom(ApartmentForm apartmentForm)throws InvalidDateException {
 		
     	checkDates(apartmentForm);
@@ -231,11 +179,11 @@ public class SampleServiceImpl implements SampleService {
 	}
 
 
-	public ApartmentForm saveFrom(Apartment apartment) {
+	public ApartmentForm fillInFormFrom(Apartment apartment) {
 
 		ApartmentForm apartmentForm = new ApartmentForm();
     	
-		apartmentForm = (ApartmentForm) saveFrom(apartment, apartmentForm);
+		apartmentForm = (ApartmentForm) fillInFormFrom(apartment, apartmentForm);
 		
     	apartmentForm.setNumberOfRooms(apartment.getNumberOfRooms());
     	apartmentForm.setSize(apartment.getSize());
@@ -243,20 +191,21 @@ public class SampleServiceImpl implements SampleService {
     	return apartmentForm;
 	}
 
-	public ShApartmentForm saveFrom(ShApartment shApartment) {
+	public ShApartmentForm fillInFormFrom(ShApartment shApartment) {
 		ShApartmentForm shApartmentForm = new ShApartmentForm();
     	
-		shApartmentForm = (ShApartmentForm) saveFrom(shApartment, shApartmentForm);
+		shApartmentForm = (ShApartmentForm) fillInFormFrom(shApartment, shApartmentForm);
 		
     	shApartmentForm.setRoomSize(shApartment.getRoomSize());
     	
     	return shApartmentForm;
 	}
 	
-	private RealEstateForm saveFrom(RealEstate realEstate, RealEstateForm realEstateForm){
+	private RealEstateForm fillInFormFrom(RealEstate realEstate, RealEstateForm realEstateForm){
 		Address address = realEstate.getAddress();
 		
 		realEstateForm.setId(realEstate.getId());
+		realEstateForm.setTitle(realEstate.getTitle());
 		
 		// getAddress
     	realEstateForm.setStreet(address.getStreet());
@@ -266,10 +215,53 @@ public class SampleServiceImpl implements SampleService {
     	
     	realEstateForm.setPrice(realEstate.getPrice());
     	realEstateForm.setMoveIn(realEstate.getMoveIn());
+    	realEstateForm.setFixedMoveIn(realEstate.isFixedMoveIn());
     	realEstateForm.setMoveOut(realEstate.getMoveOut());
+    	realEstateForm.setFixedMoveOut(realEstate.isFixedMoveOut());
     	realEstateForm.setDescription(realEstate.getDescription());
     	
 		return realEstateForm;
+	}
+
+	@Override
+	public Collection<TimeSlot> addTimeSlot(TimeSlotForm timeSlotForm) {
+		TimeSlot timeSlot = new TimeSlot();
+		Date dateTime = new Date(timeSlotForm.getDate().getTime()+timeSlotForm.getTime().getTime()+(60*60*1000));
+		System.out.println(dateTime);
+		timeSlot.setDateTime(dateTime);
+		timeSlot.setMaxNumVisitors(timeSlotForm.getMaxNumVisitors());
+		
+		
+		if(timeSlotForm.getCategory().equals("Apartment")){
+			timeSlot.setApartment(apDao.findOne(timeSlotForm.getAdId()));
+			timeSlotDao.save(timeSlot);
+		}
+		else if(timeSlotForm.getCategory().equals("Shared Apartment")){
+			timeSlot.setShApartment(shApDao.findOne(timeSlotForm.getAdId()));
+			timeSlotDao.save(timeSlot);	
+		}
+		
+		return getTimeSlots(timeSlotForm.getCategory(), timeSlotForm.getAdId());
+	}
+
+	@Override
+	public void deleteTimeSlot(long id) {
+		timeSlotDao.delete(id);
+		
+	}
+
+	@Override
+	public Collection<TimeSlot> getTimeSlots(String adCategory, long adId) {
+		Collection<TimeSlot> timeSlots = Collections.emptySet();
+		if(adCategory.equals("Apartment")){
+			timeSlots = timeSlotDao.findByApartment(apDao.findOne(adId));
+		}
+		else if(adCategory.equals("Shared Apartment")){
+			timeSlots = timeSlotDao.findByShApartment(shApDao.findOne(adId));
+		}
+		
+		
+		return timeSlots;
 	}
 	
 }

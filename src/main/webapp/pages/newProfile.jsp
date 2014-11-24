@@ -18,7 +18,7 @@
         <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
             <label class="control-label" for="field-firstName">First Name</label>
             <div class="controls">
-                <form:input path="firstName" id="field-firstName" tabindex="2" maxlength="35" value="${user.firstName}"/>
+                <form:input path="firstName" id="field-firstName" tabindex="2" maxlength="35" />
                 <form:errors path="firstName" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -27,8 +27,26 @@
         <div class="control-group<c:if test="${not empty lastNameErrors}"> error</c:if>">
             <label class="control-label" for="field-lastName">Last Name</label>
             <div class="controls">
-                <form:input path="lastName" id="field-lastName" tabindex="3" maxlength="35" value="${user.lastName}"/>
+                <form:input path="lastName" id="field-lastName" tabindex="3" maxlength="35" />
                 <form:errors path="lastName" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        
+        <c:set var="ageErrors"><form:errors path="age"/></c:set>
+        <div class="control-group<c:if test="${not empty ageErrors}"> error</c:if>">
+            <label class="control-label" for="field-age">Age</label>
+            <div class="controls">
+                <form:input path="age" id="field-age" tabindex="4" maxlength="3" />
+                <form:errors path="age" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <label class="control-label" for="field-age">Sex</label>
+            <div class="controls">
+                <form:radiobutton path="sex" value="m"/>Male 
+				<form:radiobutton path="sex" value="f"/>Female
+				<form:radiobutton path="sex" value="o"/>Other
             </div>
         </div>
 

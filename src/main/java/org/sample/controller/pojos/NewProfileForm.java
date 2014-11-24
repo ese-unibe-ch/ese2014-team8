@@ -14,6 +14,12 @@ public class NewProfileForm {
     private String firstName;
     @NotNull
     private String lastName;
+    
+    @NotNull
+    private int age;
+    
+    @NotNull
+    private char sex;
 
     public String getFirstName() {
         return firstName;
@@ -38,5 +44,21 @@ public class NewProfileForm {
     public void setEmail(String email) {
         this.email = email;
     }
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public char getSex() {
+		return sex;
+	}
+
+	public void setSex(char sex) {
+		this.sex = sex;
+	}
 
 }

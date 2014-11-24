@@ -10,19 +10,16 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.io.Serializable;
 
-public interface SampleService {
+public interface AdService {
 
-    public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException;
+   
 
-    public User getUser(Long id);
-
-    public User loadUserByEmail(String email);
-
+        
 	public Apartment saveFrom(ApartmentForm adForm);
 	public ShApartment saveFrom(ShApartmentForm form2);
 	
-	public ApartmentForm saveFrom(Apartment apartment);
-	public ShApartmentForm saveFrom(ShApartment shApartment);
+	public ApartmentForm fillInFormFrom(Apartment apartment);
+	public ShApartmentForm fillInFormFrom(ShApartment shApartment);
 
 	public Apartment getAd(long id);
 	public ShApartment getShApAd(long id);
@@ -34,9 +31,10 @@ public interface SampleService {
     public Collection<ShApartment> getShApartmentsByUser(String email);
 	
 	public List<String> getCategories();
+	public Collection<TimeSlot> addTimeSlot(TimeSlotForm timeslot);
+	public void deleteTimeSlot(long id);
+	public Collection<TimeSlot> getTimeSlots(String adCategory, long adId);
 
-    public NewProfileForm saveFrom(NewProfileForm newProfileForm);
-
-    public ProfileForm saveFrom(ProfileForm profileForm);
+   
 
 }

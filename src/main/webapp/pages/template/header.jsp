@@ -12,10 +12,9 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <script src="https://login.persona.org/include.js"></script>
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../../css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../../css/main.css" media="all"/>
-    <link rel="stylesheet" type="text/css" href="../../css/main2.css" media="all"/>
-    <script type="text/javascript"  src="//dn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript"  src="../../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 
@@ -32,23 +31,30 @@
 </head>
 <body> 
 <div class="fluid-container">
-	<div class="top-image">
-		<img src="../../img/cityscape.jpg"/>
-	</div>
-	<div class="navigation ">
-			<a href="/profile"><div class="col-md-2 nav text-center text-nowrap navbar-right">MY PROFILE</div></a>
-			<a href="/newAd"><div class="col-md-2 nav text-center text-nowrap navbar-right">CREATE AD</div></a>
-			<a href="/search"><div class="col-md-2 nav text-center text-nowrap navbar-right">SEARCH</div></a>
-		
-	</div>
-</div>
+	<img class="top-image" src="../../img/cityscape.jpg"/>
+	
+	
+	<nav class="navbar container " role="navigation">
+		<ul class="nav navbar-nav navbar-right navbar-rentr">
+			<li class="nav text-center text-nowrap">
+				<a href="/search">SEARCH</a>
+			</li>
+			<li class="nav text-center text-nowrap">
+				<a href="/myAds">MY ADS</a>
+			</li>
+			<li class="nav text-center text-nowrap">
+				<a href="/profile">MY PROFILE</a>
+			</li>
+		</ul>
+	</nav>
 
+<div class="log-in">
 <c:choose>
 <c:when test="${user.email != null}">
-You're logged in as ${user.email}. <input type="button" id="signout" value="signout" />
+You're logged in as ${user.email}.<input type="button" id="signout" value="signout" />
 </c:when>
 <c:otherwise>
-<img id="signin" alt="Sign In" src="https://mdn.mozillademos.org/files/3969/plain_sign_in_blue.png" />
+<img id="signin" alt="Sign In" src="../../img/plain_sign_in_black.png" />
 </c:otherwise>
 </c:choose>
 
@@ -120,7 +126,7 @@ You're logged in as ${user.email}. <input type="button" id="signout" value="sign
 	});
 	-->
 </script>
-
+</div>
 </div> 
 
 <div class="container">
