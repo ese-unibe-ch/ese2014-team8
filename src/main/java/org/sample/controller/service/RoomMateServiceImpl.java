@@ -3,7 +3,9 @@ package org.sample.controller.service;
 import org.sample.controller.pojos.*;
 import org.sample.model.*;
 import org.sample.model.dao.AddressDao;
+import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.RoomMateDao;
+import org.sample.model.dao.ShApartmentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,13 +19,18 @@ public class RoomMateServiceImpl implements RoomMateService {
     @Autowired    RoomMateDao roomMateDao;
     @Autowired    AddressDao addDao;
 	
-	
-	public RoomMateServiceImpl() {
+	public RoomMateServiceImpl() {	
     }
+	
+	@Autowired
+	public RoomMateServiceImpl(RoomMateDao roomMateDao){
+		this.roomMateDao = roomMateDao;
+	}
 
     public RoomMate getRoomMate(Long id) {
     	return roomMateDao.findOne(id);
     }
+    
 
 //	public Iterable<RoomMate> getRoomMates() {
 //		return roomMateDao.findAll();
@@ -46,7 +53,8 @@ public class RoomMateServiceImpl implements RoomMateService {
 //    }
 //
 	public RoomMateForm saveFrom(RoomMateForm RoomMateForm) {
-		RoomMate roomMate = loadUserByEmail(RoomMateForm.getEmail());
+		//RoomMate roomMate = loadUserByEmail(RoomMateForm.getEmail());
+		RoomMate roomMate = new RoomMate();
 		roomMate.setPerson(new Person());
 		roomMate.setFirstName(RoomMateForm.getFirstName());
 		roomMate.setLastName(RoomMateForm.getLastName());
@@ -69,5 +77,10 @@ public class RoomMateServiceImpl implements RoomMateService {
 //		roomMateForm.setDescription(roomMate.getDescription());
 //		return roomMateForm;
 //	}
+
+	private RoomMate getRoomMate(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }
