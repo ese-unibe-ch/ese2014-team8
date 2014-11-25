@@ -17,7 +17,8 @@ public interface RoomMateService {
 //    public RoomMate loadRoomMateByEmail(String email);
     public RoomMateForm saveFrom(RoomMateForm newRoomMateForm);
 //    public ProfileForm saveFrom(ProfileForm profileForm);
-//    public ProfileForm fillProfileForm(RoomMate user);
+    public RoomMateForm fillRoomMateForm(RoomMate roomMate);
+	public RoomMate loadRoomMate();
    
 
 }

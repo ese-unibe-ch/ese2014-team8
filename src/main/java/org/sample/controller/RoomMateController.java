@@ -53,33 +53,34 @@ public class RoomMateController {
     UserService userService;
     
     
-//    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+//    @RequestMapping(value = "/roomMate", method = RequestMethod.GET)
 //    public String profile(HttpServletRequest request) {
 //        ModelAndView model;
 //        if(request.isUserInRole("ROLE_PERSONA_USER") && userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
-//            return "redirect:/newProfile";
+//            return "redirect:/newRoomMate";
 //        }
 //        else if(request.isUserInRole("ROLE_PERSONA_USER")) {
-//            return "redirect:/editProfile";
+//            return "redirect:/editRoomMate";
 //        } else {
 //            return "redirect:/";
 //        }
 //    }
 
-//    @RequestMapping(value = "/editRoomMate", method = RequestMethod.GET)
-//    public Object editProfile(HttpServletRequest request) {
-//    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
-//    		return "redirect:/";
-//    	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
-//            return "redirect:/profile";
-//        }
-//        ModelAndView model = new ModelAndView("profile");
-//        String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
-//        User user = userService.loadUserByEmail(userMail);
-//        model.addObject("profileForm", userService.fillProfileForm(user));
-//        model.addObject("user", user);
-//        return model;
-//    }
+    @RequestMapping(value = "/editRoomMate", method = RequestMethod.GET)
+    public Object editProfile(HttpServletRequest request) {
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+    		return "redirect:/";
+    	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+        ModelAndView model = new ModelAndView("newRoomMate");
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        RoomMate roomMate = roomMateService.loadRoomMate();
+        model.addObject("roomMateForm", roomMateService.fillRoomMateForm(roomMate));
+        //model.addObject("roomMate", roomMate);
+        model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
+        return model;
+    }
 
     @RequestMapping(value = "/newRoomMate", method = RequestMethod.GET)
     public Object newProfile(HttpServletRequest request) {
@@ -107,7 +108,7 @@ public class RoomMateController {
         //profileForm.setEmail(ctx.getAuthentication().getName());
         roomMateService.saveFrom(roomMateForm);
         //redirectAttributes.addFlashAttribute("RoomMate saved.");
-        return "redirect:/newRoomMate";
+        return "redirect:/editRoomMate";
     }
 
 //    @RequestMapping(value = "/saveNewProfile", method = RequestMethod.POST)

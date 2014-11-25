@@ -64,23 +64,29 @@ public class RoomMateServiceImpl implements RoomMateService {
 		roomMateDao.save(roomMate);
 		return RoomMateForm;
 	}
-//
-//	@Override
-//	@Transactional
-//	public RoomMateForm fillRoomMateForm(RoomMate roomMate) {
-//		RoomMateForm roomMateForm = new RoomMateForm();
-//		roomMateForm.setFirstName(roomMate.getFirstName());
-//		roomMateForm.setLastName(roomMate.getLastName());
-//		roomMateForm.setEmail(roomMate.getEmail());
-//		roomMateForm.setAge(roomMate.getAge());
-//		roomMateForm.setSex(roomMate.getSex());
-//		roomMateForm.setDescription(roomMate.getDescription());
-//		return roomMateForm;
+
+	//@Override
+	@Transactional
+	public RoomMateForm fillRoomMateForm(RoomMate roomMate) {
+		RoomMateForm roomMateForm = new RoomMateForm();
+		roomMateForm.setFirstName(roomMate.getFirstName());
+		roomMateForm.setLastName(roomMate.getLastName());
+		//roomMateForm.setEmail(roomMate.getEmail());
+		roomMateForm.setAge(roomMate.getAge());
+		roomMateForm.setSex(roomMate.getSex());
+		roomMateForm.setDescription(roomMate.getDescription());
+		return roomMateForm;
+	}
+
+//	private RoomMate getRoomMate(int i) {
+//		// TODO Auto-generated method stub
+//		return null;
 //	}
 
-	private RoomMate getRoomMate(int i) {
-		// TODO Auto-generated method stub
-		return null;
+	@Override
+	public RoomMate loadRoomMate() {
+		
+		return roomMateDao.findOne(2L);
 	}
 	
 }
