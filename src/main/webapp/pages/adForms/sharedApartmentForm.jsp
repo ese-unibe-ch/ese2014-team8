@@ -126,8 +126,8 @@
         <button type="button" class="btn btn-primary">add Roommate</button>
 		
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Submit Ad</button>
-            <button type="button" class="btn">Cancel</button>
+            <button type="submit" class="btn btn-green">Submit Ad</button>
+            <button type="button" class="btn btn-default">Cancel</button>
         </div>
     </fieldset>
 </form:form>

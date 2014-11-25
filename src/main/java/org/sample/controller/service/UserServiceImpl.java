@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,6 +24,10 @@ public class UserServiceImpl implements UserService {
     public User getUser(Long id) {
     	return userDao.findOne(id);
     }
+
+	public Iterable<User> getUsers() {
+		return userDao.findAll();
+	}
 
     public User loadUserByEmail(String email) {
     	return userDao.findByEmail(email);

@@ -15,6 +15,7 @@ public interface UserService {
    // public SignupForm saveFrom(SignupForm signupForm) throws InvalidUserException;
 
     public User getUser(Long id);
+    public Iterable<User> getUsers();
     public User loadUserByEmail(String email);
     public NewProfileForm saveFrom(NewProfileForm newProfileForm);
     public ProfileForm saveFrom(ProfileForm profileForm);
