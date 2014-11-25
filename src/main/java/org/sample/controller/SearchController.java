@@ -87,14 +87,10 @@ public class SearchController {
         }
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
-            try {
-            	model = new ModelAndView("searchResults");
-            	Iterable<? extends RealEstate> searchresults = adService.getSearchResults(searchForm);
-            	model.addObject("searchResults",searchresults);
-            } catch (InvalidUserException e) {
-            	model = new ModelAndView("search");
-            	model.addObject("page_error", e.getMessage());
-            }
+            model = new ModelAndView("searchResults");
+            Iterable<? extends RealEstate> searchresults = adService.getSearchResults(searchForm);
+            model.addObject("searchResults",searchresults);
+            model.addObject("category", searchForm.getCategory());
         } else {
         	model = new ModelAndView("index");
         }   	
@@ -107,8 +103,8 @@ public class SearchController {
      * @param adId the id of the ad that has to be displayed
      * @return a modelAndView displaying the ad information with the ad and the user attached as objects.
      */
-    @RequestMapping(value="/searchresults/{adId}",	method=RequestMethod.GET)
-    public	Object displayAd(HttpServletRequest request, @PathVariable	String	adId)	{
+    @RequestMapping(value="/searchresults/{category}/{adId}",	method=RequestMethod.GET)
+    public	Object displayAd(HttpServletRequest request, @PathVariable	String	adId, @PathVariable	String	category)	{
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
@@ -116,8 +112,9 @@ public class SearchController {
         }
     	ModelAndView model = new ModelAndView("showAd");
     	Long lAdId = Long.parseLong(adId);
-    	RealEstate ad = adService.getAd(lAdId);
+    	RealEstate ad = adService.getAd(category, lAdId);
     	model.addObject("ad", ad);
+    	model.addObject("category", category);
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	return model;
     }

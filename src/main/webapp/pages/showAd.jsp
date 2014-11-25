@@ -2,21 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
 <c:import url="template/header.jsp" />
 
-<h1>Search Results</h1>
-<table>
-	<c:forEach items="${searchResults}" var="s">
-		<tr>
-    		<td><a href="searchresults/${category}/${s.id}"><c:out value="${s.title}"/></a></td>
-    		<td><c:out value="${s.price} chf"/></td>
-  		</tr>
-	</c:forEach>  
-</table>
+<c:if test="${category == 'Apartment'}">
+	<c:import url="apartmentViews/viewApartmentAd.jsp" />
+</c:if>
 
- 
-
+<c:if test="${category == 'Shared Apartment'}">
+	<c:import url="apartmentViews/viewSharedApartmentAd.jsp" />
+</c:if>
 
 <c:import url="template/footer.jsp" />

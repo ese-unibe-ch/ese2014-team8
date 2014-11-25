@@ -46,7 +46,7 @@ public class AdServiceImpl implements AdService {
 		
 		
     	if(apartmentForm.getId()!=0L){
-    		apartment = getAd(apartmentForm.getId());
+    		apartment = getApAd(apartmentForm.getId());
     	}
     	else{
     		apartment = new Apartment();
@@ -168,8 +168,20 @@ public class AdServiceImpl implements AdService {
 		return categories;
 	}
     
+    @Override
+	public RealEstate getAd(String category, Long AdId) {
+		RealEstate ad;
+		if(category.equals("Apartment")){
+			ad = getApAd(AdId);
+		}
+		else{
+			ad=getShApAd(AdId);
+		}
+		return ad;
+	}
+    
 	@Transactional
-	public Apartment getAd(long id) {
+	public Apartment getApAd(long id) {
 		return apDao.findOne(id);
 	}
 	
@@ -263,5 +275,7 @@ public class AdServiceImpl implements AdService {
 		
 		return timeSlots;
 	}
+
+	
 	
 }

@@ -231,7 +231,7 @@ public class AdController {
     	if (!result.hasErrors()) {
             model = new ModelAndView("editAd");
             if(apartmentForm.getCategory().equals("Apartment")){
-            	Apartment oldAd = adService.getAd(apartmentForm.getId());
+            	Apartment oldAd = adService.getApAd(apartmentForm.getId());
             	apartmentForm = adService.fillInFormFrom(oldAd);
                 model.addObject("category","Apartment");
                 model.addObject("oldAd", oldAd);

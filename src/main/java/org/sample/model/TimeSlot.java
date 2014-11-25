@@ -21,9 +21,11 @@ public class TimeSlot {
 	private Collection<User> visitors;
 	
 	@ManyToOne
+	@JoinColumn(name = "ap_id")
 	private Apartment apartment;
 	
 	@ManyToOne
+	@JoinColumn(name = "shAp_id")
 	private ShApartment shApartment;
 	
 

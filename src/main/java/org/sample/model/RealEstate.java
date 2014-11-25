@@ -24,8 +24,7 @@ public class RealEstate {
 	@Type(type = "date")
 	private Date moveOut;
 	private String description;
-	@OneToMany
-	private Collection<TimeSlot> visitingTimes;
+	
 	@OneToMany
 	private Collection<Message> messages;
 	
@@ -106,13 +105,7 @@ public class RealEstate {
 		this.description = description;
 	}
 
-	public Collection<TimeSlot> getVisitingTimes() {
-		return visitingTimes;
-	}
-
-	public void setVisitingTimes(Collection<TimeSlot> visitingTimes) {
-		this.visitingTimes = visitingTimes;
-	}
+	
 
 	public Collection<Message> getMessages() {
 		return messages;
