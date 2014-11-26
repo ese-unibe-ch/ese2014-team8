@@ -2,9 +2,14 @@ package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.sample.controller.exceptions.InvalidDateException;
@@ -36,8 +41,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.misc.IOUtils;
 
 @Controller
 public class ProfileController {
@@ -75,6 +82,27 @@ public class ProfileController {
         User user = userService.loadUserByEmail(userMail);
         model.addObject("profileForm", userService.fillProfileForm(user));
         model.addObject("user", user);
+        model.addObject("profile", user);
+        model.addObject("apartments",adService.getApartmentsByUser(user.getEmail()));
+        model.addObject("shApartments",adService.getShApartmentsByUser(user.getEmail()));
+        return model;
+    }
+
+    @RequestMapping(value = "/editProfile/{profileId}", method = RequestMethod.GET)
+    public Object editProfileId(HttpServletRequest request, @PathVariable Long profileId) {
+        User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User profile = userService.getUser(profileId);
+        if(!request.isUserInRole("ROLE_PERSONA_USER") || !user.getIsAdmin()) {
+            return "redirect:/";
+        } else if(user.getIsNew()) {
+            return "redirect:/profile";
+        }
+        ModelAndView model = new ModelAndView("profile");
+        model.addObject("profileForm", userService.fillProfileForm(profile));
+        model.addObject("user", user);
+        model.addObject("profile", profile);
+        model.addObject("apartments",adService.getApartmentsByUser(user.getEmail()));
+        model.addObject("shApartments",adService.getShApartmentsByUser(user.getEmail()));
         return model;
     }
 
@@ -114,6 +142,45 @@ public class ProfileController {
         userService.saveFrom(newProfileForm);
         redirectAttributes.addFlashAttribute("Profile created.");
         return "redirect:/profile";
+    }
+
+    @RequestMapping(value = "/saveUserPicture", method = RequestMethod.POST)
+    public Object saveUserPicture(HttpServletRequest request, @RequestParam("picture") MultipartFile picture) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        }
+        User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(!picture.isEmpty()) {
+            try {
+                byte[] bytes = picture.getBytes();
+                user.setPicture(bytes);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                return "redirect:/profile";
+            }
+        }
+        return "redirect:/profile";
+    }
+
+    @RequestMapping(value = "/getUserPicture/{uid}")
+    public void getUserPicture(HttpServletResponse response , @PathVariable("uid") Long uid) throws IOException {
+        response.setContentType("image/jpeg");
+        User profile = userService.getUser(uid);
+        if(profile.getPicture() == null) {
+            return;
+        }
+        InputStream in = new ByteArrayInputStream(profile.getPicture());
+        OutputStream out = response.getOutputStream();
+        byte[] buffer = new byte[1024 * 4];
+        int count = 0;
+        int n = 0;
+        while (-1 != (n = in.read(buffer))) {
+            out.write(buffer, 0, n);
+            count += n;
+        }
+        out.flush();
+        out.close();
     }
     
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)

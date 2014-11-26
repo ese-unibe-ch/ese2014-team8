@@ -19,7 +19,7 @@
 </tr>
 <c:forEach items="${apartments}" var="apartment">
 <tr>
-    <td><a href="/searchresults/${apartment.id}"><b>${apartment.title}</b></a></td>
+    <td><a href="/searchresults/Apartment/${apartment.id}"><b>${apartment.title}</b></a></td>
     <td>${apartment.price}</td>
     <td>${apartment.address.street} ${apartment.address.number}, ${apartment.address.zipCode} ${apartment.address.city}</td>
 </tr>
@@ -36,7 +36,7 @@
 </tr>
 <c:forEach items="${shApartments}" var="shApartment">
 <tr>
-    <td><a href="/searchresults/${shApartment.id}"><b>${shApartment.title}</b></a></td>
+    <td><a href="/searchresults/Shared Apartment/${shApartment.id}"><b>${shApartment.title}</b></a></td>
     <td>${shApartment.price}</td>
     <td>${shApartment.address.street} ${shApartment.address.number}, ${shApartment.address.zipCode} ${shApartment.address.city}</td>
 </tr>

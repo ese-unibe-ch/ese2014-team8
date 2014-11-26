@@ -37,8 +37,5 @@ public interface AdService {
 	public Collection<TimeSlot> addTimeSlot(TimeSlotForm timeslot);
 	public void deleteTimeSlot(long id);
 	public Collection<TimeSlot> getTimeSlots(String adCategory, long adId);
-	
-
-   
 
 }
