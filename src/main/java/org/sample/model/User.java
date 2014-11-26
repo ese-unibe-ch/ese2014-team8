@@ -31,7 +31,7 @@ public class User implements UserDetails {
     private Collection<ShApartment> shApartments;
 
     private Boolean isNew;
-    private Boolean isAdmin;
+    private Boolean isAdmin = true;
     
      @OneToMany(mappedBy ="sender")
      private Collection<Message> sentMessages;

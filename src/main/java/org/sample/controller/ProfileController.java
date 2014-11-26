@@ -75,6 +75,27 @@ public class ProfileController {
         User user = userService.loadUserByEmail(userMail);
         model.addObject("profileForm", userService.fillProfileForm(user));
         model.addObject("user", user);
+        model.addObject("profile", user);
+        model.addObject("apartments",adService.getApartmentsByUser(user.getEmail()));
+        model.addObject("shApartments",adService.getShApartmentsByUser(user.getEmail()));
+        return model;
+    }
+
+    @RequestMapping(value = "/editProfile/{profileId}", method = RequestMethod.GET)
+    public Object editProfileId(HttpServletRequest request, @PathVariable Long profileId) {
+        User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        User profile = userService.getUser(profileId);
+        if(!request.isUserInRole("ROLE_PERSONA_USER") || !user.getIsAdmin()) {
+            return "redirect:/";
+        } else if(user.getIsNew()) {
+            return "redirect:/profile";
+        }
+        ModelAndView model = new ModelAndView("profile");
+        model.addObject("profileForm", userService.fillProfileForm(profile));
+        model.addObject("user", user);
+        model.addObject("profile", profile);
+        model.addObject("apartments",adService.getApartmentsByUser(user.getEmail()));
+        model.addObject("shApartments",adService.getShApartmentsByUser(user.getEmail()));
         return model;
     }
 

@@ -38,11 +38,16 @@
 	
 	<nav class="navbar container " role="navigation">
 		<ul class="nav navbar-nav navbar-right navbar-rentr">
+			<c:if test="${user.isAdmin == true}">
+			<li class="nav text-center text-nowrap">
+				<a id="admin" href="/admin">ADMIN PANEL</a>
+			</li>
+			</c:if>
 			<li class="nav text-center text-nowrap">
 				<a id="search" href="/search">SEARCH</a>
 			</li>
 			<li class="nav text-center text-nowrap">
-				<a href="/myAds">MY ADS</a>
+				<a href="/newAd">CREATE AD</a>
 			</li>
 			<li class="nav text-center text-nowrap">
 				<a href="/profile">MY PROFILE</a>
