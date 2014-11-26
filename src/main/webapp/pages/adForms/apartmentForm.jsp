@@ -52,6 +52,7 @@
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
+       
 		
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
@@ -132,8 +133,8 @@
         </div>
 		
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Submit Ad</button>
-            <button type="button" class="btn">Cancel</button>
+            <button type="submit" class="btn btn-green">Submit Ad</button>
+            <button type="button" class="btn btn-default">Cancel</button>
         </div>
     </fieldset>
 </form:form>

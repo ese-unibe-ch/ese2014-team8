@@ -14,9 +14,11 @@
     <script src="https://login.persona.org/include.js"></script>
 	<link rel="stylesheet" href="../../css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../../css/main.css" media="all"/>
-    <script type="text/javascript"  src="../../js/bootstrap.min.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript"  src="../../js/bootstrap.min.js"></script>
+    
+    
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -36,11 +38,16 @@
 	
 	<nav class="navbar container " role="navigation">
 		<ul class="nav navbar-nav navbar-right navbar-rentr">
+			<c:if test="${user.isAdmin == true}">
 			<li class="nav text-center text-nowrap">
-				<a href="/search">SEARCH</a>
+				<a id="admin" href="/admin">ADMIN PANEL</a>
+			</li>
+			</c:if>
+			<li class="nav text-center text-nowrap">
+				<a id="search" href="/search">SEARCH</a>
 			</li>
 			<li class="nav text-center text-nowrap">
-				<a href="/myAds">MY ADS</a>
+				<a href="/newAd">CREATE AD</a>
 			</li>
 			<li class="nav text-center text-nowrap">
 				<a href="/profile">MY PROFILE</a>

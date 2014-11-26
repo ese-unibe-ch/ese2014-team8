@@ -46,7 +46,7 @@ public class AdServiceImpl implements AdService {
 		
 		
     	if(apartmentForm.getId()!=0L){
-    		apartment = getAd(apartmentForm.getId());
+    		apartment = getApAd(apartmentForm.getId());
     	}
     	else{
     		apartment = new Apartment();
@@ -178,14 +178,31 @@ public class AdServiceImpl implements AdService {
 		return categories;
 	}
     
+    @Override
+	public RealEstate getAd(String category, Long AdId) {
+		RealEstate ad;
+		if(category.equals("Apartment")){
+			ad = getApAd(AdId);
+		}
+		else{
+			ad=getShApAd(AdId);
+		}
+		return ad;
+	}
+    
 	@Transactional
-	public Apartment getAd(long id) {
-		return apDao.findOne(id);
+	public Apartment getApAd(long id) {
+		Apartment apartment = apDao.findOne(id);
+		apartment.setVisitingTimes(timeSlotDao.findByApartment(apartment));
+		return apartment;
+		
 	}
 	
     @Transactional
 	public ShApartment getShApAd(long id) {
-		return shApDao.findOne(id);
+		ShApartment shApartment = shApDao.findOne(id);
+		shApartment.setVisitingTimes(timeSlotDao.findByShApartment(shApartment));
+    	return shApartment;
 	}
 
 
@@ -273,5 +290,7 @@ public class AdServiceImpl implements AdService {
 		
 		return timeSlots;
 	}
+
+	
 	
 }

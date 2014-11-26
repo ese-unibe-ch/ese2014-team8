@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotBlank;
 
 @MappedSuperclass
 public class RealEstate {
@@ -13,6 +14,7 @@ public class RealEstate {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@NotBlank
 	private String title;
 	@OneToOne(cascade = { CascadeType.ALL })
 	private Address address;
@@ -24,8 +26,7 @@ public class RealEstate {
 	@Type(type = "date")
 	private Date moveOut;
 	private String description;
-	@OneToMany
-	private Collection<TimeSlot> visitingTimes;
+	
 	@OneToMany
 	private Collection<Message> messages;
 	
@@ -106,13 +107,7 @@ public class RealEstate {
 		this.description = description;
 	}
 
-	public Collection<TimeSlot> getVisitingTimes() {
-		return visitingTimes;
-	}
-
-	public void setVisitingTimes(Collection<TimeSlot> visitingTimes) {
-		this.visitingTimes = visitingTimes;
-	}
+	
 
 	public Collection<Message> getMessages() {
 		return messages;

@@ -18,8 +18,9 @@ public interface AdService {
 	
 	public ApartmentForm fillInFormFrom(Apartment apartment);
 	public ShApartmentForm fillInFormFrom(ShApartment shApartment);
-
-	public Apartment getAd(long id);
+	
+	public RealEstate getAd(String category, Long lAdId);
+	public Apartment getApAd(long id);
 	public ShApartment getShApAd(long id);
 
 	public Iterable<? extends RealEstate> getSearchResults(SearchForm searchForm);
@@ -36,7 +37,5 @@ public interface AdService {
 	public Collection<TimeSlot> addTimeSlot(TimeSlotForm timeslot);
 	public void deleteTimeSlot(long id);
 	public Collection<TimeSlot> getTimeSlots(String adCategory, long adId);
-
-   
 
 }

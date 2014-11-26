@@ -8,25 +8,15 @@
 <c:import url="template/header.jsp" />
 
 <c:if test="${category == 'Apartment'}">
-	<h1>${message}</h1>
 	<c:import url="apartmentViews/viewApartmentAd.jsp" />
 </c:if>
 
 <c:if test="${category == 'Shared Apartment'}">
-	<h1>${message}</h1>
 	<c:import url="apartmentViews/viewSharedApartmentAd.jsp" />
 </c:if>
 
-<form:form method="post" modelAttribute="apartmentForm" action="editAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
-    <fieldset>	
-    	<form:hidden path="category" value="${category}"/>
-		<form:hidden path="id" value="${ad.id}"/>
-         <div class="form-actions">
-            <button type="submit" class="btn btn-grey">Edit Ad</button>
-            <a href="main" class="btn btn-grey" role="button">Submit without adding visiting times</a>
-            <a href="timeslots/${category}/${ad.id}" class="btn btn-green" role="button">Add visiting times</a>
-        </div>
-    </fieldset>
-</form:form>
+<c:if test="${user.id == ad.owner.id}">
+	<a class="btn btn-grey" href="/editAd/${category}/${ad.id}">Edit this ad</a>
+</c:if>
 
 <c:import url="template/footer.jsp" />
