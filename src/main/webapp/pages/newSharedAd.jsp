@@ -11,12 +11,11 @@
 <h1>Advertise your apartment here!</h1>
 <select id="category" size="1">
       <option value="1">Apartment</option>
-      <option value="2">Shared Apartment</option>
+      <option value="2" selected >Shared Apartment</option>
 </select>
 
-<c:import url="adForms/apartmentForm.jsp" />
 
-<%-- <c:import url="adForms/sharedApartmentForm.jsp" /> --%>
+<c:import url="adForms/sharedApartmentForm.jsp" />
 
 <c:if test="${page_error != null }">
     <div class="alert alert-error">
@@ -42,8 +41,7 @@
 
 <script type="text/javascript">
 function switchForm(){
-	window.location = "/newSharedAd";
-	//window.location.href = "http://stackoverflow.com";
+	window.location = "/newAd";
 }
 document.getElementById('category').onchange = function(){switchForm()};
 

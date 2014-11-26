@@ -167,6 +167,18 @@ public class AdController {
     	ModelAndView model = new ModelAndView("newAd");
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	model.addObject("apForm", new ApartmentForm());
+    	return model;
+    }
+
+    @RequestMapping(value="/newSharedAd", method = RequestMethod.GET) 
+    public Object makeSharedAd(HttpServletRequest request){
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	ModelAndView model = new ModelAndView("newSharedAd");
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	model.addObject("shApForm", new ShApartmentForm());
     	return model;
     }
@@ -234,14 +246,14 @@ public class AdController {
             	Apartment oldAd = adService.getApAd(apartmentForm.getId());
             	apartmentForm = adService.fillInFormFrom(oldAd);
                 model.addObject("category","Apartment");
-                model.addObject("oldAd", oldAd);
+               // model.addObject("oldAd", oldAd);
                 model.addObject("apForm", apartmentForm);
             }
             else{
             	ShApartment oldAd = adService.getShApAd(shApartmentForm.getId());
             	shApartmentForm = adService.fillInFormFrom(oldAd);
             	model.addObject("category","Shared Apartment");
-            	model.addObject("oldAd", oldAd);
+            	//model.addObject("oldAd", oldAd);
                 model.addObject("shApForm", shApartmentForm);
             }
         } 

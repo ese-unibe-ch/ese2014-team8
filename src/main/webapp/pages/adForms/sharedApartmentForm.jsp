@@ -95,7 +95,7 @@
         <div id="moveOutJS" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
             <label class="control-label" for="field-moveOut">Move-out date</label>
             <div class="controls">
-            	<fmt:formatDate type="date" dateStyle="short" value="${shApForm.moveIn}" var="simpleOutDate"/>
+            	<fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${shApForm.moveOut}" var="simpleOutDate"/>
                 <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" />
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
