@@ -192,12 +192,17 @@ public class AdServiceImpl implements AdService {
     
 	@Transactional
 	public Apartment getApAd(long id) {
-		return apDao.findOne(id);
+		Apartment apartment = apDao.findOne(id);
+		apartment.setVisitingTimes(timeSlotDao.findByApartment(apartment));
+		return apartment;
+		
 	}
 	
     @Transactional
 	public ShApartment getShApAd(long id) {
-		return shApDao.findOne(id);
+		ShApartment shApartment = shApDao.findOne(id);
+		shApartment.setVisitingTimes(timeSlotDao.findByShApartment(shApartment));
+    	return shApartment;
 	}
 
 

@@ -32,3 +32,5 @@
 	Description: <br/>
 	<c:out value="${ad.description}"/>
 </div>
+
+

@@ -20,7 +20,7 @@ public class TimeSlot {
 	@OneToMany
 	private Collection<User> visitors;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "ap_id")
 	private Apartment apartment;
 	
