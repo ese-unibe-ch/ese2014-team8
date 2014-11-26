@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
         user.setAge(profileForm.getAge());
         user.setSex(profileForm.getSex());
         user.setDescription(profileForm.getDescription());
+		user.setPicture(profileForm.getPicture());
         userDao.save(user);
         return profileForm;
     }

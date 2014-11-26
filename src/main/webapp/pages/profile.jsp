@@ -10,7 +10,7 @@
 
 <p>E-Mail: ${profile.email}</p>
 <p>
-<form:form method="post" modelAttribute="profileForm" action="saveProfile" id="profileForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" enctype="multipart/form-data" modelAttribute="profileForm" action="saveProfile" id="profileForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
         <legend>Enter Your Information</legend>
 
@@ -57,6 +57,16 @@
             <div class="controls">
                 <form:textarea path="description" id="field-description" tabindex="13" rows="10" cols="50"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+
+        <c:set var="pictureErrors"><form:errors path="picture"/></c:set>
+        <div class="control-group<c:if test="${not empty pictureErrors}"> error</c:if>">
+            <label class="control-label" for="field-description">Picture</label>
+            <img src="/getUserPicture/${user.id}"/>
+            <div class="controls">
+                <form:input type="file" path="picture" id="field-picture" tabindex="14" />
+                <form:errors path="picture" cssClass="help-inline" element="span"/>
             </div>
         </div>
 

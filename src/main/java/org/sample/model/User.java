@@ -1,10 +1,8 @@
 package org.sample.model;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Arrays;
 import java.util.Collection;
 
 
@@ -24,6 +22,9 @@ public class User implements UserDetails {
     
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
+
+    @Lob
+    private byte[] picture;
 
     @OneToMany
     private Collection<Apartment> apartments;
@@ -191,4 +192,12 @@ public class User implements UserDetails {
 	public void setReceivedMessages(Collection<Message> receivedMessages) {
 		this.receivedMessages = receivedMessages;
 	}
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 }
