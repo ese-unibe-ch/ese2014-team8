@@ -60,6 +60,7 @@ public class RoomMateServiceImpl implements RoomMateService {
 		roomMate.setLastName(RoomMateForm.getLastName());
 		roomMate.setAge(RoomMateForm.getAge());
         roomMate.setSex(RoomMateForm.getSex());
+        roomMate.setDescription(RoomMateForm.getDescription());
 		//roomMate.setIsNew(false);
 		roomMateDao.save(roomMate);
 		return RoomMateForm;

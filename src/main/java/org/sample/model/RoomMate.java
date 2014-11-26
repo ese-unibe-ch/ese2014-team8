@@ -18,26 +18,12 @@ public class RoomMate {
     @OneToOne(cascade = {CascadeType.ALL})
     private Person person;
     
-//    private String email;
-//    @ElementCollection(targetClass = Team8Authority.class)
-//    private Collection<Team8Authority> authorities;
-    
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
-
-//    @OneToMany
-//    private Collection<Apartment> apartments;
-//    @OneToMany
-//    private Collection<ShApartment> shApartments;
-
-//    private Boolean isNew;
-//    private Boolean isAdmin;
-//    
-//     @OneToMany(mappedBy ="sender")
-//     private Collection<Message> sentMessages;
-//     
-//     @OneToMany(mappedBy ="receiver")
-//     private Collection<Message> receivedMessages;
+    
+	@ManyToOne
+	@JoinColumn(name = "shApartment_id")
+	private ShApartment shApartment;
     
     public Long getId() {
         return id;
