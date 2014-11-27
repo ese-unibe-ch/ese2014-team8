@@ -81,13 +81,13 @@ public class RoomMate {
     	this.person.setDescription(description);
     }
     
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
+    public ShApartment getShApartment() {
+        return shApartment;
+    }
+
+    public void setShApartment(ShApartment shApartment) {
+        this.shApartment = shApartment;
+    }
 
 	public Address getAddress() {
 		return address;

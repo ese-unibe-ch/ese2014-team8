@@ -17,6 +17,8 @@
 
 <c:import url="adForms/sharedApartmentForm.jsp" />
 
+<c:import url="roomMates.jsp" />
+
 <c:if test="${page_error != null }">
     <div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>

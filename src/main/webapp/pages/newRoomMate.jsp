@@ -9,7 +9,9 @@
 <h1>Enter a new roommate </h1>
 
 <p>
-<form:form method="post" modelAttribute="roomMateForm" action="saveRoomMate" id="roomMateForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" modelAttribute="roomMateForm" action="/RoomMates" id="roomMateForm" cssClass="form-horizontal"  autocomplete="off">
+    <form:hidden path="adId"/>
+    
     <fieldset>
         <legend>Enter Your Information</legend>
 

@@ -66,33 +66,39 @@ public class RoomMateController {
 //        }
 //    }
 
-    @RequestMapping(value = "/editRoomMate", method = RequestMethod.GET)
-    public Object editProfile(HttpServletRequest request) {
+    // view, add and delete RoomMates
+    @RequestMapping(value = "/RoomMates", method = RequestMethod.POST)
+    public Object editProfile(HttpServletRequest request, RoomMateForm roomMateForm) {
     	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
     		return "redirect:/";
     	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
+    	System.out.println(roomMateForm.getAdId());
         ModelAndView model = new ModelAndView("newRoomMate");
         SecurityContext ctx = SecurityContextHolder.getContext();
         RoomMate roomMate = roomMateService.loadRoomMate();
         model.addObject("roomMateForm", roomMateService.fillRoomMateForm(roomMate));
+        roomMateService.saveFrom(roomMateForm);
         //model.addObject("roomMate", roomMate);
         model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
         return model;
     }
 
-    @RequestMapping(value = "/newRoomMate", method = RequestMethod.GET)
-    public Object newProfile(HttpServletRequest request) {
+    // view and add RoomMates
+    @RequestMapping(value = "/RoomMates/{adId}", method = RequestMethod.GET)
+    public Object newProfile(HttpServletRequest request, @PathVariable String adId) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
-        
-        ModelAndView model = new ModelAndView();
+        System.out.println(adId);
+        ModelAndView model = new ModelAndView("newRoomMate");
         SecurityContext ctx = SecurityContextHolder.getContext();
-        model.addObject("roomMateForm", new RoomMateForm());
+        RoomMateForm roomMateForm = new RoomMateForm();
+        roomMateForm.setAdId(Long.parseLong(adId));
+        model.addObject("roomMateForm", roomMateForm);
         model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
         return model;
     }
@@ -108,9 +114,74 @@ public class RoomMateController {
         //profileForm.setEmail(ctx.getAuthentication().getName());
         roomMateService.saveFrom(roomMateForm);
         //redirectAttributes.addFlashAttribute("RoomMate saved.");
-        return "redirect:/editRoomMate";
+        return "redirect:/RoomMates";
+    }
+    
+    @RequestMapping(value = "/roomMateList", method = RequestMethod.GET)
+    public Object newProfile(HttpServletRequest request) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+        
+        ModelAndView model = new ModelAndView("roomMates");
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        model.addObject("roomMates", roomMateService.getRoomMates());
+        model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
+        return model;
     }
 
+//    @RequestMapping(value="/timeslots/{adCategory}/{adId}", method = RequestMethod.GET)
+//    public Object timeslots(HttpServletRequest request, @PathVariable String adCategory, @PathVariable String adId){
+//    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+//            return "redirect:/";
+//        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+//            return "redirect:/profile";
+//        }
+//    	TimeSlotForm timeSlotForm = new TimeSlotForm();
+//    	
+//    	timeSlotForm.setAdId(Long.parseLong(adId));
+//    	timeSlotForm.setCategory(adCategory);
+//    	ModelAndView model = new ModelAndView("timeslots");
+//    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+//    	model.addObject("timeSlotForm", timeSlotForm);
+//    	model.addObject("timeSlots", adService.getTimeSlots(adCategory, Long.parseLong(adId)));
+//    	return model;
+//    }
+//    
+//    
+//    @RequestMapping(value="/timeslots", method = RequestMethod.POST)
+//    public Object submitTimeslots(HttpServletRequest request, TimeSlotForm timeSlot){
+//    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+//            return "redirect:/";
+//        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+//            return "redirect:/profile";
+//        }
+//    	
+//    	TimeSlotForm timeSlotForm = new TimeSlotForm();
+//    	timeSlotForm.setAdId(timeSlot.getAdId());
+//    	timeSlotForm.setCategory(timeSlot.getCategory());
+//    	
+//    	ModelAndView model = new ModelAndView("timeslots");
+//    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+//    	model.addObject("timeSlots", adService.addTimeSlot(timeSlot));
+//    	model.addObject("timeSlotForm", timeSlotForm);
+//    	return model;
+//    }
+//    
+//    @RequestMapping(value="/removeTimeslot/{adCategory}/{adId}/{timeSlotId}", method = RequestMethod.GET)
+//    public Object removeTimeslot(HttpServletRequest request, @PathVariable String adCategory, 
+//    		@PathVariable String adId, @PathVariable String timeSlotId){
+//    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+//            return "redirect:/";
+//        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+//            return "redirect:/profile";
+//        }
+//    	adService.deleteTimeSlot(Long.parseLong(timeSlotId));
+//    	return "redirect:/timeslots/" + adCategory + "/" + adId;
+//    }    
+    
 //    @RequestMapping(value = "/saveNewProfile", method = RequestMethod.POST)
 //    public String saveNewProfile(HttpServletRequest request, @Valid NewProfileForm newProfileForm, BindingResult result, RedirectAttributes redirectAttributes) {
 //        if(!request.isUserInRole("ROLE_PERSONA_USER")) {

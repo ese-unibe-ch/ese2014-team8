@@ -18,6 +18,7 @@ public class RoomMateServiceImpl implements RoomMateService {
 
     @Autowired    RoomMateDao roomMateDao;
     @Autowired    AddressDao addDao;
+    @Autowired	ShApartmentDao shApartmentDao;
 	
 	public RoomMateServiceImpl() {	
     }
@@ -31,6 +32,9 @@ public class RoomMateServiceImpl implements RoomMateService {
     	return roomMateDao.findOne(id);
     }
     
+	public Iterable<RoomMate> getRoomMates() {
+		return roomMateDao.findAll();
+	}
 
 //	public Iterable<RoomMate> getRoomMates() {
 //		return roomMateDao.findAll();
@@ -52,18 +56,20 @@ public class RoomMateServiceImpl implements RoomMateService {
 //        return roomMateForm;
 //    }
 //
-	public RoomMateForm saveFrom(RoomMateForm RoomMateForm) {
+	public RoomMateForm saveFrom(RoomMateForm roomMateForm) {
+		System.out.println(roomMateForm.getAdId());
 		//RoomMate roomMate = loadUserByEmail(RoomMateForm.getEmail());
 		RoomMate roomMate = new RoomMate();
 		roomMate.setPerson(new Person());
-		roomMate.setFirstName(RoomMateForm.getFirstName());
-		roomMate.setLastName(RoomMateForm.getLastName());
-		roomMate.setAge(RoomMateForm.getAge());
-        roomMate.setSex(RoomMateForm.getSex());
-        roomMate.setDescription(RoomMateForm.getDescription());
-		//roomMate.setIsNew(false);
+		roomMate.setFirstName(roomMateForm.getFirstName());
+		roomMate.setLastName(roomMateForm.getLastName());
+		roomMate.setAge(roomMateForm.getAge());
+        roomMate.setSex(roomMateForm.getSex());
+        roomMate.setDescription(roomMateForm.getDescription());
+		roomMate.setShApartment(shApartmentDao.findOne(roomMateForm.getAdId()));
+		System.out.println(roomMate.getShApartment().getId());
 		roomMateDao.save(roomMate);
-		return RoomMateForm;
+		return roomMateForm;
 	}
 
 	//@Override

@@ -15,6 +15,7 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.*;
 import org.sample.controller.service.AdService;
 import org.sample.controller.service.UserService;
+import org.sample.controller.service.RoomMateService;
 import org.sample.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,8 @@ public class AdController {
     AdService adService;
     @Autowired
     UserService userService;
+    @Autowired 
+    RoomMateService roomMateService;
     
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
@@ -180,6 +183,7 @@ public class AdController {
     	ModelAndView model = new ModelAndView("newSharedAd");
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	model.addObject("shApForm", new ShApartmentForm());
+    	model.addObject("roomMates", roomMateService.getRoomMates());
     	return model;
     }
     

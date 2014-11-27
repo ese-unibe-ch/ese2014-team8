@@ -123,7 +123,8 @@
         </div>
         
         
-        <button type="button" class="btn btn-primary">add Roommate</button>
+        <!-- <button type="button" class="btn btn-primary">add Roommate</button> -->
+        <a class="btn btn-primary" href="/RoomMates/${shApForm.id}">add Roommate</a>
 		
         <div class="form-actions">
             <button type="submit" class="btn btn-green">Submit Ad</button>
