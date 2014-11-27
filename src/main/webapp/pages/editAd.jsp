@@ -48,6 +48,8 @@
 	checkBox2.onclick = function(){showElement2()};
 	window.onload = function(){showElement1(); showElement2();};
 </script>
-
+<script>
+	document.getElementById('ad').style.color = '#ACCB12'
+</script>
 	
 <c:import url="template/footer.jsp" />

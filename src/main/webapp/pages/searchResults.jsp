@@ -15,7 +15,9 @@
   		</tr>
 	</c:forEach>  
 </table>
-
+<script>
+	document.getElementById('search').style.color = '#ACCB12'
+</script>
  
 
 

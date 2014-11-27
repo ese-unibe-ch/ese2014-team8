@@ -45,5 +45,8 @@
         </tr>
     </c:forEach>
 </table>
+<script>
+	document.getElementById('admin').style.color = '#ACCB12'
+</script>
 
 <c:import url="template/footer.jsp" />
