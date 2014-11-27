@@ -6,11 +6,11 @@
 
 <c:import url="template/header.jsp" />
 
-<h1>User #${user.id} (${user.firstName} ${user.lastName})</h1>
+<h1>User ${profile.firstName} ${profile.lastName}</h1>
 
-<p>E-Mail: ${user.email}</p>
+<p>E-Mail: ${profile.email}</p>
 <p>
-<form:form method="post" modelAttribute="profileForm" action="saveProfile" id="profileForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" enctype="multipart/form-data" modelAttribute="profileForm" action="saveProfile" id="profileForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
         <legend>Enter Your Information</legend>
 
@@ -60,6 +60,16 @@
             </div>
         </div>
 
+        <c:set var="pictureErrors"><form:errors path="picture"/></c:set>
+        <div class="control-group<c:if test="${not empty pictureErrors}"> error</c:if>">
+            <label class="control-label" for="field-description">Picture</label>
+            <img src="/getUserPicture/${user.id}"/>
+            <div class="controls">
+                <form:input type="file" path="picture" id="field-picture" tabindex="14" />
+                <form:errors path="picture" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+
         <div class="form-actions">
             <button type="submit" class="btn btn-green">Save</button>
             <button type="button" class="btn btn-default">Cancel</button>
@@ -79,5 +89,44 @@
     </c:if>
 </p>
 
+<hr noshade/>
+
+<p><h1>Your Ads</h1></p>
+
+<a href="/newAd" class="btn btn-green">New Ad</a>
+
+<p><h2>Apartment Ads</h2>
+<table>
+<tr>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Address</th>
+</tr>
+<c:forEach items="${apartments}" var="apartment">
+<tr>
+    <td><a href="/searchresults/Apartment/${apartment.id}"><b>${apartment.title}</b></a></td>
+    <td>${apartment.price}</td>
+    <td>${apartment.address.street} ${apartment.address.number}, ${apartment.address.zipCode} ${apartment.address.city}</td>
+</tr>
+</c:forEach>
+</table>
+</p>
+
+<p><h2>Shared Apartment Ads</h2>
+<table>
+<tr>
+    <th>Title</th>
+    <th>Price</th>
+    <th>Address</th>
+</tr>
+<c:forEach items="${shApartments}" var="shApartment">
+<tr>
+    <td><a href="/searchresults/Shared Apartment/${shApartment.id}"><b>${shApartment.title}</b></a></td>
+    <td>${shApartment.price}</td>
+    <td>${shApartment.address.street} ${shApartment.address.number}, ${shApartment.address.zipCode} ${shApartment.address.city}</td>
+</tr>
+</c:forEach>
+</table>
+</p>
 
 <c:import url="template/footer.jsp" />

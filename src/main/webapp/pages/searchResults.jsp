@@ -11,7 +11,7 @@
 	<c:forEach items="${searchResults}" var="s">
 		<tr>
     		<td><a href="searchresults/${category}/${s.id}"><c:out value="${s.title}"/></a></td>
-    		<td><c:out value="${s.price} chf"/></td>
+    		<td><c:out value="CHF ${s.price}"/></td>
   		</tr>
 	</c:forEach>  
 </table>

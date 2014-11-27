@@ -29,6 +29,8 @@ public abstract class RealEstateForm {
 	private boolean fixedMoveOut;
 	private Date moveOut;
 	
+	
+	
 	//@Size(min=3, message="Please enter a description.")
 	private String description;
 	

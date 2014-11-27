@@ -52,6 +52,7 @@
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
+       
 		
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>

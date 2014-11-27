@@ -6,5 +6,8 @@
 
 <c:import url="template/header.jsp" />
 
+<div class="jumbotron text-center">
+<h1>Welcome to RENTR!</h1>
+<h2>Sign in and get access to the most detailed apartment and shared apartment ads, roommate profiles, and much more...</h2>
 
 <c:import url="template/footer.jsp" />

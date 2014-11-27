@@ -11,11 +11,20 @@ import javax.persistence.OneToMany;
 public class ShApartment extends RealEstate {
 
 	private int roomSize;
+
 	@ManyToOne
 	private User owner;
 	
 	@OneToMany(mappedBy = "shApartment")
 	private Collection<TimeSlot> visitingTimes;
+
+	public User getOwner() {
+		return owner;
+	}
+
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
 
 	public int getRoomSize() {
 		return roomSize;
@@ -25,13 +34,6 @@ public class ShApartment extends RealEstate {
 		this.roomSize = roomSize;
 	}
 
-	public User getOwner() {
-		return owner;
-	}
-
-	public void setOwner(User owner) {
-		this.owner = owner;
-	}
 	public Collection<TimeSlot> getVisitingTimes() {
 		return visitingTimes;
 	}

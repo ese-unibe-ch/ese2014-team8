@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.NotBlank;
 
 @MappedSuperclass
 public class RealEstate {
@@ -13,6 +14,7 @@ public class RealEstate {
 	@Id
 	@GeneratedValue
 	private Long id;
+	@NotBlank
 	private String title;
 	@OneToOne(cascade = { CascadeType.ALL })
 	private Address address;

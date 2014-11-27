@@ -1,10 +1,9 @@
 package org.sample.model;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Arrays;
+
 import java.util.Collection;
 
 
@@ -25,19 +24,25 @@ public class User implements UserDetails {
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
 
+    @Lob
+    private byte[] picture;
+
     @OneToMany
     private Collection<Apartment> apartments;
     @OneToMany
     private Collection<ShApartment> shApartments;
 
     private Boolean isNew;
-    private Boolean isAdmin;
+    private Boolean isAdmin = true;
     
      @OneToMany(mappedBy ="sender")
      private Collection<Message> sentMessages;
      
      @OneToMany(mappedBy ="receiver")
      private Collection<Message> receivedMessages;
+     
+     @ManyToMany(mappedBy = "visitors", fetch = FetchType.EAGER)
+     private Collection<TimeSlot> registeredTimeSlots;
     
     public Long getId() {
         return id;
@@ -190,5 +195,21 @@ public class User implements UserDetails {
 
 	public void setReceivedMessages(Collection<Message> receivedMessages) {
 		this.receivedMessages = receivedMessages;
+	}
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+	public Collection<TimeSlot> getTimeSlots() {
+		return registeredTimeSlots;
+	}
+
+	public void setTimeSlots(Collection<TimeSlot> timeSlots) {
+		this.registeredTimeSlots = timeSlots;
 	}
 }

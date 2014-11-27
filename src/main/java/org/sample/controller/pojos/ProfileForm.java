@@ -23,6 +23,8 @@ public class ProfileForm {
     
     private String description;
 
+    private byte[] picture;
+
     public String getFirstName() {
         return firstName;
     }
@@ -70,4 +72,12 @@ public class ProfileForm {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
 }
