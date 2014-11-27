@@ -16,8 +16,9 @@ public class TimeSlot {
 	private Date dateTime;
 	
 	private int maxNumVisitors;
+	private int placesLeft;
 	
-	@OneToMany
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
 	private Collection<User> visitors;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
@@ -51,6 +52,14 @@ public class TimeSlot {
 
 	public void setMaxNumVisitors(int maxNumVisitors) {
 		this.maxNumVisitors = maxNumVisitors;
+	}
+
+	public int getPlacesLeft() {
+		return placesLeft;
+	}
+
+	public void setPlacesLeft(int placesLeft) {
+		this.placesLeft = placesLeft;
 	}
 
 	public Collection<User> getVisitors() {

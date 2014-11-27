@@ -114,6 +114,21 @@ public class AdController {
     	return "redirect:/timeslots/" + adCategory + "/" + adId;
     }
     
+    @RequestMapping(value="/registerTimeslot/{adCategory}/{adId}/{timeSlotId}", method = RequestMethod.GET)
+    public Object registerTimeslot(HttpServletRequest request, @PathVariable String adCategory, 
+    		@PathVariable String adId, @PathVariable String timeSlotId){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	adService.registerTimeSlot(Long.parseLong(timeSlotId), user);
+    	
+    	return "redirect:/searchresults/" + adCategory + "/" + adId;
+        
+    }
+    
     @RequestMapping(value = "/main", method = RequestMethod.GET)
     public Object main(HttpServletRequest request) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {

@@ -254,9 +254,9 @@ public class AdServiceImpl implements AdService {
 	public Collection<TimeSlot> addTimeSlot(TimeSlotForm timeSlotForm) {
 		TimeSlot timeSlot = new TimeSlot();
 		Date dateTime = new Date(timeSlotForm.getDate().getTime()+timeSlotForm.getTime().getTime()+(60*60*1000));
-		System.out.println(dateTime);
 		timeSlot.setDateTime(dateTime);
 		timeSlot.setMaxNumVisitors(timeSlotForm.getMaxNumVisitors());
+		timeSlot.setPlacesLeft(timeSlot.getMaxNumVisitors());
 		
 		
 		if(timeSlotForm.getCategory().equals("Apartment")){
@@ -289,6 +289,18 @@ public class AdServiceImpl implements AdService {
 		
 		
 		return timeSlots;
+	}
+
+	@Override
+	@Transactional
+	public void registerTimeSlot(long timeSlotId, User user) {
+		TimeSlot timeSlot = timeSlotDao.findOne(timeSlotId);
+		Collection<User> visitors = timeSlot.getVisitors();
+		visitors.add(user);
+		timeSlot.setVisitors(visitors);
+		timeSlot.setPlacesLeft(timeSlot.getPlacesLeft() - 1);
+		timeSlotDao.save(timeSlot);
+		
 	}
 
 	
