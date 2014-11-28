@@ -8,7 +8,7 @@
 
     <meta charset="utf-8">
 
-    <title>TestApp</title>
+    <title>RentR</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <script src="https://login.persona.org/include.js"></script>
@@ -33,11 +33,16 @@
 </head>
 <body> 
 <div class="fluid-container">
-	<img class="top-image" src="../../img/cityscape.jpg"/>
+	<img class="top-image" src="../../img/cityscape_banner.jpg"/>
 	
 	
-	<nav class="navbar container " role="navigation">
-		<ul class="nav navbar-nav navbar-right navbar-rentr">
+	<nav class="navbar navbar-inverse " role="navigation">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">
+				<img alt="RentR" src="../../img/logo.png">
+			</a>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
 			<c:if test="${user.isAdmin == true}">
 			<li class="nav text-center text-nowrap">
 				<a id="admin" href="/admin">ADMIN PANEL</a>
@@ -47,10 +52,10 @@
 				<a id="search" href="/search">SEARCH</a>
 			</li>
 			<li class="nav text-center text-nowrap">
-				<a href="/newAd">CREATE AD</a>
+				<a id="ad" href="/newAd">CREATE AD</a>
 			</li>
 			<li class="nav text-center text-nowrap">
-				<a href="/profile">MY PROFILE</a>
+				<a id="profile" href="/profile">MY PROFILE</a>
 			</li>
 		</ul>
 	</nav>
@@ -136,4 +141,4 @@ You're logged in as ${user.email}.<input type="button" id="signout" value="signo
 </div>
 </div> 
 
-<div class="container">
+<div class="container container-body">

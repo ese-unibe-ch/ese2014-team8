@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
 <h2>${ad.title}</h2>
@@ -32,5 +33,35 @@
 	Description: <br/>
 	<c:out value="${ad.description}"/>
 </div>
-
+<div>
+	<table class="text-center table table-hover"">
+		<tr>
+			<th class="text-center"> Date</th>
+			<th class="text-center"> Time</th>
+			<th class="text-center"> Places left</th>
+			<th></th>
+		</tr>
+		<c:forEach items="${ad.visitingTimes}" var="t">
+			<tr>
+				<fmt:formatDate pattern="dd/MM/yyyy" value="${t.dateTime}" var="showDate"/>
+				<fmt:formatDate pattern="HH.mm" value="${t.dateTime}" var="showTime"/>
+				<td>${showDate}</td>
+				<td>${showTime}</td>
+				<td>${t.placesLeft}</td>
+				<td>
+				<c:choose>
+				<c:when test="${t.placesLeft ne 0}">
+				<a href="/registerTimeslot/<c:if test="${not empty t.apartment}">Apartment/${t.apartment.id}</c:if>
+						<c:if test="${not empty t.shApartment}">Shared Apartment/${t.shApartment.id}</c:if>/${t.id}" 
+						class = "btn btn-green btn-block"role="button">Register</a>
+				</c:when>	
+				<c:otherwise>
+				<button class="btn btn-block btn disabled" disabled="disabled">Full!</button>
+				</c:otherwise>	
+				</c:choose>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
 

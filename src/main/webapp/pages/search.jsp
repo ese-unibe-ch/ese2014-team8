@@ -58,6 +58,8 @@
                 ${page_error}
         </div>
     </c:if>
-
+<script>
+	document.getElementById('search').style.color = '#ACCB12'
+</script>
 
 <c:import url="template/footer.jsp" />

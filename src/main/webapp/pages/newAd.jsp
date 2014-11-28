@@ -48,5 +48,8 @@ function switchForm(){
 document.getElementById('category').onchange = function(){switchForm()};
 
 </script>
+<script>
+	document.getElementById('ad').style.color = '#ACCB12'
+</script>
 	
 <c:import url="template/footer.jsp" />

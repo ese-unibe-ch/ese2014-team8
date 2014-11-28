@@ -3,6 +3,7 @@ package org.sample.model;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+
 import java.util.Collection;
 
 
@@ -39,6 +40,9 @@ public class User implements UserDetails {
      
      @OneToMany(mappedBy ="receiver")
      private Collection<Message> receivedMessages;
+     
+     @ManyToMany(mappedBy = "visitors", fetch = FetchType.EAGER)
+     private Collection<TimeSlot> registeredTimeSlots;
     
     public Long getId() {
         return id;
@@ -200,4 +204,12 @@ public class User implements UserDetails {
     public void setPicture(byte[] picture) {
         this.picture = picture;
     }
+
+	public Collection<TimeSlot> getTimeSlots() {
+		return registeredTimeSlots;
+	}
+
+	public void setTimeSlots(Collection<TimeSlot> timeSlots) {
+		this.registeredTimeSlots = timeSlots;
+	}
 }

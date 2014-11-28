@@ -28,5 +28,7 @@
         </div>
     </fieldset>
 </form:form>
-
+<script>
+	document.getElementById('ad').style.color = '#ACCB12'
+</script>
 <c:import url="template/footer.jsp" />

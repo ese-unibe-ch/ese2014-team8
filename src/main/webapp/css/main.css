@@ -1,42 +1,71 @@
 
 
 /*Header*/
+html, body {
+    height:100%;
+} 
+
 body{
 	overflow-x: hidden;
-	padding-bottom: 50px;
+	
 }
+
 .top-image{
 	position: static;
-	height: 470px;
+	height: 100%;
 	
+	
+}
+
+.jumbotron{
+	position: absolute;
+	top: 420px;
+	background-color: rgba(255,255,255, 0.6);
+	color: inherit;
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+}
+
+.container-body{
+	padding-bottom: 50px;
 }
 .navbar{
 	position: relative;
-	top: -51px;
+	top: 0px;
 	font-size: 250%;
 	font-weight: bold;
+	height: 100px;
 	width: 100%;
 	margin: 0;
 	padding-right: 10px;
+	border-radius: 0px !important;
+}
+.navbar-header{
+	height:75px;
+}
+.navbar-brand{
+	height:75px;
+}
+.navbar-brand img{
+	height: 75px;
 }
 
-.navbar-rentr{
-	background-color: #aacb11;
-	
-
+.navbar-nav{
+	margin-top: 35px;
 }
-.navbar-rentr a{
-	
-	color: #3d3d3d;
-	border-right: solid;
-	border-color: #3d3d3d;
-}
-
 
 .log-in{
 	position: absolute;
 	right: 0px;
 	top: 0px;
+	
+}
+
+.log-in img{
+	width: 150px;
 }
 
 /*Custom buttons* source charliepark.org/bootstrap_buttons*/
@@ -99,12 +128,14 @@ body{
 
 @media all and (max-width: 765px){
 	.navbar{
-		top: 0px;
+		height: 240px;
+	}
+	.navbar-brand{
+		margin-left: auto;
+		margin-right: auto;
+		
+	}
 	
-	}
-	.navbar-rentr{
-		margin-top:0px
-	}
 }
 
 
