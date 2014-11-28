@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="sharedApartmentForm">
-<form:form method="post" modelAttribute="shApForm" action="viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
+<form:form method="post" modelAttribute="shApForm" action="/viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
     <fieldset>
     	<form:hidden path="category" value="Shared Apartment"/>
 		<form:hidden path="id"/>
@@ -122,10 +122,10 @@
             </div>
         </div>
         
-        
-        <!-- <button type="button" class="btn btn-primary">add Roommate</button> -->
-        <a class="btn btn-primary" href="/RoomMates/${shApForm.id}">add Roommate</a>
-		
+        <c:import url="roomMateTable.jsp" />
+        <form:hidden id="field-addRoomMate" path="addRoomMate" value="false"/>
+        <button type="button" id="RoomMateButton" class="btn btn-primary">add Roommate</button> 
+
         <div class="form-actions">
             <button type="submit" class="btn btn-green">Submit Ad</button>
             <button type="button" class="btn btn-default">Cancel</button>
@@ -133,3 +133,11 @@
     </fieldset>
 </form:form>
 </div>
+
+<script>
+document.getElementById('RoomMateButton').onclick = function(){
+	document.getElementById('field-addRoomMate').value = 'true';
+	document.getElementById('shApForm').submit();
+	
+}
+</script>

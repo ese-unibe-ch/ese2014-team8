@@ -15,6 +15,7 @@
 <c:if test="${category == 'Shared Apartment'}">
 	<h1>Edit your Shared Apartment Ad</h1>
 	<c:import url="adForms/sharedApartmentForm.jsp" />
+	<%-- <c:import url="roomMateTable.jsp" /> --%>
 </c:if>
 
 

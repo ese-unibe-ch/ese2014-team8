@@ -16,8 +16,6 @@
 
 <c:import url="adForms/apartmentForm.jsp" />
 
-<%-- <c:import url="adForms/sharedApartmentForm.jsp" /> --%>
-
 <c:if test="${page_error != null }">
     <div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -43,7 +41,6 @@
 <script type="text/javascript">
 function switchForm(){
 	window.location = "/newSharedAd";
-	//window.location.href = "http://stackoverflow.com";
 }
 document.getElementById('category').onchange = function(){switchForm()};
 

@@ -11,6 +11,9 @@ public class ShApartmentForm extends RealEstateForm{
 	private int roomSize;
 
 	private User user;
+	
+	private boolean addRoomMate;
+	
 
 	public int getRoomSize() {
 		return roomSize;
@@ -27,5 +30,13 @@ public class ShApartmentForm extends RealEstateForm{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public boolean isAddRoomMate() {
+		return addRoomMate;
+	}
+
+	public void setAddRoomMate(boolean addRoomMate) {
+		this.addRoomMate = addRoomMate;
 	}
 }

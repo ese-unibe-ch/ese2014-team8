@@ -16,8 +16,7 @@
 
 
 <c:import url="adForms/sharedApartmentForm.jsp" />
-
-<c:import url="roomMates.jsp" />
+<%-- <c:import url="roomMateTable.jsp" /> --%>
 
 <c:if test="${page_error != null }">
     <div class="alert alert-error">

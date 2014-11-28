@@ -233,6 +233,9 @@ public class AdController {
                 try {
                     form2.setUser(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
                 	ShApartment apartment=adService.saveFrom(form2);
+                	if(form2.isAddRoomMate()==true){
+                		return "redirect:/RoomMates/" + Long.toString(apartment.getId());
+                	}
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Shared Apartment");
@@ -265,14 +268,12 @@ public class AdController {
             	Apartment oldAd = adService.getApAd(apartmentForm.getId());
             	apartmentForm = adService.fillInFormFrom(oldAd);
                 model.addObject("category","Apartment");
-               // model.addObject("oldAd", oldAd);
                 model.addObject("apForm", apartmentForm);
             }
             else{
             	ShApartment oldAd = adService.getShApAd(shApartmentForm.getId());
             	shApartmentForm = adService.fillInFormFrom(oldAd);
             	model.addObject("category","Shared Apartment");
-            	//model.addObject("oldAd", oldAd);
                 model.addObject("shApForm", shApartmentForm);
             }
         } 
@@ -283,8 +284,8 @@ public class AdController {
     	return model;
     }
 
-    @RequestMapping(value="/editAd/{adType}/{adId}")
-    public Object editAdId(HttpServletRequest request, @PathVariable String adType, @PathVariable Long adId) {
+    @RequestMapping(value="/editAd/{adCategory}/{adId}")
+    public Object editAdId(HttpServletRequest request, @PathVariable String adCategory, @PathVariable Long adId) {
         User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if(!request.isUserInRole("ROLE_PERSONA_USER") || !user.getIsAdmin()) {
             return "redirect:/";
@@ -292,12 +293,13 @@ public class AdController {
             return "redirect:/profile";
         }
         ModelAndView model = new ModelAndView("editAd");
-        model.addObject("category",adType);
+        model.addObject("category",adCategory);
         model.addObject("user",user);
-        if(adType.equals("Apartment") && (user.getIsAdmin() || user.getId() == adService.getApAd(adId).getOwner().getId())) {
+        if(adCategory.equals("Apartment") && (user.getIsAdmin() || user.getId() == adService.getApAd(adId).getOwner().getId())) {
             model.addObject("apForm", adService.fillInFormFrom(adService.getApAd(adId)));
-        } else if(adType.equals("Shared Apartment") && (user.getIsAdmin() || user.getId() == adService.getShApAd(adId).getOwner().getId())) {
+        } else if(adCategory.equals("Shared Apartment") && (user.getIsAdmin() || user.getId() == adService.getShApAd(adId).getOwner().getId())) {
             model.addObject("shApForm", adService.fillInFormFrom(adService.getShApAd(adId)));
+            model.addObject("roomMates", roomMateService.getRoomMates());
         }
         return model;
     }
