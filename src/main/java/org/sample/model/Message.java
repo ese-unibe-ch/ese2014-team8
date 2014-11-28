@@ -16,7 +16,9 @@ public class Message {
 	@ManyToOne
 	private User receiver;
 	
-	private String message;
+	private String subject;
+	
+	private String content;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
@@ -53,12 +55,20 @@ public class Message {
 		this.receiver = receiver;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getSubject() {
+		return subject;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String message) {
+		this.content = message;
 	}
 
 	public Date getTimestamp() {

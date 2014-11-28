@@ -27,8 +27,9 @@ public class User implements UserDetails {
     @Lob
     private byte[] picture;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Collection<Apartment> apartments;
+    
     @OneToMany
     private Collection<ShApartment> shApartments;
 

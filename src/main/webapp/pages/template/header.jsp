@@ -44,18 +44,28 @@
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 			<c:if test="${user.isAdmin == true}">
-			<li class="nav text-center text-nowrap">
+			<li class="text-center text-nowrap">
 				<a id="admin" href="/admin">ADMIN PANEL</a>
 			</li>
 			</c:if>
-			<li class="nav text-center text-nowrap">
+			<li class="text-center text-nowrap">
 				<a id="search" href="/search">SEARCH</a>
 			</li>
-			<li class="nav text-center text-nowrap">
+			<li class="text-center text-nowrap">
 				<a id="ad" href="/newAd">CREATE AD</a>
 			</li>
-			<li class="nav text-center text-nowrap">
-				<a id="profile" href="/profile">MY PROFILE</a>
+			<li class="text-center text-nowrap dropdown">
+				<a id="profile" href="/profile" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					MY ACCOUNT<span class="caret"></span></a>
+				<ul class="dropdown-menu inverse-dropdown" role="menu">
+					<li><a href="/profile">My Profile</a></li>
+					<li class="divider"></li>
+            		<li><a href="/placedAds">Placed Ads</a></li>
+            		<li><a href="/bookmarkedAds">Bookmarked Ads</a></li>
+            		<li class="divider"></li>
+            		<li><a href="/searchAlerts">Saved Searches</a></li>
+            		<li class="divider"></li>
+            		<li><a href="/messages">Messages</a></li>
 			</li>
 		</ul>
 	</nav>

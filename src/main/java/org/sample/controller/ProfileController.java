@@ -83,8 +83,7 @@ public class ProfileController {
         model.addObject("profileForm", userService.fillProfileForm(user));
         model.addObject("user", user);
         model.addObject("profile", user);
-        model.addObject("apartments",adService.getApartmentsByUser(user.getEmail()));
-        model.addObject("shApartments",adService.getShApartmentsByUser(user.getEmail()));
+       
         return model;
     }
 
