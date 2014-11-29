@@ -7,13 +7,15 @@ import javax.persistence.*;
 @Entity
 public class Message {
 	
-	 @Id
-	 @GeneratedValue
-	 private Long id;
+	@Id
+	@GeneratedValue
+	private Long id;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "sender_id")
 	private User sender;
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "receiver_id")
 	private User receiver;
 	
 	private String subject;
@@ -21,14 +23,16 @@ public class Message {
 	private String content;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp;
+	private Date dateTime;
 	
-	private boolean read;
+	private boolean messageRead;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "ap_id")
 	private Apartment ap;
 	
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "shAp_id")
 	private ShApartment shAp;
 
 	public Long getId() {
@@ -71,20 +75,20 @@ public class Message {
 		this.content = message;
 	}
 
-	public Date getTimestamp() {
-		return timestamp;
+	public Date getDateTime() {
+		return dateTime;
 	}
 
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
+	public void setDateTime(Date timestamp) {
+		this.dateTime = timestamp;
 	}
 
-	public boolean isRead() {
-		return read;
+	public boolean isMessageRead() {
+		return messageRead;
 	}
 
-	public void setRead(boolean read) {
-		this.read = read;
+	public void setMessageRead(boolean read) {
+		this.messageRead = read;
 	}
 
 	public Apartment getAp() {

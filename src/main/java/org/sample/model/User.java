@@ -30,19 +30,20 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "owner", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Collection<Apartment> apartments;
     
-    @OneToMany
+    @OneToMany(mappedBy = "owner", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Collection<ShApartment> shApartments;
 
     private Boolean isNew;
     private Boolean isAdmin = true;
     
-     @OneToMany(mappedBy ="sender")
+    
+     @OneToMany(mappedBy ="sender", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
      private Collection<Message> sentMessages;
      
-     @OneToMany(mappedBy ="receiver")
+     @OneToMany(mappedBy ="receiver", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
      private Collection<Message> receivedMessages;
      
-     @ManyToMany(mappedBy = "visitors", fetch = FetchType.EAGER)
+     @ManyToMany(mappedBy = "visitors", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
      private Collection<TimeSlot> registeredTimeSlots;
     
     public Long getId() {

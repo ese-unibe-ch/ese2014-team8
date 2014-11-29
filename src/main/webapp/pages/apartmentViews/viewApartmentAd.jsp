@@ -35,7 +35,14 @@
 	<c:out value="${ad.description}"/>
 </div>
 <div>
-	<table class="text-center table table-hover"">
+	Distance to Public Transport: ${ad.distanceToPubTr} meters.<br/>
+	Distance to Shops: ${ad.distanceToShop} meters.<br/>
+	Distance to Park: ${ad.distanceToPark} meters.<br/>
+	Distance to School: ${ad.distanceToSchool} meters.<br/>
+</div>
+<div>
+<h2>Visit this apartment</h2>
+	<table class="text-center table table-hover">
 		<tr>
 			<th class="text-center"> Date</th>
 			<th class="text-center"> Time</th>
@@ -70,7 +77,7 @@
 	<h2>Message to ad owner</h2>
 	<form:form method="post" modelAttribute="messageForm" action="/sendMessage" cssClass="form-horizontal"  autocomplete="off">
 		<form:hidden path="category" value="Apartment"/>
-		<form:hidden path="adId" value="ad.id"/>
+		<form:hidden path="adId" value="${ad.id}"/>
 		<form:hidden path="senderId" value="${user.id}"/>
 		<form:hidden path="receiverId" value="${ad.owner.id}"/>
 		<form:hidden path="subject" value="Enquiry for apartment ${ad.id}: ${ad.title}"/>

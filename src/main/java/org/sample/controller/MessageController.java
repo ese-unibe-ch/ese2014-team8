@@ -52,6 +52,8 @@ public class MessageController {
 
     @Autowired
     MessageService messageService;
+    @Autowired
+    UserService userService;
     
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
@@ -65,10 +67,57 @@ public class MessageController {
     
     @RequestMapping(value="/sendMessage", method = RequestMethod.POST)
     Object sendMessage(HttpServletRequest request, MessageForm enquiry){
+    	System.out.println("before save");
     	messageService.saveFrom(enquiry);
+    	System.out.println("after save");
     	return "redirect:/searchresults/"+ enquiry.getCategory() +"/"+ Long.toString(enquiry.getAdId());
     	
     }
+    
+    
+    @RequestMapping(value="/messages", method = RequestMethod.GET)
+    Object messages(HttpServletRequest request){
+    	 if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+             return "redirect:/";
+         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+             return "redirect:/profile";
+         }
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()); 
+    	ModelAndView model = new ModelAndView("messages");
+    	model.addObject("user", user);
+    	model.addObject("receivedMessages", messageService.getReceivedMessages(user));
+    	model.addObject("sentMessages", messageService.getSentMessages(user));
+    	return model;
+    }
+    
+    @RequestMapping(value="/readMessage/{messageId}", method = RequestMethod.GET)
+    Object readMessage(HttpServletRequest request, @PathVariable String messageId){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()); 
+    	messageService.markMessageRead(Long.parseLong(messageId));
+    	ModelAndView model = new ModelAndView("readMessage");
+    	model.addObject("user", user);
+    	model.addObject("message", messageService.getMessage(Long.parseLong(messageId)));
+    	model.addObject("messageForm", new MessageForm());
+    	
+    	return model;
+    }
+    
+    @RequestMapping(value="/reply", method = RequestMethod.POST)
+    Object reply(HttpServletRequest request, MessageForm messageForm){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	messageService.saveFrom(messageForm);
+    	return "redirect:/messages";
+    }
+    
 }
 
 

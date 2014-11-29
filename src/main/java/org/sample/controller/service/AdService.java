@@ -35,5 +35,7 @@ public interface AdService {
 	
 	public List<String> getCategories();
 	
+	public void deleteAd(String category, Long adId);
+	
 
 }

@@ -93,20 +93,7 @@ public class AdController {
     }
     
 
-    @RequestMapping(value="/myAds", method = RequestMethod.GET) 
-    public Object myAds(HttpServletRequest request){
-    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
-            return "redirect:/";
-        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
-            return "redirect:/profile";
-        }    	
-    	ModelAndView model = new ModelAndView("myAds");
-    	String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
-    	model.addObject("apartments",adService.getApartmentsByUser(userMail));
-        model.addObject("shApartments",adService.getShApartmentsByUser(userMail));
-        model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-        return model;
-    }
+   
     @RequestMapping(value="/newAd", method = RequestMethod.GET) 
     public Object makeAd(HttpServletRequest request){
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
@@ -139,6 +126,7 @@ public class AdController {
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Apartment");
                     model.addObject("ad", apartment);
+                    model.addObject("messageForm", new MessageForm());
                 } catch (InvalidDateException e) {
                 	model = new ModelAndView("newAd");
                 	model.addObject("page_error", e.getMessage());
@@ -156,6 +144,7 @@ public class AdController {
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Shared Apartment");
                     model.addObject("ad", apartment);
+                    model.addObject("messageForm", new MessageForm());
                 } catch (InvalidDateException e) {
                 	model = new ModelAndView("main");
                 	model.addObject("page_error", e.getMessage());
@@ -205,9 +194,9 @@ public class AdController {
     @RequestMapping(value="/editAd/{adType}/{adId}")
     public Object editAdId(HttpServletRequest request, @PathVariable String adType, @PathVariable Long adId) {
         User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        if(!request.isUserInRole("ROLE_PERSONA_USER") || !user.getIsAdmin()) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(user.getIsNew()) {
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
         ModelAndView model = new ModelAndView("editAd");
@@ -219,6 +208,36 @@ public class AdController {
             model.addObject("shApForm", adService.fillInFormFrom(adService.getShApAd(adId)));
         }
         return model;
+    }
+    
+    @RequestMapping(value="/viewAd/{category}/{adId}")
+    public Object viewAdId(HttpServletRequest request, @PathVariable String category, @PathVariable Long adId) {
+        User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+        ModelAndView model = new ModelAndView("viewAd");
+        model.addObject("category", category);
+        model.addObject("message", "This is what your ad will look like:");
+        model.addObject("messageForm", new MessageForm());
+        model.addObject("user", user);
+        model.addObject("ad", adService.getAd(category, adId));
+        model.addObject("apartmentForm", new ApartmentForm());
+            
+        return model;
+    }
+    
+    @RequestMapping(value="/removeAd/{category}/{adId}")
+    public Object removeAd(HttpServletRequest request, @PathVariable String category, @PathVariable Long adId){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+             return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+             return "redirect:/profile";
+        }
+        adService.deleteAd(category, adId);
+    	return "redirect:/placedAds";
     }
   
 

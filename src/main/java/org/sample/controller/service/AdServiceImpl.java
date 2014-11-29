@@ -99,6 +99,11 @@ public class AdServiceImpl implements AdService {
     	address.setCity(form.getCity());
     	address.setZipCode(form.getZipCode());	
     	
+    	ad.setDistanceToPark(form.getDistanceToPark());
+    	ad.setDistanceToPubTr(form.getDistanceToPubTr());
+    	ad.setDistanceToSchool(form.getDistanceToSchool());
+    	ad.setDistanceToShop(form.getDistanceToShop());
+    	
     	ad.setTitle(form.getTitle());
     	ad.setAddress(address);
     	ad.setFixedMoveIn(form.isFixedMoveIn());
@@ -240,6 +245,11 @@ public class AdServiceImpl implements AdService {
     	realEstateForm.setCity(address.getCity());
     	realEstateForm.setZipCode(address.getZipCode());
     	
+    	realEstateForm.setDistanceToPark(realEstate.getDistanceToPark());
+    	realEstateForm.setDistanceToPubTr(realEstate.getDistanceToPubTr());
+    	realEstateForm.setDistanceToSchool(realEstate.getDistanceToSchool());
+    	realEstateForm.setDistanceToShop(realEstate.getDistanceToShop());
+    	
     	realEstateForm.setPrice(realEstate.getPrice());
     	realEstateForm.setMoveIn(realEstate.getMoveIn());
     	realEstateForm.setFixedMoveIn(realEstate.isFixedMoveIn());
@@ -248,6 +258,17 @@ public class AdServiceImpl implements AdService {
     	realEstateForm.setDescription(realEstate.getDescription());
     	
 		return realEstateForm;
+	}
+
+	@Override
+	public void deleteAd(String category, Long adId) {
+		if(category.equals("Apartment")){
+			apDao.delete(adId);
+		}
+		else{
+			shApDao.delete(adId);
+		}
+		
 	}
 	
 }

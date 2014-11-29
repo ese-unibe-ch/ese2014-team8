@@ -29,6 +29,11 @@ public abstract class RealEstateForm {
 	private boolean fixedMoveOut;
 	private Date moveOut;
 	
+	private int distanceToPark;
+	private int distanceToSchool;
+	private int distanceToPubTr;
+	private int distanceToShop;
+	
 	
 	
 	//@Size(min=3, message="Please enter a description.")
@@ -139,6 +144,38 @@ public abstract class RealEstateForm {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public int getDistanceToPark() {
+		return distanceToPark;
+	}
+
+	public void setDistanceToPark(int distanceToPark) {
+		this.distanceToPark = distanceToPark;
+	}
+
+	public int getDistanceToSchool() {
+		return distanceToSchool;
+	}
+
+	public void setDistanceToSchool(int distanceToSchool) {
+		this.distanceToSchool = distanceToSchool;
+	}
+
+	public int getDistanceToPubTr() {
+		return distanceToPubTr;
+	}
+
+	public void setDistanceToPubTr(int distanceToPubTr) {
+		this.distanceToPubTr = distanceToPubTr;
+	}
+
+	public int getDistanceToShop() {
+		return distanceToShop;
+	}
+
+	public void setDistanceToShop(int distanceToShop) {
+		this.distanceToShop = distanceToShop;
 	}
 
 	

@@ -11,7 +11,7 @@
 	<form:hidden path="category"/>
 	<form:hidden path="adId"/>
 
-<table class="text-center table table-hover"">
+<table class="text-center table table-hover">
 	<tr>
 		<th class="text-center"> Date</th>
 		<th class="text-center"> Time</th>
@@ -25,9 +25,17 @@
 			<td>${showDate}</td>
 			<td>${showTime}</td>
 			<td>${t.maxNumVisitors}</td>
-			<td><a href="/removeTimeslot/<c:if test="${not empty t.apartment}">Apartment/${t.apartment.id}</c:if>
-					<c:if test="${not empty t.shApartment}">Shared Apartment/${t.shApartment.id}</c:if>/${t.id}" 
-					class = "btn btn-danger btn-block"role="button">Remove</a></td>
+			<td><c:choose>
+				<c:when test="${t.maxNumVisitors == t.placesLeft }">
+					<a href="/removeTimeslot/<c:if test="${not empty t.apartment}">Apartment/${t.apartment.id}</c:if>
+						<c:if test="${not empty t.shApartment}">Shared Apartment/${t.shApartment.id}</c:if>/${t.id}" 
+						class = "btn btn-danger btn-block"role="button">Remove</a>
+				</c:when>
+				<c:otherwise>
+					<div class = "btn btn-danger btn-block disabled" role="button">Remove</button>
+				</c:otherwise>
+				</c:choose>
+			</td>
 		</tr>
 	</c:forEach>
 	<tr>
@@ -37,7 +45,7 @@
 		</td>
 		<td>
 			<fmt:formatDate pattern="HH.mm" value="${timeSlotForm.time}" var="simpleTime"/>
-            <form:input path="time" id="field-time" tabindex="2" maxlength="10" value="${simpleTime}" placeholder="HH:mm (24h-notation)"  />
+            <form:input path="time" id="field-time" tabindex="2" maxlength="10" value="${simpleTime}" placeholder="HH.mm (24h-notation)"  />
 		</td>
 		<td>
 			<form:input id="field-maxNumVisitors" path="maxNumVisitors" tabindex="3"/>
@@ -48,6 +56,7 @@
 	</tr>
 	
 </table>
+<a href="/viewAd/${timeSlotForm.category}/${timeSlotForm.adId}" class = "btn btn-grey" role="button">Finished</a>
 	
 	
 

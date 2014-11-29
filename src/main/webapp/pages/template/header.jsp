@@ -34,14 +34,13 @@
 <body> 
 <div class="fluid-container">
 	<img class="top-image" src="../../img/cityscape_banner.jpg"/>
+	<a class="logo" href="/">
+		<img alt="RentR" src="../../img/logo.png">
+	</a>
 	
 	
 	<nav class="navbar navbar-inverse " role="navigation">
-		<div class="navbar-header">
-			<a class="navbar-brand" href="#">
-				<img alt="RentR" src="../../img/logo.png">
-			</a>
-		</div>
+		
 		<ul class="nav navbar-nav navbar-right">
 			<c:if test="${user.isAdmin == true}">
 			<li class="text-center text-nowrap">

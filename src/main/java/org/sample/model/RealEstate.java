@@ -1,6 +1,6 @@
 package org.sample.model;
 
-import java.util.Collection;
+
 import java.util.Date;
 
 import javax.persistence.*;
@@ -27,8 +27,10 @@ public class RealEstate {
 	private Date moveOut;
 	private String description;
 	
-	@OneToMany
-	private Collection<Message> messages;
+	private int distanceToPark;
+	private int distanceToSchool;
+	private int distanceToPubTr;
+	private int distanceToShop;
 	
 
 	public RealEstate() {
@@ -107,13 +109,38 @@ public class RealEstate {
 		this.description = description;
 	}
 
+	public int getDistanceToPark() {
+		return distanceToPark;
+	}
+
+	public void setDistanceToPark(int distanceToPark) {
+		this.distanceToPark = distanceToPark;
+	}
+
+	public int getDistanceToSchool() {
+		return distanceToSchool;
+	}
+
+	public void setDistanceToSchool(int distanceToSchool) {
+		this.distanceToSchool = distanceToSchool;
+	}
+
+	public int getDistanceToPubTr() {
+		return distanceToPubTr;
+	}
+
+	public void setDistanceToPubTr(int distanceToPubTr) {
+		this.distanceToPubTr = distanceToPubTr;
+	}
+
+	public int getDistanceToShop() {
+		return distanceToShop;
+	}
+
+	public void setDistanceToShop(int distanceToShop) {
+		this.distanceToShop = distanceToShop;
+	}
+
+}	
+
 	
-
-	public Collection<Message> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(Collection<Message> messages) {
-		this.messages = messages;
-	}
-}

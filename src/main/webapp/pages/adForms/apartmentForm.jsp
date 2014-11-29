@@ -52,14 +52,45 @@
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
-       
+        <c:set var="distanceToPubTrErrors"><form:errors path="distanceToPubTr"/></c:set>
+        <div class="control-group<c:if test="${not empty distanceToPubTrErrors}"> error</c:if>">
+            <label class="control-label" for="field-distanceToPubTr">Distance to public transport</label>
+            <div class="controls">
+                <form:input path="distanceToPubTr" id="field-distanceToPubTr" tabindex="6" maxlength="5" placeholder="m"/>
+                <form:errors path="distanceToPubTr" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        <c:set var="distanceToShopErrors"><form:errors path="distanceToShop"/></c:set>
+        <div class="control-group<c:if test="${not empty distanceToShopErrors}"> error</c:if>">
+            <label class="control-label" for="field-distanceToShop">Distance to shops</label>
+            <div class="controls">
+                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="m"/>
+                <form:errors path="distanceToShop" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        <c:set var="distanceToParkErrors"><form:errors path="distanceToPark"/></c:set>
+        <div class="control-group<c:if test="${not empty distanceToParkErrors}"> error</c:if>">
+            <label class="control-label" for="field-distanceToPark">Distance to park</label>
+            <div class="controls">
+                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="m"/>
+                <form:errors path="distanceToPark" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        <c:set var="distanceToSchoolErrors"><form:errors path="distanceToSchool"/></c:set>
+        <div class="control-group<c:if test="${not empty distanceToSchoolErrors}"> error</c:if>">
+            <label class="control-label" for="field-distanceToSchool">Distance to School</label>
+            <div class="controls">
+                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="m"/>
+                <form:errors path="distanceToSchool" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
 		
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
             <label class="control-label" for="field-price">Price </label>
             <div class="controls">
-                <form:input path="price" id="field-price" tabindex="6" maxlength="5"  placeholder="chf"/>
+                <form:input path="price" id="field-price" tabindex="10" maxlength="5"  placeholder="chf"/>
                 <form:errors path="price" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -69,7 +100,7 @@
 			<label  class="control-label"  for="field-fixedMoveIn">Fixed move-in date </label>
 			
 			<div class="controls">
-				<form:checkbox id="field-fixedMoveIn" tabindex="7" path="fixedMoveIn" />
+				<form:checkbox id="field-fixedMoveIn" tabindex="11" path="fixedMoveIn" />
 				
 			</div>
 		</div>
@@ -79,7 +110,7 @@
             <label class="control-label" for="field-moveIn">Move-in date</label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${apForm.moveIn}" var="simpleInDate"/>
-                <form:input path="moveIn" id="field-moveIn" tabindex="8" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  />
+                <form:input path="moveIn" id="field-moveIn" tabindex="12" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  />
                 <form:errors path="moveIn" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -88,7 +119,7 @@
 			<label  class="control-label"  for="field-fixedMoveOut">Fixed move-out date </label>
 			
 			<div class="controls">
-				<form:checkbox id="field-fixedMoveOut" tabindex="9" path="fixedMoveOut" />
+				<form:checkbox id="field-fixedMoveOut" tabindex="13" path="fixedMoveOut" />
 				
 			</div>
 		</div>
@@ -98,7 +129,7 @@
             <label class="control-label" for="field-moveOut">Move-out date </label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${apForm.moveOut}" var="simpleOutDate"/>
-                <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" />
+                <form:input path="moveOut" id="field-moveOut" tabindex="14" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" />
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -109,7 +140,7 @@
         <div class="control-group<c:if test="${not empty numberOfRoomsErrors}"> error</c:if>">
             <label class="control-label" for="field-numberOfRooms">Number of rooms</label>
             <div class="controls">
-                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="11" maxlength="5"  placeholder="0"/>
+                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="15" maxlength="5"  placeholder="0"/>
                 <form:errors path="numberOfRooms" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -118,7 +149,7 @@
         <div class="control-group<c:if test="${not empty sizeErrors}"> error</c:if>">
             <label class="control-label" for="field-size">Apartment size (m<sup>2</sup>)</label>
             <div class="controls">
-                <form:input path="size" id="field-size" tabindex="12" maxlength="5"  />
+                <form:input path="size" id="field-size" tabindex="16" maxlength="5"  />
                 <form:errors path="size" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -127,7 +158,7 @@
         <div class="control-group<c:if test="${not empty descriptionErrors}"> error</c:if>">
             <label class="control-label" for="field-description">Description</label>
             <div class="controls">
-                <form:textarea path="description" id="field-description" tabindex="13" rows="10" cols="50"/>
+                <form:textarea path="description" id="field-description" tabindex="17" rows="10" cols="50"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>

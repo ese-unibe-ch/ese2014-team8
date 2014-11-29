@@ -1,6 +1,6 @@
 
 
-/*Header*/
+
 html, body {
     height:100%;
 } 
@@ -9,7 +9,7 @@ body{
 	overflow-x: hidden;
 	
 }
-
+/*Header*/
 .top-image{
 	position: static;
 	height: 100%;
@@ -17,45 +17,24 @@ body{
 	
 }
 
-.jumbotron{
+.logo img{
 	position: absolute;
-	top: 420px;
-	background-color: rgba(255,255,255, 0.6);
-	color: inherit;
-	width: 900px;
-	margin-left: auto;
-	margin-right: auto;
-	left: 0;
-	right: 0;
+	top: 0px;
+	left: 0px;
+	width: 120px;
 }
 
-.container-body{
-	padding-bottom: 50px;
-}
 .navbar{
 	position: relative;
 	top: 0px;
-	font-size: 250%;
+	font-size: 200%;
 	font-weight: bold;
-	height: 100px;
 	width: 100%;
 	margin: 0;
 	padding-right: 10px;
 	border-radius: 0px !important;
 }
-.navbar-header{
-	height:75px;
-}
-.navbar-brand{
-	height:75px;
-}
-.navbar-brand img{
-	height: 75px;
-}
 
-.navbar-nav{
-	margin-top: 35px;
-}
 
 .inverse-dropdown{
   	background-color: #222;
@@ -70,6 +49,7 @@ body{
 	color: #fff;
   	background-color: #000;
 }
+
 .inverse-dropdown .divider{
 	background-color: #000;
 }
@@ -85,8 +65,30 @@ body{
 	width: 150px;
 }
 
-/*Custom buttons* source charliepark.org/bootstrap_buttons*/
+/*content*/
+.container-body{
+	padding-bottom: 50px;
+}
 
+.jumbotron{
+	position: absolute;
+	top: 420px;
+	background-color: rgba(255,255,255, 0.6);
+	color: inherit;
+	width: 900px;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
+}
+.emph{
+	font-weight: bold !important;
+}
+
+/*Custom buttons* source charliepark.org/bootstrap_buttons*/
+.btn{
+	margin: 5px 5px 5px 5px;
+}
 .btn-green { 
 	background-color: hsl(71, 84%, 38%) !important; 
 	background-repeat: repeat-x; 
@@ -144,14 +146,7 @@ body{
 
 
 @media all and (max-width: 765px){
-	.navbar{
-		height: 240px;
-	}
-	.navbar-brand{
-		margin-left: auto;
-		margin-right: auto;
-		
-	}
+	
 	
 }
 

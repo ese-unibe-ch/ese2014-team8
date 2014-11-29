@@ -18,7 +18,7 @@ public class TimeSlot {
 	private int maxNumVisitors;
 	private int placesLeft;
 	
-	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	private Collection<User> visitors;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})

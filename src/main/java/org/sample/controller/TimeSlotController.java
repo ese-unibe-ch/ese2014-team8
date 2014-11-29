@@ -54,6 +54,8 @@ public class TimeSlotController {
     TimeSlotService timeSlotService;
     @Autowired
     UserService userService;
+    @Autowired
+    AdService adService;
      
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
@@ -130,7 +132,21 @@ public class TimeSlotController {
         
     }
     
-    
+    @RequestMapping(value="/manageVisits/{adCategory}/{adId}", method = RequestMethod.GET)
+    public Object manageVisits(HttpServletRequest request, @PathVariable String adCategory, @PathVariable String adId){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	ModelAndView model = new ModelAndView("manageVisits");
+    	model.addObject("user", user);
+    	model.addObject("timeSlots", timeSlotService.getTimeSlots(adCategory, Long.parseLong(adId)));
+    	model.addObject("category", adCategory);
+    	model.addObject("ad",adService.getAd(adCategory, Long.parseLong(adId)));
+    	return model;
+    }
   
 
 }

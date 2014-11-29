@@ -2,8 +2,12 @@ package org.sample.model;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -12,11 +16,16 @@ public class ShApartment extends RealEstate {
 
 	private int roomSize;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "owner_id")
 	private User owner;
 	
-	@OneToMany(mappedBy = "shApartment")
+	@Column(name="visiting_times")
+	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<TimeSlot> visitingTimes;
+	
+	@OneToMany(mappedBy = "shAp", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private Collection<Message> messages;
 
 	public User getOwner() {
 		return owner;
@@ -41,4 +50,12 @@ public class ShApartment extends RealEstate {
 	public void setVisitingTimes(Collection<TimeSlot> visitingTimes) {
 		this.visitingTimes = visitingTimes;
 	}
+	public Collection<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Collection<Message> messages) {
+		this.messages = messages;
+	}
+
 }

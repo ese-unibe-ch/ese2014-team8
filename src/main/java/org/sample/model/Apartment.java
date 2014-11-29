@@ -18,6 +18,9 @@ public class Apartment extends RealEstate {
 	@Column(name="visiting_times")
 	@OneToMany(mappedBy = "apartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<TimeSlot> visitingTimes;
+	
+	@OneToMany(mappedBy = "ap", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private Collection<Message> messages;
 
 	public User getOwner() {
 		return owner;
@@ -50,4 +53,12 @@ public class Apartment extends RealEstate {
 	public void setVisitingTimes(Collection<TimeSlot> visitingTimes) {
 		this.visitingTimes = visitingTimes;
 	}
+	public Collection<Message> getMessages() {
+		return messages;
+	}
+
+	public void setMessages(Collection<Message> messages) {
+		this.messages = messages;
+	}
+
 }
