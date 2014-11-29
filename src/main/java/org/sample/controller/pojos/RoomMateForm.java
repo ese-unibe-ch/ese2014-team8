@@ -6,7 +6,9 @@ import javax.validation.constraints.NotNull;
  * Created by gruenig on 24.11.14.
  */
 public class RoomMateForm {
-
+ 
+	private long id;
+	
 	private long adId;
 	
     @NotNull
@@ -25,7 +27,15 @@ public class RoomMateForm {
     
     private String description;
 
-    public String getFirstName() {
+    public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
         return firstName;
     }
 
@@ -80,4 +90,5 @@ public class RoomMateForm {
 	public void setAdId(long adId) {
 		this.adId = adId;
 	}
+
 }

@@ -38,8 +38,15 @@ public class RoomMateServiceImpl implements RoomMateService {
 	}
 
 	public RoomMateForm saveFrom(RoomMateForm roomMateForm) {
-		RoomMate roomMate = new RoomMate();
-		roomMate.setPerson(new Person());
+		RoomMate roomMate;
+		if(roomMateForm.getId() == 0L){
+			roomMate = new RoomMate();
+			roomMate.setPerson(new Person());
+			
+		}
+		else{
+			roomMate = roomMateDao.findOne(roomMateForm.getId());
+		}
 		roomMate.setFirstName(roomMateForm.getFirstName());
 		roomMate.setLastName(roomMateForm.getLastName());
 		roomMate.setAge(roomMateForm.getAge());
@@ -53,6 +60,8 @@ public class RoomMateServiceImpl implements RoomMateService {
 	@Transactional
 	public RoomMateForm fillRoomMateForm(RoomMate roomMate) {
 		RoomMateForm roomMateForm = new RoomMateForm();
+		roomMateForm.setId(roomMate.getId());
+		roomMateForm.setAdId(roomMate.getShApartment().getId());
 		roomMateForm.setFirstName(roomMate.getFirstName());
 		roomMateForm.setLastName(roomMate.getLastName());
 		roomMateForm.setAge(roomMate.getAge());

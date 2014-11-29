@@ -10,6 +10,7 @@
 
 <p>
 <form:form method="post" modelAttribute="roomMateForm" action="/RoomMates" id="roomMateForm" cssClass="form-horizontal"  autocomplete="off">
+    <form:hidden path="id"/>
     <form:hidden path="adId"/>
     
     <fieldset>
