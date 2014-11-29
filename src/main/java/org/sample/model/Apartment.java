@@ -11,7 +11,8 @@ public class Apartment extends RealEstate {
 	private int numberOfRooms;
 	private int size;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+	@JoinColumn(name = "owner_id")
 	private User owner;
 	
 	@Column(name="visiting_times")

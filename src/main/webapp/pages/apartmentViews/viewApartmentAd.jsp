@@ -6,6 +6,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 
+
 <h2>${ad.title}</h2>
 <div>
 	${ad.address.street} ${ad.address.number}<br/>
@@ -63,5 +64,18 @@
 			</tr>
 		</c:forEach>
 	</table>
+</div>
+
+<div>
+	<h2>Message to ad owner</h2>
+	<form:form method="post" modelAttribute="messageForm" action="/sendMessage" cssClass="form-horizontal"  autocomplete="off">
+		<form:hidden path="category" value="Apartment"/>
+		<form:hidden path="adId" value="ad.id"/>
+		<form:hidden path="senderId" value="${user.id}"/>
+		<form:hidden path="receiverId" value="${ad.owner.id}"/>
+		<form:hidden path="subject" value="Enquiry for apartment ${ad.id}: ${ad.title}"/>
+		<form:textarea path="message" rows="5" cols="30" tabindex="1"/>
+		<button type="submit" class="btn btn-green" tabindex="2">Send</button>
+	</form:form>
 </div>
 

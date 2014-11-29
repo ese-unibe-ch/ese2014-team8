@@ -116,6 +116,7 @@ public class SearchController {
     	model.addObject("ad", ad);
     	model.addObject("category", category);
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("messageForm", new MessageForm());
     	return model;
     }
 

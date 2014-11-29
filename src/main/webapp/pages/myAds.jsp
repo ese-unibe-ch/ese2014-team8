@@ -43,5 +43,8 @@
 </c:forEach>
 </table>
 </p>
+<script>
+	document.getElementById('profile').style.color = '#ACCB12'
+</script>
 
 <c:import url="template/footer.jsp" />
