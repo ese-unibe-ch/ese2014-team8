@@ -43,10 +43,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class RoomMateController {
 
-//private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
 
-//    @Autowired
-//    AdService adService;
     @Autowired
     RoomMateService roomMateService;
     @Autowired
@@ -67,9 +64,9 @@ public class RoomMateController {
         return "redirect:/editAd/"+"Shared Apartment/"+Long.toString(roomMateForm.getAdId());
     }
 
-    // new RoomMate
+    // new or change RoomMate
     @RequestMapping(value = "/RoomMates/{adId}", method = RequestMethod.GET)
-    public Object newProfile(HttpServletRequest request, @PathVariable String adId) {
+    public Object newRoomMate(HttpServletRequest request, @PathVariable Long adId) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
@@ -78,7 +75,7 @@ public class RoomMateController {
         ModelAndView model = new ModelAndView("newRoomMate");
         SecurityContext ctx = SecurityContextHolder.getContext();
         RoomMateForm roomMateForm = new RoomMateForm();
-        roomMateForm.setAdId(Long.parseLong(adId));
+        roomMateForm.setAdId(adId);
         model.addObject("roomMateForm", roomMateForm);
         model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
         return model;
@@ -96,13 +93,23 @@ public class RoomMateController {
         SecurityContext ctx = SecurityContextHolder.getContext();
         RoomMate roomMate = roomMateService.getRoomMate(roomMateId);
         model.addObject("roomMateForm", roomMateService.fillRoomMateForm(roomMate));
-        //roomMateService.saveFrom(roomMateForm);
         model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
         return model;
     }
     
+    @RequestMapping(value="/deleteRoomMate/{adId}/{roomMateId}", method = RequestMethod.GET)
+    public Object removeTimeslot(HttpServletRequest request,@PathVariable Long adId, @PathVariable Long roomMateId){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	roomMateService.deleteRoomMate(roomMateId);
+    	return "redirect:/editAd/"+"Shared Apartment/"+Long.toString(adId);
+    }
+    
     @RequestMapping(value = "/roomMateList", method = RequestMethod.GET)
-    public Object newProfile(HttpServletRequest request) {
+    public Object roomMateList(HttpServletRequest request) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {

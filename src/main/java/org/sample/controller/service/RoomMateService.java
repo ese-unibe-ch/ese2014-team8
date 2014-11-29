@@ -19,7 +19,7 @@ public interface RoomMateService {
     public RoomMateForm saveFrom(RoomMateForm newRoomMateForm);
 //    public ProfileForm saveFrom(ProfileForm profileForm);
     public RoomMateForm fillRoomMateForm(RoomMate roomMate);
-	public RoomMate loadRoomMate();
+	public void deleteRoomMate(Long roomMateId);
    
 
 }

@@ -11,13 +11,19 @@
 	<tr>
 		<th class="text-center"> First Name</th>
 		<th class="text-center"> Last Name</th>
-		<th class="text-center"> Shared_Id</th>
+		<th class="text-center"> </th>
+		<th class="text-center"> </th>
 	</tr>
-	<c:forEach items="${roomMates}" var="t">
+	<c:forEach items="${roomMates}" var="mate">
 		<tr>
-			<td>${t.firstName}</td>
-			<td>${t.lastName}</td>
- 			<td>${t.shApartment.id}</td> 
+			<td>${mate.firstName}</td>
+			<td>${mate.lastName}</td>
+ 			<td>
+  				<a href="/editRoomMate/${mate.id}" class="btn btn-green" role="button" >Edit </a> 
+ 			</td>
+ 			<td>
+  				<a href="/deleteRoomMate/${mate.shApartment.id}/${mate.id}" class="btn btn-danger" role="button" >Delete </a> 
+ 			</td>  
 		</tr>
 	</c:forEach>
 	

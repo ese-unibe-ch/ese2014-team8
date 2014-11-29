@@ -71,9 +71,8 @@ public class RoomMateServiceImpl implements RoomMateService {
 	}
 
 	@Override
-	public RoomMate loadRoomMate() {
-		
-		return roomMateDao.findOne(2L);
+	public void deleteRoomMate(Long roomMateId) {	
+		roomMateDao.delete(roomMateId);
 	}
 
 	@Override
