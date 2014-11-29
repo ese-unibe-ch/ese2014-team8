@@ -41,12 +41,18 @@
     <th class="text-center">Title</th>
     <th class="text-center">Price</th>
     <th class="text-center">Address</th>
+    <th></th>
 </tr>
 <c:forEach items="${shApartments}" var="shApartment">
 <tr>
     <td><a href="/viewAd/Shared Apartment/${shApartment.id}"><b>${shApartment.title}</b></a></td>
     <td>${shApartment.price} chf</td>
     <td>${shApartment.address.street} ${shApartment.address.number}, ${shApartment.address.zipCode} ${shApartment.address.city}</td>
+	<td class="text-right">
+    	<a href="/" class="btn btn-grey " role="button">See who's interested</a>
+    	<a href="/editAd/Shared Apartment/${shApartment.id}" class="btn btn-green  " role="button">Edit</a><br/>
+    	<a href="/manageVisits/Shared Apartment/${shApartment.id}" class="btn btn-grey " role="button">My Visits</a>
+    	<a href="/removeAd/Shared Apartment/${shApartment.id}" class="btn btn-danger  " role="button">Remove</a></td>
 </tr>
 </c:forEach>
 </table>

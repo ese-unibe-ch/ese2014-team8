@@ -52,7 +52,38 @@
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
-		
+		<c:set var="distanceToPubTrErrors"><form:errors path="distanceToPubTr"/></c:set>
+        <div class="control-group<c:if test="${not empty distanceToPubTrErrors}"> error</c:if>">
+            <label class="control-label" for="field-distanceToPubTr">Distance to public transport</label>
+            <div class="controls">
+                <form:input path="distanceToPubTr" id="field-distanceToPubTr" tabindex="6" maxlength="5" placeholder="m"/>
+                <form:errors path="distanceToPubTr" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        <c:set var="distanceToShopErrors"><form:errors path="distanceToShop"/></c:set>
+        <div class="control-group<c:if test="${not empty distanceToShopErrors}"> error</c:if>">
+            <label class="control-label" for="field-distanceToShop">Distance to shops</label>
+            <div class="controls">
+                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="m"/>
+                <form:errors path="distanceToShop" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        <c:set var="distanceToParkErrors"><form:errors path="distanceToPark"/></c:set>
+        <div class="control-group<c:if test="${not empty distanceToParkErrors}"> error</c:if>">
+            <label class="control-label" for="field-distanceToPark">Distance to park</label>
+            <div class="controls">
+                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="m"/>
+                <form:errors path="distanceToPark" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
+        <c:set var="distanceToSchoolErrors"><form:errors path="distanceToSchool"/></c:set>
+        <div class="control-group<c:if test="${not empty distanceToSchoolErrors}"> error</c:if>">
+            <label class="control-label" for="field-distanceToSchool">Distance to School</label>
+            <div class="controls">
+                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="m"/>
+                <form:errors path="distanceToSchool" cssClass="help-inline" element="span"/>
+            </div>
+        </div>
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
