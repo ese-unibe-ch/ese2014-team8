@@ -14,6 +14,7 @@ public interface RoomMateService {
 
     public RoomMate getRoomMate(Long id);
     public Iterable<RoomMate> getRoomMates();
+    public Iterable<RoomMate> getRoomMates(Long adId);
 //    public RoomMate loadRoomMateByEmail(String email);
     public RoomMateForm saveFrom(RoomMateForm newRoomMateForm);
 //    public ProfileForm saveFrom(ProfileForm profileForm);

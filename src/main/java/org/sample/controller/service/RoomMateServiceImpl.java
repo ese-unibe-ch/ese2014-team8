@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Collection;
 
 
@@ -64,6 +65,13 @@ public class RoomMateServiceImpl implements RoomMateService {
 	public RoomMate loadRoomMate() {
 		
 		return roomMateDao.findOne(2L);
+	}
+
+	@Override
+	public Iterable<RoomMate> getRoomMates(Long adId) {
+		ShApartment shAp = shApartmentDao.findOne(adId);
+		return roomMateDao.findByShApartment(shAp);
+
 	}
 	
 }
