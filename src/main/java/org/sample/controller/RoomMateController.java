@@ -52,26 +52,22 @@ public class RoomMateController {
     @Autowired
     UserService userService;
     
-    // view, add and delete RoomMates
+    // view RoomMate in Ad
     @RequestMapping(value = "/RoomMates", method = RequestMethod.POST)
-    public Object editProfile(HttpServletRequest request, RoomMateForm roomMateForm) {
+    public Object viewRoomMate(HttpServletRequest request, RoomMateForm roomMateForm) {
     	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
     		return "redirect:/";
     	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
-    	System.out.println(roomMateForm.getAdId());
         ModelAndView model = new ModelAndView("newRoomMate");
         SecurityContext ctx = SecurityContextHolder.getContext();
-        //RoomMate roomMate = roomMateService.loadRoomMate();
-        //model.addObject("roomMateForm", roomMateService.fillRoomMateForm(roomMate));
         roomMateService.saveFrom(roomMateForm);
         model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
-        //return model;
         return "redirect:/editAd/"+"Shared Apartment/"+Long.toString(roomMateForm.getAdId());
     }
 
-    // view and add RoomMates
+    // new RoomMate
     @RequestMapping(value = "/RoomMates/{adId}", method = RequestMethod.GET)
     public Object newProfile(HttpServletRequest request, @PathVariable String adId) {
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
@@ -84,6 +80,23 @@ public class RoomMateController {
         RoomMateForm roomMateForm = new RoomMateForm();
         roomMateForm.setAdId(Long.parseLong(adId));
         model.addObject("roomMateForm", roomMateForm);
+        model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
+        return model;
+    }
+    
+    // edit RoomMate
+    @RequestMapping(value = "/editRoomMate/{roomMateId}", method = RequestMethod.GET)
+    public Object editRoomMate(HttpServletRequest request, RoomMateForm roomMateForm,  @PathVariable Long roomMateId) {
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+    		return "redirect:/";
+    	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+        ModelAndView model = new ModelAndView("newRoomMate");
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        RoomMate roomMate = roomMateService.getRoomMate(roomMateId);
+        model.addObject("roomMateForm", roomMateService.fillRoomMateForm(roomMate));
+        //roomMateService.saveFrom(roomMateForm);
         model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
         return model;
     }
