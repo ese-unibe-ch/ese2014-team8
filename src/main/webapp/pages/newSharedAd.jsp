@@ -7,17 +7,16 @@
 
 <c:import url="template/header.jsp" />
 
-<c:if test="${category == 'Apartment'}">
-	<h1>Edit your Apartment Ad</h1>
-	<c:import url="adForms/apartmentForm.jsp" />
-</c:if>
 
-<c:if test="${category == 'Shared Apartment'}">
-	<h1>Edit your Shared Apartment Ad</h1>
-	<c:import url="adForms/sharedApartmentForm.jsp" />
-	<%-- <c:import url="roomMateTable.jsp" /> --%>
-</c:if>
+<h1>Advertise your apartment here!</h1>
+<select id="category" size="1">
+      <option value="1">Apartment</option>
+      <option value="2" selected >Shared Apartment</option>
+</select>
 
+
+<c:import url="adForms/sharedApartmentForm.jsp" />
+<%-- <c:import url="roomMateTable.jsp" /> --%>
 
 <c:if test="${page_error != null }">
     <div class="alert alert-error">
@@ -28,29 +27,25 @@
 </c:if>
 
 <script>
-	
 	var elem1 = document.getElementById('moveInJS'),
 		checkBox1 = document.getElementById('field-fixedMoveIn');
-	
-	function showElement1(){
-	    elem1.style.display = checkBox1.checked ?  'block' : 'none';
+	checkBox1.onclick = function(){
+	    elem1.style.display = this.checked ?  'block' : 'none';
 	};
-
-	checkBox1.onclick = function(){showElement1()};
-	
 	
 	var elem2 = document.getElementById('moveOutJS'),
-	checkBox2 = document.getElementById('field-fixedMoveOut');
-
-	function showElement2(){
-	    elem2.style.display = checkBox2.checked ?  'block' : 'none';
+		checkBox2 = document.getElementById('field-fixedMoveOut');
+	checkBox2.onclick = function(){
+	    elem2.style.display = this.checked ?  'block' : 'none';
 	};
-	
-	checkBox2.onclick = function(){showElement2()};
-	window.onload = function(){showElement1(); showElement2();};
 </script>
-<script>
-	document.getElementById('ad').style.color = '#ACCB12'
+
+<script type="text/javascript">
+function switchForm(){
+	window.location = "/newAd";
+}
+document.getElementById('category').onchange = function(){switchForm()};
+
 </script>
 	
 <c:import url="template/footer.jsp" />

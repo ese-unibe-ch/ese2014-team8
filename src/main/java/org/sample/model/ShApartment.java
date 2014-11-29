@@ -1,5 +1,8 @@
 package org.sample.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -15,6 +18,7 @@ import javax.persistence.OneToMany;
 public class ShApartment extends RealEstate {
 
 	private int roomSize;
+
 
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
 	@JoinColumn(name = "owner_id")
@@ -35,6 +39,9 @@ public class ShApartment extends RealEstate {
 		this.owner = owner;
 	}
 
+	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<RoomMate> roomMates;	
+	
 	public int getRoomSize() {
 		return roomSize;
 	}

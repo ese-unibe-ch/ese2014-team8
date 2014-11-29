@@ -16,8 +16,6 @@
 
 <c:import url="adForms/apartmentForm.jsp" />
 
-<c:import url="adForms/sharedApartmentForm.jsp" />
-
 <c:if test="${page_error != null }">
     <div class="alert alert-error">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -40,20 +38,11 @@
 	};
 </script>
 
-<script>
-function showSingleForm(){
-	if (document.getElementById('category').value == 1 ){
-		document.getElementById('apartmentForm').style.display = 'block';
-		document.getElementById('sharedApartmentForm').style.display='none';
-	}
-	else{document.getElementById('apartmentForm').style.display = 'none';
-		document.getElementById('sharedApartmentForm').style.display='block';
-	}
+<script type="text/javascript">
+function switchForm(){
+	window.location = "/newSharedAd";
 }
-
-document.getElementById('category').onchange = function(){showSingleForm()};
-window.onload = function(){showSingleForm()};
-
+document.getElementById('category').onchange = function(){switchForm()};
 
 </script>
 <script>

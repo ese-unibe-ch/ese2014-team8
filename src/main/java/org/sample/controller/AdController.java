@@ -15,6 +15,7 @@ import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.*;
 import org.sample.controller.service.AdService;
 import org.sample.controller.service.UserService;
+import org.sample.controller.service.RoomMateService;
 import org.sample.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,6 +54,8 @@ public class AdController {
     AdService adService;
     @Autowired
     UserService userService;
+    @Autowired 
+    RoomMateService roomMateService;
     
     @InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
@@ -104,7 +107,20 @@ public class AdController {
     	ModelAndView model = new ModelAndView("newAd");
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	model.addObject("apForm", new ApartmentForm());
+    	return model;
+    }
+
+    @RequestMapping(value="/newSharedAd", method = RequestMethod.GET) 
+    public Object makeSharedAd(HttpServletRequest request){
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	ModelAndView model = new ModelAndView("newSharedAd");
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	model.addObject("shApForm", new ShApartmentForm());
+    	//model.addObject("roomMates", roomMateService.getRoomMates(0L));
     	return model;
     }
     
@@ -140,6 +156,9 @@ public class AdController {
                 try {
                     form2.setUser(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
                 	ShApartment apartment=adService.saveFrom(form2);
+                	if(form2.isAddRoomMate()==true){
+                		return "redirect:/RoomMates/" + Long.toString(apartment.getId());
+                	}
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Shared Apartment");
@@ -173,15 +192,14 @@ public class AdController {
             	Apartment oldAd = adService.getApAd(apartmentForm.getId());
             	apartmentForm = adService.fillInFormFrom(oldAd);
                 model.addObject("category","Apartment");
-                model.addObject("oldAd", oldAd);
                 model.addObject("apForm", apartmentForm);
             }
             else{
             	ShApartment oldAd = adService.getShApAd(shApartmentForm.getId());
             	shApartmentForm = adService.fillInFormFrom(oldAd);
             	model.addObject("category","Shared Apartment");
-            	model.addObject("oldAd", oldAd);
                 model.addObject("shApForm", shApartmentForm);
+                model.addObject("roomMates", roomMateService.getRoomMates(shApartmentForm.getId()));
             }
         } 
     	else {
@@ -191,8 +209,8 @@ public class AdController {
     	return model;
     }
 
-    @RequestMapping(value="/editAd/{adType}/{adId}")
-    public Object editAdId(HttpServletRequest request, @PathVariable String adType, @PathVariable Long adId) {
+    @RequestMapping(value="/editAd/{adCategory}/{adId}")
+    public Object editAdId(HttpServletRequest request, @PathVariable String adCategory, @PathVariable Long adId) {
         User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
@@ -200,12 +218,14 @@ public class AdController {
             return "redirect:/profile";
         }
         ModelAndView model = new ModelAndView("editAd");
-        model.addObject("category",adType);
+        model.addObject("category",adCategory);
         model.addObject("user",user);
-        if(adType.equals("Apartment") && (user.getIsAdmin() || user.getId() == adService.getApAd(adId).getOwner().getId())) {
+        if(adCategory.equals("Apartment") && (user.getIsAdmin() || user.getId() == adService.getApAd(adId).getOwner().getId())) {
             model.addObject("apForm", adService.fillInFormFrom(adService.getApAd(adId)));
-        } else if(adType.equals("Shared Apartment") && (user.getIsAdmin() || user.getId() == adService.getShApAd(adId).getOwner().getId())) {
+        } else if(adCategory.equals("Shared Apartment") && (user.getIsAdmin() || user.getId() == adService.getShApAd(adId).getOwner().getId())) {
             model.addObject("shApForm", adService.fillInFormFrom(adService.getShApAd(adId)));
+            //model.addObject("roomMates", roomMateService.getRoomMates());
+            model.addObject("roomMates", roomMateService.getRoomMates(adId));
         }
         return model;
     }

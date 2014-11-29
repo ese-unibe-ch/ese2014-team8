@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div id="sharedApartmentForm">
-<form:form method="post" modelAttribute="shApForm" action="viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
+<form:form method="post" modelAttribute="shApForm" action="/viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
     <fieldset>
     	<form:hidden path="category" value="Shared Apartment"/>
 		<form:hidden path="id"/>
@@ -95,7 +95,7 @@
         <div id="moveOutJS" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
             <label class="control-label" for="field-moveOut">Move-out date</label>
             <div class="controls">
-            	<fmt:formatDate type="date" dateStyle="short" value="${shApForm.moveIn}" var="simpleOutDate"/>
+            	<fmt:formatDate type="date" pattern="dd/MM/yyyy" value="${shApForm.moveOut}" var="simpleOutDate"/>
                 <form:input path="moveOut" id="field-moveOut" tabindex="10" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" />
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
@@ -122,9 +122,10 @@
             </div>
         </div>
         
-        
-        <button type="button" class="btn btn-primary">add Roommate</button>
-		
+        <c:import url="roomMateTable.jsp" />
+        <form:hidden id="field-addRoomMate" path="addRoomMate" value="false"/>
+        <button type="button" id="RoomMateButton" class="btn btn-primary">add Roommate</button> 
+
         <div class="form-actions">
             <button type="submit" class="btn btn-green">Submit Ad</button>
             <button type="button" class="btn btn-default">Cancel</button>
@@ -132,3 +133,11 @@
     </fieldset>
 </form:form>
 </div>
+
+<script>
+document.getElementById('RoomMateButton').onclick = function(){
+	document.getElementById('field-addRoomMate').value = 'true';
+	document.getElementById('shApForm').submit();
+	
+}
+</script>
