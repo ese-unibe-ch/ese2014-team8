@@ -1,9 +1,7 @@
 package org.sample.controller.pojos;
 
+import org.sample.model.ApartmentTags;
 import org.sample.model.User;
-
-import java.util.Date;
-
 import javax.validation.constraints.*;
 
 
@@ -14,6 +12,8 @@ public class ApartmentForm extends RealEstateForm{
 	private int size;
 	
 	private User user;
+	
+	private ApartmentTags tags;
 
 
 	public int getNumberOfRooms() {
@@ -39,5 +39,13 @@ public class ApartmentForm extends RealEstateForm{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public ApartmentTags getTags() {
+		return tags;
+	}
+
+	public void setTags(ApartmentTags tags) {
+		this.tags = tags;
 	}
 }

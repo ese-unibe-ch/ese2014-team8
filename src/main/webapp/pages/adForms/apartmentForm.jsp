@@ -162,11 +162,61 @@
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>
+        </fieldset>
+        <fieldset>
+        <legend>Choose the tags describing your apartment</legend>
+        <div class="text-center">
+        <form:hidden path="tags.smokingAllowed"  id="field-smokingAllowed"/>
+        <div class="btn <c:if test="${!apForm.tags.smokingAllowed}">btn-default</c:if><c:if test="${apForm.tags.smokingAllowed}">btn-green</c:if>" id="smokingAllowed" onclick="setTag(this.id)">Smoking Allowed</div>
+        <form:hidden path="tags.petsAllowed"  id="field-petsAllowed"/>
+        <div class="btn <c:if test="${!apForm.tags.petsAllowed}">btn-default</c:if><c:if test="${apForm.tags.petsAllowed}">btn-green</c:if>" id="petsAllowed" onclick="setTag(this.id)">Pets Allowed</div>
+        <form:hidden path="tags.musicInstrumentsAllowed"  id="field-musicInstrumentsAllowed"/>
+        <div class="btn <c:if test="${!apForm.tags.musicInstrumentsAllowed}">btn-default</c:if><c:if test="${apForm.tags.musicInstrumentsAllowed}">btn-green</c:if>" id="musicInstrumentsAllowed" onclick="setTag(this.id)">Musical Instruments Allowed</div>
+        <form:hidden path="tags.bikeParking"  id="field-bikeParking"/>
+        <div class="btn <c:if test="${!apForm.tags.bikeParking}">btn-default</c:if><c:if test="${apForm.tags.bikeParking}">btn-green</c:if>" id="bikeParking" onclick="setTag(this.id)">Bike-parking</div>
+        <form:hidden path="tags.carParking"  id="field-carParking"/>
+        <div class="btn <c:if test="${!apForm.tags.carParking}">btn-default</c:if><c:if test="${apForm.tags.carParking}">btn-green</c:if>" id="carParking" onclick="setTag(this.id)">Car-parking</div>
+        <form:hidden path="tags.sharedGarden"  id="field-sharedGarden"/>
+        <div class="btn <c:if test="${!apForm.tags.sharedGarden}">btn-default</c:if><c:if test="${apForm.tags.sharedGarden}">btn-green</c:if>" id="sharedGarden" onclick="setTag(this.id)">Shared Garden</div>
+        <form:hidden path="tags.balcony"  id="field-balcony"/>
+        <div class="btn <c:if test="${!apForm.tags.balcony}">btn-default</c:if><c:if test="${apForm.tags.balcony}">btn-green</c:if>" id="balcony" onclick="setTag(this.id)">Balcony</div>
+        <form:hidden path="tags.quietNeighbourhood"  id="field-quietNeighbourhood"/>
+        <div class="btn <c:if test="${!apForm.tags.quietNeighbourhood}">btn-default</c:if><c:if test="${apForm.tags.quietNeighbourhood}">btn-green</c:if>" id="quietNeighbourhood" onclick="setTag(this.id)">Quiet Neighbourhood</div>
+        <form:hidden path="tags.elevator"  id="field-elevator"/>
+        <div class="btn <c:if test="${!apForm.tags.elevator}">btn-default</c:if><c:if test="${apForm.tags.elevator}">btn-green</c:if>" id="elevator" onclick="setTag(this.id)">Elevator</div>
+        <form:hidden path="tags.wheelchairAccessible"  id="field-wheelchairAccessible"/>
+        <div class="btn <c:if test="${!apForm.tags.wheelchairAccessible}">btn-default</c:if><c:if test="${apForm.tags.wheelchairAccessible}">btn-green</c:if>" id="wheelchairAccessible" onclick="setTag(this.id)">Wheelchair Accessible</div>
+        <form:hidden path="tags.lowEnergyBuilding" id="field-lowEnergyBuilding"/>
+        <div class="btn <c:if test="${!apForm.tags.lowEnergyBuilding}">btn-default</c:if><c:if test="${apForm.tags.lowEnergyBuilding}">btn-green</c:if>" id="lowEnergyBuilding" onclick="setTag(this.id)">Low Energy Building</div>
+        
+        <form:hidden path="tags.kidFriendly"  id="field-kidFriendly"/>
+        <div class="btn <c:if test="${!apForm.tags.kidFriendly}">btn-default</c:if><c:if test="${apForm.tags.kidFriendly}">btn-green</c:if>" id="kidFriendly" onclick="setTag(this.id)">Kid Friendly</div>
+        <form:hidden path="tags.playgroundNearby" id="field-playgroundNearby"/>
+        <div class="btn <c:if test="${!apForm.tags.playgroundNearby}">btn-default</c:if><c:if test="${apForm.tags.playgroundNearby}">btn-green</c:if>" id="playgroundNearby" onclick="setTag(this.id)">Playground Nearby</div>
+        <form:hidden path="tags.onBusyRoad" id="field-onBusyRoad"/>
+        <div class="btn <c:if test="${!apForm.tags.onBusyRoad}">btn-default</c:if><c:if test="$apForm.{tags.onBusyRoad}">btn-green</c:if>" id="onBusyRoad" onclick="setTag(this.id)">On Busy Road</div>
+        </div>
+        
 		
         <div class="form-actions">
             <button type="submit" class="btn btn-green">Submit Ad</button>
-            <button type="button" class="btn btn-default">Cancel</button>
+            <button type="button" class="btn btn-grey">Cancel</button>
         </div>
     </fieldset>
 </form:form>
 </div>
+
+
+<script>
+	function setTag(elementId){
+		if( document.getElementById('field-' + elementId).value == 'false'){
+			document.getElementById('field-' + elementId).value = 'true';
+			document.getElementById(elementId).className = 'btn btn-green';		
+		}
+		else{
+			document.getElementById('field-' + elementId).value = 'false';
+			document.getElementById(elementId).className = 'btn btn-default';
+		}
+		
+	}
+</script>

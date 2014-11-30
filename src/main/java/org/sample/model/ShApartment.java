@@ -3,16 +3,17 @@ package org.sample.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+
 import java.util.Collection;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Inheritance;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class ShApartment extends RealEstate {
@@ -30,6 +31,28 @@ public class ShApartment extends RealEstate {
 	
 	@OneToMany(mappedBy = "shAp", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<Message> messages;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	private ShApartmentTags tags;
+	
+	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<RoomMate> roomMates;	
+	
+	public ShApartmentTags getTags() {
+		return tags;
+	}
+
+	public void setTags(ShApartmentTags tags) {
+		this.tags = tags;
+	}
+
+	public List<RoomMate> getRoomMates() {
+		return roomMates;
+	}
+
+	public void setRoomMates(List<RoomMate> roomMates) {
+		this.roomMates = roomMates;
+	}
 
 	public User getOwner() {
 		return owner;
@@ -39,8 +62,6 @@ public class ShApartment extends RealEstate {
 		this.owner = owner;
 	}
 
-	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private List<RoomMate> roomMates;	
 	
 	public int getRoomSize() {
 		return roomSize;

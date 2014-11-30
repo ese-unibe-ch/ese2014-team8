@@ -56,7 +56,7 @@ public class AdServiceImpl implements AdService {
     	apartment.setNumberOfRooms(apartmentForm.getNumberOfRooms());
     	apartment.setSize(apartmentForm.getSize());
 		apartment.setOwner(apartmentForm.getUser());
-    	
+    	apartment.setTags(apartmentForm.getTags());
     	
     	apartment = apDao.save(apartment);
     	
@@ -82,6 +82,7 @@ public class AdServiceImpl implements AdService {
     	apartment=(ShApartment) setRealEstateFields(form, apartment);
     	apartment.setRoomSize(form.getRoomSize());
 		apartment.setOwner(form.getUser());
+		apartment.setTags(form.getTags());
     	
     	apartment = shApDao.save(apartment);
     	form.setId(apartment.getId());
@@ -136,12 +137,10 @@ public class AdServiceImpl implements AdService {
     	}
 	}
    
-
 	private boolean isFutureDate(Date moveIn) {
     	java.util.Date now = new java.util.Date();
     	return moveIn.after(now);
 	}
-
 
 	/**Finds the matching elements in the appropriate database via the autowired dao. 
 	 * @param searchForm a searchForm containing the searchcriteria
@@ -219,6 +218,7 @@ public class AdServiceImpl implements AdService {
 		
     	apartmentForm.setNumberOfRooms(apartment.getNumberOfRooms());
     	apartmentForm.setSize(apartment.getSize());
+    	apartmentForm.setTags(apartment.getTags());
     	
     	return apartmentForm;
 	}
@@ -229,6 +229,7 @@ public class AdServiceImpl implements AdService {
 		shApartmentForm = (ShApartmentForm) fillInFormFrom(shApartment, shApartmentForm);
 		
     	shApartmentForm.setRoomSize(shApartment.getRoomSize());
+    	shApartmentForm.setTags(shApartment.getTags());
     	
     	return shApartmentForm;
 	}

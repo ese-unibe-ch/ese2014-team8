@@ -1,5 +1,6 @@
 package org.sample.controller.pojos;
 
+import org.sample.model.ShApartmentTags;
 import org.sample.model.User;
 
 import javax.validation.constraints.Min;
@@ -13,6 +14,8 @@ public class ShApartmentForm extends RealEstateForm{
 	private User user;
 	
 	private boolean addRoomMate;
+	
+	private ShApartmentTags tags;
 	
 
 	public int getRoomSize() {
@@ -38,5 +41,13 @@ public class ShApartmentForm extends RealEstateForm{
 
 	public void setAddRoomMate(boolean addRoomMate) {
 		this.addRoomMate = addRoomMate;
+	}
+
+	public ShApartmentTags getTags() {
+		return tags;
+	}
+
+	public void setTags(ShApartmentTags tags) {
+		this.tags = tags;
 	}
 }

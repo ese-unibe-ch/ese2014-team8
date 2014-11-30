@@ -21,6 +21,9 @@ public class Apartment extends RealEstate {
 	
 	@OneToMany(mappedBy = "ap", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<Message> messages;
+	
+	@OneToOne(cascade = {CascadeType.ALL})
+	private ApartmentTags tags;
 
 	public User getOwner() {
 		return owner;
@@ -59,6 +62,14 @@ public class Apartment extends RealEstate {
 
 	public void setMessages(Collection<Message> messages) {
 		this.messages = messages;
+	}
+
+	public ApartmentTags getTags() {
+		return tags;
+	}
+
+	public void setTags(ApartmentTags tags) {
+		this.tags = tags;
 	}
 
 }

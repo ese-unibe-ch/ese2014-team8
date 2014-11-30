@@ -41,6 +41,26 @@
 	Distance to School: ${ad.distanceToSchool} meters.<br/>
 </div>
 <div>
+<b>Tags: </b>
+	<c:if test="${ad.tags.smokingAllowed}"><div class="label label-default" id="smokingAllowed">Smoking Allowed</div></c:if>
+    <c:if test="${ad.tags.petsAllowed}"><div class="label label-default" id="petsAllowed">Pets Allowed</div></c:if>
+    <c:if test="${ad.tags.musicInstrumentsAllowed}"><div class="label label-default" id="musicInstrumentsAllowed">Musical Instruments Allowed</div></c:if>
+    <c:if test="${ad.tags.bikeParking}"><div class="label label-default" id="bikeParking">Bike-parking</div></c:if>
+    <c:if test="${ad.tags.carParking}"><div class="label label-default" id="carParking">Car-parking</div></c:if>
+    <c:if test="${ad.tags.sharedGarden}"><div class="label label-default" id="sharedGarden">Shared Garden</div></c:if>
+    <c:if test="${ad.tags.balcony}"><div class="label label-default" id="balcony" >Balcony</div></c:if>
+    <c:if test="${ad.tags.quietNeighbourhood}"><div class="label label-default" id="quietNeighbourhood" >Quiet Neighbourhood</div></c:if>
+    <c:if test="${ad.tags.elevator}"><div class="label label-default" id="elevator" >Elevator</div></c:if>
+    <c:if test="${ad.tags.wheelchairAccessible}"><div class="label label-default" id="wheelchairAccessible">Wheelchair Accessible</div></c:if>
+    <c:if test="${ad.tags.lowEnergyBuilding}"><div class="label label-default" id="lowEnergyBuilding">Low Energy Building</div></c:if>
+    
+    <c:if test="${ad.tags.kidFriendly}"><div class="label label-default" id="kidFriendly">Kid Friendly</div></c:if>
+    <c:if test="${ad.tags.playgroundNearby}"><div class="label label-default" id="playgroundNearby" >Playground Nearby</div></c:if>
+    <c:if test="${ad.tags.onBusyRoad}"><div class="label label-default" id="onBusyRoad">On Busy Road</div></c:if>
+     
+</div>
+
+<div>
 <h2>Visit this apartment</h2>
 	<table class="text-center table table-hover">
 		<tr>

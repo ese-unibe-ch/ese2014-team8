@@ -153,6 +153,45 @@
             </div>
         </div>
         
+        </fieldset>
+        <fieldset>
+        <legend>Choose the tags describing your apartment</legend>
+        <div class="text-center">
+        <form:hidden path="tags.smokingAllowed"  id="field-smokingAllowed"/>
+        <div class="btn <c:if test="${!shApForm.tags.smokingAllowed}">btn-default</c:if><c:if test="${shApForm.tags.smokingAllowed}">btn-green</c:if>" id="smokingAllowed" onclick="setTag(this.id)">Smoking Allowed</div>
+        <form:hidden path="tags.petsAllowed"  id="field-petsAllowed"/>
+        <div class="btn <c:if test="${!shApForm.tags.petsAllowed}">btn-default</c:if><c:if test="${shApForm.tags.petsAllowed}">btn-green</c:if>" id="petsAllowed" onclick="setTag(this.id)">Pets Allowed</div>
+        <form:hidden path="tags.musicInstrumentsAllowed"  id="field-musicInstrumentsAllowed"/>
+        <div class="btn <c:if test="${!shApForm.tags.musicInstrumentsAllowed}">btn-default</c:if><c:if test="${shApForm.tags.musicInstrumentsAllowed}">btn-green</c:if>" id="musicInstrumentsAllowed" onclick="setTag(this.id)">Musical Instruments Allowed</div>
+        <form:hidden path="tags.bikeParking"  id="field-bikeParking"/>
+        <div class="btn <c:if test="${!shApForm.tags.bikeParking}">btn-default</c:if><c:if test="${shApForm.tags.bikeParking}">btn-green</c:if>" id="bikeParking" onclick="setTag(this.id)">Bike-parking</div>
+        <form:hidden path="tags.carParking"  id="field-carParking"/>
+        <div class="btn <c:if test="${!shApForm.tags.carParking}">btn-default</c:if><c:if test="${shApForm.tags.carParking}">btn-green</c:if>" id="carParking" onclick="setTag(this.id)">Car-parking</div>
+        <form:hidden path="tags.sharedGarden"  id="field-sharedGarden"/>
+        <div class="btn <c:if test="${!shApForm.tags.sharedGarden}">btn-default</c:if><c:if test="${shApForm.tags.sharedGarden}">btn-green</c:if>" id="sharedGarden" onclick="setTag(this.id)">Shared Garden</div>
+        <form:hidden path="tags.balcony"  id="field-balcony"/>
+        <div class="btn <c:if test="${!shApForm.tags.balcony}">btn-default</c:if><c:if test="${shApForm.tags.balcony}">btn-green</c:if>" id="balcony" onclick="setTag(this.id)">Balcony</div>
+        <form:hidden path="tags.quietNeighbourhood"  id="field-quietNeighbourhood"/>
+        <div class="btn <c:if test="${!shApForm.tags.quietNeighbourhood}">btn-default</c:if><c:if test="${shApForm.tags.quietNeighbourhood}">btn-green</c:if>" id="quietNeighbourhood" onclick="setTag(this.id)">Quiet Neighbourhood</div>
+        <form:hidden path="tags.elevator"  id="field-elevator"/>
+        <div class="btn <c:if test="${!shApForm.tags.elevator}">btn-default</c:if><c:if test="${shApForm.tags.elevator}">btn-green</c:if>" id="elevator" onclick="setTag(this.id)">Elevator</div>
+        <form:hidden path="tags.wheelchairAccessible"  id="field-wheelchairAccessible"/>
+        <div class="btn <c:if test="${!shApForm.tags.wheelchairAccessible}">btn-default</c:if><c:if test="${shApForm.tags.wheelchairAccessible}">btn-green</c:if>" id="wheelchairAccessible" onclick="setTag(this.id)">Wheelchair Accessible</div>
+        <form:hidden path="tags.lowEnergyBuilding" id="field-lowEnergyBuilding"/>
+        <div class="btn <c:if test="${!shApForm.tags.lowEnergyBuilding}">btn-default</c:if><c:if test="${shApForm.tags.lowEnergyBuilding}">btn-green</c:if>" id="lowEnergyBuilding" onclick="setTag(this.id)">Low Energy Building</div>
+        
+        <form:hidden path="tags.eatingCookingTogether"  id="field-eatingCookingTogether"/>
+        <div class="btn <c:if test="${!shApForm.tags.eatingCookingTogether}">btn-default</c:if><c:if test="${shApForm.tags.eatingCookingTogether}">btn-green</c:if>" id="eatingCookingTogether" onclick="setTag(this.id)">Eating/Cooking Together</div>
+        <form:hidden path="tags.stayingWeekends" id="field-stayingWeekends"/>
+        <div class="btn <c:if test="${!shApForm.tags.stayingWeekends}">btn-default</c:if><c:if test="${shApForm.tags.stayingWeekends}">btn-green</c:if>" id="stayingWeekends" onclick="setTag(this.id)">Staying Weekends</div>
+        <form:hidden path="tags.vegetarianVegan" id="field-vegetarianVegan"/>
+        <div class="btn <c:if test="${!shApForm.tags.vegetarianVegan}">btn-default</c:if><c:if test="${shApForm.tags.vegetarianVegan}">btn-green</c:if>" id="vegetarianVegan" onclick="setTag(this.id)">Vegetarian/Vegan</div>
+        <form:hidden path="tags.nonVegetarian" id="field-nonVegetarian"/>
+        <div class="btn <c:if test="${!shApForm.tags.nonVegetarian}">btn-default</c:if><c:if test="${shApForm.tags.nonVegetarian}">btn-green</c:if>" id="nonVegetarian" onclick="setTag(this.id)">Non-vegetarian</div>
+        
+        
+        </div>
+        
         <c:import url="roomMateTable.jsp" />
         <form:hidden id="field-addRoomMate" path="addRoomMate" value="false"/>
         <button type="button" id="RoomMateButton" class="btn btn-primary">add Roommate</button> 
@@ -171,4 +210,17 @@ document.getElementById('RoomMateButton').onclick = function(){
 	document.getElementById('shApForm').submit();
 	
 }
+</script>
+<script>
+	function setTag(elementId){
+		if( document.getElementById('field-' + elementId).value == 'false'){
+			document.getElementById('field-' + elementId).value = 'true';
+			document.getElementById(elementId).className = 'btn btn-green';		
+		}
+		else{
+			document.getElementById('field-' + elementId).value = 'false';
+			document.getElementById(elementId).className = 'btn btn-default';
+		}
+		
+	}
 </script>
