@@ -89,6 +89,7 @@ body{
 /*Custom buttons* source charliepark.org/bootstrap_buttons*/
 .btn{
 	margin: 5px 5px 5px 5px;
+	font-size: 18px;
 }
 .btn-green { 
 	background-color: hsl(71, 84%, 38%) !important; 

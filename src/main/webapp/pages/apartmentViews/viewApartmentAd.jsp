@@ -8,6 +8,7 @@
 
 
 <h2>${ad.title}</h2>
+
 <div>
 	${ad.address.street} ${ad.address.number}<br/>
 	${ad.address.zipCode} ${ad.address.city}
