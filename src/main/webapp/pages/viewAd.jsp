@@ -17,7 +17,7 @@
 	<c:import url="apartmentViews/viewSharedApartmentAd.jsp" />
 </c:if>
 
-<form:form method="post" modelAttribute="apartmentForm" action="editAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
+<form:form method="post" modelAttribute="apartmentForm" action="/editAd" id="apartmentForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>	
     	<form:hidden path="category" value="${category}"/>
 		<form:hidden path="id" value="${ad.id}"/>
