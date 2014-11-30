@@ -97,6 +97,7 @@ public class RoomMateController {
         return model;
     }
     
+    // delete RoomMate
     @RequestMapping(value="/deleteRoomMate/{adId}/{roomMateId}", method = RequestMethod.GET)
     public Object removeTimeslot(HttpServletRequest request,@PathVariable Long adId, @PathVariable Long roomMateId){
     	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
@@ -108,20 +109,6 @@ public class RoomMateController {
     	return "redirect:/editAd/"+"Shared Apartment/"+Long.toString(adId);
     }
     
-    @RequestMapping(value = "/roomMateList", method = RequestMethod.GET)
-    public Object roomMateList(HttpServletRequest request) {
-        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
-            return "redirect:/";
-        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
-            return "redirect:/profile";
-        }
-        
-        ModelAndView model = new ModelAndView("roomMateTable");
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        model.addObject("roomMates", roomMateService.getRoomMates(3L));
-        model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
-        return model;
-    }
 }
 
 

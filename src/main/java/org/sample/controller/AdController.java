@@ -120,7 +120,6 @@ public class AdController {
     	ModelAndView model = new ModelAndView("newSharedAd");
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
     	model.addObject("shApForm", new ShApartmentForm());
-    	//model.addObject("roomMates", roomMateService.getRoomMates(0L));
     	return model;
     }
     
@@ -224,7 +223,6 @@ public class AdController {
             model.addObject("apForm", adService.fillInFormFrom(adService.getApAd(adId)));
         } else if(adCategory.equals("Shared Apartment") && (user.getIsAdmin() || user.getId() == adService.getShApAd(adId).getOwner().getId())) {
             model.addObject("shApForm", adService.fillInFormFrom(adService.getShApAd(adId)));
-            //model.addObject("roomMates", roomMateService.getRoomMates());
             model.addObject("roomMates", roomMateService.getRoomMates(adId));
         }
         return model;

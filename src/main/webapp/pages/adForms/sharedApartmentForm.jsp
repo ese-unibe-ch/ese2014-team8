@@ -153,6 +153,7 @@
             </div>
         </div>
         
+
         </fieldset>
         <fieldset>
         <legend>Choose the tags describing your apartment</legend>
@@ -193,6 +194,7 @@
         </div>
         
         <c:import url="roomMateTable.jsp" />
+
         <form:hidden id="field-addRoomMate" path="addRoomMate" value="false"/>
         <button type="button" id="RoomMateButton" class="btn btn-primary">add Roommate</button> 
 

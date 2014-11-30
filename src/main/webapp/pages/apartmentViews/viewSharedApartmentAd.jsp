@@ -90,6 +90,22 @@
 	</table>
 </div>
 
+        <h1>Roommate-List</h1>
+
+		<table class="text-center table table-hover">
+			<tr>
+				<th class="text-center"> First Name</th>
+				<th class="text-center"> Last Name</th>
+			</tr>
+			<c:forEach items="${ad.roomMates}" var="mate">
+				<tr>
+					<td>${mate.firstName}</td>
+					<td>${mate.lastName}</td> 
+				</tr>
+			</c:forEach>
+			
+		</table>
+
 <div>
 	<h2>Message to ad owner</h2>
 	<form:form method="post" modelAttribute="messageForm" action="/sendMessage" cssClass="form-horizontal"  autocomplete="off">

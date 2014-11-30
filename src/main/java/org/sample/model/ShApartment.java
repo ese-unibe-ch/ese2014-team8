@@ -32,6 +32,7 @@ public class ShApartment extends RealEstate {
 	@OneToMany(mappedBy = "shAp", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<Message> messages;
 	
+
 	@OneToOne(cascade = {CascadeType.ALL})
 	private ShApartmentTags tags;
 	
@@ -60,9 +61,9 @@ public class ShApartment extends RealEstate {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
+
 	}
 
-	
 	public int getRoomSize() {
 		return roomSize;
 	}
