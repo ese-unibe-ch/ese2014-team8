@@ -30,6 +30,17 @@ public class ShApartment extends RealEstate {
 	
 	@OneToMany(mappedBy = "shAp", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<Message> messages;
+	
+	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private List<RoomMate> roomMates;
+
+	public List<RoomMate> getRoomMates() {
+		return roomMates;
+	}
+
+	public void setRoomMates(List<RoomMate> roomMates) {
+		this.roomMates = roomMates;
+	}
 
 	public User getOwner() {
 		return owner;
@@ -37,10 +48,7 @@ public class ShApartment extends RealEstate {
 
 	public void setOwner(User owner) {
 		this.owner = owner;
-	}
-
-	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private List<RoomMate> roomMates;	
+	}	
 	
 	public int getRoomSize() {
 		return roomSize;
