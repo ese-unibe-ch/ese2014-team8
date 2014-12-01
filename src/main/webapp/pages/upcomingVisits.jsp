@@ -6,37 +6,38 @@
 
 <c:import url="template/header.jsp" />
 
-<h1>${ad.title}</h1>
-<h2>Scheduled Visits</h2>
+<h1>Upcoming visits</h1>
 
 <table class="text-center table table-hover">
 	<tr>
+		<th class="text-center"> Ad</th>
 		<th class="text-center"> Date</th>
 		<th class="text-center"> Time</th>
 		<th class="text-center"> Number of visitors</th>
-		<th class="text-center"> Visitors</th>
+		
 	</tr>
-	<c:forEach items="${timeSlots}" var="t">
+	<c:forEach items="${user.registeredTimeSlots}" var="t">
+		<c:if test="${t.dateTime.time > now.time }">
 		<tr>
 			<fmt:formatDate pattern="dd/MM/yyyy" value="${t.dateTime}" var="showDate"/>
 			<fmt:formatDate pattern="HH:mm" value="${t.dateTime}" var="showTime"/>
+			<c:if test="${not empty t.apartment}">
+			<td><a href="/searchresults/Apartment/{t.apartment.id}">${t.apartment.title}</a></td>
+			</c:if>
+			<c:if test="${not empty t.shApartment}">
+			<td><a href="/searchresults/Shared Apartment/{t.shApartment.id}">${t.shApartment.title}</a></td>
+			</c:if>
 			<td>${showDate}</td>
 			<td>${showTime}</td>
-			<td>${t.maxNumVisitors-t.placesLeft}/${t.maxNumVisitors}</td>
-			<td><c:forEach items="${t.visitors}" var="v">
-				<a href="/showProfile/${v.person.id}">${v.lastName} ${v.firstName}</a><br/>
-				</c:forEach>
-			</td>
+			<td>${t.maxNumVisitors}</td>
 		</tr>
+		</c:if>
 	</c:forEach>
-	<tr>
 	
 </table>
-<a href="/timeslots/${category}/${adId}" class = "btn btn-green" role="button">Add Timeslots</a>
-<a href="/placedAds" class = "btn btn-grey" role="button">Back</a>	
 
 <script>
-	document.getElementById('ad').style.color = '#ACCB12'
+	document.getElementById('profile').style.color = '#ACCB12'
 </script>
 
 

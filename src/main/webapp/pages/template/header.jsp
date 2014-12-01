@@ -34,7 +34,7 @@
 <body> 
 <div class="fluid-container">
 	<img class="top-image" src="../../img/cityscape_banner.jpg"/>
-	<a class="logo" href="/">
+	<a class="logo" href="/main">
 		<img alt="RentR" src="../../img/logo.png">
 	</a>
 	
@@ -61,6 +61,7 @@
 					<li class="divider"></li>
             		<li><a href="/placedAds">Placed Ads</a></li>
             		<li><a href="/bookmarkedAds">Bookmarked Ads</a></li>
+					<li><a href="/upcomingVisits">Upcoming Visits</a></li>
             		<li class="divider"></li>
             		<li><a href="/searchAlerts">Saved Searches</a></li>
             		<li class="divider"></li>
@@ -86,7 +87,7 @@ You're logged in as ${user.email}.<input type="button" id="signout" value="signo
 	$(document).ready(function() {
 
 <c:choose>
-<c:when test="${user.email != null}">
+	<c:when test="${user.email != null}">
 		document.getElementById('signout').onclick = function() {
 			navigator.id.logout();
 		}
@@ -109,7 +110,7 @@ You're logged in as ${user.email}.<input type="button" id="signout" value="signo
 				    	  // alert(status + ' successful login');
 				    	  <c:if test="${user.email == null}">
 				    	  //window.location.reload();
-				    	  window.location = '/profile';
+				    	  window.location = '/main';
 				    	  </c:if>
 				    	  var result = $.parseJSON(res);
 				    	  currentUser = result.name;

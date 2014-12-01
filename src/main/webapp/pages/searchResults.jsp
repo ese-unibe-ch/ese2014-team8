@@ -6,15 +6,26 @@
 
 <c:import url="template/header.jsp" />
 
+<c:if test="${not empty searchResults}">
 <h1>Search Results</h1>
-<table>
+<table class="text-center table table-hover">
+	
 	<c:forEach items="${searchResults}" var="s">
 		<tr>
-    		<td><a href="searchresults/${category}/${s.id}"><c:out value="${s.title}"/></a></td>
+    		<td><a href="searchresults/${category}/${s.id}"><c:out value="${s.title}"/></a><br/>
+    			${s.description}
+    		</td>
     		<td><c:out value="CHF ${s.price}"/></td>
   		</tr>
 	</c:forEach>  
 </table>
+</c:if>
+
+<c:if test="${empty searchResults }">
+	No ads match your search criteria.
+</c:if>
+
+
 <script>
 	document.getElementById('search').style.color = '#ACCB12'
 </script>

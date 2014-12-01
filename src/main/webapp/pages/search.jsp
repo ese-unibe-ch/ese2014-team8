@@ -5,35 +5,31 @@
 
 
 <c:import url="template/header.jsp" />
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+<c:if test="${not empty messageUpdate}">
+<div class="alert alert-rentr" role="alert">${messageUpdate}</div>
+</c:if>
+<c:if test="${not empty upcomingVisits}">
+<div class="alert alert-rentr" role="alert">${upcomingVisits}</div>
+</c:if>
 
 
-<h1>SearchForm</h1>
 
-
-<form:form method="post" modelAttribute="searchForm" action="search" id="searchForm" cssClass="form-horizontal"  autocomplete="off">
-    <fieldset>
-        <legend>This is a Search Form</legend>
-
-	
-
-        
+<form:form method="post" modelAttribute="searchForm" action="search" id="searchForm"  autocomplete="off">
+    <fieldset >   
         <c:set var="categoryErrors"><form:errors path="category"/></c:set>
-        <div class="control-group<c:if test="${not empty categoryErrors}"> error</c:if>">
-            <label class="control-label" for="field-appartment">Appartment</label>
+        <div class="control-group<c:if test="${not empty categoryErrors}"> error</c:if> float-left">
+            <label class="control-label" for="field-category">Category</label>
             <div class="controls">
                 <form:select path="category" items = "${searchForm.categories}" id="field-category" tabindex="4">
-<!--                     <option value="-1">appartment</option>
-                    <option value="-2">shared appartment</option> 
-                    <c:forEach var="t" items="${categories}">
-                        <option value="${t.id}">${t.category}</option>
-                    </c:forEach>-->
                 </form:select>
                 <form:errors path="category" cssClass="help-inline" element="span"/>
             </div>
         </div>
         
         <c:set var="zipCodeErrors"><form:errors path="zipCode"/></c:set>
-        <div class="control-group<c:if test="${not empty zipCodeeErrors}"> error</c:if>">
+        <div class="control-group<c:if test="${not empty zipCodeErrors}"> error</c:if> float-left">
             <label class="control-label" for="field-zipCode">Zip-Code</label>
             <div class="controls">
                 <form:input path="zipCode" id="field-zipCode" tabindex="3" maxlength="35" placeholder="Zip-Code"/>
@@ -43,11 +39,11 @@
 
         <div class="form-actions">
             <button type="submit" class="btn btn-green">Search</button>
-            <button type="button" class="btn btn-default">Cancel</button>
+            
         </div>
     </fieldset>
 </form:form>
-
+</div>
 
 
 

@@ -34,6 +34,7 @@ body{
 	margin: 0;
 	padding-right: 10px;
 	border-radius: 0px !important;
+	margin-bottom: 50px;
 }
 
 
@@ -69,6 +70,35 @@ body{
 /*content*/
 .container-body{
 	padding-bottom: 50px;
+}
+
+.float-left{
+	display:block;
+	float:left;
+	margin:25px 25px 25px 25px;
+}
+.form-actions{
+	margin-top: 45px;
+}
+.large{
+	font-size: 150%;
+	
+}
+
+.wide-input{
+	width: 90%;
+}
+.row{
+	margin-bottom: 50px;
+}
+.alert-rentr {
+	color: #9BB710;
+	background-color: #EEF5D0;
+	border-color: #ACCB12;
+}
+
+.alert-rentr a{
+	color: #9BB710 !important;
 }
 
 .jumbotron{

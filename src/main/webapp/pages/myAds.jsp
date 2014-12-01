@@ -6,11 +6,11 @@
 
 <c:import url="template/header.jsp" />
 
-<p><h1>Your Ads</h1></p>
 
-<a href="/newAd" class="btn btn-green">New Ad</a>
+<c:if test="${not empty apartments}">
 
-<p><h2>Apartment Ads</h2>
+
+<p><h1>Apartment Ads</h1>
 <table class="text-center table table-hover">
 <tr>
     <th class="text-center">Title</th>
@@ -34,8 +34,9 @@
 </c:forEach>
 </table>
 </p>
-
-<p><h2>Shared Apartment Ads</h2>
+</c:if>
+<c:if test="${not empty shApartments}">
+<p><h1>Shared Apartment Ads</h1>
 <table class="text-center table table-hover">
 <tr>
     <th class="text-center">Title</th>
@@ -57,6 +58,12 @@
 </c:forEach>
 </table>
 </p>
+</c:if>
+<c:if test="${empty apartments && empty shApartments }">
+You currently don't have ads.<br/>
+</c:if>
+
+<a href="/newAd" class="btn btn-green">New Ad</a>
 <script>
 	document.getElementById('profile').style.color = '#ACCB12'
 </script>

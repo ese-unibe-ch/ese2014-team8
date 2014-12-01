@@ -6,7 +6,7 @@
 
 <c:import url="template/header.jsp" />
 
-<h1>Main page</h1>
+<h1>We are working hard to make this feature available to you soon!</h1>
 
 
 

@@ -62,7 +62,7 @@ public class TimeSlotController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 		dateFormat.setLenient(false);
 		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH.mm", Locale.getDefault());
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 		timeFormat.setLenient(false);
 		webDataBinder.registerCustomEditor(Date.class, "time", new CustomDateEditor(timeFormat, true));
 	}
@@ -148,6 +148,18 @@ public class TimeSlotController {
     	return model;
     }
   
+    @RequestMapping(value = "/upcomingVisits", method = RequestMethod.GET)
+    public Object bookmarkedAds(HttpServletRequest request) {
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	ModelAndView model = new ModelAndView("upcomingVisits");
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+        model.addObject("now", new Date());
+    	return model;
+    }
 
 }
 

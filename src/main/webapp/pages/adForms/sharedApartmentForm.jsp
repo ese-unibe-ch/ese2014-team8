@@ -4,21 +4,26 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div id="sharedApartmentForm">
+<div class="col-sm-9">
 <form:form method="post" modelAttribute="shApForm" action="/viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
-    <fieldset>
-    	<form:hidden path="category" value="Shared Apartment"/>
-		<form:hidden path="id"/>
-		
-		<legend>Title</legend>
-        <c:set var="titleErrors"><form:errors path="title"/></c:set>
-        <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
-            <div class="controls">
-                <form:input path="title" id="field-title" tabindex="1" maxlength="75" placeholder="Title"/>
-                <form:errors path="title" cssClass="help-inline" element="span"/>
-            </div>
+    <form:hidden path="category" value="Shared Apartment"/>
+	<form:hidden path="id"/>
+	
+	<div class="large">
+    <c:set var="titleErrors"><form:errors path="title"/></c:set>
+    <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
+      	<label class="control-label" for="field-title">Title</label>
+        <div class="controls">
+            <form:input path="title" id="field-title" class="wide-input" tabindex="1" maxlength="75" placeholder="Title"/>
+            <form:errors path="title" cssClass="help-inline" element="span"/>
         </div>
-		
+    </div>
+    </div>
+</div>
+</div> 
+<div class="row">
+<div class="col-sm-4">  
+    <fieldset>
 		<legend>Location</legend>
         <c:set var="streetErrors"><form:errors path="street"/></c:set>
         <div class="control-group<c:if test="${not empty streetErrors}"> error</c:if>">
@@ -29,7 +34,7 @@
             </div>
         </div>
         <c:set var="numberErrors"><form:errors path="number"/></c:set>
-        <div class="control-group<c:if test="${not empty numberErrors}"> error</c:if>">
+        <div class="control-group<c:if test="${not empty numberErrors}"> error </c:if>">
             <label class="control-label" for="field-number">Nr.</label>
             <div class="controls">
                 <form:input path="number" id="field-number" tabindex="3" maxlength="5"/>
@@ -52,11 +57,15 @@
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
+</div>        
+<div class="col-sm-4"> 
+		<legend>Environment</legend> 
+		<h3><small>(distances in meter)</small></h3>     
 		<c:set var="distanceToPubTrErrors"><form:errors path="distanceToPubTr"/></c:set>
         <div class="control-group<c:if test="${not empty distanceToPubTrErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToPubTr">Distance to public transport</label>
             <div class="controls">
-                <form:input path="distanceToPubTr" id="field-distanceToPubTr" tabindex="6" maxlength="5" placeholder="m"/>
+                <form:input path="distanceToPubTr" id="field-distanceToPubTr" tabindex="6" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToPubTr" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -64,7 +73,7 @@
         <div class="control-group<c:if test="${not empty distanceToShopErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToShop">Distance to shops</label>
             <div class="controls">
-                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="m"/>
+                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToShop" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -72,7 +81,7 @@
         <div class="control-group<c:if test="${not empty distanceToParkErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToPark">Distance to park</label>
             <div class="controls">
-                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="m"/>
+                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToPark" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -80,14 +89,16 @@
         <div class="control-group<c:if test="${not empty distanceToSchoolErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToSchool">Distance to School</label>
             <div class="controls">
-                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="m"/>
+                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToSchool" cssClass="help-inline" element="span"/>
             </div>
         </div>
+</div>
+<div class="col-sm-4">
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
-            <label class="control-label" for="field-price">Price</label>
+            <label class="control-label" for="field-price">Price (CHF)</label>
             <div class="controls">
                 <form:input path="price" id="field-price" tabindex="6" maxlength="5" placeholder="chf" />
                 <form:errors path="price" cssClass="help-inline" element="span"/>
@@ -131,7 +142,10 @@
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
         </div>
-		
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6">
 		<legend>Apartment Details</legend>
 
 		
@@ -148,13 +162,13 @@
         <div class="control-group<c:if test="${not empty descriptionErrors}"> error</c:if>">
             <label class="control-label" for="field-description">Description</label>
             <div class="controls">
-                <form:textarea path="description" id="field-description" tabindex="13" rows="10" cols="50"/>
+                <form:textarea path="description" id="field-description" tabindex="13" rows="10" class="wide-input"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>
-        
-
         </fieldset>
+</div>
+<div class="col-sm-6">
         <fieldset>
         <legend>Choose the tags describing your apartment</legend>
         <div class="text-center">
@@ -189,23 +203,30 @@
         <div class="btn <c:if test="${!shApForm.tags.vegetarianVegan}">btn-default</c:if><c:if test="${shApForm.tags.vegetarianVegan}">btn-green</c:if>" id="vegetarianVegan" onclick="setTag(this.id)">Vegetarian/Vegan</div>
         <form:hidden path="tags.nonVegetarian" id="field-nonVegetarian"/>
         <div class="btn <c:if test="${!shApForm.tags.nonVegetarian}">btn-default</c:if><c:if test="${shApForm.tags.nonVegetarian}">btn-green</c:if>" id="nonVegetarian" onclick="setTag(this.id)">Non-vegetarian</div>
-        
-        
+               
         </div>
-        
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6">
         <c:import url="roomMateTable.jsp" />
 
         <form:hidden id="field-addRoomMate" path="addRoomMate" value="false"/>
         <button type="button" id="RoomMateButton" class="btn btn-primary">add Roommate</button> 
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6"></div>
+<div class="col-sm-6 text-right">
 
-        <div class="form-actions">
-            <button type="submit" class="btn btn-green">Submit Ad</button>
-            <button type="button" class="btn btn-default">Cancel</button>
+        <div class="form-actions ">
+            <button type="submit" class="btn btn-green btn-lg">Submit Ad</button>
+            <button type="button" class="btn btn-grey btn-lg">Cancel</button>
         </div>
     </fieldset>
 </form:form>
 </div>
-
+</div>
 <script>
 document.getElementById('RoomMateButton').onclick = function(){
 	document.getElementById('field-addRoomMate').value = 'true';

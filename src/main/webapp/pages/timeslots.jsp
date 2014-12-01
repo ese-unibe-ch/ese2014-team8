@@ -21,7 +21,7 @@
 	<c:forEach items="${timeSlots}" var="t">
 		<tr>
 			<fmt:formatDate pattern="dd/MM/yyyy" value="${t.dateTime}" var="showDate"/>
-			<fmt:formatDate pattern="HH.mm" value="${t.dateTime}" var="showTime"/>
+			<fmt:formatDate pattern="HH:mm" value="${t.dateTime}" var="showTime"/>
 			<td>${showDate}</td>
 			<td>${showTime}</td>
 			<td>${t.maxNumVisitors}</td>
@@ -44,7 +44,7 @@
             <form:input path="date" id="field-date" tabindex="1" maxlength="10" value="${simpleDate}" placeholder="dd/MM/yyyy"  />
 		</td>
 		<td>
-			<fmt:formatDate pattern="HH.mm" value="${timeSlotForm.time}" var="simpleTime"/>
+			<fmt:formatDate pattern="HH:mm" value="${timeSlotForm.time}" var="simpleTime"/>
             <form:input path="time" id="field-time" tabindex="2" maxlength="10" value="${simpleTime}" placeholder="HH.mm (24h-notation)"  />
 		</td>
 		<td>

@@ -7,14 +7,16 @@
 
 <c:import url="template/header.jsp" />
 
-
-<h1>Advertise your apartment here!</h1>
+<div class="row">
+<div class="col-sm-3">
+<div class="large">
+<label class="control-label" for="field-category">Category</label><br/>
 <select id="category" size="1">
       <option value="1">Apartment</option>
       <option value="2" selected >Shared Apartment</option>
 </select>
-
-
+</div>
+</div>
 <c:import url="adForms/sharedApartmentForm.jsp" />
 <%-- <c:import url="roomMateTable.jsp" /> --%>
 

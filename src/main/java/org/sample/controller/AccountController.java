@@ -44,6 +44,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import sun.misc.IOUtils;
 
 @Controller
@@ -56,6 +57,40 @@ public class AccountController {
     @Autowired
     UserService userService;
     
+    @RequestMapping(value = "/main", method = RequestMethod.GET)
+    public Object main(HttpServletRequest request) {
+        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+        User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	
+        ModelAndView model = new ModelAndView("search");
+    	SearchForm searchForm = new SearchForm();
+    	searchForm.setCategories(adService.getCategories());
+    	model.addObject("searchForm", searchForm);
+    	model.addObject("user",user);
+    	
+    	model.addAllObjects(userService.getUpdates(user));
+    	
+        return model;
+    }
+    
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public Object index() {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        ModelAndView mav = new ModelAndView("index");
+        //mav.addObject("signupForm", new SignupForm());
+        if (ctx.getAuthentication() != null) {
+            //mav.addObject("user", userService.loadUserByEmail(ctx.getAuthentication().getName()));
+            //mav.addObject("username", ctx.getAuthentication().getName());
+        } else {
+            //mav.addObject("user", userService.loadUserByEmail(ctx.getAuthentication().getName()));
+            //mav.addObject("username", "none");
+        }
+        return mav;
+    }
     
     @RequestMapping(value = "/placedAds", method = RequestMethod.GET)
     public Object placedAds(HttpServletRequest request) {
@@ -83,6 +118,7 @@ public class AccountController {
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
         return model;
     }
+    
     
     @RequestMapping(value = "/searchAlerts", method = RequestMethod.GET)
     public Object searchAlerts(HttpServletRequest request) {

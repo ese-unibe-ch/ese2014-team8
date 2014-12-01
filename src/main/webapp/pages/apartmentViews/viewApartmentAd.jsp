@@ -73,7 +73,7 @@
 		<c:forEach items="${ad.visitingTimes}" var="t">
 			<tr>
 				<fmt:formatDate pattern="dd/MM/yyyy" value="${t.dateTime}" var="showDate"/>
-				<fmt:formatDate pattern="HH.mm" value="${t.dateTime}" var="showTime"/>
+				<fmt:formatDate pattern="HH:mm" value="${t.dateTime}" var="showTime"/>
 				<td>${showDate}</td>
 				<td>${showTime}</td>
 				<td>${t.placesLeft}</td>

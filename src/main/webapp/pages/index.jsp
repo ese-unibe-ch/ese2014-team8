@@ -78,7 +78,7 @@ You're logged in as ${user.email}.<input type="button" id="signout" value="signo
 				    	  // alert(status + ' successful login');
 				    	  <c:if test="${user.email == null}">
 				    	  //window.location.reload();
-				    	  window.location = '/profile';
+				    	  window.location = '/main';
 				    	  </c:if>
 				    	  var result = $.parseJSON(res);
 				    	  currentUser = result.name;

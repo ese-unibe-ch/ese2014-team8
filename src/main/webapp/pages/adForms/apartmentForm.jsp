@@ -4,21 +4,28 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div id="apartmentForm">
+<div class="col-sm-9">
 <form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" >
-    <fieldset>
+    
 		<form:hidden path="category" value="Apartment"/>
 		<form:hidden path="id"/>
 		
-		<legend>Title</legend>
+		<div class="large">
+		
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
         <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
+            <label class="control-label" for="field-title">Title</label>
             <div class="controls">
-                <form:input path="title" id="field-title" tabindex="1" maxlength="75" placeholder="Title"/>
+                <form:input path="title" id="field-title" tabindex="1" maxlength="75" class="wide-input" placeholder="Title"/>
                 <form:errors path="title" cssClass="help-inline" element="span"/>
             </div>
         </div>
-		
+        </div>
+ </div>
+ </div> 
+ <div class="row">
+ <div class="col-sm-4">       
+	<fieldset>	
 		<legend>Location</legend>
         <c:set var="streetErrors"><form:errors path="street"/></c:set>
         <div class="control-group<c:if test="${not empty streetErrors}"> error</c:if>">
@@ -52,11 +59,15 @@
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
+</div>        
+<div class="col-sm-4"> 
+		<legend>Environment</legend>
+		<h3><small>(distances in meter)</small></h3> 
         <c:set var="distanceToPubTrErrors"><form:errors path="distanceToPubTr"/></c:set>
         <div class="control-group<c:if test="${not empty distanceToPubTrErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToPubTr">Distance to public transport</label>
             <div class="controls">
-                <form:input path="distanceToPubTr" id="field-distanceToPubTr" tabindex="6" maxlength="5" placeholder="m"/>
+                <form:input path="distanceToPubTr" id="field-distanceToPubTr" tabindex="6" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToPubTr" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -64,7 +75,7 @@
         <div class="control-group<c:if test="${not empty distanceToShopErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToShop">Distance to shops</label>
             <div class="controls">
-                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="m"/>
+                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToShop" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -72,7 +83,7 @@
         <div class="control-group<c:if test="${not empty distanceToParkErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToPark">Distance to park</label>
             <div class="controls">
-                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="m"/>
+                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToPark" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -80,15 +91,16 @@
         <div class="control-group<c:if test="${not empty distanceToSchoolErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToSchool">Distance to School</label>
             <div class="controls">
-                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="m"/>
+                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToSchool" cssClass="help-inline" element="span"/>
             </div>
         </div>
-		
+</div>
+<div class="col-sm-4">		
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
-            <label class="control-label" for="field-price">Price </label>
+            <label class="control-label" for="field-price">Price (CHF)</label>
             <div class="controls">
                 <form:input path="price" id="field-price" tabindex="10" maxlength="5"  placeholder="chf"/>
                 <form:errors path="price" cssClass="help-inline" element="span"/>
@@ -133,7 +145,10 @@
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
         </div>
-		
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6">		
 		<legend>Apartment Details</legend>
 		
 		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
@@ -158,11 +173,13 @@
         <div class="control-group<c:if test="${not empty descriptionErrors}"> error</c:if>">
             <label class="control-label" for="field-description">Description</label>
             <div class="controls">
-                <form:textarea path="description" id="field-description" tabindex="17" rows="10" cols="50"/>
+                <form:textarea path="description" id="field-description" tabindex="17" rows="10" class="wide-input"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>
         </fieldset>
+</div>
+<div class="col-sm-6">        
         <fieldset>
         <legend>Choose the tags describing your apartment</legend>
         <div class="text-center">
@@ -196,14 +213,18 @@
         <form:hidden path="tags.onBusyRoad" id="field-onBusyRoad"/>
         <div class="btn <c:if test="${!apForm.tags.onBusyRoad}">btn-default</c:if><c:if test="$apForm.{tags.onBusyRoad}">btn-green</c:if>" id="onBusyRoad" onclick="setTag(this.id)">On Busy Road</div>
         </div>
-        
-		
+</div>
+</div>
+<div class="row">
+<div class="col-sm-6"></div>        
+<div class="col-sm-6 text-right">		
         <div class="form-actions">
             <button type="submit" class="btn btn-green">Submit Ad</button>
             <button type="button" class="btn btn-grey">Cancel</button>
         </div>
     </fieldset>
 </form:form>
+</div>
 </div>
 
 

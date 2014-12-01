@@ -6,6 +6,7 @@
 
 <c:import url="template/header.jsp" />
 
+<c:if test="${not empty receivedMessages}">
 <h1>Received Messages</h1>
 <table class="text-center table table-hover"">
 	<tr>
@@ -16,13 +17,16 @@
 	<c:forEach items="${receivedMessages}" var="rM">
 		<tr <c:if test="${!rM.messageRead}">class="emph"</c:if>>
 			<fmt:formatDate pattern="dd/MM/yyyy" value="${rM.dateTime}" var="showDate"/>
-			<fmt:formatDate pattern="HH.mm" value="${rM.dateTime}" var="showTime"/>
+			<fmt:formatDate pattern="HH:mm" value="${rM.dateTime}" var="showTime"/>
 			<td><a href="/showProfile/${rM.sender.person.id}">${rM.sender.lastName} ${rM.sender.firstName}</a></td>
 			<td><a href="/readMessage/${rM.id}">${rM.subject}</a></td>
 			<td>${showDate} ${showTime}</td>
 		</tr>
 	</c:forEach>
 </table>
+</c:if>
+
+<c:if test="${not empty sentMessages}">
 <h1>Sent Messages</h1>
 <table class="text-center table table-hover">
 	<tr>
@@ -33,13 +37,17 @@
 	<c:forEach items="${sentMessages}" var="tM">
 		<tr>
 			<fmt:formatDate pattern="dd/MM/yyyy" value="${tM.dateTime}" var="showDate"/>
-			<fmt:formatDate pattern="HH.mm" value="${tM.dateTime}" var="showTime"/>
+			<fmt:formatDate pattern="HH:mm" value="${tM.dateTime}" var="showTime"/>
 			<td><a href="/showProfile/${tM.receiver.person.id}">${tM.receiver.lastName} ${tM.receiver.firstName}</a></td>
 			<td><a href="/readMessage/${tM.id}">${tM.subject}</a></td>
 			<td>${showDate} ${showTime}</td>
 		</tr>
 	</c:forEach>
 </table>	
+</c:if>
+<c:if test="${empty sentMessages && empty receivedMessages }">
+You currently don't have any messages.<br/>
+</c:if>
 	
 <script>
 	document.getElementById('profile').style.color = '#ACCB12'

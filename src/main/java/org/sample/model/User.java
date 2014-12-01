@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 
 import java.util.Collection;
+import java.util.Date;
 
 
 @Entity
@@ -13,6 +14,9 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long id;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastMainHit;
 
     @OneToOne(cascade = {CascadeType.ALL})
     private Person person;
@@ -213,5 +217,21 @@ public class User implements UserDetails {
 
 	public void setTimeSlots(Collection<TimeSlot> timeSlots) {
 		this.registeredTimeSlots = timeSlots;
+	}
+
+	public Date getLastMainHit() {
+		return lastMainHit;
+	}
+
+	public void setLastMainHit(Date lastMainHit) {
+		this.lastMainHit = lastMainHit;
+	}
+
+	public Collection<TimeSlot> getRegisteredTimeSlots() {
+		return registeredTimeSlots;
+	}
+
+	public void setRegisteredTimeSlots(Collection<TimeSlot> registeredTimeSlots) {
+		this.registeredTimeSlots = registeredTimeSlots;
 	}
 }

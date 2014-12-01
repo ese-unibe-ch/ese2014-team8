@@ -62,38 +62,12 @@ public class AdController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 		dateFormat.setLenient(false);
 		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH.mm", Locale.getDefault());
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 		timeFormat.setLenient(false);
 		webDataBinder.registerCustomEditor(Date.class, "time", new CustomDateEditor(timeFormat, true));
 	}
     
-    @RequestMapping(value = "/main", method = RequestMethod.GET)
-    public Object main(HttpServletRequest request) {
-        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
-            return "redirect:/";
-        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
-            return "redirect:/profile";
-        }
-    	ModelAndView model = new ModelAndView("main");
-    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-        return model;
-    }
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index() {
-    	
-        SecurityContext ctx = SecurityContextHolder.getContext();
-        ModelAndView mav = new ModelAndView("index");
-        mav.addObject("signupForm", new SignupForm());
-        if (ctx.getAuthentication() != null) {
-            mav.addObject("user", userService.loadUserByEmail(ctx.getAuthentication().getName()));
-            mav.addObject("username", ctx.getAuthentication().getName());
-        } else {
-            mav.addObject("user", userService.loadUserByEmail(ctx.getAuthentication().getName()));
-            mav.addObject("username", "none");
-        }
-        return mav;
-    }
+   
     
 
    
@@ -131,12 +105,15 @@ public class AdController {
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
+        System.out.println("in controller");
     	ModelAndView model = null;
     	if(form.getCategory().equals("Apartment")){   	
         	if (!result.hasErrors()) {
                 try {
                     form.setUser(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-                	Apartment apartment=adService.saveFrom(form);
+                    System.out.println("before Save");
+                    Apartment apartment=adService.saveFrom(form);
+                    System.out.println("after save");
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Apartment");

@@ -5,8 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<h1>Roommate-List</h1>
-
+<legend>Roommates</legend>
+<c:if test="${not empty roomMates}">
 <table class="text-center table table-hover">
 	<tr>
 		<th class="text-center"> First Name</th>
@@ -28,10 +28,6 @@
 	</c:forEach>
 	
 </table>
+</c:if>	
 	
-	
 
-
-
-
-<c:import url="template/footer.jsp" />

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -76,6 +79,59 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Person getPerson(Long pId) {
 		return personDao.findOne(pId);
+	}
+
+	@Override
+	public Map<String, String> getUpdates(User user) {
+		Map<String, String > updates = new HashMap<String,String>();
+		
+		if(user.getLastMainHit()!=null){
+			updates.put("messageUpdate", getMessageUpdate(user));
+			updates.put("upcomingVisits", getUpcomingVisitsMessage(user));
+		}
+		user.setLastMainHit(new Date());
+		userDao.save(user);
+		return updates;
+	}
+
+	private String getUpcomingVisitsMessage(User user) {
+		int visitCounter = 0;
+		Date now = new Date();
+		for(TimeSlot visit:user.getRegisteredTimeSlots()){
+			if(visit.getDateTime().after(now)){
+				visitCounter++;
+			}
+		}
+		if(visitCounter!=0){
+			StringBuffer upcomingVisits = new StringBuffer();
+			upcomingVisits.append("You have ");
+			upcomingVisits.append(visitCounter);
+			upcomingVisits.append(" upcoming <a href=\"/upcomingVisits\" class=\"alert-link\">visits</a>.");
+			return upcomingVisits.toString();
+		}
+		else{
+			return null;
+		}
+	}
+
+	private String getMessageUpdate(User user) {
+		int messageCounter = 0;
+		for(Message message:user.getReceivedMessages()){
+			if(!message.isMessageRead()){
+				messageCounter++;
+			}
+		}
+		if(messageCounter!=0){
+			StringBuffer messageUpdate = new StringBuffer();
+			messageUpdate.append("You have ");
+			messageUpdate.append(messageCounter);
+			messageUpdate.append(" unread <a href=\"/messages\" class=\"alert-link\">messages</a>.");
+			return messageUpdate.toString();
+		}
+		else{
+			return null;
+		}
+		
 	}
 
 	

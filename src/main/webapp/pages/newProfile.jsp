@@ -5,14 +5,15 @@
 
 
 <c:import url="template/header.jsp" />
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
+<h1>Welcome to <b>RentR</b>! </h1>
+<h2> Please complete your information before proceeding.</h2>
 
-<h1>Welcome to <b>rentr</b>! Please complete your information before proceeding.</h1>
-
-<p>E-Mail: ${user.email}</p>
+<p><b>E-Mail:</b> ${user.email}</p>
 <p>
 <form:form method="post" modelAttribute="profileForm" action="saveNewProfile" id="profileForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
-        <legend>Enter Your Information</legend>
 
         <c:set var="firstNameErrors"><form:errors path="firstName"/></c:set>
         <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
@@ -44,15 +45,15 @@
         <div class="control-group">
             <label class="control-label" for="field-age">Sex</label>
             <div class="controls">
-                <form:radiobutton path="sex" value="m"/>Male 
+                <form:radiobutton path="sex" tabindex="5" value="m"/>Male 
 				<form:radiobutton path="sex" value="f"/>Female
 				<form:radiobutton path="sex" value="o"/>Other
             </div>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-green">Save</button>
-            <button type="button" class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-green" tabindex="6">Save</button>
+            <a href="/" role="button" class="btn btn-grey" tabindex="7">Cancel</a>
         </div>
     </fieldset>
 </form:form>
@@ -68,6 +69,9 @@
         </div>
     </c:if>
 </p>
+
+</div>
+
 <script>
 	document.getElementById('profile').style.color = '#ACCB12'
 </script>

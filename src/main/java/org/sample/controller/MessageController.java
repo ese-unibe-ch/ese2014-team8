@@ -60,7 +60,7 @@ public class MessageController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 		dateFormat.setLenient(false);
 		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH.mm", Locale.getDefault());
+		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
 		timeFormat.setLenient(false);
 		webDataBinder.registerCustomEditor(Date.class, "time", new CustomDateEditor(timeFormat, true));
 	}

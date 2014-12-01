@@ -5,7 +5,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="template/header.jsp" />
-
+<div class="col-sm-2"></div>
+<div class="col-sm-8">
 <h1>${profile.firstName} ${profile.lastName}</h1>
 
 <p><b>E-Mail:</b> ${profile.email}</p>
@@ -61,9 +62,9 @@ ${profile.description}
         <div class="control-group">
             <label class="control-label" for="field-age">Sex</label>
             <div class="controls">
-                <form:radiobutton path="sex" value="m"/>Male 
-				<form:radiobutton path="sex" value="f"/>Female
-				<form:radiobutton path="sex" value="o"/>Other
+                <form:radiobutton path="sex" tabindex="5" value="m"/>Male 
+				<form:radiobutton path="sex"  value="f"/>Female
+				<form:radiobutton path="sex"  value="o"/>Other
             </div>
         </div>
         
@@ -71,7 +72,7 @@ ${profile.description}
         <div class="control-group<c:if test="${not empty descriptionErrors}"> error</c:if>">
             <label class="control-label" for="field-description">Description</label>
             <div class="controls">
-                <form:textarea path="description" id="field-description" tabindex="13" rows="10" cols="50"/>
+                <form:textarea path="description" id="field-description" tabindex="6" rows="10" cols="50"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -81,14 +82,14 @@ ${profile.description}
             <label class="control-label" for="field-description">Picture</label>
             <img src="/getUserPicture/${user.id}"/>
             <div class="controls">
-                <form:input type="file" path="picture" id="field-picture" tabindex="14" />
+                <form:input type="file" path="picture" id="field-picture" tabindex="7" />
                 <form:errors path="picture" cssClass="help-inline" element="span"/>
             </div>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-green">Save</button>
-            <button type="button" class="btn btn-default">Cancel</button>
+            <button type="submit" class="btn btn-green" tabindex="8">Save</button>
+            <a href="/profile" role="button" class="btn btn-grey" tabindex="9">Cancel</a>
         </div>
     </fieldset>
 </form:form>
@@ -104,7 +105,7 @@ ${profile.description}
         </div>
     </c:if>
 </div>
-
+</div>
 <script>
 function setEdit(){
 	document.getElementById('viewProfile').style.display= 'none';

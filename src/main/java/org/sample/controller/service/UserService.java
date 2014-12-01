@@ -2,6 +2,7 @@ package org.sample.controller.service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.*;
@@ -21,6 +22,7 @@ public interface UserService {
     public ProfileForm saveFrom(ProfileForm profileForm);
     public ProfileForm fillProfileForm(User user);
 	public Person getPerson(Long pId);
+	public Map<String, ?> getUpdates(User user);
    
 
 }
