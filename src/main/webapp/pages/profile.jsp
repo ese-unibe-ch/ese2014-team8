@@ -2,15 +2,31 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="template/header.jsp" />
 
-<h1>User ${profile.firstName} ${profile.lastName}</h1>
+<h1>${profile.firstName} ${profile.lastName}</h1>
 
-<p>E-Mail: ${profile.email}</p>
+<p><b>E-Mail:</b> ${profile.email}</p>
+<div id="viewProfile">
 <p>
-<form:form method="post" enctype="multipart/form-data" modelAttribute="profileForm" action="saveProfile" id="profileForm" cssClass="form-horizontal"  autocomplete="off">
+<b>First name:</b> ${profile.firstName} <br/>
+<b>Last name:</b> ${profile.lastName} <br/>
+<b>Age:</b> ${profile.age} <br/>
+<b>Sex:</b> <c:choose><c:when test="${fn:contains(profile.sex , 'm') }">Male</c:when><c:when test="${fn:contains(profile.sex, 'f') }">Female</c:when><c:when test="${fn:contains(profile.sex, 'o') }">Other</c:when></c:choose>  <br/>
+</p>
+<p>
+<b>Description:</b> <br/>
+${profile.description}
+</p>
+<div class="btn btn-green" onclick="setEdit()">Edit</div>
+
+</div>
+
+
+<div id="editProfile" style ="display:none;">
+<form:form method="post"  modelAttribute="profileForm" action="/saveProfile" id="profileForm" cssClass="form-horizontal"  autocomplete="off">
     <fieldset>
         <legend>Enter Your Information</legend>
 
@@ -87,7 +103,15 @@
                 ${page_error}
         </div>
     </c:if>
-</p>
+</div>
+
+<script>
+function setEdit(){
+	document.getElementById('viewProfile').style.display= 'none';
+	document.getElementById('editProfile').style.display= 'block';
+	
+}
+</script>
 
 <script>
 	document.getElementById('profile').style.color = '#ACCB12'

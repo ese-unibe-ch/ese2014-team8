@@ -18,5 +18,7 @@
 <c:if test="${user.id == ad.owner.id}">
 	<a class="btn btn-grey" href="/editAd/${category}/${ad.id}">Edit this ad</a>
 </c:if>
-
+<script>
+	document.getElementById('search').style.color = '#ACCB12'
+</script>
 <c:import url="template/footer.jsp" />

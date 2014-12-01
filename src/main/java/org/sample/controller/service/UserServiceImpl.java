@@ -3,6 +3,7 @@ package org.sample.controller.service;
 import org.sample.controller.pojos.*;
 import org.sample.model.*;
 import org.sample.model.dao.AddressDao;
+import org.sample.model.dao.PersonDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired    UserDao userDao;
     @Autowired    AddressDao addDao;
+    @Autowired	PersonDao personDao;
 	
 	
 	public UserServiceImpl() {
@@ -69,6 +71,11 @@ public class UserServiceImpl implements UserService {
 		profileForm.setSex(user.getSex());
 		profileForm.setDescription(user.getDescription());
 		return profileForm;
+	}
+
+	@Override
+	public Person getPerson(Long pId) {
+		return personDao.findOne(pId);
 	}
 
 	

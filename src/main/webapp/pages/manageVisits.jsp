@@ -24,7 +24,7 @@
 			<td>${showTime}</td>
 			<td>${t.maxNumVisitors-t.placesLeft}/${t.maxNumVisitors}</td>
 			<td><c:forEach items="${t.visitors}" var="v">
-				${v.lastName} ${v.firstName}<br/>
+				<a href="/showProfile/${v.person.id}">${v.lastName} ${v.firstName}</a><br/>
 				</c:forEach>
 			</td>
 		</tr>

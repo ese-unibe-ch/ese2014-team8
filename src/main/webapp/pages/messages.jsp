@@ -17,7 +17,7 @@
 		<tr <c:if test="${!rM.messageRead}">class="emph"</c:if>>
 			<fmt:formatDate pattern="dd/MM/yyyy" value="${rM.dateTime}" var="showDate"/>
 			<fmt:formatDate pattern="HH.mm" value="${rM.dateTime}" var="showTime"/>
-			<td>${rM.sender.lastName} ${rM.sender.firstName}</td>
+			<td><a href="/showProfile/${rM.sender.person.id}">${rM.sender.lastName} ${rM.sender.firstName}</a></td>
 			<td><a href="/readMessage/${rM.id}">${rM.subject}</a></td>
 			<td>${showDate} ${showTime}</td>
 		</tr>
@@ -30,11 +30,11 @@
 		<th class="text-center"> Subject</th>
 		<th class="text-center"> Sent</th>
 	</tr>
-	<c:forEach items="${receivedMessages}" var="tM">
+	<c:forEach items="${sentMessages}" var="tM">
 		<tr>
 			<fmt:formatDate pattern="dd/MM/yyyy" value="${tM.dateTime}" var="showDate"/>
 			<fmt:formatDate pattern="HH.mm" value="${tM.dateTime}" var="showTime"/>
-			<td>${tM.receiver.lastName} ${tM.receiver.firstName}</td>
+			<td><a href="/showProfile/${tM.receiver.person.id}">${tM.receiver.lastName} ${tM.receiver.firstName}</a></td>
 			<td><a href="/readMessage/${tM.id}">${tM.subject}</a></td>
 			<td>${showDate} ${showTime}</td>
 		</tr>

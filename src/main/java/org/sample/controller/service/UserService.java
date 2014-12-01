@@ -20,6 +20,7 @@ public interface UserService {
     public NewProfileForm saveFrom(NewProfileForm newProfileForm);
     public ProfileForm saveFrom(ProfileForm profileForm);
     public ProfileForm fillProfileForm(User user);
+	public Person getPerson(Long pId);
    
 
 }

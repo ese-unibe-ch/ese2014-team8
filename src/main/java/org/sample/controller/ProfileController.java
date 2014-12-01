@@ -44,6 +44,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import sun.misc.IOUtils;
 
 @Controller
@@ -126,6 +127,7 @@ public class ProfileController {
         }
         SecurityContext ctx = SecurityContextHolder.getContext();
         profileForm.setEmail(ctx.getAuthentication().getName());
+        System.out.println(profileForm.getFirstName());
         userService.saveFrom(profileForm);
         redirectAttributes.addFlashAttribute("Profile saved.");
         return "redirect:/profile";
@@ -186,6 +188,20 @@ public class ProfileController {
     public String securityError(RedirectAttributes redirectAttributes) {
         redirectAttributes.addFlashAttribute("page_error", "You do not have permission to do that!");
         return "redirect:/";
+    }
+    
+    @RequestMapping(value="/showProfile/{personId}", method = RequestMethod.GET)
+    public Object showProfile(HttpServletRequest request, @PathVariable("personId") Long pId){
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+    		return "redirect:/";
+    	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	ModelAndView model = new ModelAndView("showProfile");
+    	model.addObject("profile", userService.getPerson(pId));
+    	model.addObject("user", user);
+    	return model;
     }
 
 }
