@@ -12,6 +12,9 @@
 </c:if>
 
 <c:if test="${category == 'Shared Apartment'}">
+
+	<a href="/addBookMark/${category}/${ad.id}" class="btn btn-green">Bookmark Ad</a>
+	
 	<c:import url="apartmentViews/viewSharedApartmentAd.jsp" />
 </c:if>
 

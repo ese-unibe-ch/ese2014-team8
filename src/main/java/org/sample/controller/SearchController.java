@@ -104,15 +104,14 @@ public class SearchController {
      * @return a modelAndView displaying the ad information with the ad and the user attached as objects.
      */
     @RequestMapping(value="/searchresults/{category}/{adId}",	method=RequestMethod.GET)
-    public	Object displayAd(HttpServletRequest request, @PathVariable	String	adId, @PathVariable	String	category)	{
+    public	Object displayAd(HttpServletRequest request, @PathVariable Long adId, @PathVariable	String	category)	{
         if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
     	ModelAndView model = new ModelAndView("showAd");
-    	Long lAdId = Long.parseLong(adId);
-    	RealEstate ad = adService.getAd(category, lAdId);
+    	RealEstate ad = adService.getAd(category, adId);
     	model.addObject("ad", ad);
     	model.addObject("category", category);
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));

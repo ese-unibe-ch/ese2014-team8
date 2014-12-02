@@ -40,6 +40,8 @@ public class User implements UserDetails {
     private Boolean isNew;
     private Boolean isAdmin = true;
     
+    @OneToMany(mappedBy ="bookMarker", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+    private Collection<BookMark> bookMarkes;
     
      @OneToMany(mappedBy ="sender", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
      private Collection<Message> sentMessages;
