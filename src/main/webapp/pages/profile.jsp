@@ -37,6 +37,9 @@
 
 </div>
 <div class="col-sm-8">
+<c:if test="${not empty message}">
+<div class="alert alert-rentr" role="alert">${message}</div>
+</c:if>
 <h1>${profile.firstName} ${profile.lastName}</h1>
 
 <p><b>E-Mail:</b> ${profile.email}</p>

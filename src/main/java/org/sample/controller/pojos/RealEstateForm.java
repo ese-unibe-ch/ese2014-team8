@@ -1,12 +1,14 @@
 package org.sample.controller.pojos;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
 import org.springframework.util.AutoPopulatingList;
+import org.springframework.web.multipart.MultipartFile;
 
 public abstract class RealEstateForm {
 	
@@ -34,7 +36,7 @@ public abstract class RealEstateForm {
 	private int distanceToPubTr;
 	private int distanceToShop;
 	
-	
+	private List<MultipartFile> adImages;
 	
 	//@Size(min=3, message="Please enter a description.")
 	private String description;
@@ -176,6 +178,14 @@ public abstract class RealEstateForm {
 
 	public void setDistanceToShop(int distanceToShop) {
 		this.distanceToShop = distanceToShop;
+	}
+
+	public List<MultipartFile> getAdImages() {
+		return adImages;
+	}
+
+	public void setAdImages(List<MultipartFile> adImages) {
+		this.adImages = adImages;
 	}
 
 	
