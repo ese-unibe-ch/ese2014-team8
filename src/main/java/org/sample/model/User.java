@@ -51,6 +51,8 @@ public class User implements UserDetails {
      
      @ManyToMany(mappedBy = "visitors", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
      private Collection<TimeSlot> registeredTimeSlots;
+     
+     
     
     public Long getId() {
         return id;
@@ -236,4 +238,5 @@ public class User implements UserDetails {
 	public void setRegisteredTimeSlots(Collection<TimeSlot> registeredTimeSlots) {
 		this.registeredTimeSlots = registeredTimeSlots;
 	}
+
 }

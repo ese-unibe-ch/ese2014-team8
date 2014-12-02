@@ -19,3 +19,4 @@ log/
 target/
 
 /target/
+/src/main/webapp/profileImg/

@@ -29,7 +29,7 @@
 			</c:if>
 			<td>${showDate}</td>
 			<td>${showTime}</td>
-			<td>${t.maxNumVisitors}</td>
+			<td>${t.maxNumVisitors-t.placesLeft}/${t.maxNumVisitors}</td>
 		</tr>
 		</c:if>
 	</c:forEach>

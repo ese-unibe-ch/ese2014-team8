@@ -16,6 +16,8 @@ public class Person {
 	private char sex;
 	
 	private String description;
+	
+	private boolean imageSaved;
 
 	public long getId() {
 		return id;
@@ -63,6 +65,14 @@ public class Person {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isImageSaved() {
+		return imageSaved;
+	}
+
+	public void setImageSaved(boolean imageSaved) {
+		this.imageSaved = imageSaved;
 	}
 	
 	
