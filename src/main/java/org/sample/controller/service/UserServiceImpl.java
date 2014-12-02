@@ -134,6 +134,14 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public User imageSaved(User user) {
+		user.setImageSaved(true);
+		userDao.save(user);
+		return user;
+		
+	}
+
 	
     
 

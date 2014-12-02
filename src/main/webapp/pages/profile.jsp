@@ -5,7 +5,18 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="template/header.jsp" />
-<div class="col-sm-2"></div>
+<div class="col-sm-4">
+<img alt="profile picture" src="../img/other_user.jpg">
+
+<div id="uploadImg" style ="display:none;">
+	<form method="POST" action="/profileImage" enctype="multipart/form-data">
+       	Upload new profile picture: <input type="file" name="file"/>
+        <input type="submit" value="Upload" class= "btn btn-green"role="button"/> 
+    </form>
+
+</div>
+
+</div>
 <div class="col-sm-8">
 <h1>${profile.firstName} ${profile.lastName}</h1>
 
@@ -110,6 +121,7 @@ ${profile.description}
 function setEdit(){
 	document.getElementById('viewProfile').style.display= 'none';
 	document.getElementById('editProfile').style.display= 'block';
+	document.getElementById('uploadImg').style.display= 'block';
 	
 }
 </script>

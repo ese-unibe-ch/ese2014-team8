@@ -23,6 +23,7 @@ public interface UserService {
     public ProfileForm fillProfileForm(User user);
 	public Person getPerson(Long pId);
 	public Map<String, ?> getUpdates(User user);
+	public User imageSaved(User user);
    
 
 }

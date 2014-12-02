@@ -2,7 +2,10 @@ package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,6 +15,7 @@ import java.util.Date;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.io.FilenameUtils;
 import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.*;
@@ -144,45 +148,6 @@ public class ProfileController {
         redirectAttributes.addFlashAttribute("Profile created.");
         return "redirect:/profile";
     }
-
-    @RequestMapping(value = "/saveUserPicture", method = RequestMethod.POST)
-    public Object saveUserPicture(HttpServletRequest request, @RequestParam("picture") MultipartFile picture) {
-        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
-            return "redirect:/";
-        }
-        User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        if(!picture.isEmpty()) {
-            try {
-                byte[] bytes = picture.getBytes();
-                user.setPicture(bytes);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                return "redirect:/profile";
-            }
-        }
-        return "redirect:/profile";
-    }
-
-    @RequestMapping(value = "/getUserPicture/{uid}")
-    public void getUserPicture(HttpServletResponse response , @PathVariable("uid") Long uid) throws IOException {
-        response.setContentType("image/jpeg");
-        User profile = userService.getUser(uid);
-        if(profile.getPicture() == null) {
-            return;
-        }
-        InputStream in = new ByteArrayInputStream(profile.getPicture());
-        OutputStream out = response.getOutputStream();
-        byte[] buffer = new byte[1024 * 4];
-        int count = 0;
-        int n = 0;
-        while (-1 != (n = in.read(buffer))) {
-            out.write(buffer, 0, n);
-            count += n;
-        }
-        out.flush();
-        out.close();
-    }
     
     @RequestMapping(value = "/security-error", method = RequestMethod.GET)
     public String securityError(RedirectAttributes redirectAttributes) {
@@ -202,6 +167,67 @@ public class ProfileController {
     	model.addObject("profile", userService.getPerson(pId));
     	model.addObject("user", user);
     	return model;
+    }
+    
+    
+    @RequestMapping(value = "/profileImage", method = RequestMethod.POST)
+    public Object profileImgUpload(HttpServletRequest request, @RequestParam("file") MultipartFile file) {
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(user.getIsNew()) {
+            return "redirect:/profile";
+        }
+        String message =  saveImage(file, Long.toString(user.getId()), "profileImg");
+        if(message.equals("You successfully uploaded the image")){
+        	user = userService.imageSaved(user);
+        }
+    	ModelAndView model = new ModelAndView("profile");
+        model.addObject("profileForm", userService.fillProfileForm(user));
+        model.addObject("user", user);
+        model.addObject("profile", user);
+        model.addObject("message", message);
+        return model;
+    }
+
+	private String saveImage(MultipartFile file, String name, String directory) {
+		if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+ 
+                // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                File dir = new File(rootPath + File.separator +".."+ File.separator+ directory);
+                if (!dir.exists())
+                    dir.mkdirs();
+ 
+                // Create the file on server
+                String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+                if(extension.equals("jpg") || extension.equals("jpeg") ){
+                	File serverFile = new File(dir.getAbsolutePath() + File.separator + name + ".jpg" );
+                	BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                	stream.write(bytes);
+                	stream.close();
+ 
+                	LOGGER.info("Server File Location=" + serverFile.getAbsolutePath());
+ 
+                	return "You successfully uploaded the image" ;
+                }
+                else{
+                	return "Image must be jpg format";
+                }
+                
+            } catch (Exception e) {
+                return "You failed to upload the image => " + e.getMessage();
+            }
+        } else {
+            return "You failed to upload the image because the file was empty.";
+        }
+	}
+    
+    @RequestMapping(value = "/upload", method = RequestMethod.GET)
+    Object upload(HttpServletRequest request){
+    	return new ModelAndView("upload");
     }
 
 }
