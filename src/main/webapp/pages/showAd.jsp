@@ -8,10 +8,26 @@
 <c:import url="template/header.jsp" />
 
 <c:if test="${category == 'Apartment'}">
+	
+	<c:if test="${!isBookMarked}">
+		<a href="/addBookMark/${category}/${ad.id}" class="btn btn-green">Bookmark Ad</a>
+	</c:if>
+	<c:if test="${isBookMarked}">
+		<div >is already bookmarked!</div>
+	</c:if>
+	
 	<c:import url="apartmentViews/viewApartmentAd.jsp" />
 </c:if>
 
 <c:if test="${category == 'Shared Apartment'}">
+
+	<c:if test="${!isBookMarked}">
+		<a href="/addBookMark/${category}/${ad.id}" class="btn btn-green">Bookmark Ad</a>
+	</c:if>
+	<c:if test="${isBookMarked}">
+		<div >is already bookmarked!</div>
+	</c:if>
+	
 	<c:import url="apartmentViews/viewSharedApartmentAd.jsp" />
 </c:if>
 

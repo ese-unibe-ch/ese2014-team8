@@ -22,6 +22,9 @@ public class Apartment extends RealEstate {
 	@OneToMany(mappedBy = "ap", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<Message> messages;
 	
+	@OneToMany(mappedBy = "ap", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	private Collection<BookMark> bookMarks;
+	
 	@OneToOne(cascade = {CascadeType.ALL})
 	private ApartmentTags tags;
 
