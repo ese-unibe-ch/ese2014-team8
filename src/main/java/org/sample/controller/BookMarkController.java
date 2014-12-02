@@ -32,10 +32,8 @@ public class BookMarkController {
             return "redirect:/profile";
         }
         User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-    	//ModelAndView model = new ModelAndView("showAd");
     	bookMarkService.setBookMark(user, category, adId);
-    	//model.addObject("user",user);
-    	return  "redirect:/profile";
+    	return  "redirect:/searchresults/"+category+"/"+adId;
     }
 	
 

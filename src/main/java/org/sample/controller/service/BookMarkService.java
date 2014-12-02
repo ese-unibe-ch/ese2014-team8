@@ -5,6 +5,7 @@ public interface BookMarkService {
 
     public BookMark getBookMark(Long id);
     public void setBookMark(User user, String category, Long adId);
+	public boolean isBookMarked(User user, String category, Long adId);
     
 //    public Iterable<RoomMate> getRoomMates(Long adId);
 //    public RoomMateForm saveFrom(RoomMateForm newRoomMateForm);

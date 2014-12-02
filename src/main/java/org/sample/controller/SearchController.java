@@ -11,6 +11,7 @@ import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.*;
 import org.sample.controller.service.AdService;
+import org.sample.controller.service.BookMarkService;
 import org.sample.controller.service.UserService;
 import org.sample.model.*;
 import org.slf4j.Logger;
@@ -48,6 +49,8 @@ public class SearchController {
     AdService adService;
     @Autowired
     UserService userService;
+    @Autowired
+    BookMarkService bookMarkService;
     
     
     /**
@@ -111,10 +114,12 @@ public class SearchController {
             return "redirect:/profile";
         }
     	ModelAndView model = new ModelAndView("showAd");
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     	RealEstate ad = adService.getAd(category, adId);
     	model.addObject("ad", ad);
     	model.addObject("category", category);
-    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("isBookMarked", bookMarkService.isBookMarked(user, category, adId));
+    	model.addObject("user",user);
     	model.addObject("messageForm", new MessageForm());
     	return model;
     }

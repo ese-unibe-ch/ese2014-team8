@@ -1,6 +1,7 @@
 package org.sample.controller.service;
 
 import org.sample.model.BookMark;
+import org.sample.model.ShApartment;
 import org.sample.model.User;
 import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.BookMarkDao;
@@ -34,6 +35,21 @@ public class BookMarkServiceImpl implements BookMarkService{
 		bookMark.setBookMarker(user);
 		
 		bookMarkDao.save(bookMark);
+	}
+
+	@Override
+	public boolean isBookMarked(User user, String category, Long adId) {
+		
+		Iterable<BookMark> bookMarkList; 
+		
+		if (category.equals("Apartment")){
+			bookMarkList=bookMarkDao.findByApAndBookMarker(apartmentDao.findOne(adId), user);
+		} else {
+			bookMarkList=bookMarkDao.findByShApAndBookMarker(shApartmentDao.findOne(adId), user);
+		}
+		
+		return bookMarkList.iterator().hasNext();
+				
 	}
 
 }
