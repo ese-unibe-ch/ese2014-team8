@@ -178,7 +178,7 @@ public class ProfileController {
         } else if(user.getIsNew()) {
             return "redirect:/profile";
         }
-        String message =  saveImage(file, Long.toString(user.getId()), "profileImg");
+        String message =  saveImage(file, Long.toString(user.getPerson().getId()), "profileImg");
         if(message.equals("You successfully uploaded the image")){
         	user = userService.imageSaved(user);
         }
@@ -189,6 +189,20 @@ public class ProfileController {
         model.addObject("message", message);
         return model;
     }
+    
+    @RequestMapping(value = "/removeProfileImage/{personId}", method = RequestMethod.GET)
+    Object upload(HttpServletRequest request, @PathVariable Long personId){
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(user.getIsNew()) {
+            return "redirect:/profile";
+        }
+    	
+    	userService.removeImage(personId);
+    	
+    	return "redirect:/editProfile";
+    }
 
 	private String saveImage(MultipartFile file, String name, String directory) {
 		if (!file.isEmpty()) {
@@ -197,7 +211,7 @@ public class ProfileController {
  
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator +".."+ File.separator+ directory);
+                File dir = new File(rootPath + File.separator +".."+ File.separator+"src" + File.separator +"main" + File.separator + "webapp" + File.separator + directory);
                 if (!dir.exists())
                     dir.mkdirs();
  
@@ -225,10 +239,7 @@ public class ProfileController {
         }
 	}
     
-    @RequestMapping(value = "/upload", method = RequestMethod.GET)
-    Object upload(HttpServletRequest request){
-    	return new ModelAndView("upload");
-    }
+   
 
 }
 

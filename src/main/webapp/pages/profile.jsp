@@ -6,12 +6,31 @@
 
 <c:import url="template/header.jsp" />
 <div class="col-sm-4">
-<img alt="profile picture" src="../img/other_user.jpg">
+<c:choose>
+	<c:when test="${user.person.imageSaved}">
+		<img alt="profile picture" class="resp-img" src="../profileImg/${user.person.id}.jpg">
+	</c:when>
+	<c:otherwise>
+		<c:choose>
+			<c:when test="${fn:contains(profile.sex , 'm') }">
+				<img alt="profile picture" class="resp-img" src="../img/male_user.jpg">
+			</c:when>
+			<c:when test="${fn:contains(profile.sex, 'f') }">
+				<img alt="profile picture" class="resp-img" src="../img/female_user.jpg">
+			</c:when>
+			<c:otherwise>
+				<img alt="profile picture" class="resp-img" src="../img/other_user.jpg">
+			</c:otherwise>
+		</c:choose>
+	</c:otherwise>
+</c:choose>
+
 
 <div id="uploadImg" style ="display:none;">
 	<form method="POST" action="/profileImage" enctype="multipart/form-data">
        	Upload new profile picture: <input type="file" name="file"/>
         <input type="submit" value="Upload" class= "btn btn-green"role="button"/> 
+        <c:if test="${profile.person.imageSaved}"><a href="/removeProfileImage/${profile.person.id}" class="btn btn-grey">Remove</a></c:if>
     </form>
 
 </div>

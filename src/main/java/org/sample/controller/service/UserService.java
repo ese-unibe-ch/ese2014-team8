@@ -24,6 +24,7 @@ public interface UserService {
 	public Person getPerson(Long pId);
 	public Map<String, ?> getUpdates(User user);
 	public User imageSaved(User user);
+	public void removeImage(Long personId);
    
 
 }

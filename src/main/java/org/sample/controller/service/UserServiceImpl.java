@@ -136,9 +136,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User imageSaved(User user) {
-		user.setImageSaved(true);
+		Person person = user.getPerson();
+		person.setImageSaved(true);
+		user.setPerson(person);
 		userDao.save(user);
 		return user;
+		
+	}
+
+	@Override
+	public void removeImage(Long personId) {
+		Person person=personDao.findOne(personId);
+		person.setImageSaved(false);
+		personDao.save(person);
 		
 	}
 

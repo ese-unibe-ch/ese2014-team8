@@ -50,7 +50,7 @@ public class User implements UserDetails {
      @ManyToMany(mappedBy = "visitors", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
      private Collection<TimeSlot> registeredTimeSlots;
      
-     private boolean imageSaved;
+     
     
     public Long getId() {
         return id;
@@ -237,11 +237,4 @@ public class User implements UserDetails {
 		this.registeredTimeSlots = registeredTimeSlots;
 	}
 
-	public boolean isImageSaved() {
-		return imageSaved;
-	}
-
-	public void setImageSaved(boolean imageSaved) {
-		this.imageSaved = imageSaved;
-	}
 }
