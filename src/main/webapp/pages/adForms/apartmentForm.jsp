@@ -213,6 +213,8 @@
         <form:hidden path="tags.onBusyRoad" id="field-onBusyRoad"/>
         <div class="btn <c:if test="${!apForm.tags.onBusyRoad}">btn-default</c:if><c:if test="$apForm.{tags.onBusyRoad}">btn-green</c:if>" id="onBusyRoad" onclick="setTag(this.id)">On Busy Road</div>
         </div>
+        <br/>
+        <legend>Upload images</legend>
         <div id="image1" >
         	<input name="AdImages[0]" type="file" />
         </div>

@@ -45,7 +45,7 @@
 		</td>
 		<td>
 			<fmt:formatDate pattern="HH:mm" value="${timeSlotForm.time}" var="simpleTime"/>
-            <form:input path="time" id="field-time" tabindex="2" maxlength="10" value="${simpleTime}" placeholder="HH.mm (24h-notation)"  />
+            <form:input path="time" id="field-time" tabindex="2" maxlength="10" value="${simpleTime}" placeholder="HH:mm (24h-notation)"  />
 		</td>
 		<td>
 			<form:input id="field-maxNumVisitors" path="maxNumVisitors" tabindex="3"/>

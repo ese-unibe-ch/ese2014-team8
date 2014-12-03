@@ -25,7 +25,7 @@
     <td>${apartment.price} chf</td>
     <td>${apartment.address.street} ${apartment.address.number}, ${apartment.address.zipCode} ${apartment.address.city}</td>
     <td class="text-right">
-    	<a href="/" class="btn btn-grey " role="button">See who's interested</a>
+    	<a href="/interestedPeople" class="btn btn-grey " role="button">See who's interested</a>
     	<a href="/editAd/Apartment/${apartment.id}" class="btn btn-green  " role="button">Edit</a><br/>
     	<a href="/manageVisits/Apartment/${apartment.id}" class="btn btn-grey " role="button">My Visits</a>
     	<a href="/removeAd/Apartment/${apartment.id}" class="btn btn-danger  " role="button">Remove</a></td>

@@ -120,5 +120,17 @@ public class AccountController {
         return model;
     }
     
+    @RequestMapping(value = "/interestedPeople", method = RequestMethod.GET)
+    public Object interestedPeople(HttpServletRequest request) {
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+    	ModelAndView model = new ModelAndView("main");
+    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+        return model;
+    }
+    
    
 }

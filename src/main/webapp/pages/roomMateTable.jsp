@@ -19,10 +19,10 @@
 			<td>${mate.firstName}</td>
 			<td>${mate.lastName}</td>
  			<td>
-  				<a href="/editRoomMate/${mate.id}" class="btn btn-green" role="button" >Edit </a> 
+  				<a href="/editRoomMate/${mate.id}" class="btn btn-green btn-block" role="button" >Edit </a> 
  			</td>
  			<td>
-  				<a href="/deleteRoomMate/${mate.shApartment.id}/${mate.id}" class="btn btn-danger" role="button" >Delete </a> 
+  				<a href="/deleteRoomMate/${mate.shApartment.id}/${mate.id}" class="btn btn-danger btn-block" role="button" >Delete </a> 
  			</td>  
 		</tr>
 	</c:forEach>

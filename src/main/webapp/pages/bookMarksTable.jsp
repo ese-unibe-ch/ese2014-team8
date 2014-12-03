@@ -18,7 +18,7 @@
 			<td><a href="/searchresults/Apartment/${bookMark.ap.id}">${bookMark.ap.title}</a></td>
 			<td><a href="/searchresults/Shared Apartment/${bookMark.ap.id}">${bookMark.shAp.title}</a></td>
  			<td>
-  				<a href="/deleteBookMark/${bookMark.id}" class="btn btn-danger" role="button" >Delete </a> 
+  				<a href="/deleteBookMark/${bookMark.id}" class="btn btn-danger btn-block" role="button" >Delete </a> 
  			</td>  
 		</tr>
 	</c:forEach>

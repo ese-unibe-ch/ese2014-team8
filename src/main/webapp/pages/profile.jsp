@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="template/header.jsp" />
-<div class="col-sm-4">
+<div class="col-sm-4 text-center">
 <c:choose>
 	<c:when test="${user.person.imageSaved}">
 		<img alt="profile picture" class="resp-img" src="../profileImg/${user.person.id}.jpg">
@@ -27,10 +27,10 @@
 
 
 <div id="uploadImg" style ="display:none;">
+	<c:if test="${profile.person.imageSaved}"><a href="/removeProfileImage/${profile.person.id}" class="btn btn-danger">Remove</a></c:if>
 	<form method="POST" action="/profileImage" enctype="multipart/form-data">
-       	Upload new profile picture: <input type="file" name="file"/>
-        <input type="submit" value="Upload" class= "btn btn-green"role="button"/> 
-        <c:if test="${profile.person.imageSaved}"><a href="/removeProfileImage/${profile.person.id}" class="btn btn-grey">Remove</a></c:if>
+       	Upload new profile picture: <input type="file" name="file" class="center-block text-center"/>
+        <input type="submit" value="Upload" class= "btn btn-green pull-right"role="button"/> 
     </form>
 
 </div>
@@ -107,16 +107,6 @@ ${profile.description}
             <div class="controls">
                 <form:textarea path="description" id="field-description" tabindex="6" rows="10" cols="50"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
-            </div>
-        </div>
-
-        <c:set var="pictureErrors"><form:errors path="picture"/></c:set>
-        <div class="control-group<c:if test="${not empty pictureErrors}"> error</c:if>">
-            <label class="control-label" for="field-description">Picture</label>
-            <img src="/getUserPicture/${user.id}"/>
-            <div class="controls">
-                <form:input type="file" path="picture" id="field-picture" tabindex="7" />
-                <form:errors path="picture" cssClass="help-inline" element="span"/>
             </div>
         </div>
 
