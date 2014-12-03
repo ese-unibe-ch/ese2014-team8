@@ -4,61 +4,92 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-<h2>${ad.title}</h2>
-<div>
+<div class="row">
+<div class="col-sm-12">
+	<h2>${ad.title}</h2>
+	<div>
+		<b>Tags: </b>
+		<c:if test="${ad.tags.smokingAllowed}"><div class="label label-default" id="smokingAllowed">Smoking Allowed</div></c:if>
+	    <c:if test="${ad.tags.petsAllowed}"><div class="label label-default" id="petsAllowed">Pets Allowed</div></c:if>
+	    <c:if test="${ad.tags.musicInstrumentsAllowed}"><div class="label label-default" id="musicInstrumentsAllowed">Musical Instruments Allowed</div></c:if>
+	    <c:if test="${ad.tags.bikeParking}"><div class="label label-default" id="bikeParking">Bike-parking</div></c:if>
+	    <c:if test="${ad.tags.carParking}"><div class="label label-default" id="carParking">Car-parking</div></c:if>
+	    <c:if test="${ad.tags.sharedGarden}"><div class="label label-default" id="sharedGarden">Shared Garden</div></c:if>
+	    <c:if test="${ad.tags.balcony}"><div class="label label-default" id="balcony" >Balcony</div></c:if>
+	    <c:if test="${ad.tags.quietNeighbourhood}"><div class="label label-default" id="quietNeighbourhood" >Quiet Neighbourhood</div></c:if>
+	    <c:if test="${ad.tags.elevator}"><div class="label label-default" id="elevator" >Elevator</div></c:if>
+	    <c:if test="${ad.tags.wheelchairAccessible}"><div class="label label-default" id="wheelchairAccessible">Wheelchair Accessible</div></c:if>
+	    <c:if test="${ad.tags.lowEnergyBuilding}"><div class="label label-default" id="lowEnergyBuilding">Low Energy Building</div></c:if>
+     
+	    <c:if test="${ad.tags.eatingCookingTogether}"><div class="label label-default" id="eatingCookingTogether" >Eating/Cooking Together</div></c:if>
+	    <c:if test="${ad.tags.stayingWeekends}"><div class="label label-default" id="stayingWeekends" >Staying Weekends</div></c:if>
+	    <c:if test="${ad.tags.vegetarianVegan}"><div class="label label-default" id="vegetarianVegan" >Vegetarian/Vegan</div></c:if>
+	    <c:if test="${ad.tags.nonVegetarian}"><div class="label label-default" id="nonVegetarian" >Non-vegetarian</div></c:if>
+	</div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-4">
+	<h3>Address</h3>
 	${ad.address.street} ${ad.address.number}<br/>
 	${ad.address.zipCode} ${ad.address.city}
 </div>
-<div>
-	<iframe
-		width="400"
-		height="400"
-		frameborder="0" style="border:0"
-		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAg7gQ_6H5xWUXFVrxyUpulXzs3flqGfcA
-			&q=${ad.address.street}+${ad.address.number},${ad.address.zipCode}+${ad.address.city},Switzerland">
-	</iframe>
-</div>
-<div>
-	<c:if test="${ad.fixedMoveIn==false}"> There is no fixed move-in date.<br/> </c:if>
+<div class="col-sm-4">
+	<h3>Details</h3>
+	<c:if test="${ad.fixedMoveIn==false}"> Move-in by arrangement with owner.<br/> </c:if>
 	<c:if test="${ad.fixedMoveIn==true}"> Move-in date: <fmt:formatDate pattern="dd/MM/yyyy" value="${ad.moveIn}" /> <br/></c:if>
-	<c:if test="${ad.fixedMoveOut==false}"> There is no fixed move-out date. <br/></c:if>
-	<c:if test="${ad.fixedMoveOut==true}"> Move-out date: <fmt:formatDate pattern="dd/MM/yyyy" value="${ad.moveOut}" /><br/></c:if>
+	<c:if test="${ad.fixedMoveOut==false}"> Unlimited rent duration. <br/></c:if>
+	<c:if test="${ad.fixedMoveOut==true}"> This is a limited duration rent property. <br/> Move-out date: <fmt:formatDate pattern="dd/MM/yyyy" value="${ad.moveOut}" /><br/></c:if>
 	Price: ${ad.price} chf<br/>
-	Room size: ${ad.roomSize}<br/>
-	
+	Room size: ${ad.roomSize} m<sup>2</sup><br/>
 </div>
-<div>
-	Description: <br/>
-	<c:out value="${ad.description}"/>
-</div>
-<div>
+<div class="col-sm-4">
+	<h3>Environment</h3>
 	Distance to Public Transport: ${ad.distanceToPubTr} meters.<br/>
 	Distance to Shops: ${ad.distanceToShop} meters.<br/>
 	Distance to Park: ${ad.distanceToPark} meters.<br/>
 	Distance to School: ${ad.distanceToSchool} meters.<br/>
 </div>
-<div>
-	<b>Tags: </b>
-	<c:if test="${ad.tags.smokingAllowed}"><div class="label label-default" id="smokingAllowed">Smoking Allowed</div></c:if>
-    <c:if test="${ad.tags.petsAllowed}"><div class="label label-default" id="petsAllowed">Pets Allowed</div></c:if>
-    <c:if test="${ad.tags.musicInstrumentsAllowed}"><div class="label label-default" id="musicInstrumentsAllowed">Musical Instruments Allowed</div></c:if>
-    <c:if test="${ad.tags.bikeParking}"><div class="label label-default" id="bikeParking">Bike-parking</div></c:if>
-    <c:if test="${ad.tags.carParking}"><div class="label label-default" id="carParking">Car-parking</div></c:if>
-    <c:if test="${ad.tags.sharedGarden}"><div class="label label-default" id="sharedGarden">Shared Garden</div></c:if>
-    <c:if test="${ad.tags.balcony}"><div class="label label-default" id="balcony" >Balcony</div></c:if>
-    <c:if test="${ad.tags.quietNeighbourhood}"><div class="label label-default" id="quietNeighbourhood" >Quiet Neighbourhood</div></c:if>
-    <c:if test="${ad.tags.elevator}"><div class="label label-default" id="elevator" >Elevator</div></c:if>
-    <c:if test="${ad.tags.wheelchairAccessible}"><div class="label label-default" id="wheelchairAccessible">Wheelchair Accessible</div></c:if>
-    <c:if test="${ad.tags.lowEnergyBuilding}"><div class="label label-default" id="lowEnergyBuilding">Low Energy Building</div></c:if>
-     
-    <c:if test="${ad.tags.eatingCookingTogether}"><div class="label label-default" id="eatingCookingTogether" >Eating/Cooking Together</div></c:if>
-    <c:if test="${ad.tags.stayingWeekends}"><div class="label label-default" id="stayingWeekends" >Staying Weekends</div></c:if>
-    <c:if test="${ad.tags.vegetarianVegan}"><div class="label label-default" id="vegetarianVegan" >Vegetarian/Vegan</div></c:if>
-    <c:if test="${ad.tags.nonVegetarian}"><div class="label label-default" id="nonVegetarian" >Non-vegetarian</div></c:if>
 </div>
+<div class="row">
+<div class="col-sm-6">
+	<iframe
+		width="90%"
+		height="350"
+		frameborder="0" style="border:0"
+		src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAg7gQ_6H5xWUXFVrxyUpulXzs3flqGfcA
+			&q=${ad.address.street}+${ad.address.number},${ad.address.zipCode}+${ad.address.city},Switzerland">
+	</iframe>
+</div>
+<div class="col-sm-6">
+	<c:if test="${ad.numberOfImages != 0 }">
+		<div class="row">
+		<a href="../ApartmentImages/${ad.id}_1.jpg" ><img src="../ApartmentImages/${ad.id}_1.jpg" class="resp-img"/></a>
+		</div>
+		<c:if test="${ad.numberOfImages != 1 }">
+			<div class="row">
+			<c:forEach begin="2" end="${ad.numberOfImages}" var="val">
+				<div class="col-sm-2">
+					<a href="../ApartmentImages/${ad.id}_${val}.jpg"><img src="../ApartmentImages/${ad.id}_${val}.jpg"/></a>	
+				</div>	
+			</c:forEach>
+			</div>
+		</c:if>
+	</c:if>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-4">
 <div>
-<h2>Visit this apartment</h2>
+	Description: <br/>
+	<c:out value="${ad.description}"/>
+</div>
+</div>
+<div class="col-sm-8">
+
+<div>
+<c:if test="${not empty ad.visitingTimes}">
+<h3>Visit this apartment</h3>
 	<table class="text-center table table-hover">
 		<tr>
 			<th class="text-center"> Date</th>
@@ -88,6 +119,7 @@
 			</tr>
 		</c:forEach>
 	</table>
+</c:if>
 </div>
 
         <h1>Roommate-List</h1>
@@ -101,7 +133,7 @@
 		</table>
 
 <div>
-	<h2>Message to ad owner</h2>
+	<h3>Message to ad owner</h3>
 	<form:form method="post" modelAttribute="messageForm" action="/sendMessage" cssClass="form-horizontal"  autocomplete="off">
 		<form:hidden path="category" value="Shared Apartment"/>
 		<form:hidden path="adId" value="${ad.id}"/>
@@ -111,4 +143,6 @@
 		<form:textarea path="message" rows="5" cols="30" tabindex="1"/>
 		<button type="submit" class="btn btn-green" tabindex="2">Send</button>
 	</form:form>
+</div>
+</div>
 </div>

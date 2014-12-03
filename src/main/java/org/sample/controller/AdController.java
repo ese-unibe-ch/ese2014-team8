@@ -121,13 +121,16 @@ public class AdController {
                     
                     if (null != images && images.size() > 0) {
                         for (MultipartFile file : images) {
-                        	imageNumber ++;
-                        	String name = Long.toString(apartment.getId()) + "_" + Integer.toString(imageNumber);
-                        	String returnMessage = saveImage(file, name , directory);
-                        	if(!returnMessage.equals("You successfully uploaded the image")
+                        	if(!file.isEmpty()){
+                        		imageNumber ++;
+                        		String name = Long.toString(apartment.getId()) + "_" + Integer.toString(imageNumber);
+                        		String returnMessage = saveImage(file, name , directory);
+                        		if(!returnMessage.equals("You successfully uploaded the image")
                         			&&!returnMessage.equals("You failed to upload the image because the file was empty.")){
-                        		throw new InvalidImageException(returnMessage);
+                        			throw new InvalidImageException(returnMessage);
+                        		}
                         	}
+                        	
                         }
                     }
                     apartment = adService.setImages(apartment, imageNumber);
@@ -159,13 +162,16 @@ public class AdController {
                     String directory = "ShApartmentImages";
                     if (null != images && images.size() > 0) {
                         for (MultipartFile file : images) {
-                        	imageNumber ++;
-                        	String name = Long.toString(apartment.getId()) + "_" + Integer.toString(imageNumber);
-                        	String returnMessage = saveImage(file, name , directory);
-                        	if(!returnMessage.equals("You successfully uploaded the image")
+                        	if(!file.isEmpty()){
+                        		imageNumber ++;
+                        		String name = Long.toString(apartment.getId()) + "_" + Integer.toString(imageNumber);
+                        		String returnMessage = saveImage(file, name , directory);
+                        		if(!returnMessage.equals("You successfully uploaded the image")
                         			&&!returnMessage.equals("You failed to upload the image because the file was empty.")){
-                        		throw new InvalidImageException(returnMessage);
+                        			throw new InvalidImageException(returnMessage);
+                        		}
                         	}
+                        	
                         }
                     }
                     apartment = adService.setImages(apartment, imageNumber);
