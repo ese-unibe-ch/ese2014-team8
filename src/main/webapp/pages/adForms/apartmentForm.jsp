@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="col-sm-9">
-<form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" >
+<form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" enctype="multipart/form-data">
     
 		<form:hidden path="category" value="Apartment"/>
 		<form:hidden path="id"/>
@@ -213,6 +213,11 @@
         <form:hidden path="tags.onBusyRoad" id="field-onBusyRoad"/>
         <div class="btn <c:if test="${!apForm.tags.onBusyRoad}">btn-default</c:if><c:if test="$apForm.{tags.onBusyRoad}">btn-green</c:if>" id="onBusyRoad" onclick="setTag(this.id)">On Busy Road</div>
         </div>
+        <div>
+        	<input name="AdImages[0]" type="file" />
+        	<input name="AdImages[1]" type="file" />
+        </div>
+        
 </div>
 </div>
 <div class="row">

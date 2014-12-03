@@ -4,12 +4,17 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.apache.commons.io.FilenameUtils;
 import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.*;
@@ -41,9 +46,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.sample.model.TimeSlot;
+
+
 
 @Controller
 public class AdController {
@@ -105,15 +113,29 @@ public class AdController {
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
-        System.out.println("in controller");
+        
     	ModelAndView model = null;
     	if(form.getCategory().equals("Apartment")){   	
         	if (!result.hasErrors()) {
                 try {
                     form.setUser(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-                    System.out.println("before Save");
+                    
+                   
+                    
                     Apartment apartment=adService.saveFrom(form);
-                    System.out.println("after save");
+                    
+                    List<MultipartFile> images = form.getAdImages();
+                    
+                    int imageNumber = 0;
+                    String directory = "ApartmentImages";
+                    if (null != images && images.size() > 0) {
+                        for (MultipartFile file : images) {
+                        	imageNumber ++;
+                        	String name = Long.toString(apartment.getId()) + "_" + Integer.toString(imageNumber);
+                        	saveImage(file, name , directory);
+                        }
+                    }
+                    
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Apartment");
@@ -234,7 +256,42 @@ public class AdController {
         adService.deleteAd(category, adId);
     	return "redirect:/placedAds";
     }
-  
+    
+    
+    private String saveImage(MultipartFile file, String name, String directory) {
+		if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+ 
+                // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                File dir = new File(rootPath + File.separator +".."+ File.separator+"src" + File.separator +"main" + File.separator + "webapp" + File.separator + directory);
+                if (!dir.exists())
+                    dir.mkdirs();
+ 
+                // Create the file on server
+                String extension = FilenameUtils.getExtension(file.getOriginalFilename());
+                if(extension.equals("jpg") || extension.equals("jpeg") ){
+                	File serverFile = new File(dir.getAbsolutePath() + File.separator + name + ".jpg" );
+                	BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                	stream.write(bytes);
+                	stream.close();
+ 
+                	LOGGER.info("Server File Location=" + serverFile.getAbsolutePath());
+ 
+                	return "You successfully uploaded the image" ;
+                }
+                else{
+                	return "Image must be jpg format";
+                }
+                
+            } catch (Exception e) {
+                return "You failed to upload the image => " + e.getMessage();
+            }
+        } else {
+            return "You failed to upload the image because the file was empty.";
+        }
+	}
 
 }
 
