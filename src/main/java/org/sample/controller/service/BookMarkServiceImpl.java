@@ -1,5 +1,6 @@
 package org.sample.controller.service;
 
+import org.sample.model.Apartment;
 import org.sample.model.BookMark;
 import org.sample.model.ShApartment;
 import org.sample.model.User;
@@ -51,5 +52,31 @@ public class BookMarkServiceImpl implements BookMarkService{
 		return bookMarkList.iterator().hasNext();
 				
 	}
+
+	@Override
+	public void deleteBookMark(Long bookMarkId) {
+		bookMarkDao.delete(bookMarkId);
+	}
+
+//	@Override
+//	public Iterable<BookMark> getBookMarks(User user) {
+//		Iterable<BookMark> bookMarkList;
+//		Iterable<Apartment> apartmentList;
+//		Iterable<ShApartment> sharedApartmentList;
+//		
+//		bookMarkList=bookMarkDao.findByUser(user);
+//		
+//		for(BookMark bookMark : bookMarkList){
+//			
+//			if()
+//		}
+//		
+////		if (category.equals("Apartment")){
+////			bookMarkList=bookMarkDao.findByUser(user);
+////		} else {
+////			bookMarkList=bookMarkDao.findByShAp(shApartmentDao.findOne(adId));
+////		}
+//		return bookMarkList;
+//	}
 
 }

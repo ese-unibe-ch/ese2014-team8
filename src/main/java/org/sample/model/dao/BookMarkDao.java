@@ -10,4 +10,5 @@ public interface BookMarkDao extends CrudRepository<BookMark,Long>{
 
 	Iterable<BookMark> findByShApAndBookMarker(ShApartment shAp, User bookMarker);
 	Iterable<BookMark> findByApAndBookMarker(Apartment ap, User bookMarker);
+	//Iterable<BookMark> findByUser(User bookMarker);
 }
