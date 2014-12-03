@@ -36,6 +36,7 @@ public interface AdService {
 	public List<String> getCategories();
 	
 	public void deleteAd(String category, Long adId);
-	
+	public Apartment setImages(Apartment apartment, int number);
+	public ShApartment setImages(ShApartment apartment, int number);
 
 }

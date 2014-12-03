@@ -6,14 +6,17 @@
 
 
 <c:import url="template/header.jsp" />
-
+<div class="row">
+<div class="col-sm-3">
 <c:if test="${category == 'Apartment'}">
-	<h1>Edit your Apartment Ad</h1>
+	<h2><br/>Apartment </h2>
+	</div>
 	<c:import url="adForms/apartmentForm.jsp" />
 </c:if>
 
 <c:if test="${category == 'Shared Apartment'}">
-	<h1>Edit your Shared Apartment Ad</h1>
+	<h2><br/>Shared Apartment</h2>
+	</div>
 	<c:import url="adForms/sharedApartmentForm.jsp" />
 	<%-- <c:import url="roomMateTable.jsp" /> --%>
 </c:if>

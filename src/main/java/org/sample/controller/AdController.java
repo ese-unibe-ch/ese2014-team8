@@ -2,6 +2,7 @@ package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -15,12 +16,9 @@ import java.util.Date;
 import javax.validation.Valid;
 
 import org.apache.commons.io.FilenameUtils;
-import org.sample.controller.exceptions.InvalidDateException;
-import org.sample.controller.exceptions.InvalidUserException;
+import org.sample.controller.exceptions.*;
 import org.sample.controller.pojos.*;
-import org.sample.controller.service.AdService;
-import org.sample.controller.service.UserService;
-import org.sample.controller.service.RoomMateService;
+import org.sample.controller.service.*;
 import org.sample.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,16 +38,11 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.sample.model.TimeSlot;
+
 
 
 
@@ -108,9 +101,10 @@ public class AdController {
  
     @RequestMapping(value="/viewAd", method = RequestMethod.POST)
     public Object makeAd(HttpServletRequest request, ApartmentForm form, ShApartmentForm form2, BindingResult result){
-        if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+        User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
-        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+        } else if(user.getIsNew()) {
             return "redirect:/profile";
         }
         
@@ -118,42 +112,63 @@ public class AdController {
     	if(form.getCategory().equals("Apartment")){   	
         	if (!result.hasErrors()) {
                 try {
-                    form.setUser(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-                    
-                   
-                    
+                    form.setUser(user);
                     Apartment apartment=adService.saveFrom(form);
                     
                     List<MultipartFile> images = form.getAdImages();
-                    
                     int imageNumber = 0;
                     String directory = "ApartmentImages";
+                    
                     if (null != images && images.size() > 0) {
                         for (MultipartFile file : images) {
                         	imageNumber ++;
                         	String name = Long.toString(apartment.getId()) + "_" + Integer.toString(imageNumber);
-                        	saveImage(file, name , directory);
+                        	String returnMessage = saveImage(file, name , directory);
+                        	if(!returnMessage.equals("You successfully uploaded the image")
+                        			&&!returnMessage.equals("You failed to upload the image because the file was empty.")){
+                        		throw new InvalidImageException(returnMessage);
+                        	}
                         }
                     }
+                    apartment = adService.setImages(apartment, imageNumber);
                     
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Apartment");
                     model.addObject("ad", apartment);
                     model.addObject("messageForm", new MessageForm());
-                } catch (InvalidDateException e) {
+                } catch (InvalidDateException | InvalidImageException e) {
+                	
                 	model = new ModelAndView("newAd");
                 	model.addObject("page_error", e.getMessage());
+                	model.addObject("user", user);
+                	model.addObject("apForm", form);
                 }
             } else {
             	model = new ModelAndView("newAd");
+            	model.addObject("user", user);
             }   	
     	}
     	if(form2.getCategory().equals("Shared Apartment")){
         	if (!result.hasErrors()) {
                 try {
-                    form2.setUser(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+                    form2.setUser(user);
                 	ShApartment apartment=adService.saveFrom(form2);
+                	List<MultipartFile> images = form2.getAdImages();
+                    int imageNumber = 0;
+                    String directory = "ShApartmentImages";
+                    if (null != images && images.size() > 0) {
+                        for (MultipartFile file : images) {
+                        	imageNumber ++;
+                        	String name = Long.toString(apartment.getId()) + "_" + Integer.toString(imageNumber);
+                        	String returnMessage = saveImage(file, name , directory);
+                        	if(!returnMessage.equals("You successfully uploaded the image")
+                        			&&!returnMessage.equals("You failed to upload the image because the file was empty.")){
+                        		throw new InvalidImageException(returnMessage);
+                        	}
+                        }
+                    }
+                    apartment = adService.setImages(apartment, imageNumber);
                 	if(form2.isAddRoomMate()==true){
                 		return "redirect:/RoomMates/" + Long.toString(apartment.getId());
                 	}
@@ -162,16 +177,18 @@ public class AdController {
                     model.addObject("category","Shared Apartment");
                     model.addObject("ad", apartment);
                     model.addObject("messageForm", new MessageForm());
-                } catch (InvalidDateException e) {
-                	model = new ModelAndView("main");
+                } catch (InvalidDateException | InvalidImageException e) {
+                	model = new ModelAndView("newSharedAd");
                 	model.addObject("page_error", e.getMessage());
+                	model.addObject("user", user);
+                	model.addObject("apForm", form2);
                 }
             } else {
             	model = new ModelAndView("main");
             }
     		
     	}
-    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("user",user);
     	return model;
     }
     
@@ -204,6 +221,7 @@ public class AdController {
         	model = new ModelAndView("index");
         }   	
     	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
+    	model.addObject("apForm", new ApartmentForm());
     	return model;
     }
 

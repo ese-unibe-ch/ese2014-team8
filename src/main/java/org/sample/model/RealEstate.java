@@ -32,6 +32,7 @@ public class RealEstate {
 	private int distanceToPubTr;
 	private int distanceToShop;
 	
+	private int numberOfImages;
 
 	public RealEstate() {
 		super();
@@ -139,6 +140,14 @@ public class RealEstate {
 
 	public void setDistanceToShop(int distanceToShop) {
 		this.distanceToShop = distanceToShop;
+	}
+
+	public int getNumberOfImages() {
+		return numberOfImages;
+	}
+
+	public void setNumberOfImages(int numberOfImages) {
+		this.numberOfImages = numberOfImages;
 	}
 
 }	

@@ -213,10 +213,37 @@
         <form:hidden path="tags.onBusyRoad" id="field-onBusyRoad"/>
         <div class="btn <c:if test="${!apForm.tags.onBusyRoad}">btn-default</c:if><c:if test="$apForm.{tags.onBusyRoad}">btn-green</c:if>" id="onBusyRoad" onclick="setTag(this.id)">On Busy Road</div>
         </div>
-        <div>
+        <div id="image1" >
         	<input name="AdImages[0]" type="file" />
+        </div>
+        <div id="image2" style="display:none;">
         	<input name="AdImages[1]" type="file" />
         </div>
+        <div id="image3" style="display:none;">
+        	<input name="AdImages[2]" type="file" />
+        </div>
+        <div id="image4" style="display:none;">
+        	<input name="AdImages[3]" type="file" />
+        </div>
+        <div id="image5" style="display:none;">
+        	<input name="AdImages[4]" type="file" />
+        </div>
+        <div id="image6" style="display:none;">
+        	<input name="AdImages[5]" type="file" />
+        </div>
+        <div id="image7" style="display:none;">
+        	<input name="AdImages[6]" type="file" />
+        </div>
+        <div id="image8" style="display:none;">
+        	<input name="AdImages[7]" type="file" />
+        </div>
+        <div id="image9" style="display:none;">
+        	<input name="AdImages[8]" type="file" />
+        </div>
+        <div id="image10" style="display:none;">
+        	<input name="AdImages[9]" type="file" />
+        </div>
+        <button class="btn btn-green pull-right" id="addImages" type="button" onclick="addImage()">Add</button>
         
 </div>
 </div>
@@ -232,6 +259,14 @@
 </div>
 </div>
 
+<script>
+	var count=1;
+    function addImage(){
+    	count = count+1;
+    	document.getElementById('image'+count).style.display='block';
+    	
+    }
+</script>
 
 <script>
 	function setTag(elementId){

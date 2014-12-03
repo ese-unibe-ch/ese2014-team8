@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <div class="col-sm-9">
-<form:form method="post" modelAttribute="shApForm" action="/viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" >
+<form:form method="post" modelAttribute="shApForm" action="/viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" enctype="multipart/form-data">
     <form:hidden path="category" value="Shared Apartment"/>
 	<form:hidden path="id"/>
 	
@@ -205,6 +205,41 @@
         <div class="btn <c:if test="${!shApForm.tags.nonVegetarian}">btn-default</c:if><c:if test="${shApForm.tags.nonVegetarian}">btn-green</c:if>" id="nonVegetarian" onclick="setTag(this.id)">Non-vegetarian</div>
                
         </div>
+        <br/>
+        <legend>Upload images</legend>
+        <div id="image1" >
+        	<input name="AdImages[0]" type="file" />
+        </div>
+        <div id="image2" style="display:none;">
+        	<input name="AdImages[1]" type="file" />
+        </div>
+        <div id="image3" style="display:none;">
+        	<input name="AdImages[2]" type="file" />
+        </div>
+        <div id="image4" style="display:none;">
+        	<input name="AdImages[3]" type="file" />
+        </div>
+        <div id="image5" style="display:none;">
+        	<input name="AdImages[4]" type="file" />
+        </div>
+        <div id="image6" style="display:none;">
+        	<input name="AdImages[5]" type="file" />
+        </div>
+        <div id="image7" style="display:none;">
+        	<input name="AdImages[6]" type="file" />
+        </div>
+        <div id="image8" style="display:none;">
+        	<input name="AdImages[7]" type="file" />
+        </div>
+        <div id="image9" style="display:none;">
+        	<input name="AdImages[8]" type="file" />
+        </div>
+        <div id="image10" style="display:none;">
+        	<input name="AdImages[9]" type="file" />
+        </div>
+        <button class="btn btn-green pull-right" id="addImages" type="button" onclick="addImage()">Add</button>
+        
+        
 </div>
 </div>
 <div class="row">
@@ -212,7 +247,7 @@
         <c:import url="roomMateTable.jsp" />
 
         <form:hidden id="field-addRoomMate" path="addRoomMate" value="false"/>
-        <button type="button" id="RoomMateButton" class="btn btn-primary">add Roommate</button> 
+        <button type="button" id="RoomMateButton" class="btn btn-grey">add Roommate</button> 
 </div>
 </div>
 <div class="row">
@@ -234,6 +269,15 @@ document.getElementById('RoomMateButton').onclick = function(){
 	
 }
 </script>
+<script>
+	var count=1;
+    function addImage(){
+    	count = count+1;
+    	document.getElementById('image'+count).style.display='block';
+    	
+    }
+</script>
+
 <script>
 	function setTag(elementId){
 		if( document.getElementById('field-' + elementId).value == 'false'){

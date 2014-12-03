@@ -271,5 +271,18 @@ public class AdServiceImpl implements AdService {
 		}
 		
 	}
+
+	@Override
+	public Apartment setImages(Apartment apartment, int number) {
+		apartment.setNumberOfImages(number);
+		apDao.save(apartment);
+		return apartment;
+	}
 	
+	@Override
+	public ShApartment setImages(ShApartment apartment, int number) {
+		apartment.setNumberOfImages(number);
+		shApDao.save(apartment);
+		return apartment;
+	}
 }
