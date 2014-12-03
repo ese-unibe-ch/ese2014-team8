@@ -4,8 +4,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-<legend>Your BookMarks</legend>
+<c:import url="template/header.jsp" />
+<h1>Your BookMarks</h1>
 <c:if test="${not empty user.bookMarks}">
 <table class="text-center table table-hover">
 	<tr>
@@ -15,8 +15,8 @@
 	</tr>
 	<c:forEach items="${user.bookMarks}" var="bookMark">
 		<tr>
-			<td>${bookMark.ap.title}</td>
-			<td>${bookMark.shAp.title}</td>
+			<td><a href="/searchresults/Apartment/${bookMark.ap.id}">${bookMark.ap.title}</a></td>
+			<td><a href="/searchresults/Shared Apartment/${bookMark.ap.id}">${bookMark.shAp.title}</a></td>
  			<td>
   				<a href="/deleteBookMark/${bookMark.id}" class="btn btn-danger" role="button" >Delete </a> 
  			</td>  
@@ -26,4 +26,4 @@
 </table>
 </c:if>	
 	
-
+<c:import url="template/footer.jsp" />

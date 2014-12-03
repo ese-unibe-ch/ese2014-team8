@@ -13,7 +13,7 @@
 		<a href="/addBookMark/${category}/${ad.id}" class="btn btn-green">Bookmark Ad</a>
 	</c:if>
 	<c:if test="${isBookMarked}">
-		<div >is already bookmarked!</div>
+		<div class="btn btn-green disabled">is already bookmarked!</div>
 	</c:if>
 	
 	<c:import url="apartmentViews/viewApartmentAd.jsp" />

@@ -27,7 +27,7 @@ public class BookMarkController {
     BookMarkService bookMarkService;
 	
     // view BookMark
-    @RequestMapping(value = "/viewBookMarks", method = RequestMethod.GET)
+    @RequestMapping(value = "/bookmarkedAds", method = RequestMethod.GET)
     public Object viewBookMarks(HttpServletRequest request) {
     	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
     		return "redirect:/";

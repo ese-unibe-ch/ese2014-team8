@@ -107,18 +107,6 @@ public class AccountController {
         return model;
     }
     
-    @RequestMapping(value = "/bookmarkedAds", method = RequestMethod.GET)
-    public Object bookmarkedAds(HttpServletRequest request) {
-    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
-            return "redirect:/";
-        } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
-            return "redirect:/profile";
-        }
-    	ModelAndView model = new ModelAndView("main");
-    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-        return model;
-    }
-    
     
     @RequestMapping(value = "/searchAlerts", method = RequestMethod.GET)
     public Object searchAlerts(HttpServletRequest request) {
