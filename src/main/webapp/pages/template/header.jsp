@@ -17,7 +17,7 @@
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script type="text/javascript"  src="../../js/bootstrap.min.js"></script>
-    
+    <BASE href="https://localhost:8443">
     
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->

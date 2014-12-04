@@ -52,7 +52,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sun.misc.IOUtils;
 
 @Controller
-public class ProfileController {
+public class ProfileController extends ImageController{
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
 
@@ -204,43 +204,7 @@ public class ProfileController {
     	return "redirect:/editProfile";
     }
 
-	private String saveImage(MultipartFile file, String name, String directory) {
-		if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
- 
-                // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
-                File dir = new File(rootPath + File.separator +".."+ File.separator+"src" + File.separator +"main" + File.separator + "webapp" + File.separator + directory);
-                if (!dir.exists())
-                    dir.mkdirs();
- 
-                // Create the file on server
-                String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-                if(extension.equals("jpg") || extension.equals("jpeg") ){
-                	File serverFile = new File(dir.getAbsolutePath() + File.separator + name + ".jpg" );
-                	BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-                	stream.write(bytes);
-                	stream.close();
- 
-                	LOGGER.info("Server File Location=" + serverFile.getAbsolutePath());
- 
-                	return "You successfully uploaded the image" ;
-                }
-                else{
-                	return "Image must be jpg format";
-                }
-                
-            } catch (Exception e) {
-                return "You failed to upload the image => " + e.getMessage();
-            }
-        } else {
-            return "You failed to upload the image because the file was empty.";
-        }
-	}
-    
-   
-
+	
 }
 
 

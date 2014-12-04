@@ -245,7 +245,7 @@
         <div id="image10" style="display:none;">
         	<input name="AdImages[9]" type="file" />
         </div>
-        <button class="btn btn-green pull-right" id="addImages" type="button" onclick="addImage()">Add</button>
+        <button class="btn btn-green pull-right" id="addImages" type="button" onclick="addImage()">Add more images</button>
         
 </div>
 </div>
