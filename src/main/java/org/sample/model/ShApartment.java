@@ -9,11 +9,13 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class ShApartment extends RealEstate {
@@ -27,6 +29,7 @@ public class ShApartment extends RealEstate {
 	
 	@Column(name="visiting_times")
 	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@Fetch(FetchMode.SELECT)
 	private Collection<TimeSlot> visitingTimes;
 	
 	@OneToMany(mappedBy = "shAp", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
@@ -39,6 +42,7 @@ public class ShApartment extends RealEstate {
 	private ShApartmentTags tags;
 	
 	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@Fetch(FetchMode.SELECT)
 	private List<RoomMate> roomMates;	
 	
 	public ShApartmentTags getTags() {

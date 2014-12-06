@@ -2,20 +2,11 @@ package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.validation.Valid;
-
-import org.apache.commons.io.FilenameUtils;
 import org.sample.controller.exceptions.*;
 import org.sample.controller.pojos.*;
 import org.sample.controller.service.*;
@@ -23,25 +14,14 @@ import org.sample.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.expression.Expression;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.util.AutoPopulatingList;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
@@ -178,6 +158,7 @@ public class AdController extends ImageController {
                 	if(form2.isAddRoomMate()==true){
                 		return "redirect:/RoomMates/" + Long.toString(apartment.getId());
                 	}
+                	System.out.println("RoomMatesLength:"+apartment.getRoomMates().size());
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Shared Apartment");
