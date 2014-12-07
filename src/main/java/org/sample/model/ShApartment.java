@@ -1,13 +1,9 @@
 package org.sample.model;
 
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.CascadeType;
-
 import java.util.Collection;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
-
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -47,7 +41,8 @@ public class ShApartment extends RealEstate {
 	
 	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	@Fetch(FetchMode.SELECT)
-	private Set<RoomMate> roomMates ;	
+	private List<RoomMate> roomMates;	
+
 	
 	public ShApartmentTags getTags() {
 		return tags;
@@ -57,11 +52,11 @@ public class ShApartment extends RealEstate {
 		this.tags = tags;
 	}
 
-	public Set<RoomMate> getRoomMates() {
+	public List<RoomMate> getRoomMates() {
 		return roomMates;
 	}
 
-	public void setRoomMates(Set<RoomMate> roomMates) {
+	public void setRoomMates(List<RoomMate> roomMates) {
 		this.roomMates = roomMates;
 	}
 
