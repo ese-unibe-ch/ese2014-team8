@@ -10,15 +10,14 @@
 <div class="row">
 <div class="col-sm-3">
 <div class="large">
-<label class="control-label" for="field-category">Category</label><br/>
-<select id="category" size="1">
-      <option value="1">Apartment</option>
-      <option value="2" selected >Shared Apartment</option>
-</select>
+<label class="control-label" for="field-category">Category New Shared Apartment</label><br/>
+<!-- <select id="category" size="1"> -->
+<!--       <option value="1">Apartment</option> -->
+<!--       <option value="2" selected >Shared Apartment</option> -->
+<!-- </select> -->
 </div>
 </div>
 <c:import url="adForms/sharedApartmentForm.jsp" />
-<%-- <c:import url="roomMateTable.jsp" /> --%>
 
 <c:if test="${page_error != null }">
     <div class="alert alert-error">
@@ -42,12 +41,12 @@
 	};
 </script>
 
-<script type="text/javascript">
-function switchForm(){
-	window.location = "/newAd";
-}
-document.getElementById('category').onchange = function(){switchForm()};
+<!-- <script type="text/javascript">
+// function switchForm(){
+// 	window.location = "/newAd";
+// }
+// document.getElementById('category').onchange = function(){switchForm()};
 
-</script>
+ </script> -->
 	
 <c:import url="template/footer.jsp" />

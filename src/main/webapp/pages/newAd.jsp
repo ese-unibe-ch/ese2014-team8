@@ -10,11 +10,11 @@
 <div class="row">
 <div class="col-sm-3">
 <div class="large">
-<label class="control-label" for="field-category">Category</label><br/>
-<select id="category" size="1">
-      <option value="1">Apartment</option>
-      <option value="2">Shared Apartment</option>
-</select>
+<label class="control-label" for="field-category">Category New Apartment</label><br/>
+<!-- <select id="category" size="1"> -->
+<!--       <option value="1">Apartment</option> -->
+<!--       <option value="2">Shared Apartment</option> -->
+<!-- </select> -->
 </div>
 </div>
 <c:import url="adForms/apartmentForm.jsp" />
@@ -41,13 +41,13 @@
 	};
 </script>
 
-<script type="text/javascript">
-function switchForm(){
-	window.location = "/newSharedAd";
-}
-document.getElementById('category').onchange = function(){switchForm()};
+<!-- <script type="text/javascript">
+// function switchForm(){
+// 	window.location = "/newSharedAd";
+// }
+// document.getElementById('category').onchange = function(){switchForm()};
 
-</script>
+ </script> -->
 <script>
 	document.getElementById('ad').style.color = '#ACCB12'
 </script>

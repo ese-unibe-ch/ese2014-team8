@@ -47,12 +47,21 @@
 				<a id="admin" href="/admin">ADMIN PANEL</a>
 			</li>
 			</c:if>
+			
 			<li class="text-center text-nowrap">
 				<a id="search" href="/search">SEARCH</a>
 			</li>
+			
 			<li class="text-center text-nowrap">
-				<a id="ad" href="/newAd">CREATE AD</a>
+<!-- 				<a id="ad" href="/newAd">NEW AD</a> -->
+				<a id="ad" href="/newAd" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					NEW AD<span class="caret"></span></a>	
+				<ul class="dropdown-menu inverse-dropdown" role="menu">
+					<li><a href="/newAd">New Apartment</a></li>
+            		<li><a href="/newSharedAd">New Shared Apartment</a></li>
+            	</ul>
 			</li>
+			
 			<li class="text-center text-nowrap dropdown">
 				<a id="profile" href="/profile" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
 					MY ACCOUNT<span class="caret"></span></a>
@@ -66,6 +75,7 @@
             		<li><a href="/searchAlerts">Saved Searches</a></li>
             		<li class="divider"></li>
             		<li><a href="/messages">Messages</a></li>
+            	</ul>
 			</li>
 		</ul>
 	</nav>
