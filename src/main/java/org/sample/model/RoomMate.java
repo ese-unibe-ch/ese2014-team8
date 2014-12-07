@@ -19,7 +19,7 @@ public class RoomMate {
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
     
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "shApartment_id")
 	private ShApartment shApartment;
     

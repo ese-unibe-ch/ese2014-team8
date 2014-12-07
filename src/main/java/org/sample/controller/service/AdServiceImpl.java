@@ -257,6 +257,7 @@ public class AdServiceImpl implements AdService {
     	realEstateForm.setMoveOut(realEstate.getMoveOut());
     	realEstateForm.setFixedMoveOut(realEstate.isFixedMoveOut());
     	realEstateForm.setDescription(realEstate.getDescription());
+    	realEstateForm.setUploadedImages(realEstate.getNumberOfImages());
     	
 		return realEstateForm;
 	}

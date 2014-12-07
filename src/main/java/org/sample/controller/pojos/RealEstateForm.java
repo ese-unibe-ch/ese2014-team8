@@ -35,6 +35,7 @@ public abstract class RealEstateForm {
 	private int distanceToSchool;
 	private int distanceToPubTr;
 	private int distanceToShop;
+	private int uploadedImages;
 	
 	private List<MultipartFile> adImages;
 	
@@ -186,6 +187,14 @@ public abstract class RealEstateForm {
 
 	public void setAdImages(List<MultipartFile> adImages) {
 		this.adImages = adImages;
+	}
+
+	public int getUploadedImages() {
+		return uploadedImages;
+	}
+
+	public void setUploadedImages(int uploadedImages) {
+		this.uploadedImages = uploadedImages;
 	}
 
 	

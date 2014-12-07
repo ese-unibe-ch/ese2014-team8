@@ -12,7 +12,7 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
     <script src="https://login.persona.org/include.js"></script>
-	<link rel="stylesheet" href="../../css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="../../css/main.css" media="all"/>
     <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>

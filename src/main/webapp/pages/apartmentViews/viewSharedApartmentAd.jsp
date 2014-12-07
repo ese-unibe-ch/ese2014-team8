@@ -64,14 +64,14 @@
 <div class="col-sm-6">
 	<c:if test="${ad.numberOfImages != 0 }">
 		<div class="row">
-		<a href="../ApartmentImages/${ad.id}_1.jpg" ><img src="../ApartmentImages/${ad.id}_1.jpg" class="resp-img"/></a>
+		<a href="../ShApartmentImages/${ad.id}_1.jpg" ><img src="../ShApartmentImages/${ad.id}_1.jpg" class="resp-img"/></a>
 		</div>
 		<c:if test="${ad.numberOfImages != 1 }">
 			<div class="row">
 			<c:forEach begin="2" end="${ad.numberOfImages}" var="val">
-				<div class="col-sm-2">
-					<a href="../ApartmentImages/${ad.id}_${val}.jpg"><img src="../ApartmentImages/${ad.id}_${val}.jpg"/></a>	
-				</div>	
+				
+					<a href="../ShApartmentImages/${ad.id}_${val}.jpg"><img src="../ShApartmentImages/${ad.id}_${val}.jpg" class="small-image"/></a>	
+				
 			</c:forEach>
 			</div>
 		</c:if>

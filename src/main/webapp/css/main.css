@@ -88,7 +88,11 @@ body{
 .resp-img{
 	width: 80%;
 }
-
+.small-image{
+	width: 20%;
+	
+	margin-right: 5%;
+}
 
 .wide-input{
 	width: 90%;

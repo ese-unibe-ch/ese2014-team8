@@ -8,6 +8,7 @@
 <form:form method="post" modelAttribute="shApForm" action="/viewAd" id="shApForm" cssClass="form-horizontal"  autocomplete="off" enctype="multipart/form-data">
     <form:hidden path="category" value="Shared Apartment"/>
 	<form:hidden path="id"/>
+	<form:hidden path="uploadedImages"/>
 	
 	<div class="large">
     <c:set var="titleErrors"><form:errors path="title"/></c:set>
@@ -207,6 +208,16 @@
         </div>
         <br/>
         <legend>Upload images</legend>
+        <c:if test="${shApForm.uploadedImages != 0}">
+        	
+        	<c:forEach begin="1" end="${shApForm.uploadedImages}" var="val">
+        		
+        		<img alt="ad image" src="../ShApartmentImages/${shApForm.id}_${val}.jpg" class="small-image">
+        		
+        	</c:forEach>
+        	<br/>
+        </c:if>
+        
         <div id="image1" >
         	<input name="AdImages[0]" type="file" />
         </div>

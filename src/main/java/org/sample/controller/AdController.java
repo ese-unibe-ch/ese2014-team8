@@ -116,7 +116,7 @@ public class AdController extends ImageController {
                     Apartment apartment=adService.saveFrom(form);
                     
                     List<MultipartFile> images = form.getAdImages();
-                    int imageNumber = 0;
+                    int imageNumber = form.getUploadedImages();
                     String directory = "ApartmentImages";
                     
                     if (null != images && images.size() > 0) {
@@ -158,7 +158,7 @@ public class AdController extends ImageController {
                     form2.setUser(user);
                 	ShApartment apartment=adService.saveFrom(form2);
                 	List<MultipartFile> images = form2.getAdImages();
-                    int imageNumber = 0;
+                	int imageNumber = form.getUploadedImages();
                     String directory = "ShApartmentImages";
                     if (null != images && images.size() > 0) {
                         for (MultipartFile file : images) {

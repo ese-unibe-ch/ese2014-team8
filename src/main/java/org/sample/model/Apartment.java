@@ -4,6 +4,9 @@ import java.util.Collection;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class Apartment extends RealEstate {
 
@@ -17,6 +20,7 @@ public class Apartment extends RealEstate {
 	
 	@Column(name="visiting_times")
 	@OneToMany(mappedBy = "apartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@Fetch(FetchMode.SELECT)
 	private Collection<TimeSlot> visitingTimes;
 	
 	@OneToMany(mappedBy = "ap", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)

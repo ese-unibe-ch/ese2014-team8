@@ -64,7 +64,7 @@ public class ProfileController extends ImageController{
     
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(HttpServletRequest request) {
-        ModelAndView model;
+       
         if(request.isUserInRole("ROLE_PERSONA_USER") && userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/newProfile";
         }

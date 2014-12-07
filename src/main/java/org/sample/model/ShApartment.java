@@ -1,6 +1,8 @@
 package org.sample.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 
@@ -9,11 +11,15 @@ import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class ShApartment extends RealEstate {
@@ -27,19 +33,21 @@ public class ShApartment extends RealEstate {
 	
 	@Column(name="visiting_times")
 	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
+	@Fetch(FetchMode.SELECT)
 	private Collection<TimeSlot> visitingTimes;
 	
 	@OneToMany(mappedBy = "shAp", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private Collection<Message> messages;
 	
 	@OneToMany(mappedBy = "shAp", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private Collection<BookMark> bookMarks;
+	private Collection<BookMark> bookMarks ;
 	
 	@OneToOne(cascade = {CascadeType.ALL})
 	private ShApartmentTags tags;
 	
 	@OneToMany(mappedBy = "shApartment", fetch=FetchType.EAGER, cascade = CascadeType.REMOVE)
-	private List<RoomMate> roomMates;	
+	@Fetch(FetchMode.SELECT)
+	private Set<RoomMate> roomMates ;	
 	
 	public ShApartmentTags getTags() {
 		return tags;
@@ -49,11 +57,11 @@ public class ShApartment extends RealEstate {
 		this.tags = tags;
 	}
 
-	public List<RoomMate> getRoomMates() {
+	public Set<RoomMate> getRoomMates() {
 		return roomMates;
 	}
 
-	public void setRoomMates(List<RoomMate> roomMates) {
+	public void setRoomMates(Set<RoomMate> roomMates) {
 		this.roomMates = roomMates;
 	}
 

@@ -9,6 +9,7 @@
     
 		<form:hidden path="category" value="Apartment"/>
 		<form:hidden path="id"/>
+		<form:hidden path="uploadedImages"/>
 		
 		<div class="large">
 		
@@ -215,6 +216,18 @@
         </div>
         <br/>
         <legend>Upload images</legend>
+        
+        <c:if test="${apForm.uploadedImages != 0}">
+        	
+        	<c:forEach begin="1" end="${apForm.uploadedImages}" var="val">
+        		
+        		<img alt="ad image" src="../ApartmentImages/${apForm.id}_${val}.jpg" class="small-image">
+        		
+        	</c:forEach>
+        	<br/>
+        </c:if>
+        
+        <div></div>
         <div id="image1" >
         	<input name="AdImages[0]" type="file" />
         </div>
