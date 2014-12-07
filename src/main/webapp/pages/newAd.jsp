@@ -8,14 +8,12 @@
 <c:import url="template/header.jsp" />
 
 <div class="row">
-<div class="col-sm-3">
-<div class="large">
-<label class="control-label" for="field-category">Category New Apartment</label><br/>
-<!-- <select id="category" size="1"> -->
-<!--       <option value="1">Apartment</option> -->
-<!--       <option value="2">Shared Apartment</option> -->
-<!-- </select> -->
+<div class="col-sm-12">
+
+	<h1><br/>Create your new apartment ad </h1>
 </div>
+
+
 </div>
 <c:import url="adForms/apartmentForm.jsp" />
 

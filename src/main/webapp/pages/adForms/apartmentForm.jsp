@@ -4,25 +4,28 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class="col-sm-9">
+
 <form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" enctype="multipart/form-data">
-    
+
+<div class="row">
+<div class="col-sm-12">
+   
 		<form:hidden path="category" value="Apartment"/>
 		<form:hidden path="id"/>
 		<form:hidden path="uploadedImages"/>
 		
-		<div class="large">
+		
 		
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
         <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
-            <label class="control-label" for="field-title">Title</label>
+            
             <div class="controls">
-                <form:input path="title" id="field-title" tabindex="1" maxlength="75" class="wide-input" placeholder="Title"/>
+                <form:input path="title" id="field-title" tabindex="1" maxlength="75" class="wide-input" placeholder="Write a meaningful title with the most improtant features of your property"/>
                 <form:errors path="title" cssClass="help-inline" element="span"/>
             </div>
         </div>
-        </div>
- </div>
+        
+</div>
  </div> 
  <div class="row">
  <div class="col-sm-4">       

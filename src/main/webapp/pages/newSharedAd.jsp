@@ -10,11 +10,7 @@
 <div class="row">
 <div class="col-sm-3">
 <div class="large">
-<label class="control-label" for="field-category">Category New Shared Apartment</label><br/>
-<!-- <select id="category" size="1"> -->
-<!--       <option value="1">Apartment</option> -->
-<!--       <option value="2" selected >Shared Apartment</option> -->
-<!-- </select> -->
+<h1><br/>Shared Apartment</h1>
 </div>
 </div>
 <c:import url="adForms/sharedApartmentForm.jsp" />
