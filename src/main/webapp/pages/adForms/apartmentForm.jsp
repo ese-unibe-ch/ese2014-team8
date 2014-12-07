@@ -8,58 +8,62 @@
 <form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" enctype="multipart/form-data">
 
 <div class="row">
-<div class="col-sm-12">
-   
+<div class="col-sm-8">
+   <fieldset>
 		<form:hidden path="category" value="Apartment"/>
 		<form:hidden path="id"/>
 		<form:hidden path="uploadedImages"/>
 		
 		
-		
+		<legend>Apartment Title *</legend>
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
         <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
             
             <div class="controls">
-                <form:input path="title" id="field-title" tabindex="1" maxlength="75" class="wide-input" placeholder="Write a meaningful title with the most improtant features of your property"/>
+                <form:input path="title" id="field-title" tabindex="1" maxlength="75" class="title-input" placeholder=" Write a meaningful title containing the most improtant features of your property"/>
                 <form:errors path="title" cssClass="help-inline" element="span"/>
             </div>
         </div>
         
 </div>
+<div class="col-sm-4 text-center">
+	<label class="control-label"><br/><br/>(* Obligatory Fields)</label>
+</div>
+
  </div> 
  <div class="row">
  <div class="col-sm-4">       
-	<fieldset>	
+		
 		<legend>Location</legend>
         <c:set var="streetErrors"><form:errors path="street"/></c:set>
         <div class="control-group<c:if test="${not empty streetErrors}"> error</c:if>">
-            <label class="control-label" for="field-street">Street</label>
+            <label class="control-label" for="field-street">Street *</label>
             <div class="controls">
-                <form:input path="street" id="field-street" tabindex="2" maxlength="50"  placeholder="Street"/>
+                <form:input path="street" id="field-street" tabindex="2" maxlength="50"  class="wide-input" placeholder="Street"/>
                 <form:errors path="street" cssClass="help-inline" element="span"/>
             </div>
         </div>
         <c:set var="numberErrors"><form:errors path="number"/></c:set>
         <div class="control-group<c:if test="${not empty numberErrors}"> error</c:if>">
-            <label class="control-label" for="field-number">Nr.</label>
+            <label class="control-label" for="field-number">Nr. *</label>
             <div class="controls">
-                <form:input path="number" id="field-number" tabindex="3" maxlength="5" />
+                <form:input path="number" id="field-number" class="wide-input" tabindex="3" maxlength="5" />
                 <form:errors path="number" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		<c:set var="zipCodeErrors"><form:errors path="zipCode"/></c:set>
         <div class="control-group<c:if test="${not empty zipCodeErrors}"> error</c:if>">
-            <label class="control-label" for="field-zipCode">ZIP-Code</label>
+            <label class="control-label" for="field-zipCode">ZIP-Code *</label>
             <div class="controls">
-                <form:input path="zipCode" id="field-zipCode" tabindex="4" maxlength="5"/>
+                <form:input path="zipCode" id="field-zipCode" class="wide-input" tabindex="4" maxlength="5"/>
                 <form:errors path="zipCode" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		<c:set var="cityErrors"><form:errors path="city"/></c:set>
         <div class="control-group<c:if test="${not empty cityErrors}"> error</c:if>">
-            <label class="control-label" for="field-city">City</label>
+            <label class="control-label" for="field-city">City *</label>
             <div class="controls">
-                <form:input path="city" id="field-city" tabindex="5" maxlength="35"  placeholder="City"/>
+                <form:input path="city" id="field-city" class="wide-input" tabindex="5" maxlength="35"  placeholder="City"/>
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -71,7 +75,7 @@
         <div class="control-group<c:if test="${not empty distanceToPubTrErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToPubTr">Distance to public transport</label>
             <div class="controls">
-                <form:input path="distanceToPubTr" id="field-distanceToPubTr" tabindex="6" maxlength="5" placeholder="meter"/>
+                <form:input path="distanceToPubTr" id="field-distanceToPubTr" class="wide-input" tabindex="6" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToPubTr" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -79,7 +83,7 @@
         <div class="control-group<c:if test="${not empty distanceToShopErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToShop">Distance to shops</label>
             <div class="controls">
-                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="meter"/>
+                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="meter" class="wide-input"/>
                 <form:errors path="distanceToShop" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -87,7 +91,7 @@
         <div class="control-group<c:if test="${not empty distanceToParkErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToPark">Distance to park</label>
             <div class="controls">
-                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="meter"/>
+                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="meter" class="wide-input"/>
                 <form:errors path="distanceToPark" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -95,7 +99,7 @@
         <div class="control-group<c:if test="${not empty distanceToSchoolErrors}"> error</c:if>">
             <label class="control-label" for="field-distanceToSchool">Distance to School</label>
             <div class="controls">
-                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="meter"/>
+                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="meter" class="wide-input"/>
                 <form:errors path="distanceToSchool" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -104,21 +108,22 @@
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
         <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
-            <label class="control-label" for="field-price">Price (CHF)</label>
+            <label class="control-label" for="field-price">Price (CHF) *</label>
             <div class="controls">
-                <form:input path="price" id="field-price" tabindex="10" maxlength="5"  placeholder="chf"/>
+                <form:input path="price" id="field-price" tabindex="10" maxlength="5"  placeholder="chf" class="wide-input"/>
                 <form:errors path="price" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
 		
 		<div class="control-group" >
-			<label  class="control-label"  for="field-fixedMoveIn">Fixed move-in date </label>
+		<br/>
+			<label  class="control-label"  for="field-fixedMoveIn">Fixed move-in date:   </label>
 			
-			<div class="controls">
+			
 				<form:checkbox id="field-fixedMoveIn" tabindex="11" path="fixedMoveIn" />
 				
-			</div>
+			
 		</div>
 		
 		<c:set var="moveInErrors"><form:errors path="moveIn"/></c:set>
@@ -126,18 +131,19 @@
             <label class="control-label" for="field-moveIn">Move-in date</label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${apForm.moveIn}" var="simpleInDate"/>
-                <form:input path="moveIn" id="field-moveIn" tabindex="12" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  />
+                <form:input path="moveIn" id="field-moveIn" tabindex="12" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  class="wide-input"/>
                 <form:errors path="moveIn" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
 		<div class="control-group">
-			<label  class="control-label"  for="field-fixedMoveOut">Fixed move-out date </label>
+		<br/>
+			<label  class="control-label"  for="field-fixedMoveOut">Fixed move-out date:   </label>
 			
-			<div class="controls">
-				<form:checkbox id="field-fixedMoveOut" tabindex="13" path="fixedMoveOut" />
+			
+				<form:checkbox id="field-fixedMoveOut" tabindex="13" path="fixedMoveOut"  />
 				
-			</div>
+			
 		</div>
 		
 		<c:set var="moveOutErrors"><form:errors path="moveOut"/></c:set>
@@ -145,7 +151,7 @@
             <label class="control-label" for="field-moveOut">Move-out date </label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${apForm.moveOut}" var="simpleOutDate"/>
-                <form:input path="moveOut" id="field-moveOut" tabindex="14" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" />
+                <form:input path="moveOut" id="field-moveOut" tabindex="14" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" class="wide-input"/>
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -157,18 +163,18 @@
 		
 		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
         <div class="control-group<c:if test="${not empty numberOfRoomsErrors}"> error</c:if>">
-            <label class="control-label" for="field-numberOfRooms">Number of rooms</label>
+            <label class="control-label" for="field-numberOfRooms">Number of rooms *</label>
             <div class="controls">
-                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="15" maxlength="5"  placeholder="0"/>
+                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="15" maxlength="5"  placeholder="0" class="wide-input"/>
                 <form:errors path="numberOfRooms" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
 		<c:set var="sizeErrors"><form:errors path="size"/></c:set>
         <div class="control-group<c:if test="${not empty sizeErrors}"> error</c:if>">
-            <label class="control-label" for="field-size">Apartment size (m<sup>2</sup>)</label>
+            <label class="control-label" for="field-size">Apartment size (m<sup>2</sup>) *</label>
             <div class="controls">
-                <form:input path="size" id="field-size" tabindex="16" maxlength="5"  />
+                <form:input path="size" id="field-size" tabindex="16" maxlength="5"  class="wide-input"/>
                 <form:errors path="size" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -261,10 +267,11 @@
         <div id="image10" style="display:none;">
         	<input name="AdImages[9]" type="file" />
         </div>
-        <button class="btn btn-green pull-right" id="addImages" type="button" onclick="addImage()">Add more images</button>
+        <button class="btn btn-green btn-xs pull-right" id="addImages" type="button" onclick="addImage()">Add more images</button>
         
 </div>
 </div>
+<hr/>
 <div class="row">
 <div class="col-sm-6"></div>        
 <div class="col-sm-6 text-right">		

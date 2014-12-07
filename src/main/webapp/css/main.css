@@ -40,6 +40,7 @@ body{
 	margin: 0;
 	padding-right: 10px;
 	border-radius: 0px !important;
+	margin-bottom: 25px;
 	
 }
 
@@ -73,6 +74,13 @@ body{
 	width: 150px;
 }
 
+ .pager .active span{
+	background-color: #ACCB12 !important ;
+	border-color:#ACCB12 !important;
+	
+}
+
+
 /*content*/
 .container-body{
 	padding-bottom: 50px;
@@ -90,6 +98,9 @@ body{
 	font-size: 150%;
 	
 }
+legend{
+	margin-top: 25px;
+}
 
 .resp-img{
 	width: 80%;
@@ -103,6 +114,10 @@ body{
 .wide-input{
 	width: 90%;
 }
+.title-input{
+	width: 95%;
+}
+
 .row{
 	margin-bottom: 50px;
 }
@@ -131,10 +146,16 @@ body{
 	font-weight: bold !important;
 }
 
+hr{
+	color: #cdcdcd!important;
+	background-color: #cdcdcd !important;
+	height: 1px;
+}
+
 /*Custom buttons* source charliepark.org/bootstrap_buttons*/
 .btn{
 	margin: 5px 5px 5px 5px;
-	font-size: 18px;
+	font-size: 16px;
 }
 .btn-green { 
 	background-color: hsl(71, 84%, 38%) !important; 

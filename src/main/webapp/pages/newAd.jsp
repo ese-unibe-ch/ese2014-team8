@@ -7,14 +7,22 @@
 
 <c:import url="template/header.jsp" />
 
-<div class="row">
+<nav class="text-center">
+	<ul class="pager">
+		<li class="active"><span>1. Create Ad</span></li>
+		<li class="disabled"><span>2. View Result</span></li>
+		<li class="disabled"><span>3. Add Visiting Times<span></li>
+	</ul>
+</nav>
+
+<!-- <div class="row">
 <div class="col-sm-12">
 
 	<h1><br/>Create your new apartment ad </h1>
 </div>
 
 
-</div>
+</div> -->
 <c:import url="adForms/apartmentForm.jsp" />
 
 <c:if test="${page_error != null }">
