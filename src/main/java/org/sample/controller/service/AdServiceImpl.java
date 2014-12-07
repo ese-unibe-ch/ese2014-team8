@@ -1,7 +1,6 @@
 package org.sample.controller.service;
 
 import org.sample.controller.exceptions.InvalidDateException;
-import org.sample.controller.exceptions.InvalidUserException;
 import org.sample.controller.pojos.*;
 import org.sample.model.*;
 import org.sample.model.dao.ApartmentDao;
@@ -12,10 +11,6 @@ import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-
-import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.*;
 
 

@@ -12,8 +12,7 @@ import org.sample.model.dao.ShApartmentDao;
 import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
+
 
 
 @Service

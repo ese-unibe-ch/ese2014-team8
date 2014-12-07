@@ -3,15 +3,13 @@ package org.sample.controller.service;
 import org.sample.controller.pojos.*;
 import org.sample.model.*;
 import org.sample.model.dao.AddressDao;
-import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.RoomMateDao;
 import org.sample.model.dao.ShApartmentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Collection;
+
 
 
 @Service

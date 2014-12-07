@@ -1,15 +1,10 @@
 package org.sample.controller.service;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
-import org.sample.controller.exceptions.InvalidUserException;
+import java.util.Map;
 import org.sample.controller.pojos.*;
 import org.sample.model.*;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.io.Serializable;
 
 public interface UserService {
 

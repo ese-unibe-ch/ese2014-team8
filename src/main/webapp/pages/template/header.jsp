@@ -73,7 +73,7 @@
 <div class="log-in">
 <c:choose>
 <c:when test="${user.email != null}">
-You're logged in as ${user.email}.<input type="button" id="signout" value="signout" />
+<img id="signout" alt="Sign Out" class="logout" src="../../img/logout2.png" />
 </c:when>
 <c:otherwise>
 <img id="signin" alt="Sign In" src="../../img/plain_sign_in_black.png" />

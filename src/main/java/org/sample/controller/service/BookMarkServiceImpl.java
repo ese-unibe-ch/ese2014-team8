@@ -1,8 +1,6 @@
 package org.sample.controller.service;
 
-import org.sample.model.Apartment;
 import org.sample.model.BookMark;
-import org.sample.model.ShApartment;
 import org.sample.model.User;
 import org.sample.model.dao.ApartmentDao;
 import org.sample.model.dao.BookMarkDao;

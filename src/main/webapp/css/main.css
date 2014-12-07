@@ -25,6 +25,11 @@ body{
 	width: 120px;
 }
 
+.logout {
+	width: 50px !important;
+}
+
+
 .navbar{
 	position: relative;
 	top: 0px;

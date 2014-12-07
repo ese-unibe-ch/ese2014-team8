@@ -1,7 +1,5 @@
 package org.sample.controller.pojos;
 
-import org.sample.controller.service.AdService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
