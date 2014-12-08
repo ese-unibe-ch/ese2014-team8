@@ -11,18 +11,10 @@
 	<ul class="pager">
 		<li class="active"><span>1. Create Ad</span></li>
 		<li class="disabled"><span>2. View Result</span></li>
-		<li class="disabled"><span>3. Add Visiting Times<span></li>
+		<li class="disabled"><span>3. Add Visiting Times</span></li>
 	</ul>
 </nav>
 
-<!-- <div class="row">
-<div class="col-sm-12">
-
-	<h1><br/>Create your new apartment ad </h1>
-</div>
-
-
-</div> -->
 <c:import url="adForms/apartmentForm.jsp" />
 
 <c:if test="${page_error != null }">
@@ -47,13 +39,7 @@
 	};
 </script>
 
-<!-- <script type="text/javascript">
-// function switchForm(){
-// 	window.location = "/newSharedAd";
-// }
-// document.getElementById('category').onchange = function(){switchForm()};
 
- </script> -->
 <script>
 	document.getElementById('ad').style.color = '#ACCB12'
 </script>

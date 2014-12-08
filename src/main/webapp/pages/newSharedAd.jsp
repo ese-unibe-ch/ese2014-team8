@@ -7,12 +7,14 @@
 
 <c:import url="template/header.jsp" />
 
-<div class="row">
-<div class="col-sm-3">
-<div class="large">
-<h1><br/>Shared Apartment</h1>
-</div>
-</div>
+<nav class="text-center">
+	<ul class="pager">
+		<li class="active"><span>1. Create Ad</span></li>
+		<li class="disabled"><span>2. View Result</span></li>
+		<li class="disabled"><span>3. Add Visiting Times</span></li>
+	</ul>
+</nav>
+
 <c:import url="adForms/sharedApartmentForm.jsp" />
 
 <c:if test="${page_error != null }">
@@ -37,12 +39,8 @@
 	};
 </script>
 
-<!-- <script type="text/javascript">
-// function switchForm(){
-// 	window.location = "/newAd";
-// }
-// document.getElementById('category').onchange = function(){switchForm()};
-
- </script> -->
+<script>
+	document.getElementById('ad').style.color = '#ACCB12'
+</script>
 	
 <c:import url="template/footer.jsp" />

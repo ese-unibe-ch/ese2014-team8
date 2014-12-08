@@ -5,8 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-<div class="row">
-<div class="col-sm-12">
+
+<div class="col-sm-8 col-sm-pull-4">
 	<h2>${ad.title}</h2>
 	<div>
 	<b>Tags: </b>
@@ -28,7 +28,10 @@
      
 	</div>
 </div>
+
 </div>
+
+
 <div class="row">
 <div class="col-sm-4">
 	<h3>Address</h3>
