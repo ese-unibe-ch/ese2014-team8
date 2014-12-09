@@ -1,8 +1,8 @@
 package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import org.sample.controller.pojos.*;
 
+import org.sample.controller.pojos.*;
 import org.sample.controller.service.RoomMateService;
 import org.sample.controller.service.UserService;
 import org.sample.model.*;
@@ -54,6 +54,31 @@ public class RoomMateController {
         roomMateForm.setAdId(adId);
         model.addObject("roomMateForm", roomMateForm);
         model.addObject("user",userService.loadUserByEmail(ctx.getAuthentication().getName()));
+        return model;
+    }
+    
+    @RequestMapping(value = "/addUserAsRoomMate/{adId}", method = RequestMethod.GET)
+    public Object addUserAsRoomMate(HttpServletRequest request, @PathVariable Long adId) {
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+    		return "redirect:/";
+    	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
+            return "redirect:/profile";
+        }
+        ModelAndView model = new ModelAndView("newRoomMate");
+        RoomMateForm roomMateForm = new RoomMateForm();
+        
+        String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userService.loadUserByEmail(userMail);
+        ProfileForm profileForm = userService.fillProfileForm(user);
+        
+        roomMateForm.setAdId(adId);
+        roomMateForm.setFirstName(profileForm.getFirstName());
+        roomMateForm.setLastName(profileForm.getLastName());
+        roomMateForm.setAge(profileForm.getAge());
+        roomMateForm.setSex(profileForm.getSex());
+        roomMateForm.setDescription(profileForm.getDescription()); 
+        model.addObject("roomMateForm", roomMateForm);
+        model.addObject("user", user);
         return model;
     }
     
