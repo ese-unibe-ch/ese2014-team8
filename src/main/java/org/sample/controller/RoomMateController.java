@@ -64,19 +64,11 @@ public class RoomMateController {
     	} else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
-        ModelAndView model = new ModelAndView("newRoomMate");
-        RoomMateForm roomMateForm = new RoomMateForm();
-        
+        ModelAndView model = new ModelAndView("newRoomMate");        
         String userMail = SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userService.loadUserByEmail(userMail);
-        ProfileForm profileForm = userService.fillProfileForm(user);
-        
+        RoomMateForm roomMateForm = roomMateService.fillRoomMateForm(user);
         roomMateForm.setAdId(adId);
-        roomMateForm.setFirstName(profileForm.getFirstName());
-        roomMateForm.setLastName(profileForm.getLastName());
-        roomMateForm.setAge(profileForm.getAge());
-        roomMateForm.setSex(profileForm.getSex());
-        roomMateForm.setDescription(profileForm.getDescription()); 
         model.addObject("roomMateForm", roomMateForm);
         model.addObject("user", user);
         return model;

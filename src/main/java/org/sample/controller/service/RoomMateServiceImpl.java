@@ -67,6 +67,18 @@ public class RoomMateServiceImpl implements RoomMateService {
 		roomMateForm.setDescription(roomMate.getDescription());
 		return roomMateForm;
 	}
+	
+	@Override
+	public RoomMateForm fillRoomMateForm(User user) {
+		
+		RoomMateForm roomMateForm = new RoomMateForm();
+		roomMateForm.setFirstName(user.getFirstName());
+		roomMateForm.setLastName(user.getLastName());
+		roomMateForm.setAge(user.getAge());
+		roomMateForm.setSex(user.getSex());
+		roomMateForm.setDescription(user.getDescription());
+		return roomMateForm;
+	}
 
 	@Override
 	public void deleteRoomMate(Long roomMateId) {	

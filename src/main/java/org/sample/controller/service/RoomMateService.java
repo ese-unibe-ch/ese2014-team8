@@ -10,5 +10,6 @@ public interface RoomMateService {
     public Iterable<RoomMate> getRoomMates(Long adId);
     public RoomMateForm saveFrom(RoomMateForm newRoomMateForm);
     public RoomMateForm fillRoomMateForm(RoomMate roomMate);
+    public RoomMateForm fillRoomMateForm(User user);
 	public void deleteRoomMate(Long roomMateId);
 }
