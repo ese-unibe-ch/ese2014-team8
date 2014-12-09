@@ -168,14 +168,13 @@ public class AdController extends ImageController {
                         			throw new InvalidImageException(returnMessage);
                         		}
                         	}
-                        	
                         }
                     }
                     apartment = adService.setImages(apartment, imageNumber);
                 	if(shApForm.isAddRoomMate()==true){
                 		return "redirect:/RoomMates/" + Long.toString(apartment.getId());
                 	}
-                	System.out.println("RoomMatesLength:"+apartment.getRoomMates().size());
+                	//System.out.println("RoomMatesLength:"+apartment.getRoomMates().size());
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Shared Apartment");
@@ -190,7 +189,6 @@ public class AdController extends ImageController {
             } else {
             	model = new ModelAndView("newSharedAd");
             }
-    		
     	
     	model.addObject("user",user);
     	return model;
