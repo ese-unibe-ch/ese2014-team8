@@ -18,7 +18,7 @@ public class RealEstate {
 	private String title;
 	@OneToOne(cascade = { CascadeType.ALL })
 	private Address address;
-	private int price; 
+	private Integer price;
 	private boolean fixedMoveIn;
 	@Type(type = "date")
 	private Date moveIn;

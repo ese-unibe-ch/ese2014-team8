@@ -69,6 +69,8 @@ public class SearchController {
     	ModelAndView model;    	
     	if (!result.hasErrors()) {
             model = new ModelAndView("searchResults");
+            searchForm.setCategories(adService.getCategories());
+            model.addObject("searchForm", searchForm);
             Iterable<? extends RealEstate> searchresults = adService.getSearchResults(searchForm);
             model.addObject("searchResults",searchresults);
             model.addObject("category", searchForm.getCategory());

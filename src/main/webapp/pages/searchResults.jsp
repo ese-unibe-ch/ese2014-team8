@@ -6,6 +6,8 @@
 
 <c:import url="template/header.jsp" />
 
+<c:import url="searchForm.jsp" />
+
 <c:if test="${not empty searchResults}">
 <h1>Search Results</h1>
 <table class="text-center table table-hover">
