@@ -63,7 +63,7 @@
 You currently don't have ads.<br/>
 </c:if>
 
-<a href="/newAd" class="btn btn-green">New Ad</a>
+<!-- <a href="/newAd" class="btn btn-green">New Ad</a> -->
 <script>
 	document.getElementById('profile').style.color = '#ACCB12'
 </script>
