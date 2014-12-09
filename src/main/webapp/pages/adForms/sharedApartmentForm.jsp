@@ -276,7 +276,7 @@
 
         <div class="form-actions ">
             <button type="submit" class="btn btn-green btn-lg">Submit Ad</button>
-            <button type="button" class="btn btn-grey btn-lg">Cancel</button>
+            <a href="/main" class="btn btn-grey" role="button" >Cancel</a>
         </div>
     </fieldset>
 </form:form>

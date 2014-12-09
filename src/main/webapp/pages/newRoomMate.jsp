@@ -14,10 +14,10 @@
     <form:hidden path="adId"/>
     
     <fieldset>
-    
-    	<a href="/addUserAsRoomMate/${adId}" class="btn btn-danger btn-block" role="button" >Prefill with my profile informations </a>
     	
         <legend>Enter Your Information</legend>
+
+    	<a href="/addUserAsRoomMate/${adId}" class="btn btn-grey" role="button" >Prefill with my profile informations </a>
 
          <c:set var="firstNameErrors"><form:errors path="firstName"/></c:set>
         <div class="control-group<c:if test="${not empty firstNameErrors}"> error</c:if>">
@@ -66,8 +66,9 @@
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn">Cancel</button>
+            <button type="submit" class="btn btn-green">Save</button>
+<!--             <button type="button" class="btn">Cancel</button> -->
+            <a href="/editAd/Shared Apartment/${roomMateForm.adId}" class="btn btn-grey" role="button" >Cancel </a>
         </div>
     </fieldset>
 </form:form>
