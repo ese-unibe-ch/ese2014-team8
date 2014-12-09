@@ -28,6 +28,7 @@ body{
 
 .logout {
 	width: 50px !important;
+	cursor: pointer;
 }
 
 

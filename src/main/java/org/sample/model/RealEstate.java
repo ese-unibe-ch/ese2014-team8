@@ -18,7 +18,7 @@ public class RealEstate {
 	private String title;
 	@OneToOne(cascade = { CascadeType.ALL })
 	private Address address;
-	private int price; 
+	private Integer price;
 	private boolean fixedMoveIn;
 	@Type(type = "date")
 	private Date moveIn;
@@ -62,11 +62,11 @@ public class RealEstate {
 		this.address = address;
 	}
 
-	public int getPrice() {
+	public Integer getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Integer price) {
 		this.price = price;
 	}
 

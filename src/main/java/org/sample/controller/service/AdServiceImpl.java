@@ -11,6 +11,14 @@ import org.sample.model.dao.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.security.provider.SHA;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.*;
 
 
@@ -22,6 +30,9 @@ public class AdServiceImpl implements AdService {
 	@Autowired	  ApartmentDao apDao;
 	@Autowired	  ShApartmentDao shApDao;
 	@Autowired	TimeSlotDao timeSlotDao;
+
+	@PersistenceContext
+	private EntityManager em;
 	
 	public AdServiceImpl() {
     }
@@ -143,10 +154,38 @@ public class AdServiceImpl implements AdService {
 	 */
     @Transactional
 	public Iterable<? extends RealEstate> getSearchResults(SearchForm searchForm) {
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<? extends RealEstate> query = null;
+		Root<? extends RealEstate> root = null;
+		
 		if(searchForm.getCategory().equals("Apartment")){
-			return apDao.findByAddressZipCode(searchForm.getZipCode());
+			query = builder.createQuery(Apartment.class);
+			root = query.from(Apartment.class);
+		} else {
+			query = builder.createQuery(ShApartment.class);
+			root = query.from(ShApartment.class);
 		}
-		return shApDao.findByAddressZipCode(searchForm.getZipCode());
+
+		ArrayList<Predicate> predicates = new ArrayList<>();
+
+		if(searchForm.getZipCode() != null) {
+			predicates.add(
+					builder.equal(root.<Address>get("address").get("zipCode"), searchForm.getZipCode()));
+		}
+		if(searchForm.getCity() != null && !searchForm.getCity().isEmpty()) {
+			predicates.add(
+					builder.equal(root.<Address>get("address").get("city"), searchForm.getCity()));
+		}
+		if(searchForm.getMinPrice() != null) {
+			predicates.add(
+					builder.greaterThanOrEqualTo(root.<Integer>get("price"), searchForm.getMinPrice()));
+		}
+		if(searchForm.getMaxPrice() != null) {
+			predicates.add(
+					builder.lessThanOrEqualTo(root.<Integer>get("price"), searchForm.getMaxPrice()));
+		}
+		query.where(builder.and(predicates.toArray(new Predicate[]{})));
+		return em.createQuery(query).getResultList();
 	}
 
 	@Transactional
@@ -247,12 +286,12 @@ public class AdServiceImpl implements AdService {
     	realEstateForm.setDistanceToShop(realEstate.getDistanceToShop());
     	
     	realEstateForm.setPrice(realEstate.getPrice());
-    	realEstateForm.setMoveIn(realEstate.getMoveIn());
-    	realEstateForm.setFixedMoveIn(realEstate.isFixedMoveIn());
-    	realEstateForm.setMoveOut(realEstate.getMoveOut());
-    	realEstateForm.setFixedMoveOut(realEstate.isFixedMoveOut());
-    	realEstateForm.setDescription(realEstate.getDescription());
-    	realEstateForm.setUploadedImages(realEstate.getNumberOfImages());
+		realEstateForm.setMoveIn(realEstate.getMoveIn());
+		realEstateForm.setFixedMoveIn(realEstate.isFixedMoveIn());
+		realEstateForm.setMoveOut(realEstate.getMoveOut());
+		realEstateForm.setFixedMoveOut(realEstate.isFixedMoveOut());
+		realEstateForm.setDescription(realEstate.getDescription());
+		realEstateForm.setUploadedImages(realEstate.getNumberOfImages());
     	
 		return realEstateForm;
 	}

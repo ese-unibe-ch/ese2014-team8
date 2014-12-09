@@ -14,6 +14,9 @@
     <form:hidden path="adId"/>
     
     <fieldset>
+    
+    	<a href="/addUserAsRoomMate/${adId}" class="btn btn-danger btn-block" role="button" >Prefill with my profile informations </a>
+    	
         <legend>Enter Your Information</legend>
 
          <c:set var="firstNameErrors"><form:errors path="firstName"/></c:set>

@@ -14,7 +14,7 @@ public class Address {
 	    private String street;
 	    private int number;
 		private String city;
-		private int zipCode;
+		private Integer zipCode;
 
 
 		public Long getId() {
@@ -49,11 +49,11 @@ public class Address {
 			this.city = city;
 		}
 
-		public int getZipCode() {
+		public Integer getZipCode() {
 			return zipCode;
 		}
 
-		public void setZipCode(int zipCode) {
+		public void setZipCode(Integer zipCode) {
 			this.zipCode = zipCode;
 		}
 	    
