@@ -175,7 +175,7 @@ public class AdController extends ImageController {
                 	if(shApForm.isAddRoomMate()==true){
                 		return "redirect:/RoomMates/" + Long.toString(apartment.getId());
                 	}
-                	System.out.println("RoomMatesLength:"+apartment.getRoomMates().size());
+                	//System.out.println("RoomMatesLength:"+apartment.getRoomMates().size());
                 	model = new ModelAndView("viewAd");
                     model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Shared Apartment");
