@@ -6,19 +6,26 @@
 
 
 <c:import url="template/header.jsp" />
-<div class="row">
-<div class="col-sm-3">
+
+<nav>
+	<ul class="pager">
+		
+		<li class="disabled"><span><b>1. Edit Ad </b><span class="glyphicon glyphicon-user" aria-hidden="true"></span> </span></li>
+		<li class="disabled"><span><b>2. View Ad</b></span></li>
+		<li class="disabled"><span><b>3. Add Visiting Times</b></span></li>
+	</ul>
+</nav>
+
+
 <c:if test="${category == 'Apartment'}">
-	<h2><br/>Apartment </h2>
-	</div>
+	
 	<c:import url="adForms/apartmentForm.jsp" />
 </c:if>
 
 <c:if test="${category == 'Shared Apartment'}">
-	<h2><br/>Shared Apartment</h2>
-	</div>
+	
 	<c:import url="adForms/sharedApartmentForm.jsp" />
-	<%-- <c:import url="roomMateTable.jsp" /> --%>
+	
 </c:if>
 
 

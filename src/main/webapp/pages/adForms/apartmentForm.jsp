@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<form:form  method="post" modelAttribute="apForm" action="viewAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" enctype="multipart/form-data">
+<form:form  method="post" modelAttribute="apForm" action="viewApAd" id="apForm" cssClass="form-horizontal"  autocomplete="off" enctype="multipart/form-data">
 
 <div class="row">
 <div class="col-sm-8">
@@ -17,11 +17,11 @@
 		
 		<legend>Apartment Title *</legend>
         <c:set var="titleErrors"><form:errors path="title"/></c:set>
-        <div class="control-group<c:if test="${not empty titleErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty titleErrors}"> has-error</c:if>">
             
             <div class="controls">
-                <form:input path="title" id="field-title" tabindex="1" maxlength="75" class="title-input" placeholder=" Write a meaningful title containing the most improtant features of your property"/>
-                <form:errors path="title" cssClass="help-inline" element="span"/>
+                <form:input path="title" id="field-title" tabindex="1" maxlength="75" class="title-input form-control" placeholder=" Write a meaningful title containing the most improtant features of your property"/>
+                <br/><form:errors path="title" cssClass="help-inline" element="span"/>
             </div>
         </div>
         
@@ -36,34 +36,34 @@
 		
 		<legend>Location</legend>
         <c:set var="streetErrors"><form:errors path="street"/></c:set>
-        <div class="control-group<c:if test="${not empty streetErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty streetErrors}"> has-error</c:if>">
             <label class="control-label" for="field-street">Street *</label>
             <div class="controls">
-                <form:input path="street" id="field-street" tabindex="2" maxlength="50"  class="wide-input" placeholder="Street"/>
+                <form:input path="street" id="field-street" tabindex="2" maxlength="50"  class="wide-input form-control" placeholder="Street"/>
                 <form:errors path="street" cssClass="help-inline" element="span"/>
             </div>
         </div>
         <c:set var="numberErrors"><form:errors path="number"/></c:set>
-        <div class="control-group<c:if test="${not empty numberErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty numberErrors}"> has-error</c:if>">
             <label class="control-label" for="field-number">Nr. *</label>
             <div class="controls">
-                <form:input path="number" id="field-number" class="wide-input" tabindex="3" maxlength="5" />
+                <form:input path="number" id="field-number" class="wide-input form-control" tabindex="3" maxlength="5" />
                 <form:errors path="number" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		<c:set var="zipCodeErrors"><form:errors path="zipCode"/></c:set>
-        <div class="control-group<c:if test="${not empty zipCodeErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty zipCodeErrors}"> has-error</c:if>">
             <label class="control-label" for="field-zipCode">ZIP-Code *</label>
             <div class="controls">
-                <form:input path="zipCode" id="field-zipCode" class="wide-input" tabindex="4" maxlength="5"/>
+                <form:input path="zipCode" id="field-zipCode" class="wide-input form-control" tabindex="4" maxlength="5"/>
                 <form:errors path="zipCode" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		<c:set var="cityErrors"><form:errors path="city"/></c:set>
-        <div class="control-group<c:if test="${not empty cityErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty cityErrors}"> has-error</c:if>">
             <label class="control-label" for="field-city">City *</label>
             <div class="controls">
-                <form:input path="city" id="field-city" class="wide-input" tabindex="5" maxlength="35"  placeholder="City"/>
+                <form:input path="city" id="field-city" class="wide-input form-control" tabindex="5" maxlength="35"  placeholder="City"/>
                 <form:errors path="city" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -72,34 +72,34 @@
 		<legend>Environment</legend>
 		<h3><small>(distances in meter)</small></h3> 
         <c:set var="distanceToPubTrErrors"><form:errors path="distanceToPubTr"/></c:set>
-        <div class="control-group<c:if test="${not empty distanceToPubTrErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty distanceToPubTrErrors}"> has-error</c:if>">
             <label class="control-label" for="field-distanceToPubTr">Distance to public transport</label>
             <div class="controls">
-                <form:input path="distanceToPubTr" id="field-distanceToPubTr" class="wide-input" tabindex="6" maxlength="5" placeholder="meter"/>
+                <form:input path="distanceToPubTr" id="field-distanceToPubTr" class="wide-input form-control" tabindex="6" maxlength="5" placeholder="meter"/>
                 <form:errors path="distanceToPubTr" cssClass="help-inline" element="span"/>
             </div>
         </div>
         <c:set var="distanceToShopErrors"><form:errors path="distanceToShop"/></c:set>
-        <div class="control-group<c:if test="${not empty distanceToShopErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty distanceToShopErrors}"> has-error</c:if>">
             <label class="control-label" for="field-distanceToShop">Distance to shops</label>
             <div class="controls">
-                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="meter" class="wide-input"/>
+                <form:input path="distanceToShop" id="field-distanceToShop" tabindex="7" maxlength="5" placeholder="meter" class="wide-input form-control"/>
                 <form:errors path="distanceToShop" cssClass="help-inline" element="span"/>
             </div>
         </div>
         <c:set var="distanceToParkErrors"><form:errors path="distanceToPark"/></c:set>
-        <div class="control-group<c:if test="${not empty distanceToParkErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty distanceToParkErrors}"> has-error</c:if>">
             <label class="control-label" for="field-distanceToPark">Distance to park</label>
             <div class="controls">
-                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="meter" class="wide-input"/>
+                <form:input path="distanceToPark" id="field-distanceToPark" tabindex="8" maxlength="5" placeholder="meter" class="wide-input form-control"/>
                 <form:errors path="distanceToPark" cssClass="help-inline" element="span"/>
             </div>
         </div>
         <c:set var="distanceToSchoolErrors"><form:errors path="distanceToSchool"/></c:set>
-        <div class="control-group<c:if test="${not empty distanceToSchoolErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty distanceToSchoolErrors}"> has-error</c:if>">
             <label class="control-label" for="field-distanceToSchool">Distance to School</label>
             <div class="controls">
-                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="meter" class="wide-input"/>
+                <form:input path="distanceToSchool" id="field-distanceToSchool" tabindex="9" maxlength="5" placeholder="meter" class="wide-input form-control"/>
                 <form:errors path="distanceToSchool" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -107,16 +107,16 @@
 <div class="col-sm-4">		
 		<legend>Rent Details</legend>
 		<c:set var="priceErrors"><form:errors path="price"/></c:set>
-        <div class="control-group<c:if test="${not empty priceErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty priceErrors}"> has-error</c:if>">
             <label class="control-label" for="field-price">Price (CHF) *</label>
             <div class="controls">
-                <form:input path="price" id="field-price" tabindex="10" maxlength="5"  placeholder="chf" class="wide-input"/>
+                <form:input path="price" id="field-price" tabindex="10" maxlength="5"  placeholder="chf" class="wide-input form-control"/>
                 <form:errors path="price" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
 		
-		<div class="control-group" >
+		<div class="form-group" >
 		<br/>
 			<label  class="control-label"  for="field-fixedMoveIn">Fixed move-in date:   </label>
 			
@@ -127,16 +127,16 @@
 		</div>
 		
 		<c:set var="moveInErrors"><form:errors path="moveIn"/></c:set>
-        <div id="moveInJS" class="control-group<c:if test="${not empty moveInErrors}"> error</c:if>">
+        <div id="moveInJS" class="form-group<c:if test="${not empty moveInErrors}"> has-error</c:if>">
             <label class="control-label" for="field-moveIn">Move-in date</label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${apForm.moveIn}" var="simpleInDate"/>
-                <form:input path="moveIn" id="field-moveIn" tabindex="12" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  class="wide-input"/>
+                <form:input path="moveIn" id="field-moveIn" tabindex="12" maxlength="10" value="${simpleInDate}" placeholder="dd/MM/yyyy"  class="wide-input form-control"/>
                 <form:errors path="moveIn" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
-		<div class="control-group">
+		<div class="form-group">
 		<br/>
 			<label  class="control-label"  for="field-fixedMoveOut">Fixed move-out date:   </label>
 			
@@ -147,11 +147,11 @@
 		</div>
 		
 		<c:set var="moveOutErrors"><form:errors path="moveOut"/></c:set>
-        <div id="moveOutJS" class="control-group<c:if test="${not empty moveOutErrors}"> error</c:if>">
+        <div id="moveOutJS" class="form-group<c:if test="${not empty moveOutErrors}"> has-error</c:if>">
             <label class="control-label" for="field-moveOut">Move-out date </label>
             <div class="controls">
             	<fmt:formatDate pattern="dd/MM/yyyy" value="${apForm.moveOut}" var="simpleOutDate"/>
-                <form:input path="moveOut" id="field-moveOut" tabindex="14" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" class="wide-input"/>
+                <form:input path="moveOut" id="field-moveOut" tabindex="14" maxlength="10" value="${simpleOutDate}" placeholder="dd/MM/yyyy" class="wide-input form-control"/>
                 <form:errors path="moveOut" cssClass="help-inline" element="span"/>
             </div>
         </div>
@@ -162,28 +162,28 @@
 		<legend>Apartment Details</legend>
 		
 		<c:set var="numberOfRoomsErrors"><form:errors path="numberOfRooms"/></c:set>
-        <div class="control-group<c:if test="${not empty numberOfRoomsErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty numberOfRoomsErrors}"> has-error</c:if>">
             <label class="control-label" for="field-numberOfRooms">Number of rooms *</label>
             <div class="controls">
-                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="15" maxlength="5"  placeholder="0" class="wide-input"/>
+                <form:input path="numberOfRooms" id="field-numberOfRooms" tabindex="15" maxlength="5"  placeholder="0" class="wide-input form-control"/>
                 <form:errors path="numberOfRooms" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
 		<c:set var="sizeErrors"><form:errors path="size"/></c:set>
-        <div class="control-group<c:if test="${not empty sizeErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty sizeErrors}"> has-error</c:if>">
             <label class="control-label" for="field-size">Apartment size (m<sup>2</sup>) *</label>
             <div class="controls">
-                <form:input path="size" id="field-size" tabindex="16" maxlength="5"  class="wide-input"/>
+                <form:input path="size" id="field-size" tabindex="16" maxlength="5"  class="wide-input form-control"/>
                 <form:errors path="size" cssClass="help-inline" element="span"/>
             </div>
         </div>
 		
 		<c:set var="descriptionErrors"><form:errors path="description"/></c:set>
-        <div class="control-group<c:if test="${not empty descriptionErrors}"> error</c:if>">
+        <div class="form-group<c:if test="${not empty descriptionErrors}"> has-error</c:if>">
             <label class="control-label" for="field-description">Description</label>
             <div class="controls">
-                <form:textarea path="description" id="field-description" tabindex="17" rows="10" class="wide-input"/>
+                <form:textarea path="description" id="field-description" tabindex="17" rows="10" class="wide-input form-control"/>
                 <form:errors path="description" cssClass="help-inline" element="span"/>
             </div>
         </div>

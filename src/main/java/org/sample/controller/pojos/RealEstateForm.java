@@ -7,24 +7,24 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 
-import org.springframework.util.AutoPopulatingList;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public abstract class RealEstateForm {
 	
 	private long id;
-	//@Size(min=5, message="Title cannot be empty")
+	@Size(min=5, message="Title cannot be empty")
 	private String title;
-	//@Size(min=5, max=100, message="Please write a valid street name.")
+	@Size(min=5, max=100, message="Please write a valid street name.")
 	private String street;
-	//@Min(value=1, message="Please enter a number larger or equal to 1.")
+	@Min(value=1, message="Please enter a number larger or equal to 1.")
 	private int number;
-	//@Size(min=3, message= "Please enter a city name.")
+	@Size(min=3, message= "Please enter a city name.")
 	private String city;
-	//@Min(value=1000, message="Please enter a valid ZIP-code.")
-	//@Max(value=9999, message="Please enter a valid ZIP-code.")
+	@Min(value=1000, message="Please enter a valid ZIP-code.")
+	@Max(value=9999, message="Please enter a valid ZIP-code.")
 	private int zipCode;
-	//@Min(value=1, message="Please enter a price larger than 0.")	
+	@Min(value=1, message="Please enter a price larger than 0.")	
 	private int price;
 	private boolean fixedMoveIn;
 	private Date moveIn;

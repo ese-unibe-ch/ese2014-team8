@@ -1,6 +1,7 @@
 package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
@@ -79,8 +81,8 @@ public class AdController extends ImageController {
     }
     
  
-    @RequestMapping(value="/viewAd", method = RequestMethod.POST)
-    public Object makeAd(HttpServletRequest request, ApartmentForm form, ShApartmentForm form2, BindingResult result){
+    @RequestMapping(value="/viewApAd", method = RequestMethod.POST)
+    public Object makeAd(HttpServletRequest request, @ModelAttribute("apForm") @Valid ApartmentForm apForm, BindingResult result, RedirectAttributes redirectAttributes){
         User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
             return "redirect:/";
@@ -88,15 +90,15 @@ public class AdController extends ImageController {
             return "redirect:/profile";
         }
         
-    	ModelAndView model = null;
-    	if(form.getCategory().equals("Apartment")){   	
+    	ModelAndView model;
+    	
         	if (!result.hasErrors()) {
                 try {
-                    form.setUser(user);
-                    Apartment apartment=adService.saveFrom(form);
+                    apForm.setUser(user);
+                    Apartment apartment=adService.saveFrom(apForm);
                     
-                    List<MultipartFile> images = form.getAdImages();
-                    int imageNumber = form.getUploadedImages();
+                    List<MultipartFile> images = apForm.getAdImages();
+                    int imageNumber = apForm.getUploadedImages();
                     String directory = "ApartmentImages";
                     
                     if (null != images && images.size() > 0) {
@@ -116,7 +118,6 @@ public class AdController extends ImageController {
                     apartment = adService.setImages(apartment, imageNumber);
                     
                 	model = new ModelAndView("viewAd");
-                    model.addObject("message","This is what your ad will look like:");
                     model.addObject("category","Apartment");
                     model.addObject("ad", apartment);
                     model.addObject("messageForm", new MessageForm());
@@ -125,20 +126,36 @@ public class AdController extends ImageController {
                 	model = new ModelAndView("newAd");
                 	model.addObject("page_error", e.getMessage());
                 	model.addObject("user", user);
-                	model.addObject("apForm", form);
+                	model.addObject("apForm", apForm);
                 }
             } else {
             	model = new ModelAndView("newAd");
-            	model.addObject("user", user);
+            	
             }   	
-    	}
-    	if(form2.getCategory().equals("Shared Apartment")){
+    	
+    	
+    	model.addObject("user",user);
+    	return model;
+    }
+    
+    @RequestMapping(value="/viewShApAd", method = RequestMethod.POST)
+    public Object makeShAd(HttpServletRequest request, @ModelAttribute("shApForm") @Valid ShApartmentForm shApForm, BindingResult result){
+        User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+    	if(!request.isUserInRole("ROLE_PERSONA_USER")) {
+            return "redirect:/";
+        } else if(user.getIsNew()) {
+            return "redirect:/profile";
+        }
+        
+    	ModelAndView model = null;
+    	
+    	
         	if (!result.hasErrors()) {
                 try {
-                    form2.setUser(user);
-                	ShApartment apartment=adService.saveFrom(form2);
-                	List<MultipartFile> images = form2.getAdImages();
-                	int imageNumber = form.getUploadedImages();
+                    shApForm.setUser(user);
+                	ShApartment apartment=adService.saveFrom(shApForm);
+                	List<MultipartFile> images = shApForm.getAdImages();
+                	int imageNumber = shApForm.getUploadedImages();
                     String directory = "ShApartmentImages";
                     if (null != images && images.size() > 0) {
                         for (MultipartFile file : images) {
@@ -155,7 +172,7 @@ public class AdController extends ImageController {
                         }
                     }
                     apartment = adService.setImages(apartment, imageNumber);
-                	if(form2.isAddRoomMate()==true){
+                	if(shApForm.isAddRoomMate()==true){
                 		return "redirect:/RoomMates/" + Long.toString(apartment.getId());
                 	}
                 	System.out.println("RoomMatesLength:"+apartment.getRoomMates().size());
@@ -168,13 +185,13 @@ public class AdController extends ImageController {
                 	model = new ModelAndView("newSharedAd");
                 	model.addObject("page_error", e.getMessage());
                 	model.addObject("user", user);
-                	model.addObject("apForm", form2);
+                	model.addObject("shApForm", shApForm);
                 }
             } else {
-            	model = new ModelAndView("main");
+            	model = new ModelAndView("newSharedAd");
             }
     		
-    	}
+    	
     	model.addObject("user",user);
     	return model;
     }

@@ -8,7 +8,7 @@ import javax.validation.constraints.Min;
 
 public class ShApartmentForm extends RealEstateForm{
 
-	//@Min(value=1, message="Please enter the number of rooms larger than 0.")
+	@Min(value=1, message="Please enter the number of rooms larger than 0.")
 	private int roomSize;
 
 	private User user;
