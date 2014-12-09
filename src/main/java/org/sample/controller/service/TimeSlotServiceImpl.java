@@ -81,7 +81,8 @@ public class TimeSlotServiceImpl implements TimeSlotService {
 		Collection<User> visitors = timeSlot.getVisitors();
 		visitors.add(user);
 		timeSlot.setVisitors(visitors);
-		timeSlot.setPlacesLeft(timeSlot.getPlacesLeft() - 1);
+		int oldPlacesLeft = timeSlot.getPlacesLeft();
+		timeSlot.setPlacesLeft(oldPlacesLeft - 1);
 		timeSlotDao.save(timeSlot);
 		
 	}

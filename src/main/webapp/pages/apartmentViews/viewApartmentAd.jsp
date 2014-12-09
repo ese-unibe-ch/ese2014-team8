@@ -5,8 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
-<div class="col-sm-8 col-sm-pull-4">
+<div class="row">
+<div class="col-sm-8 ">
 	<h2>${ad.title}</h2>
 	<div>
 	<b>Tags: </b>
@@ -41,19 +41,27 @@
 <div class="col-sm-4">
 	<h3>Details</h3>
 	<c:if test="${ad.fixedMoveIn==false}"> Move-in by arrangement with owner.<br/> </c:if>
-	<c:if test="${ad.fixedMoveIn==true}"> Move-in date: <fmt:formatDate pattern="dd/MM/yyyy" value="${ad.moveIn}" /> <br/></c:if>
+	<c:if test="${ad.fixedMoveIn==true}"> <b>Move-in date:</b> <fmt:formatDate pattern="dd/MM/yyyy" value="${ad.moveIn}" /> <br/></c:if>
 	<c:if test="${ad.fixedMoveOut==false}"> Unlimited rent duration. <br/></c:if>
-	<c:if test="${ad.fixedMoveOut==true}"> This is a limited duration rent property. <br/> Move-out date: <fmt:formatDate pattern="dd/MM/yyyy" value="${ad.moveOut}" /><br/></c:if>
-	Price: ${ad.price} chf<br/>
-	Number of rooms: ${ad.numberOfRooms} <br/>
-	Apartment size: ${ad.size} m<sup>2</sup><br/>
+	<c:if test="${ad.fixedMoveOut==true}"> This is a limited duration rent property. <br/><b> Move-out date: </b><fmt:formatDate pattern="dd/MM/yyyy" value="${ad.moveOut}" /><br/></c:if>
+	<b>Price:</b> ${ad.price} chf<br/>
+	<b>Number of rooms:</b> ${ad.numberOfRooms} <br/>
+	<b>Apartment size:</b> ${ad.size} m<sup>2</sup><br/>
 </div>
 <div class="col-sm-4">
 	<h3>Environment</h3>
-	Distance to Public Transport: ${ad.distanceToPubTr} meters.<br/>
-	Distance to Shops: ${ad.distanceToShop} meters.<br/>
-	Distance to Park: ${ad.distanceToPark} meters.<br/>
-	Distance to School: ${ad.distanceToSchool} meters.<br/>
+	
+	<b>Distance to Public Transport:</b><c:if test="${ ad.distanceToPubTr!= 0}"> ${ad.distanceToPubTr} meters.
+	</c:if><br/>
+	
+	<b>Distance to Shops:</b><c:if test="${ ad.distanceToShop!= 0}"> ${ad.distanceToShop} meters.
+	</c:if><br/>
+	
+	<b>Distance to Park:</b><c:if test="${ ad.distanceToPark!= 0}"> ${ad.distanceToPark} meters.
+	</c:if><br/>
+	
+	<b>Distance to School:</b><c:if test="${ ad.distanceToSchool!= 0}"> ${ad.distanceToSchool} meters.
+	</c:if><br/>
 </div>
 
 </div>
@@ -91,7 +99,7 @@
 		<c:out value="${ad.description}"/>
 	</div>
 </div>
-<div class="col-sm-8">
+<div class="col-sm-4">
 <c:if test="${not empty ad.visitingTimes}">
 	<div>
 		<h3>Visit this apartment</h3>
@@ -126,7 +134,8 @@
 		</table>
 	</div>
 </c:if>
-
+</div>
+<div class="col-sm-4">
 	<div>
 		<h3>Message to ad owner</h3>
 			<form:form method="post" modelAttribute="messageForm" action="/sendMessage" cssClass="form-horizontal"  autocomplete="off">
@@ -135,8 +144,8 @@
 				<form:hidden path="senderId" value="${user.id}"/>
 				<form:hidden path="receiverId" value="${ad.owner.id}"/>
 				<form:hidden path="subject" value="Enquiry for apartment ${ad.id}: ${ad.title}"/>
-				<form:textarea path="message" rows="5" cols="30" tabindex="1"/>
-				<button type="submit" class="btn btn-green" tabindex="2">Send</button>
+				<form:textarea path="message" rows="5" cols="30" tabindex="1" class="wide-input"/><br/>
+				<button type="submit" class="btn btn-green " tabindex="2">Send</button>
 		</form:form>
 	</div>
 </div>
