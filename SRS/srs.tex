@@ -42,11 +42,11 @@ and tutti.ch/bern/immobilien/wg-zimmer.
 \subsection{System overview}
 The system consists of a client-side website and a server-side application containing all the logic, using Java EE as the platform, the Spring Framework for structure, Spring Data together with MySQL for data storage, JSF for webpage structure and Persona as authentication framework.
 
-Users have to log in to the website using Persona and create a profile. Users can then create ads or search for ads. Searches can be stored as alerts, and the user gets notified whenever a new ad is placed matching the criteria. Ad placers can place dates for visits where other users can subscribe. They can also manage visits and enquiries on the webpage. E-Mail-notifications are available.
+Users have to log in to the website using Persona (aka BrowserID) and create a profile. Users can then create ads or search for ads. Searches can be stored as alerts, and the user gets notified whenever a new ad is placed matching the criteria. Ad placers can place dates for visits where other users can subscribe. They can also manage visits and enquiries on the webpage. E-Mail-notifications are available.
 The administrator can modify and delete users and ads.
 
 \subsubsection{current state and location}
-After compiling the web-app can be found at \href{https://localhost:8443/}{https://localhost:8443/}.\\
+After compiling and starting (mvn jetty:run) the web-app can be found at \href{https://localhost:8443/}{https://localhost:8443/}.\\
 Currently implemented usecases are: 
 \begin{itemize}
 \item As a user I want to place an ad for advertising a room in a shared apartment
@@ -92,18 +92,18 @@ which means that a search can in some way select for this criterium.
 \item (S) Price
 
 	Note: Price is searchable via a from-to-field.
-\item (S) Room size
+\item () Room size
 
 %	Note: searchable via a from-to-field.
-\item (S) Free from Date
+\item () Free from Date
 
 %	Note: searchable by indicating a date and one of the options (strict, or earlier, or later).
-\item (S) Free until
+\item () Free until
 
 	Note: can be unlimited, or a date
 %	is searchable by indicating no limit or a date and one of the options (strict, or earlier, or later).
 %\item (S) Languages spoken
-\item (S) Keywords
+\item () Keywords
 
 	Note: Keywords help to personalize a search, without getting lost in the different terms 
 	that can be used for the same thing in a description.
@@ -112,7 +112,7 @@ which means that a search can in some way select for this criterium.
 	Shared garden/Balcony, bike parking, staying weekends, eating/cooking together...
 \item () Pictures
 \item () Description
-\item (S) Roommates
+\item () Roommates
 
 %	Note: Searchable on sex (all male, all female, no preference).
 %	Searchable on age via a from-to-field.
