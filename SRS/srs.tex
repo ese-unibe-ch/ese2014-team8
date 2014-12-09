@@ -68,12 +68,11 @@ Obligatory profile:
 \item (V) Name
 \item (V) Surname
 \item () Email address
-\item () Password
 \item (V) Sex
 \item (V) Age
-\item () Email options for search alerts (always (default), daily digest, weekly digest, no email)
-\item () Email options for reactions on ads (always (default), daily digest, weekly digest, no email)
-\item () Email options for other occasions (always (default), daily digest, weekly digest,  no email)
+%\item () Email options for search alerts (always (default), daily digest, weekly digest, no email)
+%\item () Email options for reactions on ads (always (default), daily digest, weekly digest, no email)
+%\item () Email options for other occasions (always (default), daily digest, weekly digest,  no email)
 \end{itemize}
 Optional profile:
 \begin{itemize}
@@ -88,22 +87,22 @@ which means that a search can in some way select for this criterium.
 \item () Title
 \item (S) Address
 
-	Note: address consists of Street, number, ZIP-code and city. ZIP-code is searchable.
+	Note: address consists of Street, number, ZIP-code and city. ZIP-code and city are searchable.
 \item (S) Category (shared apartment or apartment)
 \item (S) Price
 
 	Note: Price is searchable via a from-to-field.
 \item (S) Room size
 
-	Note: searchable via a from-to-field.
+%	Note: searchable via a from-to-field.
 \item (S) Free from Date
 
-	Note: searchable by indicating a date and one of the options (strict, or earlier, or later).
+%	Note: searchable by indicating a date and one of the options (strict, or earlier, or later).
 \item (S) Free until
 
 	Note: can be unlimited, or a date
-	is searchable by indicating no limit or a date and one of the options (strict, or earlier, or later).
-\item (S) Languages spoken
+%	is searchable by indicating no limit or a date and one of the options (strict, or earlier, or later).
+%\item (S) Languages spoken
 \item (S) Keywords
 
 	Note: Keywords help to personalize a search, without getting lost in the different terms 
@@ -115,9 +114,9 @@ which means that a search can in some way select for this criterium.
 \item () Description
 \item (S) Roommates
 
-	Note: Searchable on sex (all male, all female, no preference).
-	Searchable on age via a from-to-field.
-	Number of roommates is searchable via a from-to-field.
+%	Note: Searchable on sex (all male, all female, no preference).
+%	Searchable on age via a from-to-field.
+%	Number of roommates is searchable via a from-to-field.
 \item () response method: enquiry and/or timeschedule 
 \item () Deactivated
 \end{itemize}
@@ -156,17 +155,18 @@ User starts filling in the search form.
 User is logged in.
 
 \item[Post-conditions]\mbox{}\\
-User sees a list of relevant ads according to his search criteria
-Search is persisted to database.
+User sees a list of relevant ads according to his search criteria, can further adjust his criteria.
+%Search is persisted to database.
 \item[Main scenario]\mbox{}\\
 \begin{enumerate}
 \item User indicates he wants to search for shared apartments.
-\item User enters search area via zip code or map position and radius.
+\item User enters search area via zip code or city name. % map position and radius.
 \item User enters price range.
-\item User enters range of number of roommates
-\item User enters preferred sex of roommates, if any.
+%\item User enters range of number of roommates
+%\item User enters preferred sex of roommates, if any.
 \item User hits search button.
 \item User sees list of relevant search results.
+\item User selects an ad to see it.
 \end{enumerate}
 \item[Alternative scenarios]\mbox{}\\
 \textbf{1a.} User indicates he wants to search for normal apartments
@@ -181,8 +181,7 @@ Search is persisted to database.
 \end{enumerate}
 \textbf{7a.} After seeing the search results user wants to change his search criteria
 \begin{enumerate}
-\item User hits “change search criteria” button
-\item User changes the desired criteria
+\item User changes the desired criteria on the results page and hits "search" again
 \item continue to step 6 of main scenario
 \end{enumerate}
 \item[Notes]\mbox{}\\
