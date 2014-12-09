@@ -56,8 +56,16 @@
 	</tr>
 	
 </table>
+<c:if test="${page_error != null }">
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4>Error!</h4>
+            ${page_error}
+    </div>
+</c:if>
+<div class="text-right">
 <a href="/viewAd/${timeSlotForm.category}/${timeSlotForm.adId}" class = "btn btn-grey" role="button">Finished</a>
-	
+</div>	
 	
 
 </form:form>
