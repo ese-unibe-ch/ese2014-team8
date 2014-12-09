@@ -59,6 +59,8 @@
                 hibernate.cache.use_query_cache = true
                 hibernate.generate_statistics = true
                 hibernate.hbm2ddl.auto = update
+                hibernate.connection.useUnicode = true
+                hibernate.connection.characterEncoding = UTF-8
             </value>
   	      
         </property>
