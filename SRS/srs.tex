@@ -42,11 +42,11 @@ and tutti.ch/bern/immobilien/wg-zimmer.
 \subsection{System overview}
 The system consists of a client-side website and a server-side application containing all the logic, using Java EE as the platform, the Spring Framework for structure, Spring Data together with MySQL for data storage, JSF for webpage structure and Persona as authentication framework.
 
-Users have to log in to the website using Persona and create a profile. Users can then create ads or search for ads. Searches can be stored as alerts, and the user gets notified whenever a new ad is placed matching the criteria. Ad placers can place dates for visits where other users can subscribe. They can also manage visits and enquiries on the webpage. E-Mail-notifications are available.
+Users have to log in to the website using Persona (aka BrowserID) and create a profile. Users can then create ads or search for ads. Searches can be stored as alerts, and the user gets notified whenever a new ad is placed matching the criteria. Ad placers can place dates for visits where other users can subscribe. They can also manage visits and enquiries on the webpage. E-Mail-notifications are available.
 The administrator can modify and delete users and ads.
 
 \subsubsection{current state and location}
-After compiling the web-app can be found at \href{https://localhost:8443/}{https://localhost:8443/}.\\
+After compiling and starting (mvn jetty:run) the web-app can be found at \href{https://localhost:8443/}{https://localhost:8443/}.\\
 Currently implemented usecases are: 
 \begin{itemize}
 \item As a user I want to place an ad for advertising a room in a shared apartment
@@ -68,12 +68,11 @@ Obligatory profile:
 \item (V) Name
 \item (V) Surname
 \item () Email address
-\item () Password
 \item (V) Sex
 \item (V) Age
-\item () Email options for search alerts (always (default), daily digest, weekly digest, no email)
-\item () Email options for reactions on ads (always (default), daily digest, weekly digest, no email)
-\item () Email options for other occasions (always (default), daily digest, weekly digest,  no email)
+%\item () Email options for search alerts (always (default), daily digest, weekly digest, no email)
+%\item () Email options for reactions on ads (always (default), daily digest, weekly digest, no email)
+%\item () Email options for other occasions (always (default), daily digest, weekly digest,  no email)
 \end{itemize}
 Optional profile:
 \begin{itemize}
@@ -88,23 +87,23 @@ which means that a search can in some way select for this criterium.
 \item () Title
 \item (S) Address
 
-	Note: address consists of Street, number, ZIP-code and city. ZIP-code is searchable.
+	Note: address consists of Street, number, ZIP-code and city. ZIP-code and city are searchable.
 \item (S) Category (shared apartment or apartment)
 \item (S) Price
 
 	Note: Price is searchable via a from-to-field.
-\item (S) Room size
+\item () Room size
 
-	Note: searchable via a from-to-field.
-\item (S) Free from Date
+%	Note: searchable via a from-to-field.
+\item () Free from Date
 
-	Note: searchable by indicating a date and one of the options (strict, or earlier, or later).
-\item (S) Free until
+%	Note: searchable by indicating a date and one of the options (strict, or earlier, or later).
+\item () Free until
 
 	Note: can be unlimited, or a date
-	is searchable by indicating no limit or a date and one of the options (strict, or earlier, or later).
-\item (S) Languages spoken
-\item (S) Keywords
+%	is searchable by indicating no limit or a date and one of the options (strict, or earlier, or later).
+%\item (S) Languages spoken
+\item () Keywords
 
 	Note: Keywords help to personalize a search, without getting lost in the different terms 
 	that can be used for the same thing in a description.
@@ -113,11 +112,11 @@ which means that a search can in some way select for this criterium.
 	Shared garden/Balcony, bike parking, staying weekends, eating/cooking together...
 \item () Pictures
 \item () Description
-\item (S) Roommates
+\item () Roommates
 
-	Note: Searchable on sex (all male, all female, no preference).
-	Searchable on age via a from-to-field.
-	Number of roommates is searchable via a from-to-field.
+%	Note: Searchable on sex (all male, all female, no preference).
+%	Searchable on age via a from-to-field.
+%	Number of roommates is searchable via a from-to-field.
 \item () response method: enquiry and/or timeschedule 
 \item () Deactivated
 \end{itemize}
@@ -156,17 +155,18 @@ User starts filling in the search form.
 User is logged in.
 
 \item[Post-conditions]\mbox{}\\
-User sees a list of relevant ads according to his search criteria
-Search is persisted to database.
+User sees a list of relevant ads according to his search criteria, can further adjust his criteria.
+%Search is persisted to database.
 \item[Main scenario]\mbox{}\\
 \begin{enumerate}
 \item User indicates he wants to search for shared apartments.
-\item User enters search area via zip code or map position and radius.
+\item User enters search area via zip code or city name. % map position and radius.
 \item User enters price range.
-\item User enters range of number of roommates
-\item User enters preferred sex of roommates, if any.
+%\item User enters range of number of roommates
+%\item User enters preferred sex of roommates, if any.
 \item User hits search button.
 \item User sees list of relevant search results.
+\item User selects an ad to see it.
 \end{enumerate}
 \item[Alternative scenarios]\mbox{}\\
 \textbf{1a.} User indicates he wants to search for normal apartments
@@ -181,8 +181,7 @@ Search is persisted to database.
 \end{enumerate}
 \textbf{7a.} After seeing the search results user wants to change his search criteria
 \begin{enumerate}
-\item User hits “change search criteria” button
-\item User changes the desired criteria
+\item User changes the desired criteria on the results page and hits "search" again
 \item continue to step 6 of main scenario
 \end{enumerate}
 \item[Notes]\mbox{}\\
@@ -251,37 +250,37 @@ In case of an error, or the user has already bookmarked this ad previously, a me
 \item User clicks delete button next to the bookmark that has to be deleted
 \end{enumerate}
 \end{description}
-\subsubsection{Subscribe to search alert}
-\begin{description}
-\item[Actors]\mbox{}\\
-Client; role: searching user.
-\item[Description]\mbox{}\\
-As a user I want to subscribe to alerts to be informed about relevant ads.
-\item[Trigger]\mbox{}\\
-User hits search-alert button at the end of the search form.
-\item[Pre-conditions]\mbox{}\\
-User is logged in.
-
-User Has filled in at least some search criteria in the form.
-\item[Post-conditions]\mbox{}\\
-Search criteria are linked to user profile in the database. 
-
-User sees a success message.
-\item[Main scenario]\mbox{}\\
-\begin{enumerate}
-\item User clicks search-alert button after filling in search form, or after viewing the list of ads corresponding to his search.
-\item User can review search criteria
-\item User hits save button
-\item User sees search successfully saved message
-\end{enumerate}
-\item[Alternative scenarios]\mbox{}\\
-\textbf{2a.} User notices a mistake in search criteria
-\begin{enumerate}
-\item User hits edit search criteria
-\item User corrects mistake
-\item Continue with step 3
-\end{enumerate}
-\end{description}
+%\subsubsection{Subscribe to search alert}
+%\begin{description}
+%\item[Actors]\mbox{}\\
+%Client; role: searching user.
+%\item[Description]\mbox{}\\
+%As a user I want to subscribe to alerts to be informed about relevant ads.
+%\item[Trigger]\mbox{}\\
+%User hits search-alert button at the end of the search form.
+%\item[Pre-conditions]\mbox{}\\
+%User is logged in.
+%
+%User Has filled in at least some search criteria in the form.
+%\item[Post-conditions]\mbox{}\\
+%Search criteria are linked to user profile in the database. 
+%
+%User sees a success message.
+%\item[Main scenario]\mbox{}\\
+%\begin{enumerate}
+%\item User clicks search-alert button after filling in search form, or after viewing the list of ads corresponding to his search.
+%\item User can review search criteria
+%\item User hits save button
+%\item User sees search successfully saved message
+%\end{enumerate}
+%\item[Alternative scenarios]\mbox{}\\
+%\textbf{2a.} User notices a mistake in search criteria
+%\begin{enumerate}
+%\item User hits edit search criteria
+%\item User corrects mistake
+%\item Continue with step 3
+%\end{enumerate}
+%\end{description}
 \subsubsection{send enquiry}
 \begin{description}
 \item[Actors]\mbox{}\\

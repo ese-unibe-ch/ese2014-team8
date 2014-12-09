@@ -1,6 +1,7 @@
 package org.sample.controller.service;
 
 
+import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.pojos.*;
 import org.sample.model.*;
 import org.sample.model.dao.ApartmentDao;
@@ -9,6 +10,7 @@ import org.sample.model.dao.TimeSlotDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 
@@ -24,8 +26,11 @@ public class TimeSlotServiceImpl implements TimeSlotService {
 	
 
 	@Override
-	public Collection<TimeSlot> addTimeSlot(TimeSlotForm timeSlotForm) {
+	public Collection<TimeSlot> addTimeSlot (TimeSlotForm timeSlotForm) throws InvalidDateException{
 		TimeSlot timeSlot = new TimeSlot();
+		if(!isFutureDate(timeSlotForm.getDate())){
+			throw new InvalidDateException("Date is not valid!");
+		}
 		Date dateTime = new Date(timeSlotForm.getDate().getTime()+timeSlotForm.getTime().getTime()+(60*60*1000));
 		timeSlot.setDateTime(dateTime);
 		timeSlot.setMaxNumVisitors(timeSlotForm.getMaxNumVisitors());
@@ -42,6 +47,11 @@ public class TimeSlotServiceImpl implements TimeSlotService {
 		}
 		
 		return getTimeSlots(timeSlotForm.getCategory(), timeSlotForm.getAdId());
+	}
+	
+	private boolean isFutureDate(Date date) {
+    	java.util.Date now = new java.util.Date();
+    	return date.after(now);
 	}
 
 	@Override

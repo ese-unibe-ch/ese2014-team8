@@ -1,9 +1,12 @@
 package org.sample.controller;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.Locale;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.sample.controller.exceptions.InvalidDateException;
 import org.sample.controller.pojos.*;
 import org.sample.controller.service.AdService;
 import org.sample.controller.service.TimeSlotService;
@@ -71,15 +74,23 @@ public class TimeSlotController {
         } else if(userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()).getIsNew()) {
             return "redirect:/profile";
         }
-    	
-    	TimeSlotForm timeSlotForm = new TimeSlotForm();
-    	timeSlotForm.setAdId(timeSlot.getAdId());
-    	timeSlotForm.setCategory(timeSlot.getCategory());
-    	
+    	User user = userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
     	ModelAndView model = new ModelAndView("timeslots");
-    	model.addObject("user",userService.loadUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName()));
-    	model.addObject("timeSlots", timeSlotService.addTimeSlot(timeSlot));
-    	model.addObject("timeSlotForm", timeSlotForm);
+    	try{
+    		TimeSlotForm timeSlotForm = new TimeSlotForm();
+        	timeSlotForm.setAdId(timeSlot.getAdId());
+        	timeSlotForm.setCategory(timeSlot.getCategory());
+        	
+        	model.addObject("user", user);
+        	model.addObject("timeSlots", timeSlotService.addTimeSlot(timeSlot));
+        	model.addObject("timeSlotForm", timeSlotForm);
+    	}catch(InvalidDateException e){
+    		model.addObject("page_error", e.getMessage());
+    		model.addObject("user", user);
+    		model.addObject("timeSlots", timeSlotService.getTimeSlots(timeSlot.getCategory(), timeSlot.getAdId()));
+    		model.addObject("timeSlotForm", timeSlot);
+    	}
+    	
     	return model;
     }
     
