@@ -95,6 +95,7 @@ body{
 	padding: 0 0 0 10px;
 }
 
+
 .help-inline{
 	
 	color: #A94442 !important;
@@ -127,6 +128,9 @@ legend{
 	width: 20%;
 	
 	margin-right: 5%;
+}
+.search-image{
+	width: 150px;
 }
 
 .wide-input{
