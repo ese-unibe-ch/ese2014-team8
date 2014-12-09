@@ -7,11 +7,13 @@
 
 <c:import url="template/header.jsp" />
 
-<nav class="text-center">
+
+<nav>
 	<ul class="pager">
-		<li class="active"><span>1. Create Ad</span></li>
-		<li class="disabled"><span>2. View Result</span></li>
-		<li class="disabled"><span>3. Add Visiting Times</span></li>
+		
+		<li class="disabled"><span><b>1. Create Ad </b><span class="glyphicon glyphicon-user" aria-hidden="true"></span> </span></li>
+		<li class="disabled"><span><b>2. View Ad</b></span></li>
+		<li class="disabled"><span><b>3. Add Visiting Times</b></span></li>
 	</ul>
 </nav>
 
