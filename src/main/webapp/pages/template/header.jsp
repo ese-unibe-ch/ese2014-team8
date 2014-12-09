@@ -42,11 +42,11 @@
 	<nav class="navbar navbar-inverse " role="navigation">
 		
 		<ul class="nav navbar-nav navbar-right">
-			<c:if test="${user.isAdmin == true}">
+			<!--<c:if test="${user.isAdmin == true}">
 			<li class="text-center text-nowrap">
 				<a id="admin" href="/admin">ADMIN PANEL</a>
 			</li>
-			</c:if>
+			</c:if>-->
 			
 			<li class="text-center text-nowrap">
 				<a id="search" href="/search">SEARCH</a>

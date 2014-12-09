@@ -9,7 +9,10 @@ import java.util.List;
 public class SearchForm{
 	
 	private long id;
-	private int zipCode;
+	private Integer zipCode;
+	private String city;
+	private Integer minPrice;
+	private Integer maxPrice;
     private String category;
     
 	private List<String> categories;
@@ -24,11 +27,11 @@ public class SearchForm{
 	}
 
 	
-	public int getZipCode() {
+	public Integer getZipCode() {
 		return zipCode;
 	}
 
-	public void setZipCode(int zipCode) {
+	public void setZipCode(Integer zipCode) {
 		this.zipCode = zipCode;
 	}
 
@@ -43,5 +46,28 @@ public class SearchForm{
 	public void setCategories(List<String> categories) {
 		this.categories = categories;
 	}
-  
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public Integer getMinPrice() {
+		return minPrice;
+	}
+
+	public void setMinPrice(Integer minPrice) {
+		this.minPrice = minPrice;
+	}
+
+	public Integer getMaxPrice() {
+		return maxPrice;
+	}
+
+	public void setMaxPrice(Integer maxPrice) {
+		this.maxPrice = maxPrice;
+	}
 }
