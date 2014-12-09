@@ -55,7 +55,7 @@ public class BookMarkController {
             return "redirect:/profile";
         }
     	bookMarkService.deleteBookMark(bookMarkId);
-    	return "redirect:/viewBookMarks";
+    	return "redirect:/bookmarkedAds";
     }
 	
 

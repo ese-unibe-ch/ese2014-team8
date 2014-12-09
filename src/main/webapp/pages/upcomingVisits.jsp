@@ -22,10 +22,10 @@
 			<fmt:formatDate pattern="dd/MM/yyyy" value="${t.dateTime}" var="showDate"/>
 			<fmt:formatDate pattern="HH:mm" value="${t.dateTime}" var="showTime"/>
 			<c:if test="${not empty t.apartment}">
-			<td><a href="/searchresults/Apartment/{t.apartment.id}">${t.apartment.title}</a></td>
+			<td><a href="/searchresults/Apartment/${t.apartment.id}">${t.apartment.title}</a></td>
 			</c:if>
 			<c:if test="${not empty t.shApartment}">
-			<td><a href="/searchresults/Shared Apartment/{t.shApartment.id}">${t.shApartment.title}</a></td>
+			<td><a href="/searchresults/Shared Apartment/${t.shApartment.id}">${t.shApartment.title}</a></td>
 			</c:if>
 			<td>${showDate}</td>
 			<td>${showTime}</td>

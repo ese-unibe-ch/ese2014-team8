@@ -16,7 +16,7 @@
 	<c:forEach items="${user.bookMarks}" var="bookMark">
 		<tr>
 			<td><a href="/searchresults/Apartment/${bookMark.ap.id}">${bookMark.ap.title}</a></td>
-			<td><a href="/searchresults/Shared Apartment/${bookMark.ap.id}">${bookMark.shAp.title}</a></td>
+			<td><a href="/searchresults/Shared Apartment/${bookMark.shAp.id}">${bookMark.shAp.title}</a></td>
  			<td>
   				<a href="/deleteBookMark/${bookMark.id}" class="btn btn-danger btn-block" role="button" >Delete </a> 
  			</td>  

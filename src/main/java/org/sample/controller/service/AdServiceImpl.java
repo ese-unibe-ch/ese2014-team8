@@ -157,6 +157,7 @@ public class AdServiceImpl implements AdService {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<? extends RealEstate> query = null;
 		Root<? extends RealEstate> root = null;
+		
 		if(searchForm.getCategory().equals("Apartment")){
 			query = builder.createQuery(Apartment.class);
 			root = query.from(Apartment.class);
@@ -171,7 +172,7 @@ public class AdServiceImpl implements AdService {
 			predicates.add(
 					builder.equal(root.<Address>get("address").get("zipCode"), searchForm.getZipCode()));
 		}
-		if(searchForm.getCity() != null) {
+		if(searchForm.getCity() != null && !searchForm.getCity().isEmpty()) {
 			predicates.add(
 					builder.equal(root.<Address>get("address").get("city"), searchForm.getCity()));
 		}
