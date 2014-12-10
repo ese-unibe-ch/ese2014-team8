@@ -13,9 +13,12 @@
 <table class="text-center table table-hover">
 	
 	<c:forEach items="${searchResults}" var="s">
+		
 		<tr>
-    		<td><a href="searchresults/${category}/${s.id}"><c:out value="${s.title}"/></a><br/>
-    			${s.description}
+			<td><c:if test="${s.numberOfImages != 0 }"><a href="searchresults/${category}/${s.id}"><img src="../<c:if test="${category == 'Apartment' }">ApartmentImages</c:if>
+																	<c:if test="${category == 'Shared Apartment' }">ShApartmentImages</c:if>/${s.id}_1.jpg" class="search-image"/></a></c:if></td>
+    		<td><a href="searchresults/${category}/${s.id}"><c:out value="${s.title}"/><br/>
+    			${s.description}</a>
     		</td>
     		<td><c:out value="CHF ${s.price}"/></td>
   		</tr>

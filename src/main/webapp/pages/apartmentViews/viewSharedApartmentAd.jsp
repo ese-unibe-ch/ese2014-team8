@@ -4,8 +4,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-
-<div class="col-sm-8 col-sm-pull-4">
+<div class="row">
+<div class="col-sm-8 ">
 	<h2>${ad.title}</h2>
 	<div>
 		<b>Tags: </b>
@@ -48,10 +48,18 @@
 </div>
 <div class="col-sm-4">
 	<h3>Environment</h3>
-	<b>Distance to Public Transport:</b> ${ad.distanceToPubTr} meters.<br/>
-	<b>Distance to Shops:</b> ${ad.distanceToShop} meters.<br/>
-	<b>Distance to Park:</b> ${ad.distanceToPark} meters.<br/>
-	<b>Distance to School:</b> ${ad.distanceToSchool} meters.<br/>
+	
+	<b>Distance to Public Transport:</b><c:if test="${ ad.distanceToPubTr!= 0}"> ${ad.distanceToPubTr} meters.
+	</c:if><br/>
+	
+	<b>Distance to Shops:</b><c:if test="${ ad.distanceToShop!= 0}"> ${ad.distanceToShop} meters.
+	</c:if><br/>
+	
+	<b>Distance to Park:</b><c:if test="${ ad.distanceToPark!= 0}"> ${ad.distanceToPark} meters.
+	</c:if><br/>
+	
+	<b>Distance to School:</b><c:if test="${ ad.distanceToSchool!= 0}"> ${ad.distanceToSchool} meters.
+	</c:if><br/>
 </div>
 
 </div>
@@ -145,7 +153,7 @@
 		<form:hidden path="senderId" value="${user.id}"/>
 		<form:hidden path="receiverId" value="${ad.owner.id}"/>
 		<form:hidden path="subject" value="Enquiry for apartment ${ad.id}: ${ad.title}"/>
-		<form:textarea path="message" rows="5" cols="30" tabindex="1"/>
+		<form:textarea path="message" rows="5" cols="30" tabindex="1"  class="wide-input"/><br/>
 		<button type="submit" class="btn btn-green" tabindex="2">Send</button>
 	</form:form>
 </div>

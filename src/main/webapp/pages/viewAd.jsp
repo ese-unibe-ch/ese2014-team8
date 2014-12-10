@@ -7,20 +7,15 @@
 
 <c:import url="template/header.jsp" />
 
-<nav class="text-center">
+<nav>
 	<ul class="pager">
-		<li class="disabled"><span>1. Create Ad</span></li>
-		<li class="active"><span>2. View Result</span></li>
-		<li class="disabled"><span>3. Add Visiting Times</span></li>
+		
+		<li class="disabled"><span><b>1. Create Ad </b><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> </span></li>
+		<li class="disabled"><span><b>2. View Ad</b><span class="glyphicon glyphicon-user" aria-hidden="true"></span> </span></li>
+		<li class="disabled"><span><b>3. Add Visiting Times</b></span></li>
 	</ul>
 </nav>
-<div class="row">
-<div class="col-sm-4 col-sm-push-8">
 
-	<a href="/editAd/${category}/${ad.id}" class="btn btn-grey">Edit Ad</a>
-    <a href="/main" class="btn btn-grey" role="button">Submit</a>
-    <a href="/timeslots/${category}/${ad.id}" class="btn btn-green" role="button">Add visiting times</a>
-</div>
    
 
 <c:if test="${category == 'Apartment'}">
@@ -32,7 +27,14 @@
 	
 	<c:import url="apartmentViews/viewSharedApartmentAd.jsp" />
 </c:if>
-		
+<div class="row">
+<div class="col-sm-4 col-sm-push-8">
+
+	<a href="/editAd/${category}/${ad.id}" class="btn btn-grey">Edit Ad</a>
+    <a href="/main" class="btn btn-grey" role="button">Submit</a>
+    <a href="/timeslots/${category}/${ad.id}" class="btn btn-green" role="button">Add visiting times</a>
+</div>
+</div>		
 
 <script>
 	document.getElementById('ad').style.color = '#ACCB12'
