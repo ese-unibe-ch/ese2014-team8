@@ -73,6 +73,7 @@ body{
 
 .log-in img{
 	width: 150px;
+	cursor: pointer;
 }
 
  .pager .active span{
