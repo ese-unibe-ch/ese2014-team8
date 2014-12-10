@@ -44,9 +44,9 @@
 
                         <c:set var="maxPriceErrors"><form:errors path="maxPrice"/></c:set>
                                                 <div class="control-group<c:if test="${not empty maxPriceErrors}"> error</c:if> float-left">
-                                                    <label class="control-label" for="field-maxPrice">Maximal price:</label>
+                                                    <label class="control-label" for="field-maxPrice">Maximum price:</label>
                                                     <div class="controls">
-                                                        <form:input path="maxPrice" id="field-maxPrice" tabindex="3" maxlength="35" placeholder="Maximal price"/>
+                                                        <form:input path="maxPrice" id="field-maxPrice" tabindex="3" maxlength="35" placeholder="Maximum price"/>
                                                         <form:errors path="maxPrice" cssClass="help-inline" element="span"/>
                                                     </div>
                                                 </div>

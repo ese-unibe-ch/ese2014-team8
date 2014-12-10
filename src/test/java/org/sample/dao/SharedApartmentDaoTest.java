@@ -26,11 +26,14 @@ public class SharedApartmentDaoTest {
     @Test
     public void testAddressReference(){
     	String STREET = "testStreet";
-    	
+    	Integer ZIPCODE = 1111;
     	Address address = new Address();
     	address.setStreet(STREET);
+    	address.setZipCode(ZIPCODE);
     	ShApartment apartment = new ShApartment();
     	apartment.setAddress(address);
+    	apartment.setPrice(1);
+    	apartment.setTitle("title");
     	apartment = shApartmentDao.save(apartment);
     	
     	assertEquals(apartment.getAddress().getStreet(), STREET);
@@ -38,14 +41,16 @@ public class SharedApartmentDaoTest {
     
     @Test
     public void testFindApartmentByZipCode(){
-    	int ZIPCODE = 1111;
+    	Integer ZIPCODE = 1111;
     	Address address = new Address();
     	address.setZipCode(ZIPCODE);
     	ShApartment apartment = new ShApartment();
     	apartment.setAddress(address);
+    	apartment.setPrice(1);
+    	apartment.setTitle("title");
     	apartment = shApartmentDao.save(apartment);
     	ShApartment foundApartment = shApartmentDao.findByAddressZipCode(ZIPCODE).get(0);
-    	//assertEquals(foundApartment.getAddress().getZipCode(), ZIPCODE);
+    	assertEquals(foundApartment.getAddress().getZipCode(), ZIPCODE);
     }
     
 }
