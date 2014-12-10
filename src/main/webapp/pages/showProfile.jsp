@@ -5,7 +5,9 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="template/header.jsp" />
-
+<div class="row">
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
 <h1>${profile.firstName} ${profile.lastName}</h1>
 
 <div id="viewProfile">
@@ -19,7 +21,7 @@
 <b>Description:</b> <br/>
 ${profile.description}
 </p>
-
 </div>
-
+</div>
+</div>
 <c:import url="template/footer.jsp" />

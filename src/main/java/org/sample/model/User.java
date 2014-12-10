@@ -1,5 +1,7 @@
 package org.sample.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -58,6 +60,7 @@ public class User implements UserDetails {
      private Collection<Message> receivedMessages;
      
      @ManyToMany(mappedBy = "visitors", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+     @Fetch(FetchMode.SELECT)
      private Collection<TimeSlot> registeredTimeSlots;
      
      

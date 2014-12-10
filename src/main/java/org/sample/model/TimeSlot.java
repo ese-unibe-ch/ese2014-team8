@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 public class TimeSlot {
 	
@@ -19,6 +22,7 @@ public class TimeSlot {
 	private int placesLeft;
 	
 	@ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	private Collection<User> visitors;
 	
 	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
