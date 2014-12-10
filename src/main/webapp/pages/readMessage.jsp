@@ -5,7 +5,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="template/header.jsp" />
-
+<div class="row">
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
 <div>
 	<h1>${message.subject}</h1>
 	<p><strong>From:</strong> ${message.sender.lastName} ${message.sender.firstName}</p>
@@ -36,13 +38,14 @@
 			</c:otherwise>
 		</c:choose>
 		<label class="control-label" for="field-subject">Subject: </label>
-		<form:input path="subject" id="field-subject" value="RE: ${message.subject }"/><br/>
+		<form:input path="subject" id="field-subject" value="RE: ${message.subject }" class="wide-input"/><br/>
 		<label class="control-label" for="field-message">Message: </label><br/>
-		<form:textarea path="message" id="field-message" rows="5" cols="30" tabindex="1"/><br/>
+		<form:textarea path="message" id="field-message" rows="5" class="wide-input" tabindex="1"/><br/>
 		<button type="submit" class="btn btn-green" tabindex="2">Send</button>
 	</form:form>
 </div>	
-
+</div>
+</div>
 <script>
 	document.getElementById('profile').style.color = '#ACCB12'
 </script>
